@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTX.Installer", "LTX.Instal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{cb9ca94b-9836-bdff-184b-e626b1dbe389}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePlay", "GamePlay.csproj", "{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core.csproj", "{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +22,10 @@ Global
 		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{cb9ca94b-9836-bdff-184b-e626b1dbe389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{cb9ca94b-9836-bdff-184b-e626b1dbe389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
