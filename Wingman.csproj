@@ -50,15 +50,15 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Extensions\Wingman\WingmanClipboard.cs" />
-    <Compile Include="Assets\Extensions\Wingman\WingmanExtensions.cs" />
     <Compile Include="Assets\Extensions\Wingman\WingmanClipboardUtility.cs" />
     <Compile Include="Assets\Extensions\Wingman\WingmanPersistentData.cs" />
+    <Compile Include="Assets\Extensions\Wingman\WingmanUtility.cs" />
+    <Compile Include="Assets\Extensions\Wingman\Settings.cs" />
     <Compile Include="Assets\Extensions\Wingman\WingmanContainer.cs" />
     <Compile Include="Assets\Extensions\Wingman\WingmanComponentCopy.cs" />
     <Compile Include="Assets\Extensions\Wingman\Wingman.cs" />
-    <Compile Include="Assets\Extensions\Wingman\WingmanUtility.cs" />
-    <Compile Include="Assets\Extensions\Wingman\Settings.cs" />
+    <Compile Include="Assets\Extensions\Wingman\WingmanClipboard.cs" />
+    <Compile Include="Assets\Extensions\Wingman\WingmanExtensions.cs" />
     <None Include="Assets\Extensions\Wingman\Wingman.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -530,6 +530,12 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.collections@10fff0607388\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
