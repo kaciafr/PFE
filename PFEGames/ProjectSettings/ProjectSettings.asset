@@ -835,24 +835,24 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   webProgressiveAssetLoading: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;SORTIFY
-    EmbeddedLinux: DOTWEEN;SORTIFY
-    GameCoreScarlett: DOTWEEN;SORTIFY
-    GameCoreXboxOne: DOTWEEN;SORTIFY
-    Kepler: DOTWEEN;SORTIFY
-    LinuxHeadlessSimulation: DOTWEEN;SORTIFY
-    Nintendo Switch: DOTWEEN;SORTIFY
-    Nintendo Switch 2: DOTWEEN;SORTIFY
-    PS4: DOTWEEN;SORTIFY
-    PS5: DOTWEEN;SORTIFY
-    QNX: DOTWEEN;SORTIFY
-    Standalone: DOTWEEN;DREAMTECK_SPLINES;SORTIFY
-    VisionOS: DOTWEEN;SORTIFY
-    WebGL: DOTWEEN;SORTIFY
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN;SORTIFY
-    iPhone: DOTWEEN
-    tvOS: DOTWEEN;SORTIFY
+    Android: SORTIFY
+    EmbeddedLinux: SORTIFY
+    GameCoreScarlett: SORTIFY
+    GameCoreXboxOne: SORTIFY
+    Kepler: SORTIFY
+    LinuxHeadlessSimulation: SORTIFY
+    Nintendo Switch: SORTIFY
+    Nintendo Switch 2: SORTIFY
+    PS4: SORTIFY
+    PS5: SORTIFY
+    QNX: SORTIFY
+    Standalone: DREAMTECK_SPLINES;SORTIFY
+    VisionOS: SORTIFY
+    WebGL: SORTIFY
+    Windows Store Apps: 
+    XboxOne: SORTIFY
+    iPhone: 
+    tvOS: SORTIFY
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -950,7 +950,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
   cloudProjectId: 
