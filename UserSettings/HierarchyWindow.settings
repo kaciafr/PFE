@@ -24,25 +24,25 @@
         {
             "ColumnId": "GameObject/Active",
             "Visible": true,
-            "Width": 49.902286529541016,
+            "Width": 35.0,
             "Index": 3
         },
         {
             "ColumnId": "GameObject/Static",
             "Visible": true,
-            "Width": 57.82328414916992,
+            "Width": 35.0,
             "Index": 4
         },
         {
             "ColumnId": "GameObject/Layer",
             "Visible": true,
-            "Width": 99.80457305908203,
+            "Width": 35.000003814697266,
             "Index": 5
         },
         {
             "ColumnId": "GameObject/Tag",
             "Visible": true,
-            "Width": 115.46985626220703,
+            "Width": 35.0,
             "Index": 6
         },
         {
