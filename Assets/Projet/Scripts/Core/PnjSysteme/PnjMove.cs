@@ -8,6 +8,7 @@ public class PnjMove : PnjAptitude
 {
     [SerializeField] private NavMeshAgent agent;
     private Vector3 lastPos;
+    
 
     public override void Init(BrainPnj brain)
     {
@@ -16,19 +17,23 @@ public class PnjMove : PnjAptitude
 	    VisionCone vision = brain.GetAptitude<VisionCone>();
 	    if (vision != null)
 		    vision.OnTargetSeen += HandleTargetSeen;
-    }
-    
-    void OnDestroy()
-    {
-	    if (brain == null) return;
-	    VisionCone vision = brain.GetAptitude<VisionCone>();
-	    if (vision != null)
-		    vision.OnTargetSeen -= HandleTargetSeen;
+	    
+	    AuditionCast audition = brain.GetAptitude<AuditionCast>();
+	    if (audition != null)
+		    audition.OnHearAlerte += RotateTargetHear;
     }
 
-    private void HandleTargetSeen(Vector3 obj)
+    private void RotateTargetHear(Vector3 rot)
     {
-	    lastPos = obj;
+	    lastPos = rot;
+	    agent.SetDestination(lastPos);
+    }
+
+    private void HandleTargetSeen(Vector3 pos)
+    {
+	    lastPos = pos;
+	    agent.updatePosition = true;
+	    agent.SetDestination(lastPos);
     }
 
     private void Start()
@@ -36,8 +41,11 @@ public class PnjMove : PnjAptitude
 	    lastPos = agent.transform.position;
     }
 
-    private void Update()
+    void OnDestroy()
     {
-	    agent.SetDestination(lastPos);
+	    if (brain == null) return;
+	    VisionCone vision = brain.GetAptitude<VisionCone>();
+	    if (vision != null)
+		    vision.OnTargetSeen -= HandleTargetSeen;
     }
 }

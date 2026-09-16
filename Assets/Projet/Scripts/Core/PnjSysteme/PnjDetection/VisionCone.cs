@@ -1,79 +1,52 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PnjDetection
 {
-	public class VisionCone : PnjAptitude
+	public class VisionCone : DetectionSense
 	{
 		[Header("Réglages du cône de vision")]
-		public float viewRadius = 10f;          
+		[field: SerializeField] public float ViewRadius { get; private set; } = 10f;
 		[Range(0, 360)]
-		public float viewAngle = 90f;           
+		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;
 
-		[Header("Filtrage")]
-		[SerializeField] private LayerMask targetMask;            
-		[SerializeField] private LayerMask obstacleMask;          
-
-		[Header("Mémoire du NPC")]
-		[SerializeField] private List<Transform> visibleTargets = new List<Transform>();
-
-		[field:SerializeField] public Vector3 lastPos { get; private set; }
 		public event Action<Vector3> OnTargetSeen;
 
-
-		void Start()
+		protected override void Scan()
 		{
-			InvokeRepeating(nameof(FindVisibleTargets), 0f, 0.05f);
+			detectedTargets.Clear();
+
+			Transform target = FindTargetInRadius(ViewRadius);
+			if (target == null)
+				return;
+
+			Remember(target);
+			OnTargetSeen?.Invoke(LastPos);
+		}
+		
+		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)
+		{
+			return Vector3.Angle(transform.forward, dirToTarget) < ViewAngle / 2f;
 		}
 
-		void FindVisibleTargets()
+		protected override void OnDrawGizmos()
 		{
-			visibleTargets.Clear();
+			Vector3 origin = SensorOrigin;
 
-        
-			Collider[] targetsInRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-			foreach (Collider targetCollider in targetsInRadius)
-			{
-				Transform target = targetCollider.transform;
-				Vector3 dirToTarget = (target.position - transform.position).normalized;
-
-            
-				if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
-				{
-					float distToTarget = Vector3.Distance(transform.position, target.position);
-
-                
-					bool isBlocked = Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask);
-
-					if (!isBlocked)
-					{
-						visibleTargets.Add(target);
-						lastPos = target.position;
-						OnTargetSeen?.Invoke(lastPos);
-						return;
-					}
-				}
-			}
-		}
-
-    
-		void OnDrawGizmos()
-		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(transform.position, viewRadius);
+			Gizmos.DrawWireSphere(origin, ViewRadius);
 
-			Vector3 leftBoundary = DirFromAngle(-viewAngle / 2f);
-			Vector3 rightBoundary = DirFromAngle(viewAngle / 2f);
+			Vector3 leftBoundary = DirFromAngle(-ViewAngle / 2f);
+			Vector3 rightBoundary = DirFromAngle(ViewAngle / 2f);
 
-			Gizmos.DrawLine(transform.position, transform.position + leftBoundary * viewRadius);
-			Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
+			Gizmos.DrawLine(origin, origin + leftBoundary * ViewRadius);
+			Gizmos.DrawLine(origin, origin + rightBoundary * ViewRadius);
 
 			Gizmos.color = Color.red;
-			foreach (Transform target in visibleTargets)
+			foreach (Transform target in detectedTargets)
 			{
-				Gizmos.DrawLine(transform.position, target.position);
+				if (target != null)
+					Gizmos.DrawLine(origin, target.position);
 			}
 		}
 
