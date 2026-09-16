@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,10 +19,12 @@ namespace PnjDetection
 		[SerializeField] private List<Transform> visibleTargets = new List<Transform>();
 
 		[field:SerializeField] public Vector3 lastPos { get; private set; }
+		public event Action<Vector3> OnTargetSeen;
+
 
 		void Start()
 		{
-			InvokeRepeating(nameof(FindVisibleTargets), 0f, 0.2f);
+			InvokeRepeating(nameof(FindVisibleTargets), 0f, 0.05f);
 		}
 
 		void FindVisibleTargets()
@@ -47,11 +50,10 @@ namespace PnjDetection
 					if (!isBlocked)
 					{
 						visibleTargets.Add(target);
+						lastPos = target.position;
+						OnTargetSeen?.Invoke(lastPos);
+						return;
 					}
-				}
-				else
-				{
-					lastPos = target.position;
 				}
 			}
 		}

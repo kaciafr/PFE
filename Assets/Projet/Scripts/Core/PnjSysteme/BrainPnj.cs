@@ -16,4 +16,14 @@ public class BrainPnj : MonoBehaviour
 			aptitude.Init(this);
 		}
 	}
+
+	public T GetAptitude<T>() where T : PnjAptitude
+	{
+		foreach (PnjAptitude aptitude in aptitudes)
+		{
+			if(aptitude is T match)
+				return match;
+		}
+		return null;
+	}
 }
