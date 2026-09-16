@@ -97,7 +97,7 @@ public class HelteixInstallerWindow : EditorWindow
 
         bool isSetup = text.Contains(RequiredBlockHeader) && text.Contains(RequiredToken);
 
-        if(isSetup)
+        if(!isSetup)
             return false;
 
         return true;
