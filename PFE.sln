@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterController", "CharacterController.csproj", "{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthSysteme", "HealthSysteme.csproj", "{10318ac5-58a9-6cef-83b1-73ed31f680ed}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wingman", "Wingman.csproj", "{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core.csproj", "{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTX.Installer", "LTX.Installer.csproj", "{aae580a9-7243-37ae-b90a-0a134f699e3d}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{cb9ca94b-9836-bdff-184b-e626b1dbe389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{376eb0db-4085-99f9-505a-851da7f1a930}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTX.Installer", "LTX.Installer.csproj", "{aae580a9-7243-37ae-b90a-0a134f699e3d}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePlay", "GamePlay.csproj", "{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}"
 EndProject
@@ -16,14 +22,20 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10318ac5-58a9-6cef-83b1-73ed31f680ed}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10318ac5-58a9-6cef-83b1-73ed31f680ed}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{cb9ca94b-9836-bdff-184b-e626b1dbe389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{cb9ca94b-9836-bdff-184b-e626b1dbe389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376eb0db-4085-99f9-505a-851da7f1a930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376eb0db-4085-99f9-505a-851da7f1a930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection

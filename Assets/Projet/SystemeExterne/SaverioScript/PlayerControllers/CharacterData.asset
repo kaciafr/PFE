@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6d763761ae4f20b6ea738e2b949899, type: 3}
+  m_Name: CharacterData
+  m_EditorClassIdentifier: Assembly-CSharp::Script.PlayerControllers.CharacterData
+  playerVelocity: 2
+  playerRunVelocity: 5
+  playerAcceleration: 20
+  playerDeceleration: 30
+  rotationSpeed: 10
+  jumpForce: 9
+  standHeight: 1.8
+  standCenter: 0.9
+  cruchCenter: 0.45
+  cruchHeight: 0.9
+  vaultAutoSpeedThreshold: 4.2
+  vaultOrigin: 0.4
+  vaultAnimations:
+  - {fileID: 11400000, guid: 909607a8d197c754e8cbabfa633673ca, type: 2}
+  - {fileID: 11400000, guid: c2a87c3e96520d6498ed9ff52b7e50e2, type: 2}
+  - {fileID: 11400000, guid: 9e073abb93a22ab43af74b554774179c, type: 2}
+  - {fileID: 11400000, guid: d6d47e7cc1d25e047abd346b9c0a8968, type: 2}
+  gravity: -9.81
+  firstAttack: {fileID: 11400000, guid: 0a4dcb1337a2c2e499c28252669e196d, type: 2}

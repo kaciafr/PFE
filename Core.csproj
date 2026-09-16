@@ -941,6 +941,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="CharacterController.csproj">
+      <Project>{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}</Project>
+      <Name>CharacterController</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
