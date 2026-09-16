@@ -7,6 +7,9 @@ using Utilities;
 public class PnjMove : PnjAptitude
 {
     [SerializeField] private NavMeshAgent agent;
+    
+    private bool isTurning = false;
+    private float startToWalk = 5.0f;
     private Vector3 lastPos;
     
 
@@ -20,19 +23,13 @@ public class PnjMove : PnjAptitude
 	    
 	    AuditionCast audition = brain.GetAptitude<AuditionCast>();
 	    if (audition != null)
-		    audition.OnHearAlerte += RotateTargetHear;
+		    audition.OnHearAlerte += HandleTargetSeen;
     }
-
-    private void RotateTargetHear(Vector3 rot)
-    {
-	    lastPos = rot;
-	    agent.SetDestination(lastPos);
-    }
+    
 
     private void HandleTargetSeen(Vector3 pos)
     {
 	    lastPos = pos;
-	    agent.updatePosition = true;
 	    agent.SetDestination(lastPos);
     }
 
@@ -47,5 +44,9 @@ public class PnjMove : PnjAptitude
 	    VisionCone vision = brain.GetAptitude<VisionCone>();
 	    if (vision != null)
 		    vision.OnTargetSeen -= HandleTargetSeen;
+	    
+	    AuditionCast audition = brain.GetAptitude<AuditionCast>();
+	    if (audition != null)
+		    audition.OnHearAlerte -= HandleTargetSeen;
     }
 }
