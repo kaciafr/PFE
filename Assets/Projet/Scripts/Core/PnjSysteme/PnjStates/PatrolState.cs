@@ -4,11 +4,11 @@ namespace PnjStates
 {
 	public class PatrolState : IPnjStates
 	{
-		private PnjMove guard;
+		private BrainPnj guard;
 		private float waitTimer;
 		private bool isWaiting;
 		
-		public PatrolState(PnjMove guard)
+		public PatrolState(BrainPnj guard)
 		{
 			this.guard = guard;
 		}
@@ -22,7 +22,6 @@ namespace PnjStates
 		{
 			if (isWaiting)
 			{
-				
 				guard.transform.rotation = Quaternion.Slerp(
 					guard.transform.rotation,
 					guard.firstRoutine[guard.currentStep].targetRotation,
@@ -39,7 +38,7 @@ namespace PnjStates
 			}
 			else
 			{
-				if (!guard.agent.pathPending && guard.agent.remainingDistance < 0.3f)
+				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.3f)
 				{
 					isWaiting = true;
 					waitTimer = guard.firstRoutine[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
@@ -54,7 +53,7 @@ namespace PnjStates
 		
 		void GoToCurrentPoint()
 		{
-			guard.agent.destination = guard.firstRoutine[guard.currentStep].transform.position;
+			guard.Agent.destination = guard.firstRoutine[guard.currentStep].transform.position;
 		}
 	}
 }

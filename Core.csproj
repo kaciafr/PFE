@@ -54,7 +54,6 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\PointTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\PatrolState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjMove.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />

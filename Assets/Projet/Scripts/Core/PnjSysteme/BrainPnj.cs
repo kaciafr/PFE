@@ -4,17 +4,21 @@ using PnjDetection;
 using PnjStates;
 using Routine;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BrainPnj : MonoBehaviour
 {
 	[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
 	
+	[field:SerializeField] public NavMeshAgent Agent {get; private set;}
+    
+	[field:SerializeField] public List<PointTime> firstRoutine = new List<PointTime>();
+	[field:SerializeField] public int currentStep = 0;
+	
 	public IPnjStates PNJStates { get; private set; }
 	public event Action<IPnjStates> OnStatesChanged;
 	
-	
-
-	private void Start()
+	private void Awake()
 	{
 		PnjAptitude[] found = GetComponents<PnjAptitude>();
 		aptitudes.AddRange(found);
@@ -23,8 +27,26 @@ public class BrainPnj : MonoBehaviour
 		{
 			aptitude.Init(this);
 		}
-		
-		PnjGoTo(new PatrolState(GetAptitude<PnjMove>()));
+	}
+	private void OnEnable()
+	{
+		VisionCone vision = GetAptitude<VisionCone>();
+		if (vision != null)
+			vision.OnTargetSeen += HandleTargetSeen;
+	    
+		AuditionCast audition = GetAptitude<AuditionCast>();
+		if (audition != null)
+			audition.OnHearAlerte += HandleTargetSeen;
+	}
+
+	private void HandleTargetSeen(Vector3 player)
+	{
+		PnjGoTo(new ChaseState(player));
+	}
+
+	private void Start()
+	{
+		PnjGoTo(new PatrolState(this));
 	}
 
 	private void Update()
@@ -48,5 +70,16 @@ public class BrainPnj : MonoBehaviour
 		PNJStates = state;
 		PNJStates?.EnterState(this);
 		OnStatesChanged?.Invoke(PNJStates);
+	}
+	
+	private void OnDisable()
+	{
+		VisionCone vision = GetAptitude<VisionCone>();
+		if (vision != null)
+			vision.OnTargetSeen -= HandleTargetSeen;
+	    
+		AuditionCast audition = GetAptitude<AuditionCast>();
+		if (audition != null)
+			audition.OnHearAlerte -= HandleTargetSeen;
 	}
 }
