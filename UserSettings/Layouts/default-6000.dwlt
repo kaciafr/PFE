@@ -1565,9 +1565,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 7.5220757, y: -0.06153269, z: -2.9906533}
+    m_Target: {x: 5.405571, y: -2.722557, z: -11.299942}
     speed: 2
-    m_Value: {x: -0.89113617, y: 7.033657, z: -10.066624}
+    m_Value: {x: 7.5220757, y: -0.06153269, z: -2.9906533}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1614,13 +1614,13 @@ MonoBehaviour:
     m_gridOpacity: 0.5
     m_NearestPlaneToHandleMode: 0
   m_Rotation:
-    m_Target: {x: 0.3671891, y: -0.5456703, z: 0.28786543, w: 0.6961455}
+    m_Target: {x: 0.34006128, y: -0.4532559, z: 0.19240715, w: 0.8012279}
     speed: 2
-    m_Value: {x: -0.1908802, y: 0.3723093, z: -0.07855247, w: -0.90490246}
+    m_Value: {x: -0.36718914, y: 0.5456703, z: -0.28786543, w: -0.6961455}
   m_Size:
-    m_Target: 8.186873
+    m_Target: 11.998831
     speed: 2
-    m_Value: 7.365693
+    m_Value: 8.186873
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1818,13 +1818,13 @@ MonoBehaviour:
       m_rawData: 1099511658584
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 1099511650884
-    - m_rawData: 1099511650885
-    - m_rawData: 1099511650886
-    - m_rawData: 1099511650887
-    - m_rawData: 1099511650888
-    - m_rawData: 1099511650889
-    - m_rawData: 1099511650890
+    - m_rawData: 1099511650518
+    - m_rawData: 1099511650519
+    - m_rawData: 1099511650520
+    - m_rawData: 1099511650521
+    - m_rawData: 1099511650522
+    - m_rawData: 1099511650523
+    - m_rawData: 1099511650524
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1858,13 +1858,13 @@ MonoBehaviour:
       m_rawData: 0
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 1099511650884
-    - m_rawData: 1099511650885
-    - m_rawData: 1099511650886
-    - m_rawData: 1099511650887
-    - m_rawData: 1099511650888
-    - m_rawData: 1099511650889
-    - m_rawData: 1099511650890
+    - m_rawData: 1099511650518
+    - m_rawData: 1099511650519
+    - m_rawData: 1099511650520
+    - m_rawData: 1099511650521
+    - m_rawData: 1099511650522
+    - m_rawData: 1099511650523
+    - m_rawData: 1099511650524
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

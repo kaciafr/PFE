@@ -20,6 +20,7 @@ public class BrainPnj : MonoBehaviour
 	
 	private void Awake()
 	{
+		Agent = GetComponent<NavMeshAgent>();
 		PnjAptitude[] found = GetComponents<PnjAptitude>();
 		aptitudes.AddRange(found);
  
