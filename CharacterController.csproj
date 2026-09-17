@@ -66,8 +66,8 @@
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\ReadInput.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterSetup.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\AnimationHandler.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\HitBoxComponent.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\GameLayers.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\HitBoxComponent.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\RootMotion.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\AttackComboData.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\NormalWalk.cs" />

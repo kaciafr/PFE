@@ -1,16 +1,21 @@
 using System;
+using System.Collections.Generic;
 using PnjDetection;
+using Routine;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
 
 public class PnjMove : PnjAptitude
 {
-    [SerializeField] private NavMeshAgent agent;
+    [field:SerializeField] public NavMeshAgent agent {get; private set;}
     
     private bool isTurning = false;
     private float startToWalk = 5.0f;
     private Vector3 lastPos;
+    
+    [field:SerializeField] public List<PointTime> firstRoutine = new List<PointTime>();
+    [field:SerializeField] public int currentStep = 0;
     
 
     public override void Init(BrainPnj brain)
