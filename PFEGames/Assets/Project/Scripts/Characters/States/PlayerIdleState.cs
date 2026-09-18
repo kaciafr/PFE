@@ -13,6 +13,11 @@ namespace Characters.States
 
         public override void Tick()
         {
+            if (ctx.inputAction.JumpPressed && ctx.movement.isGrounded)
+            {
+                ctx.SwitchState(new PlayerJumpState(ctx));
+                return; 
+            }
 
             if (ctx.inputAction.MoveValue.sqrMagnitude > 0.01f)
             {
