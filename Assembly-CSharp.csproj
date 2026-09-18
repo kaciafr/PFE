@@ -1168,6 +1168,10 @@
       <Project>{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}</Project>
       <Name>Wingman</Name>
     </ProjectReference>
+    <ProjectReference Include="GamePlay.csproj">
+      <Project>{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}</Project>
+      <Name>GamePlay</Name>
+    </ProjectReference>
     <ProjectReference Include="LTX.Installer.csproj">
       <Project>{aae580a9-7243-37ae-b90a-0a134f699e3d}</Project>
       <Name>LTX.Installer</Name>

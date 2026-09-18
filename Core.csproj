@@ -53,9 +53,13 @@
   <ItemGroup>
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\PointTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\PatrolState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\Singleton.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\GameManager.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\HideSysteme\HideZone.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\RoutineTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\Direction.cs" />

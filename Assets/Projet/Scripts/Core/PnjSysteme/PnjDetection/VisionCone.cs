@@ -1,4 +1,5 @@
 using System;
+using CharacterController.Script;
 using UnityEngine;
 
 namespace PnjDetection
@@ -10,7 +11,7 @@ namespace PnjDetection
 		[Range(0, 360)]
 		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;
 
-		public event Action<Vector3> OnTargetSeen;
+		public event Action<Vector3,CharacterSetup> OnTargetSeen;
 
 		protected override void Scan()
 		{
@@ -19,9 +20,10 @@ namespace PnjDetection
 			Transform target = FindTargetInRadius(ViewRadius);
 			if (target == null)
 				return;
-
+			CharacterSetup player = target.GetComponent<CharacterSetup>();
+			
+			OnTargetSeen?.Invoke(LastPos, player);
 			Remember(target);
-			OnTargetSeen?.Invoke(LastPos);
 		}
 		
 		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)

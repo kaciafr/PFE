@@ -15,6 +15,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			Debug.Log($"Patrol State Entered: {brainPnj.name}");
 			GoToCurrentPoint();
 		}
 

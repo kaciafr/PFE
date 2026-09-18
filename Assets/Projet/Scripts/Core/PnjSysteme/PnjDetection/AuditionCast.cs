@@ -1,4 +1,5 @@
 using System;
+using CharacterController.Script;
 using UnityEngine;
 
 namespace PnjDetection
@@ -14,7 +15,7 @@ namespace PnjDetection
         [Range(1, 60)]
         [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
 
-        public event Action<Vector3> OnHearAlerte;  
+        public event Action<Vector3 > OnHearAlerte;  
         public event Action<Vector3> OnTargetHear;  
 
         protected override void Scan()
@@ -22,13 +23,11 @@ namespace PnjDetection
             detectedTargets.Clear();
            
             Transform dangerTarget = FindTargetInRadius(DangerHearingRadius);
-            if (dangerTarget != null)
-            {
-                Remember(dangerTarget);
-                OnHearAlerte?.Invoke(LastPos);
-                return; 
-            }
-            
+            CharacterSetup player;
+            if (dangerTarget == null)
+				return;
+	        OnHearAlerte?.Invoke(LastPos);
+	        Remember(dangerTarget);
             Transform farTarget = FindTargetInRadius(HearingRadius);
             if (farTarget != null)
             {

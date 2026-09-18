@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CharacterController.Script;
 using PnjDetection;
 using PnjStates;
 using Routine;
@@ -11,7 +12,6 @@ public class BrainPnj : MonoBehaviour
 	[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
 	
 	[field:SerializeField] public NavMeshAgent Agent {get; private set;}
-    
 	[field:SerializeField] public List<PointTime> firstRoutine = new List<PointTime>();
 	[field:SerializeField] public int currentStep = 0;
 	
@@ -37,12 +37,17 @@ public class BrainPnj : MonoBehaviour
 	    
 		AuditionCast audition = GetAptitude<AuditionCast>();
 		if (audition != null)
-			audition.OnHearAlerte += HandleTargetSeen;
+			audition.OnHearAlerte += HandleTargetSound;
 	}
 
-	private void HandleTargetSeen(Vector3 player)
+
+	private void HandleTargetSeen(Vector3 pos , CharacterSetup player)
 	{
-		PnjGoTo(new ChaseState(player));
+		PnjGoTo(new ChaseState(pos, player));
+	}
+	private void HandleTargetSound(Vector3 obj)
+	{
+		PnjGoTo(new IntrigueState(obj));
 	}
 
 	private void Start()
@@ -72,7 +77,6 @@ public class BrainPnj : MonoBehaviour
 		PNJStates?.EnterState(this);
 		OnStatesChanged?.Invoke(PNJStates);
 	}
-	
 	private void OnDisable()
 	{
 		VisionCone vision = GetAptitude<VisionCone>();
@@ -81,6 +85,6 @@ public class BrainPnj : MonoBehaviour
 	    
 		AuditionCast audition = GetAptitude<AuditionCast>();
 		if (audition != null)
-			audition.OnHearAlerte -= HandleTargetSeen;
+			audition.OnHearAlerte -= HandleTargetSound;
 	}
 }

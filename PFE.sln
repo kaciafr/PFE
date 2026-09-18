@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{376eb0db-4085-99f9-505a-851da7f1a930}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTX.Installer", "LTX.Installer.csproj", "{aae580a9-7243-37ae-b90a-0a134f699e3d}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePlay", "GamePlay.csproj", "{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTX.Installer", "LTX.Installer.csproj", "{aae580a9-7243-37ae-b90a-0a134f699e3d}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,10 @@ Global
 		{cb9ca94b-9836-bdff-184b-e626b1dbe389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{376eb0db-4085-99f9-505a-851da7f1a930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{376eb0db-4085-99f9-505a-851da7f1a930}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{aae580a9-7243-37ae-b90a-0a134f699e3d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

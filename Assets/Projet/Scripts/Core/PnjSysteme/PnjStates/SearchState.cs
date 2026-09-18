@@ -14,6 +14,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			Debug.Log($"SearchState entered at {brainPnj.name}");
 			timer = 0f;
 			brainPnj.Agent.destination = brainPnj.transform.position;
 		}
