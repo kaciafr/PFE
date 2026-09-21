@@ -13,7 +13,7 @@ namespace PnjStates
 		public ChaseState(CharacterSetup playerSetup)
 		{
 			this.playerSetup = playerSetup;
-			this.lastKnownPosition = playerSetup.transform.position;
+			lastKnownPosition = playerSetup.transform.position;
 		}
 
 		public void EnterState(BrainPnj brainPnj)

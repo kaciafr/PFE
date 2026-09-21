@@ -11,8 +11,8 @@ namespace PnjStates
 
 		public IntrigueState(Vector3 targetPosition, CharacterSetup player)
 		{
-			this.targetPosition = targetPosition;
 			this.player = player;
+			this.targetPosition = player.transform.position;
 		}
 
 		public void EnterState(BrainPnj brainPnj)
@@ -31,7 +31,6 @@ namespace PnjStates
 			}
 
 			Vector3 direction = brainPnj.transform.position - targetPosition;
-			direction.y = 0;
 			if (direction.sqrMagnitude > 0.001f)
 			{
 				Quaternion targetRotation = Quaternion.LookRotation(direction.normalized) * Quaternion.Euler(0, 180, 0);
