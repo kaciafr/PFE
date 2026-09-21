@@ -1,36 +1,43 @@
 using CharacterController.Script;
+using PnjDetection;
 using UnityEngine;
+using Utilities;
 
 namespace PnjStates
 {
 	public class ChaseState : IPnjStates
 	{
-		private Vector3 targetPosition;
 		private CharacterSetup playerSetup;
+		private Vector3 lastKnownPosition;
 
-		public ChaseState(Vector3 targetPosition, CharacterSetup playerSetup)
+		public ChaseState(CharacterSetup playerSetup)
 		{
-			this.targetPosition = targetPosition;
 			this.playerSetup = playerSetup;
+			this.lastKnownPosition = playerSetup.transform.position;
 		}
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			GameManager.Instance.See(playerSetup);
-			Debug.Log($"Chase State Entered: {brainPnj.name}");
+			brainPnj.Agent.speed = GameMetrix.GardeChaseSpeed;
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.SetDestination(targetPosition);
+			VisionCone vision = brainPnj.GetAptitude<VisionCone>();
 			
-			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f && !GameManager.Instance.IsSee)
+			if (vision != null && vision.CanSee(playerSetup))
+			{
+				lastKnownPosition = playerSetup.transform.position;
+				brainPnj.Agent.SetDestination(lastKnownPosition);
+			}
+			
+			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
 				brainPnj.PnjGoTo(new SearchState(brainPnj));
 		}
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			GameManager.Instance.UnSee(playerSetup);
+			brainPnj.Agent.speed = GameMetrix.GardePatrolSpeed;
 		}
 	}
 }

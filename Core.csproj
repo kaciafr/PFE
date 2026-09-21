@@ -56,18 +56,20 @@
     <Compile Include="Assets\Projet\Scripts\Core\Singleton.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\GameManager.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\HideSysteme\HideZone.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\RoutineTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\Direction.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\AuditionCast.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SurpriseState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\RagdollController.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\PnjAptitude.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\BrainPnj.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\NoiseRadius.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\KillZone.cs" />
     <None Include="Assets\Projet\Scripts\Core\Core.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

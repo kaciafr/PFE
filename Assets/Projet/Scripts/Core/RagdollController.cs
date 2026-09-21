@@ -1,8 +1,9 @@
+using DefaultNamespace;
 using UnityEngine;
 
 namespace GamePlay
 {
-	public class RagdollController : MonoBehaviour
+	public class RagdollController : Singleton<RagdollController>
 	{
 		private Rigidbody[] ragdollRigidbodies;
 		private Collider[] ragdollColliders;

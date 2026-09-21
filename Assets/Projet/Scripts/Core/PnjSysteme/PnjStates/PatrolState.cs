@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 namespace PnjStates
 {
@@ -15,7 +16,6 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			Debug.Log($"Patrol State Entered: {brainPnj.name}");
 			GoToCurrentPoint();
 		}
 
@@ -23,6 +23,7 @@ namespace PnjStates
 		{
 			if (isWaiting)
 			{
+				brainPnj.Agent.speed = 0;
 				guard.transform.rotation = Quaternion.Slerp(
 					guard.transform.rotation,
 					guard.firstRoutine[guard.currentStep].targetRotation,
@@ -32,6 +33,7 @@ namespace PnjStates
 
 				if (waitTimer <= 0f)
 				{
+					brainPnj.Agent.speed = GameMetrix.GardePatrolSpeed;
 					isWaiting = false;
 					guard.currentStep = (guard.currentStep + 1) % guard.firstRoutine.Count;
 					GoToCurrentPoint();
@@ -39,7 +41,7 @@ namespace PnjStates
 			}
 			else
 			{
-				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.3f)
+				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.02f)
 				{
 					isWaiting = true;
 					waitTimer = guard.firstRoutine[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 namespace PnjStates
 {
@@ -14,7 +15,6 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			Debug.Log($"SearchState entered at {brainPnj.name}");
 			timer = 0f;
 			brainPnj.Agent.destination = brainPnj.transform.position;
 		}
@@ -24,7 +24,7 @@ namespace PnjStates
 			timer += Time.deltaTime;
 			Quaternion targetRotation = Quaternion.Euler(0, 360, 0);
 			guard.transform.rotation = Quaternion.Slerp(guard.transform.rotation, targetRotation, Time.deltaTime * 5f);
-			if (timer >= 5)
+			if (timer >= GameMetrix.TimeToSearch)
 			{
 				brainPnj.PnjGoTo(new PatrolState(guard));
 			}

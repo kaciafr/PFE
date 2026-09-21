@@ -15,25 +15,28 @@ namespace PnjDetection
         [Range(1, 60)]
         [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
 
-        public event Action<Vector3 > OnHearAlerte;  
+        public event Action<Vector3,CharacterSetup > OnHearAlerte;  
         public event Action<Vector3> OnTargetHear;  
 
         protected override void Scan()
         {
-            detectedTargets.Clear();
-           
-            Transform dangerTarget = FindTargetInRadius(DangerHearingRadius);
-            CharacterSetup player;
-            if (dangerTarget == null)
-				return;
-	        OnHearAlerte?.Invoke(LastPos);
+	        detectedTargets.Clear();
+   
+	        Transform dangerTarget = FindTargetInRadius(DangerHearingRadius);
+    
+	        if (dangerTarget == null)
+		        return;
+
+	        CharacterSetup player = dangerTarget.GetComponentInParent<CharacterSetup>();
+	        OnHearAlerte?.Invoke(LastPos, player);
 	        Remember(dangerTarget);
-            Transform farTarget = FindTargetInRadius(HearingRadius);
-            if (farTarget != null)
-            {
-                Remember(farTarget);
-                OnTargetHear?.Invoke(LastPos);
-            }
+
+	        Transform farTarget = FindTargetInRadius(HearingRadius);
+	        if (farTarget != null)
+	        {
+		        Remember(farTarget);
+		        OnTargetHear?.Invoke(LastPos);
+	        }
         }
 
         protected override void OnDrawGizmos()
