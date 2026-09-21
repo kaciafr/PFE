@@ -14,5 +14,17 @@ namespace Characters
             animator.SetFloat("DirX", direction.x);
             animator.SetFloat("DirY", direction.y);
         }
+
+        public void Play(string stateName)
+        {
+            animator.CrossFadeInFixedTime(stateName,0.15f);
+        }
+        
+        public void SetClimbSpeed(float speed) 
+        {
+            animator.SetFloat("ClimbSpeed", speed); 
+        }
+        
+        
     }
 }

@@ -1,4 +1,4 @@
-using Characters.States;
+
 using UnityEngine;
 
 namespace Characters
@@ -7,7 +7,7 @@ namespace Characters
     {
         public InputReader inputAction;
         public PlayerMovement movement;
-        //public PlayerAnimator animator;
+        public PlayerAnimator animator;
 
         private PlayerState currentState;
 

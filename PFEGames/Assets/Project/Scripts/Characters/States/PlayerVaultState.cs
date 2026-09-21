@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Characters.States
+namespace Characters
 {
     public class PlayerVaultState : PlayerState
     {

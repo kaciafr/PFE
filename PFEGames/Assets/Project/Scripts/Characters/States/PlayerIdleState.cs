@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Characters.States
+namespace Characters
 {
     public class PlayerIdleState : PlayerState
     {
@@ -9,14 +9,27 @@ namespace Characters.States
         public override void Enter()
         {
             Debug.Log("Entering PlayerIdleState");
+            ctx.animator.Play("Idle");
         }
 
         public override void Tick()
         {
+            if (ctx.movement.IsClimbing)
+            {
+                ctx.SwitchState(new PlayerClimbState(ctx));
+                return;
+            }
+
+            if (ctx.inputAction.CrouchHeld)
+            {
+                ctx.SwitchState(new PlayerCrouchState(ctx));
+                return;
+            }
+
             if (ctx.inputAction.JumpPressed && ctx.movement.isGrounded)
             {
                 ctx.SwitchState(new PlayerJumpState(ctx));
-                return; 
+                return;
             }
 
             if (ctx.inputAction.MoveValue.sqrMagnitude > 0.01f)

@@ -835,24 +835,24 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   webProgressiveAssetLoading: 0
   scriptingDefineSymbols:
-    Android: SORTIFY
-    EmbeddedLinux: SORTIFY
-    GameCoreScarlett: SORTIFY
-    GameCoreXboxOne: SORTIFY
-    Kepler: SORTIFY
-    LinuxHeadlessSimulation: SORTIFY
-    Nintendo Switch: SORTIFY
-    Nintendo Switch 2: SORTIFY
-    PS4: SORTIFY
-    PS5: SORTIFY
-    QNX: SORTIFY
-    Standalone: DREAMTECK_SPLINES;SORTIFY
-    VisionOS: SORTIFY
-    WebGL: SORTIFY
+    Android: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    EmbeddedLinux: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    GameCoreScarlett: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    GameCoreXboxOne: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    Kepler: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    LinuxHeadlessSimulation: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    Nintendo Switch: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    Nintendo Switch 2: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    PS4: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    PS5: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    QNX: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    Standalone: DREAMTECK_SPLINES;SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    VisionOS: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
+    WebGL: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
     Windows Store Apps: 
-    XboxOne: SORTIFY
+    XboxOne: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
     iPhone: 
-    tvOS: SORTIFY
+    tvOS: SORTIFY;UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

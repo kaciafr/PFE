@@ -1,5 +1,4 @@
-using Characters;
-using Characters.States;
+using Characters; 
 using UnityEngine;
 
 
@@ -15,6 +14,7 @@ using UnityEngine;
         {
             timer = 0f;
             ctx.movement.Jump();
+            ctx.animator.Play("Jump");
             Debug.Log("Entering PlayerJumpState"); 
         }
 

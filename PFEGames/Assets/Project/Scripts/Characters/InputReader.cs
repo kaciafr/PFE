@@ -26,11 +26,20 @@ namespace Characters
 
         public event Action InteractEvent;
         public event Action InteractEventCanceledEvent;
+        
+        public event Action SprintEvent;
+        
+        public event Action SprintCanceledEvent; 
 
         public Vector2 MoveValue { get; private set; }
 
         public bool JumpPressed => _playerInput != null && _playerInput.Player.Jump.WasPressedThisFrame();
+        
+        public bool CrouchHeld => _playerInput != null && _playerInput.Player.Crouch.IsPressed();
 
+        public bool SprintHeld => _playerInput != null && _playerInput.Player.Sprint.IsPressed(); 
+        
+        
         private PlayerAction _playerInput;
 
         public void EnablePlayerInput()
@@ -105,6 +114,14 @@ namespace Characters
                 InteractEvent?.Invoke();
             else if (context.phase == InputActionPhase.Canceled)  
                 InteractEventCanceledEvent?.Invoke();
+        }
+
+        public void OnSprint(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                SprintEvent?.Invoke();
+            else if (context.phase == InputActionPhase.Canceled)
+                SprintCanceledEvent?.Invoke();
         }
     }
 }
