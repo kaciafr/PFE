@@ -47,11 +47,11 @@ public class BrainPnj : MonoBehaviour
 			return;
 		PnjGoTo(new SurpriseState(player));
 	}
-	private void HandleTargetSound(Vector3 pos,CharacterSetup player)
+	private void HandleTargetSound(CharacterSetup player)
 	{
 		if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState)
 			return;
-		PnjGoTo(new IntrigueState(pos, player));
+		PnjGoTo(new IntrigueState(player));
 	}
 
 	private void Start()

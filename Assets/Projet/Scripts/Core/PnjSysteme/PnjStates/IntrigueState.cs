@@ -9,7 +9,7 @@ namespace PnjStates
 		private Vector3 targetPosition;
 		private CharacterSetup player;
 
-		public IntrigueState(Vector3 targetPosition, CharacterSetup player)
+		public IntrigueState(CharacterSetup player)
 		{
 			this.player = player;
 			this.targetPosition = player.transform.position;

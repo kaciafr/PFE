@@ -15,7 +15,7 @@ namespace PnjDetection
         [Range(1, 60)]
         [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
 
-        public event Action<Vector3,CharacterSetup > OnHearAlerte;  
+        public event Action<CharacterSetup > OnHearAlerte;  
         public event Action<Vector3> OnTargetHear;  
 
         protected override void Scan()
@@ -28,7 +28,7 @@ namespace PnjDetection
 		        return;
 
 	        CharacterSetup player = dangerTarget.GetComponentInParent<CharacterSetup>();
-	        OnHearAlerte?.Invoke(LastPos, player);
+	        OnHearAlerte?.Invoke(player);
 	        Remember(dangerTarget);
 
 	        Transform farTarget = FindTargetInRadius(HearingRadius);
