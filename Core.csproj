@@ -56,7 +56,9 @@
     <Compile Include="Assets\Projet\Scripts\Core\Singleton.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\SuspiciousMeter.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SuspiciousState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />

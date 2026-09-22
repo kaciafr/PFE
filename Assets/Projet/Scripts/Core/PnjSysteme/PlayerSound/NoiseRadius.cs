@@ -18,7 +18,7 @@ namespace PlayerSound
 		}
 		private void Update()
 		{
-			if (target.speed <= minSpeed)
+  			if (target.speed <= minSpeed)
 			{
 				noiseEffect.SetActive(false);
 			}

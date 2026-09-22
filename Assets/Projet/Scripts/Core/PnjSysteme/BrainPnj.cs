@@ -42,7 +42,7 @@ public class BrainPnj : MonoBehaviour
 
 	private void HandleTargetSeen(Vector3 pos , IDetected target)
 	{
-		if (PNJStates is SurpriseState || PNJStates is ChaseState)
+		if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState)
 			return;
 		PnjGoTo(new SurpriseState(target));
 	}

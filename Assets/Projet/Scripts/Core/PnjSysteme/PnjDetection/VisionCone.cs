@@ -83,7 +83,19 @@ namespace PnjDetection
 			angleInDegrees += transform.eulerAngles.y;
 			return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 		}
+		
+		public float GetDistanceFactor(IDetected target)
+		{
+			float dist = Vector3.Distance(SensorOrigin, target.transform.position);
+			return Mathf.Clamp01(1f - (dist / ViewRadius));
+		}
 
+		public float GetAngleFactor(IDetected target)
+		{
+			Vector3 dirToTarget = (target.transform.position - SensorOrigin).normalized;
+			float angle = Vector3.Angle(transform.forward, dirToTarget);
+			return Mathf.Clamp01(1f - (angle / (ViewAngle / 2f)));
+		}
 		
 	}
 }
