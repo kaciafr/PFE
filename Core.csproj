@@ -60,8 +60,8 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\WhatTheyDetect\IDetected.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\RoutineTime.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\Direction.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\AuditionCast.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SurpriseState.cs" />
@@ -944,6 +944,9 @@
     <Reference Include="System.Text.Json">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\ref\System.Text.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PrimeTween.Runtime">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\PrimeTween.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
@@ -952,9 +955,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="CharacterController.csproj">
-      <Project>{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}</Project>
-      <Name>CharacterController</Name>
+    <ProjectReference Include="PrimeTween.Installer.csproj">
+      <Project>{e6ef5215-71e0-c589-6fff-4dd20f4df8a5}</Project>
+      <Name>PrimeTween.Installer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

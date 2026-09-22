@@ -23,32 +23,32 @@
         },
         {
             "ColumnId": "GameObject/Active",
-            "Visible": true,
-            "Width": 35.0,
+            "Visible": false,
+            "Width": 50.0,
             "Index": 3
-        },
-        {
-            "ColumnId": "GameObject/Static",
-            "Visible": true,
-            "Width": 35.0,
-            "Index": 4
-        },
-        {
-            "ColumnId": "GameObject/Layer",
-            "Visible": true,
-            "Width": 35.000003814697266,
-            "Index": 5
-        },
-        {
-            "ColumnId": "GameObject/Tag",
-            "Visible": true,
-            "Width": 35.0,
-            "Index": 6
         },
         {
             "ColumnId": "HierarchyViewColumn Navigate",
             "Visible": true,
             "Width": 18.0,
+            "Index": 3
+        },
+        {
+            "ColumnId": "GameObject/Layer",
+            "Visible": false,
+            "Width": 150.0,
+            "Index": 5
+        },
+        {
+            "ColumnId": "GameObject/Tag",
+            "Visible": false,
+            "Width": 100.0,
+            "Index": 6
+        },
+        {
+            "ColumnId": "GameObject/Static",
+            "Visible": false,
+            "Width": 75.0,
             "Index": 7
         }
     ],

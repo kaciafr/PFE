@@ -3,58 +3,61 @@ using UnityEngine;
 
 namespace CharacterController.Script
 {
-	public class CharacterSetup : MonoBehaviour
+	public class CharacterSetup : MonoBehaviour,
+		IDetected
+
+	{ public Transform Transform => transform;
+		public float speed => MovementBase.controller.velocity.magnitude;
+	[field: SerializeField] public CharacterData CharacterData { get; private set; }
+
+	[field: SerializeField] public ReadInput ReadInput { get; private set; }
+
+	[field: SerializeField] public MovementBase MovementBase { get; private set; }
+
+	[field: SerializeField] public Animator Animator { get; private set; }
+
+	public IMoveState MoveState { get; private set; }
+	public event Action<IMoveState> OnStateChanged;
+
+
+	private void Start()
 	{
-		[field: SerializeField] public CharacterData CharacterData { get; private set; }
+		GoTo(new NormalWalk());
+	}
 
-		[field: SerializeField] public ReadInput ReadInput { get; private set; }
+	private void Update()
+	{
+		MoveState.UpdateState(this);
+	}
 
-		[field: SerializeField] public MovementBase MovementBase { get; private set; }
+	private void OnEnable()
+	{
+		this.ReadInput.OnAttackPressed += HandleAttackPressed;
+	}
 
-		[field: SerializeField] public Animator Animator { get; private set; }
+	private void OnDisable()
+	{
+		this.ReadInput.OnAttackPressed -= HandleAttackPressed;
+		Debug.Log("OnDisable");
+	}
 
-		public IMoveState MoveState { get; private set; }
-		public event Action<IMoveState> OnStateChanged;
-
-
-		private void Start()
+	private void HandleAttackPressed()
+	{
+		if (this.MovementBase.controller.isGrounded)
 		{
-			GoTo(new NormalWalk());
+			this.GoTo(new AttackState(this.CharacterData.firstAttack));
 		}
+	}
 
-		private void Update()
-		{
-			MoveState.UpdateState(this);
-		}
+	public void GoTo(IMoveState state)
+	{
+		MoveState?.ExitState(this);
 
-		private void OnEnable()
-		{
-			this.ReadInput.OnAttackPressed += HandleAttackPressed;
-		}
+		MoveState = state;
 
-		private void OnDisable()
-		{
-			this.ReadInput.OnAttackPressed -= HandleAttackPressed;
-			Debug.Log("OnDisable");
-		}
+		MoveState?.EnterState(this);
 
-		private void HandleAttackPressed()
-		{
-			if (this.MovementBase.controller.isGrounded)
-			{
-				this.GoTo(new AttackState(this.CharacterData.firstAttack));
-			}
-		}
-
-		public void GoTo(IMoveState state)
-		{
-			MoveState?.ExitState(this);
-
-			MoveState = state;
-
-			MoveState?.EnterState(this);
-
-			OnStateChanged?.Invoke(state);
-		}
+		OnStateChanged?.Invoke(state);
+	}
 	}
 }

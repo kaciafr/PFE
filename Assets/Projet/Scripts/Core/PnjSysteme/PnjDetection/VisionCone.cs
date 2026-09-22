@@ -1,5 +1,4 @@
 using System;
-using CharacterController.Script;
 using UnityEngine;
 
 namespace PnjDetection
@@ -11,14 +10,14 @@ namespace PnjDetection
 		[Range(0, 360)]
 		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;
 
-		public event Action<Vector3,CharacterSetup> OnTargetSeen;
+		public event Action<Vector3,IDetected> OnTargetSeen;
 
-		public bool CanSee(CharacterSetup playerSetup)
+		public bool CanSee(IDetected target)
 		{
-			if (playerSetup == null)
+			if (target == null)
 				return false;
 			Vector3 origin = SensorOrigin;
-			Vector3 targetPos = playerSetup.transform.position;
+			Vector3 targetPos = target.transform.position;
 			Vector3 toTarget = targetPos - origin;
 			float dist = toTarget.magnitude;
 			
@@ -42,13 +41,14 @@ namespace PnjDetection
 		{
 			detectedTargets.Clear();
 
-			Transform target = FindTargetInRadius(ViewRadius);
-			if (target == null)
-				return;
-			CharacterSetup player = target.GetComponentInParent<CharacterSetup>();
 			
-			OnTargetSeen?.Invoke(LastPos, player);
-			Remember(target);
+			Transform transform = FindTargetInRadius(ViewRadius);
+			if (transform == null)
+				return;
+			IDetected target = transform.GetComponentInParent<IDetected>();
+			
+			OnTargetSeen?.Invoke(LastPos, target);
+			Remember(transform);
 		}
 		
 		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CharacterController.Script;
 using PnjDetection;
 using PnjStates;
 using Routine;
@@ -41,17 +40,17 @@ public class BrainPnj : MonoBehaviour
 	}
 
 
-	private void HandleTargetSeen(Vector3 pos , CharacterSetup player)
+	private void HandleTargetSeen(Vector3 pos , IDetected target)
 	{
 		if (PNJStates is SurpriseState || PNJStates is ChaseState)
 			return;
-		PnjGoTo(new SurpriseState(player));
+		PnjGoTo(new SurpriseState(target));
 	}
-	private void HandleTargetSound(CharacterSetup player)
+	private void HandleTargetSound(IDetected target)
 	{
 		if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState)
 			return;
-		PnjGoTo(new IntrigueState(player));
+		PnjGoTo(new IntrigueState(target));
 	}
 
 	private void Start()

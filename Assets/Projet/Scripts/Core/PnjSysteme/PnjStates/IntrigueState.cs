@@ -1,4 +1,3 @@
-using CharacterController.Script;
 using PnjDetection;
 using UnityEngine;
 
@@ -7,12 +6,12 @@ namespace PnjStates
 	public class IntrigueState : IPnjStates
 	{
 		private Vector3 targetPosition;
-		private CharacterSetup player;
+		private IDetected target;
 
-		public IntrigueState(CharacterSetup player)
+		public IntrigueState(IDetected target)
 		{
-			this.player = player;
-			this.targetPosition = player.transform.position;
+			this.target = target;
+			this.targetPosition = target.transform.position;
 		}
 
 		public void EnterState(BrainPnj brainPnj)
@@ -24,9 +23,9 @@ namespace PnjStates
 		public void UpdateState(BrainPnj brainPnj)
 		{
 			VisionCone vision = brainPnj.GetAptitude<VisionCone>();
-			if (vision != null && vision.CanSee(player))
+			if (vision != null && vision.CanSee(target))
 			{
-				brainPnj.PnjGoTo(new ChaseState(player));
+				brainPnj.PnjGoTo(new ChaseState(target));
 				return;
 			}
 

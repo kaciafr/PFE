@@ -1,4 +1,3 @@
-using CharacterController.Script;
 using UnityEngine;
 using Utilities;
 
@@ -8,12 +7,12 @@ namespace PnjStates
 	{
 		private float timeBeSurprised = GameMetrix.TimeToBeSurprise;
 		private float time;
-		private CharacterSetup playerSetup;
+		private IDetected target;
 		private Vector3 pnjPos;
 
-		public SurpriseState(CharacterSetup playerSetup)
+		public SurpriseState(IDetected target)
 		{
-			this.playerSetup = playerSetup;
+			this.target = target;
 		}
 		public void EnterState(BrainPnj brainPnj)
 		{
@@ -26,13 +25,13 @@ namespace PnjStates
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			if (playerSetup == null)
+			if (target == null)
 			{
 				Debug.Log("playerSetup is null regarde directement dans VisionCone");
 				return;
 			}
 			
-			Vector3 direction = brainPnj.transform.position - playerSetup.transform.position;
+			Vector3 direction = brainPnj.transform.position - target.transform.position;
 			if (direction.sqrMagnitude > 0.001f)
 			{
 				Quaternion targetRotation = Quaternion.LookRotation(direction.normalized) * Quaternion.Euler(0, 180, 0);
@@ -41,7 +40,7 @@ namespace PnjStates
 			
 			time += Time.deltaTime;
 			if (time >= timeBeSurprised)
-				brainPnj.PnjGoTo(new ChaseState(playerSetup));
+				brainPnj.PnjGoTo(new ChaseState(target));
 		}
 
 		public void ExitState(BrainPnj brainPnj)
