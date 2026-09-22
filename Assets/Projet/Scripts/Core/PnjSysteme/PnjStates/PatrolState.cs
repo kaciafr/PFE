@@ -33,7 +33,7 @@ namespace PnjStates
 
 				if (waitTimer <= 0f)
 				{
-					brainPnj.Agent.speed = GameMetrix.GardePatrolSpeed;
+					brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 					isWaiting = false;
 					guard.currentStep = (guard.currentStep + 1) % guard.firstRoutine.Count;
 					GoToCurrentPoint();

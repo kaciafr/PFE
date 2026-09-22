@@ -37,7 +37,7 @@ namespace PnjStates
 			}
 
 			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
-				brainPnj.PnjGoTo(new SearchState(brainPnj));
+				brainPnj.PnjGoTo(new SearchState(brainPnj,targetPosition));
 		}
 
 		public void ExitState(BrainPnj brainPnj)

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.AI;
 using Utilities;
 namespace PnjStates
 {
@@ -8,52 +10,85 @@ namespace PnjStates
 		private float timer;
 		private BrainPnj guard;
 		private Tween lookTween;
+		private int currentSearchIndex;
+		private Vector3 lastTargetPos;
+		private List<Vector3> searchPoints = new List<Vector3>();
+		private bool isWaiting;
 
 		[SerializeField] private float lookAngle = 45f;
-		[SerializeField] private float lookDuration = 2f;
+		[SerializeField] private float lookDuration = 2.5f;
 
-		public SearchState(BrainPnj guard)
+		public SearchState(BrainPnj guard, Vector3 lastTargetPos)
 		{
 			this.guard = guard;
-			timer = 0f;
-			guard.Agent.destination = guard.transform.position;
-			guard.Agent.updateRotation = false;
+			this.lastTargetPos = lastTargetPos;
 
 			Quaternion baseRotation = guard.transform.rotation;
 			Quaternion leftRotation = baseRotation * Quaternion.Euler(0, -lookAngle, 0);
 			Quaternion rightRotation = baseRotation * Quaternion.Euler(0, lookAngle, 0);
 			guard.Agent.speed = 0;
-			lookTween = Tween.LocalRotation(
-				guard.transform,
-				leftRotation,
-				rightRotation,
-				lookDuration,
-				cycles: -1,
-				cycleMode: CycleMode.Yoyo
+			lookTween = Tween.LocalRotation(guard.transform, leftRotation, rightRotation, lookDuration, cycles: -1, cycleMode: CycleMode.Yoyo
 			);
 		}
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			
 			timer = 0f;
-			brainPnj.Agent.destination = brainPnj.transform.position;
+			currentSearchIndex = 0;
+			
+			guard.Agent.updateRotation = false;
+			
+			searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, GameMetrix.SearchPointCount);
+			isWaiting = false;
+
+			if (searchPoints.Count > 0)
+				brainPnj.Agent.SetDestination(searchPoints[0]);
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			timer += Time.deltaTime;
-			if (timer >= GameMetrix.TimeToSearch)
+			if (searchPoints.Count == 0)
 			{
 				brainPnj.PnjGoTo(new PatrolState(guard));
+				return;
+			}
+
+			if (isWaiting)
+			{
+				timer -= Time.deltaTime;
+				if (timer <= 0f)
+					GoToNextPoint(brainPnj);
+			}
+			else
+			{
+				if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.3f)
+				{
+					isWaiting = true;
+					timer = GameMetrix.SearchWaitPerPoint;
+				}
 			}
 		}
 
 		public void ExitState(BrainPnj brainPnj)
 		{
 			lookTween.Stop();
-			guard.Agent.speed = GameMetrix.GardePatrolSpeed;
+			guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
 			brainPnj.Agent.updateRotation = true;
 		}
+		
+		private void GoToNextPoint(BrainPnj brainPnj)
+		{
+			currentSearchIndex++;
+
+			if (currentSearchIndex >= searchPoints.Count)
+			{
+				brainPnj.PnjGoTo(new PatrolState(guard));
+				return;
+			}
+
+			isWaiting = false;
+			brainPnj.Agent.SetDestination(searchPoints[currentSearchIndex]);
+		}
+		
 	}
 }

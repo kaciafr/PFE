@@ -17,7 +17,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.speed = GameMetrix.GardeChaseSpeed;
+			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
@@ -31,12 +31,12 @@ namespace PnjStates
 			}
 			
 			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
-				brainPnj.PnjGoTo(new SearchState(brainPnj));
+				brainPnj.PnjGoTo(new SearchState(brainPnj,lastKnownPosition));
 		}
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.speed = GameMetrix.GardePatrolSpeed;
+			brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 		}
 	}
 }
