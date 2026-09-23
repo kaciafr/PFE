@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\BrouillonASup\TestRagDoll.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\InteractSysteme\WorldInteract.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\InteractSysteme\IInteractable.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
