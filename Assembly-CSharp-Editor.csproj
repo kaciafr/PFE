@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\Projet\Editor\PointRoadTools.cs" />
+    <Compile Include="Assets\FlexibleCelShader\Editor\PresetDataConainer.cs" />
+    <Compile Include="Assets\FlexibleCelShader\Editor\CelCustomEditor.cs" />
+    <Compile Include="Assets\FlexibleCelShader\Editor\PresetHelper.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

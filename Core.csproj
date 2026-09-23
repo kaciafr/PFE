@@ -67,7 +67,6 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\AuditionCast.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SurpriseState.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\RagdollController.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\PnjAptitude.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\BrainPnj.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\NoiseRadius.cs" />
