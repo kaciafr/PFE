@@ -14,8 +14,8 @@ namespace PnjDetection
         [Range(1, 60)]
         [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
 
-        public event Action<IDetected > OnHearAlerte;  
-        public event Action<Vector3> OnTargetHear;  
+        public event Action<ISondDetected , GameObject > OnHearAlerte;  
+        
 
         protected override void Scan()
         {
@@ -26,24 +26,18 @@ namespace PnjDetection
 	        if (dangerTarget == null)
 		        return;
 
-	        IDetected target = dangerTarget.GetComponentInParent<IDetected>();
-	        OnHearAlerte?.Invoke(target);
+	        ISondDetected target = dangerTarget.GetComponentInParent<ISondDetected>();
 	        Remember(dangerTarget);
-
-	        Transform farTarget = FindTargetInRadius(HearingRadius);
-	        if (farTarget != null)
-	        {
-		        Remember(farTarget);
-		        OnTargetHear?.Invoke(LastPos);
-	        }
+	        OnHearAlerte?.Invoke(target, this.gameObject);
+	        
         }
 
         protected override void OnDrawGizmos()
         {
             Vector3 origin = SensorOrigin;
 
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(origin, HearingRadius);
+            /*Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(origin, HearingRadius);*/
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(origin, DangerHearingRadius);

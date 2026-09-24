@@ -51,28 +51,28 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\HitBoxData.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\FightState.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\VaultAnimData.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterCamera.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\VaultState.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Vaulting.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\Command\DamageCommand.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\IMoveState.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterData.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\CrounchState.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\RaycastChecker.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\AttackState.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\ReadInput.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterSetup.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\AnimationHandler.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\GameLayers.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\HitBoxComponent.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\RootMotion.cs" />
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\AttackComboData.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\NormalWalk.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\Command\IGameCommand.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MovementBase.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\HitBoxData.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\VaultAnimData.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\VaultState.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Vaulting.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\Command\DamageCommand.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterData.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\MoveState\CrounchState.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\CharacterSetup.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\AnimationHandler.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\Utilities\GameLayers.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController\FightScript\AttackComboData.cs" />
     <None Include="Assets\Projet\SystemeExterne\SaverioScript\PlayerControllers\CharacterController.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -547,6 +547,9 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>

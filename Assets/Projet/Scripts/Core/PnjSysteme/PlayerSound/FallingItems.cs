@@ -5,13 +5,14 @@ using Utilities;
 
 namespace PlayerSound
 {
-	public class FallingItems :  MonoBehaviour,IDetected
+	public class FallingItems :  MonoBehaviour,ISondDetected
 	{
 		[SerializeField] private SphereCollider collider;
 		[SerializeField] private ItemsData items;
 		[SerializeField] private LayerMask groundMask;
 		[SerializeField] private float maxDetectionRadius;
 		[SerializeField] private float distanceMaxOfDetection;
+		public Transform Transform => transform;
 		
 		private const float Gravity = 9.81f;
 		
@@ -24,16 +25,6 @@ namespace PlayerSound
 		private void Start()
 		{
 			collider = GetComponent<SphereCollider>();
-
-			if (collider == null)
-			{
-				Debug.Log(gameObject.name + ": No collider found");
-			}
-			if (items == null)
-			{
-				Debug.Log(gameObject.name + ": No items found");
-			}
-
 		}
 
 		private void Update()
@@ -70,10 +61,11 @@ namespace PlayerSound
 			collider.isTrigger = true;
 
 			yield return new WaitForSeconds(1);
+			
+			collider.radius = 0f;
 
-			collider.radius = 0f; 
 		}
 
-		public float speed { get; }
+
 	}
 }

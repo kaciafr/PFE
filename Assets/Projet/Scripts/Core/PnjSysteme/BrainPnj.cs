@@ -46,11 +46,11 @@ public class BrainPnj : MonoBehaviour
 			return;
 		PnjGoTo(new SurpriseState(target));
 	}
-	private void HandleTargetSound(IDetected target)
+	private void HandleTargetSound(ISondDetected target , GameObject  targetPosition)
 	{
 		if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState)
 			return;
-		PnjGoTo(new IntrigueState(target));
+		PnjGoTo(new IntrigueState(target, targetPosition));
 	}
 
 	private void Start()

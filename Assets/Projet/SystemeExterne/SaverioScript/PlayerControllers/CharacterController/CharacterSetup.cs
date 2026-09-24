@@ -4,9 +4,9 @@ using UnityEngine;
 namespace CharacterController.Script
 {
 	public class CharacterSetup : MonoBehaviour,
-		IDetected
-
-	{ public Transform Transform => transform;
+		IDetected,ISondDetected
+	{ 
+		public Transform Transform => transform;
 		public float speed => MovementBase.controller.velocity.magnitude;
 	[field: SerializeField] public CharacterData CharacterData { get; private set; }
 

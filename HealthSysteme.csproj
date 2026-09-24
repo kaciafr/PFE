@@ -51,8 +51,8 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\HealthSysteme\Core\HealthData.cs" />
     <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\HealthSysteme\Core\HealthComponent.cs" />
+    <Compile Include="Assets\Projet\SystemeExterne\SaverioScript\HealthSysteme\Core\HealthData.cs" />
     <None Include="Assets\Projet\SystemeExterne\SaverioScript\HealthSysteme\HealthSysteme.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -527,6 +527,9 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>

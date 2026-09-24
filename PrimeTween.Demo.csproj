@@ -53,22 +53,22 @@
   <ItemGroup>
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\CameraProjectionMatrixAnimation.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Animatable.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\InputController.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\JumpAnimation.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\SqueezeAnimation.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Wheels.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Road.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\HighlightableElement.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\HighlightedElementController.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Headlights.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Demo.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\DirectionalLightController.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\SwipeTutorial.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Baggage.cs" />
-    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\SlidingDoor.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Door.cs" />
     <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\TypewriterAnimatorExample.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\InputController.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Road.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\Demo.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\SwipeTutorial.cs" />
+    <Compile Include="Assets\Plugins\PrimeTween\Demo\Scripts\SlidingDoor.cs" />
     <None Include="Assets\Plugins\PrimeTween\Demo\Scripts\PrimeTween.Demo.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -543,6 +543,9 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>

@@ -51,26 +51,27 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\SuspiciousMeter.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SuspiciousState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\BrainPnj.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\WhatTheyDetect\ISondDetected.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\PointTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\PatrolState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\Singleton.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\FallingItems.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\SuspiciousMeter.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SuspiciousState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\MathGame.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\VisionCone.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\WhatTheyDetect\IDetected.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\RoutineTime.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\AuditionCast.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SurpriseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\PnjAptitude.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\BrainPnj.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\NoiseRadius.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\Data\ItemsData.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\KillZone.cs" />
@@ -548,6 +549,9 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
