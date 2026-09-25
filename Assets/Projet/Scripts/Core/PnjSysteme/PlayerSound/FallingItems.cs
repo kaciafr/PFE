@@ -12,23 +12,22 @@ namespace PlayerSound
 		[SerializeField] private LayerMask groundMask;
 		[SerializeField] private float maxDetectionRadius;
 		[SerializeField] private float distanceMaxOfDetection;
-		public Transform Transform => transform;
-		
-		private const float Gravity = 9.81f;
-		
-		private float height;
 		[SerializeField] private bool wasFalling;
+		public Transform Transform => transform;
+		private const float Gravity = 9.81f;
+		private float height;
+		
 		private bool IsFalling => !MathGame.RayCastCheck( transform.position,Vector3.down,
 			distanceMaxOfDetection, groundMask,
 			out RaycastHit hit, Color.chartreuse);
 
-		private void Start()
-		{
-			collider = GetComponent<SphereCollider>();
-		}
-
 		private void Update()
 		{
+			if(collider.radius<=0.02)
+				collider.enabled = false;
+			else
+				collider.enabled = true;
+			
 			bool isFallingNow = IsFalling;
 
 			if (isFallingNow && !wasFalling)
@@ -58,12 +57,13 @@ namespace PlayerSound
 		private IEnumerator PulseCollider(float radius)
 		{
 			collider.radius = radius;
+			//noiseGO.SetActive(true);
 			collider.isTrigger = true;
 
 			yield return new WaitForSeconds(1);
 			
+			//noiseGO.SetActive(false);
 			collider.radius = 0f;
-
 		}
 
 

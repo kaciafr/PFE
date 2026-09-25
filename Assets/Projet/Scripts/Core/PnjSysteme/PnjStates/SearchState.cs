@@ -31,7 +31,8 @@ namespace PnjStates
           isWaiting = false;
 
           guard.Agent.updateRotation = false;
-          guard.Agent.speed = 0;
+          guard.Agent.updatePosition = true;
+          guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
 
           searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, GameMetrix.SearchPointCount);
 

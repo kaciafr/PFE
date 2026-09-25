@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 43
+    y: 0
     width: 1920
     height: 36
   m_SerializedDataModeController:
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
+    y: 24
     width: 709
     height: 607
   m_SerializedDataModeController:
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.093739666, y: 0.73747456, z: -0.10470967, w: -0.6606365}
     speed: 2
-    m_Value: {x: -0.09373684, y: 0.7374523, z: -0.10470651, w: -0.6606166}
+    m_Value: {x: -0.093739666, y: 0.7374746, z: -0.10470967, w: -0.6606365}
   m_Size:
     m_Target: 59.65524
     speed: 2
@@ -1687,8 +1687,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 710
-    y: 79
+    x: 711
+    y: 24
     width: 98
     height: 607
   m_SerializedDataModeController:
@@ -1792,8 +1792,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 810
-    y: 79
+    x: 811
+    y: 24
     width: 463
     height: 607
   m_SerializedDataModeController:
@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 712
+    y: 24
     width: 791
     height: 274
   m_SerializedDataModeController:
@@ -1928,25 +1928,25 @@ MonoBehaviour:
       m_rawData: 1099511654701
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 1099511654366
-    - m_rawData: 1099511654367
-    - m_rawData: 1099511654368
-    - m_rawData: 1099511654369
-    - m_rawData: 1099511654370
-    - m_rawData: 1099511654371
-    - m_rawData: 1099511654372
-    - m_rawData: 1099511654373
-    - m_rawData: 1099511654374
-    - m_rawData: 1099511654375
-    - m_rawData: 1099511654376
-    - m_rawData: 1099511654377
-    - m_rawData: 1099511654378
-    - m_rawData: 1099511654379
-    - m_rawData: 1099511654380
-    - m_rawData: 1099511654381
-    - m_rawData: 1099511654382
-    - m_rawData: 1099511654383
-    - m_rawData: 1099511654384
+    - m_rawData: 1099511654403
+    - m_rawData: 1099511654404
+    - m_rawData: 1099511654405
+    - m_rawData: 1099511654406
+    - m_rawData: 1099511654407
+    - m_rawData: 1099511654408
+    - m_rawData: 1099511654409
+    - m_rawData: 1099511654410
+    - m_rawData: 1099511654411
+    - m_rawData: 1099511654412
+    - m_rawData: 1099511654413
+    - m_rawData: 1099511654414
+    - m_rawData: 1099511654415
+    - m_rawData: 1099511654416
+    - m_rawData: 1099511654417
+    - m_rawData: 1099511654418
+    - m_rawData: 1099511654419
+    - m_rawData: 1099511654420
+    - m_rawData: 1099511654421
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1980,25 +1980,25 @@ MonoBehaviour:
       m_rawData: 0
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 1099511654366
-    - m_rawData: 1099511654367
-    - m_rawData: 1099511654368
-    - m_rawData: 1099511654369
-    - m_rawData: 1099511654370
-    - m_rawData: 1099511654371
-    - m_rawData: 1099511654372
-    - m_rawData: 1099511654373
-    - m_rawData: 1099511654374
-    - m_rawData: 1099511654375
-    - m_rawData: 1099511654376
-    - m_rawData: 1099511654377
-    - m_rawData: 1099511654378
-    - m_rawData: 1099511654379
-    - m_rawData: 1099511654380
-    - m_rawData: 1099511654381
-    - m_rawData: 1099511654382
-    - m_rawData: 1099511654383
-    - m_rawData: 1099511654384
+    - m_rawData: 1099511654403
+    - m_rawData: 1099511654404
+    - m_rawData: 1099511654405
+    - m_rawData: 1099511654406
+    - m_rawData: 1099511654407
+    - m_rawData: 1099511654408
+    - m_rawData: 1099511654409
+    - m_rawData: 1099511654410
+    - m_rawData: 1099511654411
+    - m_rawData: 1099511654412
+    - m_rawData: 1099511654413
+    - m_rawData: 1099511654414
+    - m_rawData: 1099511654415
+    - m_rawData: 1099511654416
+    - m_rawData: 1099511654417
+    - m_rawData: 1099511654418
+    - m_rawData: 1099511654419
+    - m_rawData: 1099511654420
+    - m_rawData: 1099511654421
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2087,8 +2087,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Console\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 792
-    y: 712
+    x: 793
+    y: 24
     width: 481
     height: 274
   m_SerializedDataModeController:
@@ -2127,8 +2127,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1275
-    y: 79
+    x: 1276
+    y: 24
     width: 644
     height: 907
   m_SerializedDataModeController:
