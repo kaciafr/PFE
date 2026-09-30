@@ -40,11 +40,11 @@ namespace PnjDetection
 		protected override void Scan()
 		{
 			detectedTargets.Clear();
-
 			
 			Transform transform = FindTargetInRadius(ViewRadius);
 			if (transform == null)
 				return;
+			
 			IDetected target = transform.GetComponentInParent<IDetected>();
 			
 			OnTargetSeen?.Invoke(LastPos, target);

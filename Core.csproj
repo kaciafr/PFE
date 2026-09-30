@@ -54,7 +54,9 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\ChaseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SearchState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\SuspiciousMeter.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\RagdollSysteme\ActiveRagdoll.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SuspiciousState.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\RagdollSysteme\ListPointGrab.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\GameMetrix.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IPnjStates.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\BrainPnj.cs" />
@@ -62,7 +64,9 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\PointTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\PatrolState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\Singleton.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\RagdollSysteme\Grab.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\FallingItems.cs" />
+    <Compile Include="Assets\Projet\Scripts\Core\RagdollSysteme\TestRagDoll.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\DetectionSense.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\IntrigueState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Utilities\MathGame.cs" />
