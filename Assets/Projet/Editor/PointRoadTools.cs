@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Projet.Tools
 {
     [CustomEditor(typeof(BrainPnj))]
-    public class PointRoadTools : Editor
+    public class PointRoadTools : UnityEditor.Editor
     {
        private bool placingPoints = false;
        private Transform routeParent;

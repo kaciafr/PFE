@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1252790098, guid: 448d62fcada76fd4ab5702190add98fd, type: 3}
+  m_Name: EditorStates
+  m_EditorClassIdentifier: "UMotionEditor.dll::\u0389\u038A\u038A\u038A\u038A\u0389\u038A\u0389\u0389\u0389\u0389\u0389\u0389\u0389\u038A\u038A\u0389\u038A\u038A\u0389\u038A\u0389\u0389\u0389\u0389\u038A\u0389\u038A\u038A\u038A\u038A\u038A\u038A\u038A\u0389\u038A\u038A\u038A\u038A\u0389\u038A\u0389\u0389\u038A\u0389\u038A\u0389"
+  GeneralStates:
+    LoadedProjectGUID:
+      valueInternal: 
+    RecentlyOpenedProjectPath:
+      valueInternal: Assets\Project\Capacities\Thurner\Quickeness
+    RecentlyOpenedProjectGUIDsList:
+    - valueInternal: b28583789cfb7e44fbf5e14f87d3a9bc
+    - valueInternal: 4cb7b4cfa6a481949a08c121af18440e
+    - valueInternal: b031ac664dd55be48967102e483edf04
+    - valueInternal: 1996353ebe053844da21dc7a5dc73df2
+    - valueInternal: 90bdcd15990ff324cbc6a4bcc4aab900
+    - valueInternal: 25ec406fc44db984b967bd107f6459d0
+    - valueInternal: 743b7d1e807955d44b4ef0b92fd0b831
+    - valueInternal: 763730d43161d504abc7a965db335aa3
+    - valueInternal: f7e2b6af8cd3ab94ea3b14644e734e49
+    - valueInternal: 207228bf1b074cf4cadaf5052a42caf0

@@ -541,6 +541,12 @@
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
     </Reference>
+    <Reference Include="UMotionApplication">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Application\UMotionApplication.dll</HintPath>
+    </Reference>
+    <Reference Include="UMotionEditor">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Editor\UMotionEditor.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
     </Reference>

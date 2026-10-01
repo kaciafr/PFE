@@ -56,8 +56,11 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\Projet\Editor\PointRoadTools.cs" />
     <Compile Include="Assets\FlexibleCelShader\Editor\PresetDataConainer.cs" />
+    <Compile Include="Assets\Editor\AnimationCreatorWindow.cs" />
     <Compile Include="Assets\FlexibleCelShader\Editor\PresetHelper.cs" />
     <Compile Include="Assets\FlexibleCelShader\Editor\CelCustomEditor.cs" />
+    <None Include="Assets\Extensions\UMotionEditor\Plugins\MacOS\Editor\x64\AutodeskFbxSdkLicense.txt" />
+    <None Include="Assets\Extensions\UMotionEditor\Plugins\Windows\Editor\x64\AutodeskFbxSdkLicense.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -546,6 +549,12 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="UMotionApplication">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Application\UMotionApplication.dll</HintPath>
+    </Reference>
+    <Reference Include="UMotionEditor">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Editor\UMotionEditor.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
@@ -1225,6 +1234,10 @@
       <Project>{cb9ca94b-9836-bdff-184b-e626b1dbe389}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="UMotionSourceApplication.csproj">
+      <Project>{5ce5640f-4e43-dcd9-c45a-ecf15e7b9b6b}</Project>
+      <Name>UMotionSourceApplication</Name>
+    </ProjectReference>
     <ProjectReference Include="HealthSysteme.csproj">
       <Project>{10318ac5-58a9-6cef-83b1-73ed31f680ed}</Project>
       <Name>HealthSysteme</Name>
@@ -1240,6 +1253,10 @@
     <ProjectReference Include="PrimeTween.Demo.csproj">
       <Project>{c0705fe9-af2b-1768-6466-9d219a8325ca}</Project>
       <Name>PrimeTween.Demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="UMotionSourceEditor.csproj">
+      <Project>{d8cef60d-26a3-8b58-5903-e626371d790d}</Project>
+      <Name>UMotionSourceEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PrimeTween.Debug.csproj">
       <Project>{d4509721-90b9-d160-b78a-20bc243ede91}</Project>

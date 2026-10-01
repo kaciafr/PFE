@@ -66,17 +66,21 @@
     <None Include="Assets\FlexibleCelShader\Presets\Electric Blue.json" />
     <None Include="Assets\Vefects\Easy Impact Frames\VFX\Extra\Shaders\SH_Vefects_VFX_Easy_Shockwave_Distortion_URP.shader" />
     <None Include="Assets\Vefects\Easy Impact Frames\VFX\Extra\Shaders\SH_Vefects_Zap_URP.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\WiresOnly.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\FlexibleCelShader\Presets\Subtle Breeze.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\FlexibleCelShader\Presets\Inverted.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\UnlitLine.shader" />
     <None Include="Assets\FlexibleCelShader\Presets\Noir Purple.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SpaceWarp.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\UnlitDashedLine.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Vefects\Easy Impact Frames\Demo\Resources\Environment\Shaders\SH_Vefects_Grid_01.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Vefects\Easy Impact Frames\_ Extra\Shaders\SH_Vefects_Extra_Billboard_01.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\CameraLit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
@@ -89,9 +93,11 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\FlexibleCelShader\Presets\Glacier.json" />
     <None Include="Assets\FlexibleCelShader\Presets\Solid Gold.json" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\VertexColorUnlit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD SpaceWarp.shader" />
     <None Include="Assets\PainterlyAsset\Shaders\Painterly.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\ColorUnlit.shader" />
     <None Include="Assets\Vefects\Easy Impact Frames\_ Extra\Shaders\SH_Vefects_Extra_Grid_01.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
@@ -104,6 +110,7 @@
     <None Include="Assets\Vefects\Easy Impact Frames\VFX\Extra\Shaders\SH_Vefects_Extra_Particles_URP.shader" />
     <None Include="Assets\FlexibleCelShader\Shaders\CelOutline.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Extensions\UMotionEditor\Shaders\ColorUnlitTransparent.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -577,6 +584,9 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="UMotionApplication">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Application\UMotionApplication.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -1237,6 +1247,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UMotionSourceApplication.csproj">
+      <Project>{5ce5640f-4e43-dcd9-c45a-ecf15e7b9b6b}</Project>
+      <Name>UMotionSourceApplication</Name>
+    </ProjectReference>
     <ProjectReference Include="HealthSysteme.csproj">
       <Project>{10318ac5-58a9-6cef-83b1-73ed31f680ed}</Project>
       <Name>HealthSysteme</Name>
@@ -1252,6 +1266,10 @@
     <ProjectReference Include="PrimeTween.Demo.csproj">
       <Project>{c0705fe9-af2b-1768-6466-9d219a8325ca}</Project>
       <Name>PrimeTween.Demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="UMotionSourceEditor.csproj">
+      <Project>{d8cef60d-26a3-8b58-5903-e626371d790d}</Project>
+      <Name>UMotionSourceEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PrimeTween.Debug.csproj">
       <Project>{d4509721-90b9-d160-b78a-20bc243ede91}</Project>
