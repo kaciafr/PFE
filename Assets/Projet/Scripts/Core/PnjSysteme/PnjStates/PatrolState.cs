@@ -26,7 +26,7 @@ namespace PnjStates
 				brainPnj.Agent.speed = 0;
 				guard.transform.rotation = Quaternion.Slerp(
 					guard.transform.rotation,
-					guard.firstRoutine[guard.currentStep].targetRotation,
+					guard.FirstRoutine[guard.currentStep].targetRotation,
 					Time.deltaTime * 5f
 				);
 				waitTimer -= Time.deltaTime;
@@ -35,7 +35,7 @@ namespace PnjStates
 				{
 					brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 					isWaiting = false;
-					guard.currentStep = (guard.currentStep + 1) % guard.firstRoutine.Count;
+					guard.currentStep = (guard.currentStep + 1) % guard.FirstRoutine.Count;
 					GoToCurrentPoint();
 				}
 			}
@@ -44,7 +44,7 @@ namespace PnjStates
 				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.02f)
 				{
 					isWaiting = true;
-					waitTimer = guard.firstRoutine[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
+					waitTimer = guard.FirstRoutine[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
 				}
 			}
 		}
@@ -56,7 +56,7 @@ namespace PnjStates
 		
 		void GoToCurrentPoint()
 		{
-			guard.Agent.destination = guard.firstRoutine[guard.currentStep].transform.position;
+			guard.Agent.destination = guard.FirstRoutine[guard.currentStep].transform.position;
 		}
 	}
 }

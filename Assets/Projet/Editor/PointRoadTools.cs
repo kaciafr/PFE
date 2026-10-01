@@ -36,13 +36,13 @@ namespace Projet.Tools
           if (GUILayout.Button("Vider la routine"))
           {
              // détruit aussi les GameObjects, pas juste la liste
-             foreach (PointTime pt in brain.firstRoutine)
+             foreach (PointTime pt in brain.FirstRoutine)
              {
                 if (pt != null)
                    Undo.DestroyObjectImmediate(pt.gameObject);
              }
 
-             brain.firstRoutine.Clear();
+             brain.FirstRoutine.Clear();
              EditorUtility.SetDirty(brain);
           }
        }
@@ -84,12 +84,12 @@ namespace Projet.Tools
 
              if (Physics.Raycast(ray, out RaycastHit hit))
              {
-                GameObject point = new GameObject($"PatrolPoint_{brain.firstRoutine.Count}");
+                GameObject point = new GameObject($"PatrolPoint_{brain.FirstRoutine.Count}");
                 point.transform.position = hit.point;
                 point.transform.SetParent(routeParent); // <- rangé dans le parent
 
                 PointTime pt = point.AddComponent<PointTime>();
-                brain.firstRoutine.Add(pt);
+                brain.FirstRoutine.Add(pt);
 
                 Undo.RegisterCreatedObjectUndo(point, "Créer point de patrouille");
                 EditorUtility.SetDirty(brain);

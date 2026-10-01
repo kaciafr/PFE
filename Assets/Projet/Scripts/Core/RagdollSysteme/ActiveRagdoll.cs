@@ -4,14 +4,19 @@ namespace RagdollSysteme
 {
 	public class ActiveRagdoll :  MonoBehaviour
 	{
-		[SerializeField] private TestRagDoll ragdollController;
+		private RagDoll ragdoll;
+		private Animator animator;
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.transform.CompareTag("Player"))
-			{
-				ragdollController.EnableRagdoll();
-			}
+			if (!other.CompareTag("Guard"))
+				return;
+
+			RagDoll ragdoll = other.GetComponentInParent<RagDoll>();
+			Animator animator = other.GetComponentInParent<Animator>();
+
+			if (ragdoll != null && animator != null)
+				ragdoll.Ragdool(animator);
 		}
 	}
 }
