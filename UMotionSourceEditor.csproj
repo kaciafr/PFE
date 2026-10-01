@@ -535,6 +535,9 @@
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.collections@10fff0607388\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
+    <Reference Include="UMotionEditor">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Editor\UMotionEditor.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
@@ -546,9 +549,6 @@
     </Reference>
     <Reference Include="UMotionApplication">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Application\UMotionApplication.dll</HintPath>
-    </Reference>
-    <Reference Include="UMotionEditor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Editor\UMotionEditor.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>

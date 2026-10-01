@@ -14,22 +14,23 @@ public class BrainPnj : RagDoll
     [field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
     [field:SerializeField] public int currentStep = 0;
     [field:SerializeField] public Animator Animator {get; private set;}
+    [field:SerializeField] public Transform Model {get; private set;}
 
     public IPnjStates PNJStates { get; private set; }
     public event Action<IPnjStates> OnStatesChanged;
-
+	
     private Rigidbody[] ragdollRigidbodies;
     private Collider mainCollider;
 
     private void Awake()
     {
-       Animator = GetComponent<Animator>();
+       Animator = GetComponentInChildren<Animator>();
        Agent = GetComponent<NavMeshAgent>();
 
        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
        mainCollider = GetComponent<Collider>();
 
-       SetRagdollPhysics(false); // désactivé par défaut au démarrage
+       SetRagdollPhysics(false);
 
        PnjAptitude[] found = GetComponents<PnjAptitude>();
        aptitudes.AddRange(found);
@@ -78,17 +79,29 @@ public class BrainPnj : RagDoll
 
     private void DisableRagdollPhysics()
     {
-	    SetRagdollPhysics(false);
 	    
-	    if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+	    Transform hips = Animator.GetBoneTransform(HumanBodyBones.Hips);
+	    Vector3 hipsPos = hips.position;
+	    Quaternion hipsRot = hips.rotation;
+
+	    SetRagdollPhysics(false);
+
+	    if (NavMesh.SamplePosition(hipsPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
 	    {
-		    transform.position = hit.position;
+		    Agent.enabled = false;
+
+		    
+		    Quaternion yaw = Quaternion.Euler(0f, hipsRot.eulerAngles.y, 0f);
+		    transform.SetPositionAndRotation(hit.position, yaw);
+		    
+		    hips.SetPositionAndRotation(hipsPos, hipsRot);
+
 		    Agent.enabled = true;
 		    Agent.Warp(hit.position);
 	    }
 	    else
 	    {
-		    Debug.LogWarning($"{name}: impossible de retrouver une position NavMesh valide après le ragdoll.");
+		    Debug.LogWarning($"{name}: aucun NavMesh à moins de 5m du ragdoll.");
 	    }
     }
 
@@ -107,14 +120,14 @@ public class BrainPnj : RagDoll
 
     private void HandleTargetSeen(Vector3 pos, IDetected target)
     {
-       if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState)
+       if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState || PNJStates is KoState)
           return;
        PnjGoTo(new SurpriseState(target));
     }
 
     private void HandleTargetSound(ISondDetected target, GameObject targetPosition)
     {
-       if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState)
+       if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState|| PNJStates is KoState)
           return;
        PnjGoTo(new IntrigueState(target, targetPosition));
     }
