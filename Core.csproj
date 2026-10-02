@@ -75,7 +75,6 @@
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\WhatTheyDetect\IDetected.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\Routine\RoutineTime.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\AuditionCast.cs" />
-    <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\WakeUpState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjStates\SurpriseState.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PnjDetection\PnjAptitude.cs" />
     <Compile Include="Assets\Projet\Scripts\Core\PnjSysteme\PlayerSound\NoiseRadius.cs" />

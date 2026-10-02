@@ -6,6 +6,7 @@ namespace Utilities
 {
 	public static class GameMetrix
 	{
+
 		[Header("GardeSettings")]
 		[field: SerializeField]
 		public static float GuardPatrolSpeed { get; private set; } = 0.6f;
@@ -16,6 +17,7 @@ namespace Utilities
 		public static int SearchPointCount = 4;
 		public static float SearchRadius = 6f;        
 		public static float SearchWaitPerPoint = 1.5f;
+		public static float MaxMassPool{ get; private set; } = 23f;
 		public static List<Vector3> SearchPointsGenerated(Vector3 center, float radius, int count)
 		{
 			List<Vector3> points = new List<Vector3>();

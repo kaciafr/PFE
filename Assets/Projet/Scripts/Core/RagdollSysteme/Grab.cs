@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace RagdollSysteme
 {
@@ -34,6 +35,8 @@ namespace RagdollSysteme
 
 		public void TryGrab()
 		{
+			if(pointJoint[0].mass > GameMetrix.MaxMassPool)
+				return;
 			if (isGrabbing)
 			{
 				Release();

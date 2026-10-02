@@ -18,7 +18,7 @@ namespace PnjStates
 			wakeUpTime += Time.deltaTime;
 			if (wakeUpTime > maxWakeUpTime)
 			{
-				brainPnj.PnjGoTo(new WakeUpState());
+				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 			}
 		}
 
