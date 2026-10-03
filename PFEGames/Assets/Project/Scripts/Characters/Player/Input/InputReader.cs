@@ -49,6 +49,9 @@ namespace Characters
         public bool ThrowPressed => _playerInput != null && _playerInput.Player.ThrowObject.WasPressedThisFrame();
         
         public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.WasPressedThisFrame();
+
+        // Molette : > 0 vers le haut, < 0 vers le bas, 0 si elle ne bouge pas cette frame
+        public float AimScroll => _playerInput != null ? _playerInput.Player.Aim.ReadValue<float>() : 0f;
         
         private PlayerAction _playerInput;
 
@@ -133,6 +136,8 @@ namespace Characters
             else if (context.phase == InputActionPhase.Canceled)  
                 InteractEventCanceledEvent?.Invoke();
         }
+
+        public void OnAim(InputAction.CallbackContext context) { }
 
         public void OnSprint(InputAction.CallbackContext context)
         {

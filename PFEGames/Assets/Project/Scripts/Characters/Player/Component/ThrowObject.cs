@@ -10,8 +10,15 @@ namespace Characters.Component
         [SerializeField] private Transform releasePoint;
 
         [Header("Throw")]
-        [SerializeField, Min(0f)] private float throwSpeed = 10f;
+        [SerializeField, Min(0f), Tooltip("Vitesse de départ quand on ramasse un objet.")]
+        private float throwSpeed = 10f;
         [SerializeField, Range(0f, 1f)] private float upwardBias = 0.3f;
+
+        [Header("Puissance (molette)")]
+        [SerializeField, Min(0f)] private float minThrowSpeed = 5f;
+        [SerializeField, Min(0f)] private float maxThrowSpeed = 15f;
+        [SerializeField, Min(0f), Tooltip("Vitesse ajoutée ou retirée par cran de molette.")]
+        private float speedStep = 1f;
         [SerializeField, Min(0f), Tooltip("Temps pendant lequel l'objet lâché ne touche pas le joueur (évite qu'il le pousse en l'air).")]
         private float ignorePlayerTime = 0.3f;
 
@@ -21,18 +28,22 @@ namespace Characters.Component
         [SerializeField] private LayerMask collisionMask = ~0;
 
         private LineRenderer lineRenderer;
+        private PlayerMotor motor;
         private Rigidbody heldObject;
         private Collider[] heldColliders;
         private Collider[] playerColliders;
         private Transform initialParent;
         private bool isAiming;
+        private float currentSpeed;
 
         public bool IsHolding => heldObject != null;
+        public float CurrentSpeed => currentSpeed;
 
         private void Awake()
         {
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.enabled = false;
+            motor = GetComponent<PlayerMotor>();
             playerColliders = GetComponentsInChildren<Collider>();
         }
 
@@ -48,6 +59,7 @@ namespace Characters.Component
 
             heldObject = obj;
             heldColliders = obj.GetComponentsInChildren<Collider>();
+            currentSpeed = Mathf.Clamp(throwSpeed, minThrowSpeed, maxThrowSpeed);
             initialParent = obj.transform.parent;
 
             heldObject.isKinematic = true;
@@ -62,6 +74,14 @@ namespace Characters.Component
         {
             isAiming = aiming;
             lineRenderer.enabled = aiming && IsHolding;
+        }
+
+        public void AdjustPower(float scroll)
+        {
+            if (Mathf.Approximately(scroll, 0f)) return;
+
+            currentSpeed = Mathf.Clamp(currentSpeed + Mathf.Sign(scroll) * speedStep,
+                                       minThrowSpeed, maxThrowSpeed);
         }
 
         public void Release()
@@ -127,8 +147,13 @@ namespace Characters.Component
 
         private Vector3 GetThrowVelocity()
         {
-            Vector3 direction = (releasePoint.forward + Vector3.up * upwardBias).normalized;
-            return direction * throwSpeed;
+            // releasePoint est sur un os de la main : son forward suit l'animation, on vise avec l'orientation du perso
+            Vector3 forward = motor != null ? motor.Forward : transform.forward;
+            forward.y = 0f;
+            forward.Normalize();
+
+            Vector3 direction = (forward + Vector3.up * upwardBias).normalized;
+            return direction * currentSpeed;
         }
 
         private void DrawTrajectory()

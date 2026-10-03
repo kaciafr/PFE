@@ -99,6 +99,7 @@ namespace Characters
         public void SetAiming(bool aim)   => Thrower.SetAiming(aim);
         public void Throw()               => Thrower.Release();
         public void DropObject()          => Thrower.Drop();
+        public void AdjustThrowPower(float scroll) => Thrower.AdjustPower(scroll);
 
         #endregion
 

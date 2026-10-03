@@ -101,6 +101,12 @@ namespace Characters.Data
             [field: SerializeField, Min(0f)] public float DetectRadius { get; private set; } = 1.2f;
             [field: SerializeField] public float RayHeight { get; private set; } = 0f;
             [field: SerializeField, Min(0f)] public float PickupDuration { get; private set; } = 0.5f;
-            
+
+            [field: SerializeField, Min(0f), Tooltip("Moment de l'anim Throw (en secondes) où la main lâche l'objet.")]
+            public float ReleaseTime { get; private set; } = 0.4f;
+
+            [field: SerializeField, Min(0f), Tooltip("Durée totale de l'anim Throw avant de revenir en Idle.")]
+            public float ThrowDuration { get; private set; } = 1f;
+
         }
 }

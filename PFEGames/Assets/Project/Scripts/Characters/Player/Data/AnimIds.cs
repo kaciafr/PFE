@@ -14,6 +14,7 @@ public static class AnimIds
     public static readonly int Pull       = Animator.StringToHash("Pull");
     public static readonly int Interact   = Animator.StringToHash("InteractObject");
     public static readonly int Hold       = Animator.StringToHash("Hold");
+    public static readonly int HoldWalk   = Animator.StringToHash("HoldWalk");
     public static readonly int Throw      = Animator.StringToHash("Throw");
     public static readonly int Die        = Animator.StringToHash("Die");
 }
