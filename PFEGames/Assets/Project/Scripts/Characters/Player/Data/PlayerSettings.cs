@@ -47,6 +47,15 @@ namespace Characters.Data
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
         [field: SerializeField, Min(0f)] public float RaycastDistance { get; private set; } = 1.1f;
         [field: SerializeField, Min(0f)] public float CheckOffset { get; private set; } = 0.1f;
+
+        [field: SerializeField, Min(0), Tooltip("Nombre de rayons autour du rayon central.")]
+        public int RayCount { get; private set; } = 8;
+
+        [field: SerializeField, Min(0f), Tooltip("Distance des rayons autour du centre (un peu moins que le rayon de la capsule).")]
+        public float RayRadius { get; private set; } = 0.4f;
+
+        [field: SerializeField, Range(0f, 90f), Tooltip("Au-delà de cet angle, la surface ne compte pas comme du sol.")]
+        public float MaxSlopeAngle { get; private set; } = 50f;
     }
     
     [Serializable]

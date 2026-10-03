@@ -56,7 +56,7 @@ MonoBehaviour:
   <Throw>k__BackingField:
     <LayerObject>k__BackingField:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 256
     <DetectRadius>k__BackingField: 1.2
     <RayHeight>k__BackingField: 0
     <PickupDuration>k__BackingField: 0.5

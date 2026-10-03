@@ -48,7 +48,7 @@ namespace Characters
 
         public bool ThrowPressed => _playerInput != null && _playerInput.Player.ThrowObject.WasPressedThisFrame();
         
-        public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.IsPressed();
+        public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.WasPressedThisFrame();
         
         private PlayerAction _playerInput;
 

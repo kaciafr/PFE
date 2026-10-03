@@ -12,6 +12,7 @@ namespace Characters.Component
         [SerializeField] private bool drawDebug = true;
 
         public bool IsGrounded { get; private set; }
+        public Vector3 GroundNormal { get; private set; } = Vector3.up;
         public bool LadderInFront { get; private set; }
         
         public Rigidbody ThrowableInFront { get; private set;  }
@@ -31,14 +32,38 @@ namespace Characters.Component
         private void CheckGround()
         {
             var ground = settings.Ground;
-            Vector3 origin = transform.position + Vector3.up * ground.CheckOffset;
+            Vector3 center = transform.position + Vector3.up * ground.CheckOffset;
+            float distance = ground.RaycastDistance + ground.CheckOffset;
 
-            IsGrounded = Physics.Raycast(origin, Vector3.down, ground.RaycastDistance + ground.CheckOffset,
-                                         ground.GroundLayer, QueryTriggerInteraction.Ignore);
+            int hits = 0;
+            Vector3 normalSum = Vector3.zero;
 
-            if (drawDebug)
-                Debug.DrawRay(origin, Vector3.down * (ground.RaycastDistance + ground.CheckOffset),
-                              IsGrounded ? Color.green : Color.red);
+            // i = 0 : rayon central, puis un cercle de RayCount rayons autour
+            for (int i = 0; i <= ground.RayCount; i++)
+            {
+                Vector3 origin = center;
+                if (i > 0)
+                {
+                    float angle = (i - 1) * Mathf.PI * 2f / ground.RayCount;
+                    origin += new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * ground.RayRadius;
+                }
+
+                bool hit = Physics.Raycast(origin, Vector3.down, out RaycastHit info, distance,
+                                           ground.GroundLayer, QueryTriggerInteraction.Ignore)
+                           && Vector3.Angle(info.normal, Vector3.up) <= ground.MaxSlopeAngle;
+
+                if (hit)
+                {
+                    hits++;
+                    normalSum += info.normal;
+                }
+
+                if (drawDebug)
+                    Debug.DrawRay(origin, Vector3.down * distance, hit ? Color.green : Color.red);
+            }
+
+            IsGrounded = hits > 0;
+            GroundNormal = hits > 0 ? (normalSum / hits).normalized : Vector3.up;
         }
 
         private void CheckLadder()
@@ -75,19 +100,37 @@ namespace Characters.Component
         }
 
 
+        private readonly Collider[] throwableBuffer = new Collider[8];
+
         private void CheckThrowable()
         {
-            Vector3 origin = transform.position + Vector3.up * settings.Throw.RayHeight
-                             - playerObject.forward * settings.Throw.DetectRadius;
+            var throwSettings = settings.Throw;
+            Vector3 origin = transform.position + Vector3.up * throwSettings.RayHeight;
+            Vector3 center = origin + playerObject.forward * throwSettings.DetectRadius;
 
-            ThrowableInFront = Physics.SphereCast(origin, settings.Throw.DetectRadius, playerObject.forward, out RaycastHit hit,
-                settings.Throw.DetectRadius, settings.Throw.LayerObject, QueryTriggerInteraction.Ignore)
-                ? hit.rigidbody
-                : null;
+            // Un SphereCast ignore les objets déjà dans la sphère au départ : on prend le plus proche dans la zone devant
+            int count = Physics.OverlapSphereNonAlloc(center, throwSettings.DetectRadius, throwableBuffer,
+                                                      throwSettings.LayerObject, QueryTriggerInteraction.Ignore);
+
+            Rigidbody closest = null;
+            float closestDistance = float.MaxValue;
+            for (int i = 0; i < count; i++)
+            {
+                Rigidbody body = throwableBuffer[i].attachedRigidbody;
+                if (body == null) continue;
+
+                float distance = (body.position - origin).sqrMagnitude;
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closest = body;
+                }
+            }
+
+            ThrowableInFront = closest;
 
             if (drawDebug)
-                Debug.DrawRay(origin, playerObject.forward * settings.Throw.DetectRadius,
-                    ThrowableInFront ? Color.magenta : Color.gray);
+                Debug.DrawLine(origin, center, ThrowableInFront ? Color.magenta : Color.gray);
         }
     }
 }

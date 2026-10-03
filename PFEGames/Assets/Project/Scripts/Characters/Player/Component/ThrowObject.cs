@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Characters.Component
@@ -11,6 +12,8 @@ namespace Characters.Component
         [Header("Throw")]
         [SerializeField, Min(0f)] private float throwSpeed = 10f;
         [SerializeField, Range(0f, 1f)] private float upwardBias = 0.3f;
+        [SerializeField, Min(0f), Tooltip("Temps pendant lequel l'objet lâché ne touche pas le joueur (évite qu'il le pousse en l'air).")]
+        private float ignorePlayerTime = 0.3f;
 
         [Header("Trajectory")]
         [SerializeField, Range(10, 100)] private int linePoints = 25;
@@ -19,7 +22,8 @@ namespace Characters.Component
 
         private LineRenderer lineRenderer;
         private Rigidbody heldObject;
-        private Collider heldCollider;
+        private Collider[] heldColliders;
+        private Collider[] playerColliders;
         private Transform initialParent;
         private bool isAiming;
 
@@ -29,6 +33,7 @@ namespace Characters.Component
         {
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.enabled = false;
+            playerColliders = GetComponentsInChildren<Collider>();
         }
 
         private void LateUpdate()
@@ -42,11 +47,11 @@ namespace Characters.Component
             if (obj == null || IsHolding) return;
 
             heldObject = obj;
-            heldCollider = obj.GetComponent<Collider>();
+            heldColliders = obj.GetComponentsInChildren<Collider>();
             initialParent = obj.transform.parent;
 
             heldObject.isKinematic = true;
-            if (heldCollider != null) heldCollider.enabled = false;
+            SetHeldCollidersEnabled(false);
 
             heldObject.transform.SetParent(releasePoint);
             heldObject.transform.localPosition = Vector3.zero;
@@ -83,14 +88,41 @@ namespace Characters.Component
         {
             heldObject.transform.SetParent(initialParent);
             heldObject.isKinematic = false;
-            if (heldCollider != null) heldCollider.enabled = true;
+
+            SetPlayerCollisionIgnored(heldColliders, true);
+            SetHeldCollidersEnabled(true);
+
+            if (isActiveAndEnabled)
+                StartCoroutine(RestorePlayerCollision(heldColliders));
+            else
+                SetPlayerCollisionIgnored(heldColliders, false);
         }
 
         private void ClearHeld()
         {
             heldObject = null;
-            heldCollider = null;
+            heldColliders = null;
             SetAiming(false);
+        }
+
+        private void SetHeldCollidersEnabled(bool enabled)
+        {
+            foreach (Collider col in heldColliders)
+                if (col != null) col.enabled = enabled;
+        }
+
+        private void SetPlayerCollisionIgnored(Collider[] objectColliders, bool ignore)
+        {
+            foreach (Collider objectCol in objectColliders)
+            foreach (Collider playerCol in playerColliders)
+                if (objectCol != null && playerCol != null)
+                    Physics.IgnoreCollision(objectCol, playerCol, ignore);
+        }
+
+        private IEnumerator RestorePlayerCollision(Collider[] objectColliders)
+        {
+            yield return new WaitForSeconds(ignorePlayerTime);
+            SetPlayerCollisionIgnored(objectColliders, false);
         }
 
         private Vector3 GetThrowVelocity()

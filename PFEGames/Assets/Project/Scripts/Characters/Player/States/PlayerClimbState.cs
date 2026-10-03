@@ -40,8 +40,14 @@ namespace Characters
                 return;
             }
         }
+        public override void FixedTick(PlayerStateMachine ctx)
+        {
+            ctx.Player.Climb(climbInput);
+        }
+
         public override void Exit(PlayerStateMachine ctx)
         {
+            ctx.Player.UnClimb();
             ctx.Player.Animator.SetClimbSpeed(0f);
         }
     }

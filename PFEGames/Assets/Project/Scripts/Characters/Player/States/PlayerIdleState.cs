@@ -24,14 +24,10 @@ namespace Characters
                 return;
             }
             
-            if (ctx.Player.Input.InteractPressed)
+            if (ctx.Player.Input.InteractPressed && ctx.Player.CanPickUp)
             {
                 ctx.SwitchState(ctx.InteractState);
-            }
-
-            if (ctx.Player.Input.ThrowPressed)
-            {
-                ctx.SwitchState(ctx.ThrowState);
+                return;
             }
 
             if (ctx.Player.Input.CrouchHeld)
