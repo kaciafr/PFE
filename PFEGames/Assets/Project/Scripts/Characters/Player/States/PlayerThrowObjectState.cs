@@ -5,20 +5,25 @@ namespace Characters
     public class PlayerThrowObjectState : PlayerState
     {
         private bool isMoving;
+        private PlayerManager player;
 
-        // Phase de lancer : l'anim Throw joue, l'objet reste en main jusqu'à ReleaseTime
+        // Phase de lancer : l'anim Throw joue, l'objet reste en main jusqu'à l'Animation Event OnThrowRelease
         private bool isThrowing;
         private float throwTimer;
 
         public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entered PlayerThrowObjectState");
+            player = ctx.Player;
             isThrowing = false;
             throwTimer = 0f;
-            ctx.Player.SetAiming(true);
+            player.SetAiming(true);
+
+            if (player.AnimEvents != null)
+                player.AnimEvents.ThrowRelease += OnThrowRelease;
 
             isMoving = HasMoveInput(ctx);
-            ctx.Player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold);
+            player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold);
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -62,17 +67,27 @@ namespace Characters
             }
         }
 
+        private void OnThrowRelease()
+        {
+            if (isThrowing && player.IsHolding)
+                player.Throw();
+        }
+
         private void TickThrow(PlayerStateMachine ctx)
         {
             var player = ctx.Player;
-            var settings = player.Settings.Throw;
             throwTimer += Time.deltaTime;
 
-            if (player.IsHolding && throwTimer >= settings.ReleaseTime)
-                player.Throw();
+            if (throwTimer < player.Settings.Throw.ThrowDuration) return;
 
-            if (throwTimer >= settings.ThrowDuration)
-                ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
+            // Filet de sécurité si l'event n'est pas posé sur le clip Throw
+            if (player.IsHolding)
+            {
+                Debug.LogWarning("Throw : Animation Event OnThrowRelease manquant sur le clip Throw.");
+                player.Throw();
+            }
+
+            ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
@@ -88,6 +103,9 @@ namespace Characters
             Debug.Log("Exited PlayerThrowObjectState");
             isThrowing = false;
             ctx.Player.SetAiming(false);
+
+            if (ctx.Player.AnimEvents != null)
+                ctx.Player.AnimEvents.ThrowRelease -= OnThrowRelease;
 
             if (ctx.Player.IsHolding)
                 ctx.Player.DropObject();

@@ -18,6 +18,7 @@ namespace Characters
         public CrateGrabber Grabber { get; private set; }
         public ThrowObject Thrower { get; private set; }
         public PlayerAnimator Animator { get; private set; }
+        public PlayerAnimationEvents AnimEvents { get; private set; }
 
         #endregion
 
@@ -32,6 +33,7 @@ namespace Characters
             Grabber      = GetComponent<CrateGrabber>();
             Thrower      = GetComponent<ThrowObject>();
             Animator     = GetComponentInChildren<PlayerAnimator>();
+            AnimEvents   = GetComponentInChildren<PlayerAnimationEvents>();
         }
 
         private void OnEnable()  => Input.EnablePlayerInput();

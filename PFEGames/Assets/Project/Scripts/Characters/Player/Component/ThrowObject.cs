@@ -33,6 +33,8 @@ namespace Characters.Component
         private Collider[] heldColliders;
         private Collider[] playerColliders;
         private Transform initialParent;
+        private Coroutine restoreRoutine;
+        private Collider[] restoreColliders;
         private bool isAiming;
         private float currentSpeed;
 
@@ -109,13 +111,29 @@ namespace Characters.Component
             heldObject.transform.SetParent(initialParent);
             heldObject.isKinematic = false;
 
+            // Un ancien timer encore en cours réactiverait la collision trop tôt : on le termine tout de suite
+            FinishPendingRestore();
+
             SetPlayerCollisionIgnored(heldColliders, true);
             SetHeldCollidersEnabled(true);
 
             if (isActiveAndEnabled)
-                StartCoroutine(RestorePlayerCollision(heldColliders));
+            {
+                restoreColliders = heldColliders;
+                restoreRoutine = StartCoroutine(RestorePlayerCollision());
+            }
             else
                 SetPlayerCollisionIgnored(heldColliders, false);
+        }
+
+        private void FinishPendingRestore()
+        {
+            if (restoreRoutine == null) return;
+
+            StopCoroutine(restoreRoutine);
+            SetPlayerCollisionIgnored(restoreColliders, false);
+            restoreRoutine = null;
+            restoreColliders = null;
         }
 
         private void ClearHeld()
@@ -139,10 +157,12 @@ namespace Characters.Component
                     Physics.IgnoreCollision(objectCol, playerCol, ignore);
         }
 
-        private IEnumerator RestorePlayerCollision(Collider[] objectColliders)
+        private IEnumerator RestorePlayerCollision()
         {
             yield return new WaitForSeconds(ignorePlayerTime);
-            SetPlayerCollisionIgnored(objectColliders, false);
+            SetPlayerCollisionIgnored(restoreColliders, false);
+            restoreRoutine = null;
+            restoreColliders = null;
         }
 
         private Vector3 GetThrowVelocity()
@@ -186,6 +206,10 @@ namespace Characters.Component
             }
         }
 
-        private void OnDisable() => Drop();
+        private void OnDisable()
+        {
+            Drop();
+            FinishPendingRestore();
+        }
     }
 }
