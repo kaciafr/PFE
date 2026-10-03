@@ -3,48 +3,58 @@ using UnityEngine;
 namespace Characters
 {
     public class PlayerGrabState : PlayerState
-
     {
-    public PlayerGrabState(PlayerStateMachine ctx) : base(ctx) { }
+        private const float MoveThreshold = 0.1f;
+        private const float PullThreshold = -0.1f;
 
-    private const float MoveThreshold = 0.05f; 
-    public override void Enter()
-    {
-        Debug.Log("Entering PlayerGrabState");
-        ctx.movement.Grab();
-        ctx.animator.Play(AnimIds.Grab);
-    }
+        private float pushOrPull;
+        private bool isPulling;
 
-    public override void Exit()
-    {
-        Debug.Log("Exiting PlayerGrabState");
-        ctx.movement.UnGrab();
-        ctx.animator.SetGrabSpeed(0f);
-
-    }
-
-    public override void Tick()
-    {
-        if (!ctx.inputAction.GrabHeld || !ctx.movement.IsGrabbing)
+        public override void Enter(PlayerStateMachine ctx)
         {
-            ctx.SwitchState(new PlayerIdleState(ctx));
-            return;
+            Debug.Log("Entering PlayerGrabState");
+            pushOrPull = 0f;
+            isPulling = false;
+            ctx.Player.Grab();
+            ctx.Player.Animator.Play(AnimIds.Grab);
+            ctx.Player.Animator.SetGrabSpeed(0f);
         }
 
-        Vector2 grabinput = ctx.inputAction.MoveValue;
-        grabinput.y = 0f; 
+        public override void Exit(PlayerStateMachine ctx)
+        {
+            Debug.Log("Exiting PlayerGrabState");
+            ctx.Player.UnGrab();
+            ctx.Player.Animator.SetGrabSpeed(0f);
+        }
 
-        if (Mathf.Abs(grabinput.x) < MoveThreshold)
-            grabinput.x = 0f;
+        public override void Tick(PlayerStateMachine ctx)
+        {
+            if (!ctx.Player.Input.GrabHeld || !ctx.Player.IsGrabbing)
+            {
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
 
-        ctx.animator.SetGrabSpeed(Mathf.Abs(grabinput.x));
+            pushOrPull = Vector3.Dot(ctx.Player.MoveDirection, ctx.Player.Motor.Forward);
+            if (Mathf.Abs(pushOrPull) < MoveThreshold)
+                pushOrPull = 0f;
 
-        if (grabinput.x != 0f)
-            ctx.movement.Move(grabinput);
-        else
-            ctx.movement.Stop();
-    }
+            bool pulling = pushOrPull < PullThreshold;
+            if (pulling != isPulling)
+            {
+                isPulling = pulling;
+                ctx.Player.Animator.Play(isPulling ? AnimIds.Pull : AnimIds.Grab);
+            }
 
+            ctx.Player.Animator.SetGrabSpeed(Mathf.Abs(pushOrPull));
+        }
 
+        public override void FixedTick(PlayerStateMachine ctx)
+        {
+            if (pushOrPull != 0f)
+                ctx.Player.MoveWorld(ctx.Player.Facing * pushOrPull, ctx.Player.Settings.Grab.PushPullSpeed);
+            else
+                ctx.Player.Stop();
+        }
     }
 }

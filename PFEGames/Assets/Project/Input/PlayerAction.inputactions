@@ -75,6 +75,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "ThrowObject",
+                    "type": "Button",
+                    "id": "c6c6d992-48b4-4025-a72c-5aace6dc18bc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -201,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ac652b1a-c32f-45e9-80f7-9e163b0b2cb6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bc15f954-b8ad-4935-b711-7a614b6446b8",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -229,6 +250,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd92c6df-4072-450d-bcd9-bbe01c9b6ee7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

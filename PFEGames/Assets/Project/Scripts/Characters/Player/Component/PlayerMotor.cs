@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace Characters.Component
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMotor : MonoBehaviour
     {
         [SerializeField] private Transform cam;
         [SerializeField] private Transform orientation;
         [SerializeField] private Transform playerObject;
         [SerializeField] private PlayerSettings settings;
-
+        public Vector3 Forward => playerObject.forward;
         private Rigidbody rb;
 
         public Vector3 Velocity => rb.linearVelocity;
@@ -35,6 +36,16 @@ namespace Characters.Component
         {
             Vector3 dir = GetMoveDirection(input);
 
+            if (rotate && dir.sqrMagnitude > 0.001f)
+                RotateTowards(dir);
+
+            Vector3 velocity = dir * speed;
+            velocity.y = rb.linearVelocity.y;
+            rb.linearVelocity = velocity;
+        }
+
+        public void MoveWorld(Vector3 dir, float speed, bool rotate = true)
+        {
             if (rotate && dir.sqrMagnitude > 0.001f)
                 RotateTowards(dir);
 

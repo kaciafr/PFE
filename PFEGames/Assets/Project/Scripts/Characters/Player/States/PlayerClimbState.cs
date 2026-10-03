@@ -4,44 +4,45 @@ namespace Characters
 {
     public class PlayerClimbState : PlayerState
     {
-        public PlayerClimbState(PlayerStateMachine ctx) : base(ctx) { }
 
 
         private const float MoveThreshold = 0.05f;
 
-        public override void Enter()
+        private float climbInput;
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entering PlayerClimbState");
-            ctx.animator.Play(AnimIds.Climb);
+            climbInput = 0f;
+            ctx.Player.StartClimb();
+            ctx.Player.Animator.Play(AnimIds.Climb);
         }
+        
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            if (ctx.movement.IsClimbingTop)
-            {
-                ctx.SwitchState(new PlayerClimbTopState(ctx));
-                return;
-            }
-
-            if (!ctx.movement.IsClimbing)
-            {
-                ctx.SwitchState(new PlayerIdleState(ctx));
-                return;
-            }
-
-            Vector2 input = ctx.inputAction.MoveValue;
-            ctx.movement.Move(input);
-
-            float climbInput = input.y;
+            
+ 
+            climbInput = ctx.Player.MoveInput.y;
             if (Mathf.Abs(climbInput) < MoveThreshold)
                 climbInput = 0f;
-
-            ctx.animator.SetClimbSpeed(climbInput);
+ 
+            ctx.Player.Animator.SetClimbSpeed(climbInput);
+ 
+            if (climbInput < 0f && ctx.Player.Sensor.IsGrounded)
+            {
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
+ 
+            if (!ctx.Player.LadderInFront)
+            {
+                ctx.SwitchState(ctx.ClimbTopState);
+                return;
+            }
         }
-
-        public override void Exit()
+        public override void Exit(PlayerStateMachine ctx)
         {
-            ctx.animator.SetClimbSpeed(0f);
+            ctx.Player.Animator.SetClimbSpeed(0f);
         }
     }
 }

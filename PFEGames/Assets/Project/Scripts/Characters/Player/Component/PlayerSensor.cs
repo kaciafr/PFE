@@ -1,3 +1,4 @@
+using System;
 using Characters.Data;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Characters.Component
 
         public bool IsGrounded { get; private set; }
         public bool LadderInFront { get; private set; }
+        
+        public Rigidbody ThrowableInFront { get; private set;  }
         public Vector3 LadderNormal { get; private set; }
         public Vector3 LadderPoint { get; private set; }
         public Rigidbody CrateInFront { get; private set; }
@@ -21,6 +24,8 @@ namespace Characters.Component
             CheckGround();
             CheckLadder();
             CheckCrate();
+            CheckThrowable(); 
+
         }
 
         private void CheckGround()
@@ -67,6 +72,22 @@ namespace Characters.Component
 
             if (drawDebug)
                 Debug.DrawRay(origin, dir * grab.DetectDistance, CrateInFront ? Color.blue : Color.yellow);
+        }
+
+
+        private void CheckThrowable()
+        {
+            Vector3 origin = transform.position + Vector3.up * settings.Throw.RayHeight
+                             - playerObject.forward * settings.Throw.DetectRadius;
+
+            ThrowableInFront = Physics.SphereCast(origin, settings.Throw.DetectRadius, playerObject.forward, out RaycastHit hit,
+                settings.Throw.DetectRadius, settings.Throw.LayerObject, QueryTriggerInteraction.Ignore)
+                ? hit.rigidbody
+                : null;
+
+            if (drawDebug)
+                Debug.DrawRay(origin, playerObject.forward * settings.Throw.DetectRadius,
+                    ThrowableInFront ? Color.magenta : Color.gray);
         }
     }
 }

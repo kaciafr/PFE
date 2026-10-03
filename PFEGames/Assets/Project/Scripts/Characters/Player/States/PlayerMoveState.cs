@@ -1,53 +1,63 @@
-using Characters;
 using UnityEngine;
 
+namespace Characters
+{
     public class PlayerMoveState : PlayerState
     {
-        public PlayerMoveState(PlayerStateMachine ctx) : base(ctx) { }
-        
-        
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entered PlayerMoveState");
-            ctx.animator.Play(AnimIds.Move);
+            ctx.Player.Animator.Play(AnimIds.Move);
         }
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            if (ctx.movement.IsClimbing)
+
+            if (!HasMoveInput(ctx))
             {
-                ctx.SwitchState(new PlayerClimbState(ctx));
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
+            
+
+            if (WantsToClimb(ctx))
+            {
+                ctx.SwitchState(ctx.ClimbState);
                 return;
             }
 
-            if (ctx.inputAction.CrouchHeld)
+            if (ctx.Player.Input.InteractPressed)
             {
-                ctx.SwitchState(new PlayerCrouchState(ctx));
+                ctx.SwitchState(ctx.InteractState);
+            }
+
+            if (ctx.Player.Input.ThrowPressed)
+            {
+                ctx.SwitchState(ctx.ThrowState);
+            }
+
+            if (ctx.Player.Input.CrouchHeld)
+            {
+                ctx.SwitchState(ctx.CrouchState);
                 return;
             }
-            if (ctx.inputAction.JumpPressed && ctx.movement.isGrounded)
+
+            if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
             {
-                ctx.SwitchState(new PlayerJumpState(ctx));
-                
+                ctx.SwitchState(ctx.JumpState);
                 return;
             }
 
-            if (ctx.inputAction.SprintHeld)
+            if (ctx.Player.Input.SprintHeld)
             {
-                ctx.SwitchState(new PlayerSprintState(ctx));
-                return; 
+                ctx.SwitchState(ctx.SprintState);
+                return;
             }
-            
-            
-            ctx.movement.Move(ctx.inputAction.MoveValue);
-            if (ctx.inputAction.MoveValue.sqrMagnitude < 0.01f)
-            {
-                ctx.SwitchState(new PlayerIdleState(ctx));
-                return; 
-                Debug.Log(ctx.inputAction.MoveValue);
+        }
 
-            }
-
-            
+        public override void FixedTick(PlayerStateMachine ctx)
+        {
+            MoveAt(ctx, ctx.Player.Settings.Movement.WalkSpeed);
         }
     }
+}

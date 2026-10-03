@@ -4,40 +4,41 @@ namespace Characters
 {
     public class PlayerSprintState :  PlayerState
     {
-        public PlayerSprintState (PlayerStateMachine ctx ) :  base(ctx) {}
 
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log ("Entered PlayerSprintState");
-            ctx.movement.Sprint();
-            ctx.animator.Play (AnimIds.Run);
+            ctx.Player.Animator.Play (AnimIds.Run);
         }
 
-        public override void Exit()
+        public override void Exit(PlayerStateMachine ctx)
         {
             Debug.Log ("Exited PlayerSprintState");
-            ctx.movement.UnSprint();
         }
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            ctx.movement.Move(ctx.inputAction.MoveValue);
 
-            if (!ctx.inputAction.SprintHeld || ctx.inputAction.MoveValue.sqrMagnitude < 0.01f)
+            if (!ctx.Player.Input.SprintHeld || !HasMoveInput(ctx))
             {
-                ctx.SwitchState(new PlayerMoveState(ctx));
+                ctx.SwitchState(ctx.MoveState);
                 return; 
             }
-            if (ctx.movement.IsClimbing)
+            if (WantsToClimb(ctx))
             {
-                ctx.SwitchState(new PlayerClimbState(ctx));
+                ctx.SwitchState(ctx.ClimbState);
                 return;
             }
 
-            if (ctx.inputAction.JumpPressed && ctx.movement.isGrounded)
+            if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
             {
-                ctx.SwitchState(new PlayerJumpState(ctx));
+                ctx.SwitchState(ctx.JumpState);
             }
+        }
+
+        public override void FixedTick(PlayerStateMachine ctx)
+        {
+            MoveAt(ctx, ctx.Player.Settings.Movement.SprintSpeed);
         }
     }
 }

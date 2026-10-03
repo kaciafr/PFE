@@ -22,14 +22,10 @@ namespace Characters
         
         public void SetClimbSpeed(float speed) 
         {
-            animator.SetFloat(AnimsParam.ClimbSpeed, speed); 
+            animator.SetFloat(AnimsParams.ClimbSpeed, speed); 
         }
 
-        public void SetGrabSpeed(float speed)
-        {
-            animator.SetFloat(AnimsParam.ClimbSpeed, speed);
-        }
-        
+        public void SetGrabSpeed(float speed) => animator.SetFloat(AnimsParams.GrabSpeed, speed);        
         
         
     }

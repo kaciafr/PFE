@@ -1,41 +1,65 @@
-
 using UnityEngine;
 
 namespace Characters
 {
-    public class PlayerStateMachine : MonoBehaviour, IDie
+    [RequireComponent(typeof(PlayerManager))]
+    public class PlayerStateMachine : MonoBehaviour
     {
-        public InputReader inputAction;
-        public PlayerMovement movement;
-        public PlayerAnimator animator;
+        public PlayerManager Player { get; private set; }
+        public PlayerState Current { get; private set; }
 
-        private PlayerState currentState;
+        public PlayerIdleState IdleState { get; private set; }
+        public PlayerMoveState MoveState { get; private set; }
+        public PlayerSprintState SprintState { get; private set; }
+        public PlayerCrouchState CrouchState { get; private set; }
+        public PlayerJumpState JumpState { get; private set; }
+        public PlayerClimbState ClimbState { get; private set; }
+        public PlayerClimbTopState ClimbTopState { get; private set; }
+        public PlayerGrabState GrabState { get; private set; }
+        public PlayerInteractObjectState InteractState { get; private set; }
+        public PlayerThrowObjectState ThrowState { get; private set; }
 
-        private void OnEnable()
+        public PlayerDieState DieState { get; private set; }
+
+        private void Awake()
         {
-            inputAction.EnablePlayerInput();
-        }
+            Player = GetComponent<PlayerManager>();
 
-        private void OnDisable()
-        {
-            inputAction.DisableAllInput();
+            IdleState           = new PlayerIdleState();
+            MoveState           = new PlayerMoveState();
+            SprintState         = new PlayerSprintState();
+            CrouchState         = new PlayerCrouchState();
+            JumpState           = new PlayerJumpState();
+            ClimbState          = new PlayerClimbState();
+            ClimbTopState       = new PlayerClimbTopState();
+            GrabState           = new PlayerGrabState();
+            InteractState = new PlayerInteractObjectState();
+            DieState            = new PlayerDieState();
+            ThrowState = new PlayerThrowObjectState(); 
         }
 
         private void Start()
         {
-            SwitchState(new PlayerIdleState(this));
+            SwitchState(IdleState);
         }
 
         private void Update()
         {
-            currentState.Tick();
+            Current?.Tick(this);
+        }
+
+        private void FixedUpdate()
+        {
+            Current?.FixedTick(this);
         }
 
         public void SwitchState(PlayerState nextState)
         {
-            currentState?.Exit();     
-            currentState = nextState;
-            currentState.Enter();
+            if (nextState == null || nextState == Current) return;
+
+            Current?.Exit(this);
+            Current = nextState;
+            Current.Enter(this);
         }
     }
 }

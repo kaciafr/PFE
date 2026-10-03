@@ -1,42 +1,34 @@
-using Characters; 
 using UnityEngine;
 
-
-    public class PlayerJumpState :  PlayerState
+namespace Characters
+{
+    public class PlayerJumpState : PlayerState
     {
-        public PlayerJumpState(PlayerStateMachine ctx) : base(ctx) { }
+        private const float MinAirTime = 0.15f;
+        private float timer;
 
-        public float timer;
-        private float MinAirTime = 0.15f; 
-        
-
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
+            Debug.Log("Entering PlayerJumpState");
             timer = 0f;
-            ctx.movement.Jump();
-            ctx.animator.Play(AnimIds.Jump);
-            Debug.Log("Entering PlayerJumpState"); 
+            ctx.Player.Jump();
+            ctx.Player.Animator.Play(AnimIds.Jump);
         }
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            ctx.movement.Move(ctx.inputAction.MoveValue);
             timer += Time.deltaTime;
-            //ctx.movement.Jump(ctx.inputAction.);
-            
-            if (timer<MinAirTime) return;
+            if (timer < MinAirTime) return;
 
-            if (ctx.movement.isGrounded && ctx.movement.VerticalVelocity <= 0.01)
+            if (ctx.Player.IsGrounded && ctx.Player.VerticalVelocity <= 0.01f)
             {
-                if (ctx.inputAction.MoveValue.sqrMagnitude > 0.01f)
-                {
-                    ctx.SwitchState(new PlayerMoveState(ctx));
-                }
-                else
-                {
-                    ctx.SwitchState(new PlayerIdleState(ctx));
-                }
-            } ; 
-            
+                ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
+            }
+        }
+
+        public override void FixedTick(PlayerStateMachine ctx)
+        {
+            MoveAt(ctx, ctx.Player.Settings.Movement.WalkSpeed);
         }
     }
+}

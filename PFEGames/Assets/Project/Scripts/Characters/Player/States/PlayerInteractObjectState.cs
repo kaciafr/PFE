@@ -2,23 +2,43 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class PlayerInteractObjectState: PlayerState
+    public class PlayerInteractObjectState : PlayerState
     {
-        public PlayerInteractObjectState(PlayerStateMachine ctx) : base(ctx) { }
+        private float timer;
+        private Rigidbody target;
 
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entered PlayerInteractObjectState");
-            ctx.animator.Play(AnimIds.InteractObject);
+            timer = 0f;
+            target = ctx.Player.ThrowableInFront;
+            ctx.Player.Animator.Play(AnimIds.Interact);
         }
 
-        public override void Exit()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            Debug.Log("Existing PlayerInteractObjectState");
+            timer += Time.deltaTime;
+            if (timer < ctx.Player.Settings.Throw.PickupDuration) return;
+
+            if (target == null)
+            {
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
+
+            ctx.Player.PickUp(target);
+            ctx.SwitchState(ctx.ThrowState);
         }
-        public override void Tick()
+
+        public override void FixedTick(PlayerStateMachine ctx)
         {
-            
+            ctx.Player.Stop();
+        }
+
+        public override void Exit(PlayerStateMachine ctx)
+        {
+            Debug.Log("Exited PlayerInteractObjectState");
+            target = null;
         }
     }
 }

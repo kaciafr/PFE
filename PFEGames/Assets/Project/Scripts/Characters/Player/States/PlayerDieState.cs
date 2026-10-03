@@ -2,22 +2,19 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class PlayerDieState: PlayerState
+    public class PlayerDieState : PlayerState
     {
-        public PlayerDieState(PlayerStateMachine ctx) : base(ctx) { }
-        
-        
-
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
-            ctx.inputAction.DisableAllInput();
-            ctx.movement.StopStateMovement();
             Debug.Log("Entering Die State");
-            ctx.animator.Play(AnimIds.Die);
+            ctx.Player.Input.DisableAllInput();
+            ctx.Player.Stop();
+            ctx.Player.Animator.Play(AnimIds.Die);
         }
-        
-        public override void Exit(){}
 
-        public override void Tick() {}
+        public override void Exit(PlayerStateMachine ctx)
+        {
+            ctx.Player.Input.EnablePlayerInput();
+        }
     }
 }

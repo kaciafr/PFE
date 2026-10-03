@@ -4,62 +4,56 @@ namespace Characters
 {
     public class PlayerCrouchState : PlayerState
     {
-        public PlayerCrouchState(PlayerStateMachine ctx) : base(ctx) { }
-
         private bool isMoving;
-        private const float MoveThreshold = 0.05f;
 
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entering PlayerCrouchState");
-            ctx.movement.Crouch();
+            ctx.Player.Crouch();
 
-            isMoving = IsMoveInput();
-            ctx.animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+            isMoving = HasMoveInput(ctx);
+            ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
         }
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            if (ctx.movement.IsClimbing)
+            var player = ctx.Player;
+
+            if (WantsToClimb(ctx))
             {
-                ctx.movement.UnCrouch();
-                ctx.SwitchState(new PlayerClimbState(ctx));
+                ctx.SwitchState(ctx.ClimbState);
                 return;
             }
 
-            ctx.movement.Move(ctx.inputAction.MoveValue);
-
-            if (!ctx.inputAction.CrouchHeld && ctx.movement.CanStand)
+            if (!player.Input.CrouchHeld && player.CanStand)
             {
-                ctx.movement.UnCrouch();
-                ctx.SwitchState(new PlayerIdleState(ctx));
+                ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
                 return;
             }
 
-            if (ctx.inputAction.JumpPressed && ctx.movement.isGrounded && ctx.movement.CanStand)
+            if (player.Input.JumpPressed && player.IsGrounded && player.CanStand)
             {
-                ctx.movement.UnCrouch();
-                ctx.SwitchState(new PlayerJumpState(ctx));
+                ctx.SwitchState(ctx.JumpState);
                 return;
             }
 
-            bool moving = IsMoveInput();
+            bool moving = HasMoveInput(ctx);
             if (moving != isMoving)
             {
                 isMoving = moving;
-                ctx.animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+                player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
             }
         }
 
-        public override void Exit()
+        public override void FixedTick(PlayerStateMachine ctx)
         {
-            Debug.Log("Exiting PlayerCrouchState");
-            ctx.movement.UnCrouch();
+            MoveAt(ctx, ctx.Player.Settings.Crouch.Speed);
         }
 
-        private bool IsMoveInput()
+        public override void Exit(PlayerStateMachine ctx)
         {
-            return ctx.inputAction.MoveValue.sqrMagnitude > MoveThreshold * MoveThreshold;
+            Debug.Log("Exiting PlayerCrouchState");
+            ctx.Player.UnCrouch();
         }
     }
 }

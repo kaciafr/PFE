@@ -4,20 +4,30 @@ namespace Characters
 {
     public class PlayerClimbTopState : PlayerState
     {
-        public PlayerClimbTopState(PlayerStateMachine ctx) : base(ctx) { }
+        private float timer;
 
-        public override void Enter()
+        public override void Enter(PlayerStateMachine ctx)
         {
             Debug.Log("Entering PlayerClimbTopState");
-            ctx.animator.Play(AnimIds.ClimbTop);
+            timer = 0f;
+            ctx.Player.StartClimbTop();
+            ctx.Player.Animator.Play(AnimIds.ClimbTop);
         }
 
-        public override void Tick()
+        public override void Tick(PlayerStateMachine ctx)
         {
-            if (!ctx.movement.IsClimbingTop)
+            timer += Time.deltaTime;
+
+            if (timer >= ctx.Player.Settings.Climb.TopDuration)
             {
-                ctx.SwitchState(new PlayerIdleState(ctx));
+                ctx.Player.FinishClimbTop();
+                ctx.SwitchState(ctx.IdleState);
             }
+        }
+
+        public override void Exit(PlayerStateMachine ctx)
+        {
+            ctx.Player.EndClimbTop();
         }
     }
 }

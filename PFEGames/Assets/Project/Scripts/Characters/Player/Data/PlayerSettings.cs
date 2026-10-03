@@ -3,7 +3,7 @@ using UnityEngine;
 using Characters.Data;
 namespace Characters.Data
 {
-    [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Characters/Player Setting")]
+    [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Characters/Player Settings")]
     public class PlayerSettings : ScriptableObject
     {
         [field: SerializeField] public MovementSettings Movement { get; private set; } = new();
@@ -12,6 +12,7 @@ namespace Characters.Data
         [field: SerializeField] public GroundSettings Ground { get; private set; } = new();
         [field: SerializeField] public ClimbSettings Climb { get; private set; } = new();
         [field: SerializeField] public GrabSettings Grab { get; private set; } = new();
+        [field: SerializeField] public ThrowSettings Throw  { get; private set; } = new();
 
     }
 
@@ -25,7 +26,9 @@ namespace Characters.Data
     [Serializable]
     public class JumpSettings
     {
-        [field: SerializeField, Min(0f)] public float Force { get; private set; } = 6f;
+        [field: SerializeField, Min(0f)] public float Force { get; private set; } = 6f; 
+        [field: SerializeField, Min(0f)] public float JumpSpeed { get; private set; } = 3f;
+
     }
     
     [Serializable]
@@ -80,5 +83,15 @@ namespace Characters.Data
             [field: SerializeField, Min(0f), Tooltip("Distance au-delà de laquelle la caisse est lâchée automatiquement.")]
             public float BreakDistance { get; private set; } = 3f;
 
+        }
+        
+        [Serializable]
+        public class ThrowSettings
+        {
+            [field: SerializeField] public LayerMask LayerObject { get; private set; }
+            [field: SerializeField, Min(0f)] public float DetectRadius { get; private set; } = 1.2f;
+            [field: SerializeField] public float RayHeight { get; private set; } = 0f;
+            [field: SerializeField, Min(0f)] public float PickupDuration { get; private set; } = 0.5f;
+            
         }
 }

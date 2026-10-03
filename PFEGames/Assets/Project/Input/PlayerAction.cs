@@ -161,6 +161,16 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""ThrowObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6c6d992-48b4-4025-a72c-5aace6dc18bc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -287,6 +297,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ac652b1a-c32f-45e9-80f7-9e163b0b2cb6"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""bc15f954-b8ad-4935-b711-7a614b6446b8"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -317,6 +338,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd92c6df-4072-450d-bcd9-bbe01c9b6ee7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -332,6 +364,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+        m_Player_ThrowObject = m_Player.FindAction("ThrowObject", throwIfNotFound: true);
     }
 
     ~@PlayerAction()
@@ -419,6 +452,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Climb;
     private readonly InputAction m_Player_Grab;
+    private readonly InputAction m_Player_ThrowObject;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -458,6 +492,10 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Grab".
         /// </summary>
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ThrowObject".
+        /// </summary>
+        public InputAction @ThrowObject => m_Wrapper.m_Player_ThrowObject;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -505,6 +543,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Grab.started += instance.OnGrab;
             @Grab.performed += instance.OnGrab;
             @Grab.canceled += instance.OnGrab;
+            @ThrowObject.started += instance.OnThrowObject;
+            @ThrowObject.performed += instance.OnThrowObject;
+            @ThrowObject.canceled += instance.OnThrowObject;
         }
 
         /// <summary>
@@ -537,6 +578,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Grab.started -= instance.OnGrab;
             @Grab.performed -= instance.OnGrab;
             @Grab.canceled -= instance.OnGrab;
+            @ThrowObject.started -= instance.OnThrowObject;
+            @ThrowObject.performed -= instance.OnThrowObject;
+            @ThrowObject.canceled -= instance.OnThrowObject;
         }
 
         /// <summary>
@@ -626,5 +670,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGrab(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ThrowObject" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThrowObject(InputAction.CallbackContext context);
     }
 }

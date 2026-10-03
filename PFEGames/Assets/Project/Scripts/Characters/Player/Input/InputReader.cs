@@ -34,6 +34,7 @@ namespace Characters
         public event Action GrabEvent;
         public event Action GrabCanceledEvent;
         
+        
 
         public Vector2 MoveValue { get; private set; }
 
@@ -44,6 +45,11 @@ namespace Characters
         public bool SprintHeld => _playerInput != null && _playerInput.Player.Sprint.IsPressed();
 
         public bool GrabHeld => _playerInput != null && _playerInput.Player.Grab.IsPressed();
+
+        public bool ThrowPressed => _playerInput != null && _playerInput.Player.ThrowObject.WasPressedThisFrame();
+        
+        public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.IsPressed();
+        
         private PlayerAction _playerInput;
 
         public void EnablePlayerInput()
@@ -111,7 +117,14 @@ namespace Characters
             else if (context.phase == InputActionPhase.Canceled)
                 GrabCanceledEvent?.Invoke();        }
 
-       
+        public void OnThrowObject(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                ThrowObjectEvent?.Invoke();
+            else if (context.phase == InputActionPhase.Canceled)
+                ThrowObjectCanceledEvent?.Invoke();      
+        }
+
 
         public void OnInteract(InputAction.CallbackContext context)
         {
