@@ -28,8 +28,6 @@ namespace Characters
 
         public override void Tick(PlayerStateMachine ctx)
         {
-            var player = ctx.Player;
-
             if (isThrowing)
             {
                 TickThrow(ctx);
@@ -75,7 +73,6 @@ namespace Characters
 
         private void TickThrow(PlayerStateMachine ctx)
         {
-            var player = ctx.Player;
             throwTimer += Time.deltaTime;
 
             if (throwTimer < player.Settings.Throw.ThrowDuration) return;
@@ -93,22 +90,22 @@ namespace Characters
         public override void FixedTick(PlayerStateMachine ctx)
         {
             if (isThrowing)
-                ctx.Player.Stop();
+                player.Stop();
             else
-                MoveAt(ctx, ctx.Player.Settings.Movement.WalkSpeed);
+                MoveAt(ctx, player.Settings.Movement.WalkSpeed);
         }
 
         public override void Exit(PlayerStateMachine ctx)
         {
             Debug.Log("Exited PlayerThrowObjectState");
             isThrowing = false;
-            ctx.Player.SetAiming(false);
+            player.SetAiming(false);
 
-            if (ctx.Player.AnimEvents != null)
-                ctx.Player.AnimEvents.ThrowRelease -= OnThrowRelease;
+            if (player.AnimEvents != null)
+                player.AnimEvents.ThrowRelease -= OnThrowRelease;
 
-            if (ctx.Player.IsHolding)
-                ctx.Player.DropObject();
+            if (player.IsHolding)
+                player.DropObject();
         }
     }
 }
