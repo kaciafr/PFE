@@ -92,6 +92,8 @@ namespace Characters.Data
             [field: SerializeField, Min(0f), Tooltip("Distance au-delà de laquelle la caisse est lâchée automatiquement.")]
             public float BreakDistance { get; private set; } = 3f;
 
+            public float MaxGrabMass = 50f; 
+
         }
         
         [Serializable]

@@ -8,10 +8,7 @@ namespace Characters.Component
     [RequireComponent(typeof(Rigidbody))]
     public class CrateGrabber : MonoBehaviour
     {
-        // Caisse lâchée : bloquée en X/Z (le joueur ne la pousse pas) mais la gravité s'applique toujours
         private const RigidbodyConstraints LockXZ = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-
-        // Une caisse dynamique (même bloquée en X/Z) se fait traverser par le joueur : on la repasse en kinematic une fois posée
         private const float SettleDelay = 0.1f;
         private const float SettleSpeed = 0.05f;
 
@@ -32,6 +29,8 @@ namespace Characters.Component
         public void Grab(Rigidbody crate)
         {
             if (crate == null || IsGrabbing) return;
+            
+            if (crate.mass > settings.Grab.MaxGrabMass) return;
 
             grabbedCrate = crate;
             grabbedCrate.isKinematic = false;
@@ -42,7 +41,6 @@ namespace Characters.Component
         {
             if (grabbedCrate == null) return;
 
-            // On garde la vitesse verticale pour qu'elle continue de tomber si elle est dans le vide
             grabbedCrate.linearVelocity = new Vector3(0f, grabbedCrate.linearVelocity.y, 0f);
             grabbedCrate.constraints |= LockXZ;
             releasedCrates.Add((grabbedCrate, Time.time));
@@ -74,7 +72,6 @@ namespace Characters.Component
                     continue;
                 }
 
-                // Encore en train de tomber (ou trop tôt pour savoir si elle est dans le vide)
                 if (Time.time - releaseTime < SettleDelay || Mathf.Abs(crate.linearVelocity.y) > SettleSpeed)
                     continue;
 
