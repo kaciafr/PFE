@@ -51,7 +51,7 @@ public class BrainPnj : RagDoll
        if (audition != null)
           audition.OnHearAlerte += HandleTargetSound;
 
-       OnRagdoll += EnableRagdollPhysics;
+
        OnRagdoll += KoMode;
        OnWakeUp += DisableRagdollPhysics;
     }
@@ -65,17 +65,10 @@ public class BrainPnj : RagDoll
        AuditionCast audition = GetAptitude<AuditionCast>();
        if (audition != null)
           audition.OnHearAlerte -= HandleTargetSound;
-
-       OnRagdoll -= EnableRagdollPhysics;
        OnRagdoll -= KoMode;
        OnWakeUp -= DisableRagdollPhysics;
     }
-
-    private void EnableRagdollPhysics()
-    {
-       Agent.enabled = false;
-       SetRagdollPhysics(true);
-    }
+	
 
     private void DisableRagdollPhysics()
     {
@@ -162,6 +155,8 @@ public class BrainPnj : RagDoll
 
     public void KoMode()
     {
+	    Agent.enabled = false; 
+	    SetRagdollPhysics(true);
        PnjGoTo(new KoState());
     }
 }

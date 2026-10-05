@@ -6,6 +6,7 @@ namespace RagdollSysteme
 {
 	public class Grab : MonoBehaviour
 	{
+		[SerializeField] private GameObject theGrabber;
 		[SerializeField] private SpringJoint joint;
 		[SerializeField] private List<Rigidbody> pointJoint = new List<Rigidbody>();
 		private ListPointGrab currentTarget;
@@ -45,7 +46,6 @@ namespace RagdollSysteme
 			{
 				if (pointJoint.Count == 0)
 					return;
-
 				joint.connectedBody = pointJoint[0];
 				isGrabbing = true;
 			}

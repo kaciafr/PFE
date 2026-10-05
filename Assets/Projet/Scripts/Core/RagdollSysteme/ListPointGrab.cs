@@ -11,7 +11,7 @@ namespace RagdollSysteme
 		{
 			foreach (Rigidbody rb in PointGrab)
 			{
-				rb.mass = 70;
+				rb.mass = 1;
 			}
 		}
 	}
