@@ -50,12 +50,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FlexibleCelShader\Editor\PresetDataConainer.cs" />
     <Compile Include="Assets\FlexibleCelShader\Editor\CelCustomEditor.cs" />
-    <Compile Include="Assets\Projet\Editor\AnimationCreatorWindow.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\FlexibleCelShader\Editor\PresetHelper.cs" />
+    <Compile Include="Assets\FlexibleCelShader\Editor\PresetDataConainer.cs" />
+    <Compile Include="Assets\Projet\Editor\AnimationCreatorWindow.cs" />
     <Compile Include="Assets\Projet\Editor\PointRoadTools.cs" />
+    <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <None Include="Assets\Projet\Editor\AnimationCreatorWindow.uss" />
     <None Include="Assets\Extensions\UMotionEditor\Plugins\MacOS\Editor\x64\AutodeskFbxSdkLicense.txt" />
     <None Include="Assets\Extensions\UMotionEditor\Plugins\Windows\Editor\x64\AutodeskFbxSdkLicense.txt" />
@@ -536,17 +536,11 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Collections.LowLevel.ILSupport">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.collections@10fff0607388\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
-    </Reference>
     <Reference Include="UMotionEditor">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Editor\UMotionEditor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e\net472\unity-custom\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="UMotionApplication">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Assets\Extensions\UMotionEditor\Plugins\Application\UMotionApplication.dll</HintPath>
@@ -956,113 +950,17 @@
     <Reference Include="System.Text.Json">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\ref\System.Text.Json.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.TestRunner">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.ProBuilder.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.GraphAuthoring.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.GraphAuthoring.Editor.dll</HintPath>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rendering.LightTransport.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Rendering.LightTransport.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections.Tests.CoreCLR.ProtectedJobNested">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.SurfaceCache.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.SurfaceCache.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Profiling.Core">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Profiling.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections.Tests.CoreCLR.PrivateJobNested">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PathTracing.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.PathTracing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PathTracing.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.PathTracing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.RenderPipelines.Core.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Searcher.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.ProBuilder.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.UnifiedRayTracing.Runtime">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.UnifiedRayTracing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor.Shared">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Settings.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.Settings.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.ShaderGraph.Editor">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.ShaderGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>C:\Users\saver\Documents\SetupGit\PFE\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1078,37 +976,37 @@
       <Project>{10318ac5-58a9-6cef-83b1-73ed31f680ed}</Project>
       <Name>HealthSysteme</Name>
     </ProjectReference>
-    <ProjectReference Include="Core.csproj">
-      <Project>{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="Wingman.csproj">
-      <Project>{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}</Project>
-      <Name>Wingman</Name>
-    </ProjectReference>
-    <ProjectReference Include="GamePlay.csproj">
-      <Project>{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}</Project>
-      <Name>GamePlay</Name>
-    </ProjectReference>
-    <ProjectReference Include="PrimeTween.Demo.csproj">
-      <Project>{c0705fe9-af2b-1768-6466-9d219a8325ca}</Project>
-      <Name>PrimeTween.Demo</Name>
-    </ProjectReference>
     <ProjectReference Include="LTX.Installer.csproj">
       <Project>{aae580a9-7243-37ae-b90a-0a134f699e3d}</Project>
       <Name>LTX.Installer</Name>
+    </ProjectReference>
+    <ProjectReference Include="Core.csproj">
+      <Project>{4b4d5f1c-7102-b08d-5a2b-338b11db94ee}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="UMotionSourceEditor.csproj">
       <Project>{d8cef60d-26a3-8b58-5903-e626371d790d}</Project>
       <Name>UMotionSourceEditor</Name>
     </ProjectReference>
+    <ProjectReference Include="Wingman.csproj">
+      <Project>{6b9adf62-5f60-f4bf-ff6c-e071c75746f2}</Project>
+      <Name>Wingman</Name>
+    </ProjectReference>
     <ProjectReference Include="CharacterController.csproj">
       <Project>{3e240b6f-87c9-5aa2-11bf-5ef449c09d73}</Project>
       <Name>CharacterController</Name>
     </ProjectReference>
+    <ProjectReference Include="GamePlay.csproj">
+      <Project>{d7a54233-c398-7b1e-7eb8-22d9fd6d1ffc}</Project>
+      <Name>GamePlay</Name>
+    </ProjectReference>
     <ProjectReference Include="PrimeTween.Debug.csproj">
       <Project>{d4509721-90b9-d160-b78a-20bc243ede91}</Project>
       <Name>PrimeTween.Debug</Name>
+    </ProjectReference>
+    <ProjectReference Include="PrimeTween.Demo.csproj">
+      <Project>{c0705fe9-af2b-1768-6466-9d219a8325ca}</Project>
+      <Name>PrimeTween.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="PrimeTween.Installer.csproj">
       <Project>{e6ef5215-71e0-c589-6fff-4dd20f4df8a5}</Project>
