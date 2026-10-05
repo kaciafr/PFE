@@ -19,6 +19,7 @@ namespace PnjStates
 			wakeUpTime += Time.deltaTime;
 			if (wakeUpTime > maxWakeUpTime)
 			{
+				brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 			}
 		}

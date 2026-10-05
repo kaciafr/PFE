@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6299213684647775123}
   - component: {fileID: 7027338129809543256}
-  m_Layer: 8
+  - component: {fileID: 6138907557516868104}
+  m_Layer: 9
   m_Name: SphereFallNoise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,8 +52,20 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.00001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6138907557516868104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863895719310803314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0e5817a44b440d8d8d4c3107cf8dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::RagdollSysteme.ActiveRagdoll
 --- !u!1 &7598166122818026569
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +318,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2171
+  m_VersionIndex: 2207
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -469,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::PlayerSound.FallingItems
   collider: {fileID: 7027338129809543256}
-  items: {fileID: 11400000, guid: f944a030ce4ead8409159da71aaab362, type: 2}
+  items: {fileID: 11400000, guid: 5e87dfc0df5758241beffd991df95495, type: 2}
   groundMask:
     serializedVersion: 2
     m_Bits: 8

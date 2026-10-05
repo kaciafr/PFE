@@ -17,7 +17,9 @@ namespace Utilities
 		public static int SearchPointCount = 4;
 		public static float SearchRadius = 6f;        
 		public static float SearchWaitPerPoint = 1.5f;
-		public static float MaxMassPool{ get; private set; } = 23f;
+		public static float MaxMassPool{ get; private set; } = 123f;
+		public static float MassNoGrab { get; set; } = 70f;
+
 		public static List<Vector3> SearchPointsGenerated(Vector3 center, float radius, int count)
 		{
 			List<Vector3> points = new List<Vector3>();
