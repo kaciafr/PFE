@@ -12,6 +12,7 @@ namespace Characters
 
         public override void Enter(PlayerStateMachine ctx)
         {
+            Debug.Log("Entered PlayerGrabState");
             pushOrPull = 0f;
             isPulling = false;
 

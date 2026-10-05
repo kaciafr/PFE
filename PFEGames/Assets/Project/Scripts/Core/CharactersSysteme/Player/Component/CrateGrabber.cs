@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Characters.Component
 {
-    [DefaultExecutionOrder(100)]
-    [RequireComponent(typeof(Rigidbody))]
+
     public class CrateGrabber : MonoBehaviour
     {
         private const RigidbodyConstraints LockXZ = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
@@ -18,7 +17,7 @@ namespace Characters.Component
         private readonly List<(Rigidbody crate, float releaseTime)> releasedCrates = new();
 
         public bool IsGrabbing => grabbedCrate != null;
-        public Rigidbody GrabbedCrate => grabbedCrate;
+        public Rigidbody Objectrb => grabbedCrate;
 
         private void Awake()
         {
