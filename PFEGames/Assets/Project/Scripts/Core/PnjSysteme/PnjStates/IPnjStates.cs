@@ -1,3 +1,5 @@
+using Project.Scripts.Core.PnjSysteme;
+
 namespace PnjStates
 {
 	public interface IPnjStates

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - PlayerEyes
+  - Guard
   layers:
   - Default
   - TransparentFX
@@ -16,10 +17,10 @@ TagManager:
   - Obstacle
   - 'Grabable '
   - 'Interactable '
-  - 
-  - 
-  - 
-  - 
+  - DistractiveSound
+  - Player
+  - LD
+  - Guard
   - 
   - 
   - 

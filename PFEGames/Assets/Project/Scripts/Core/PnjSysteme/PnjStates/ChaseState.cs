@@ -1,4 +1,5 @@
 using PnjDetection;
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 using Utilities;
 
@@ -17,6 +18,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			Debug.Log(nameof( ChaseState));
 			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
 		}
 

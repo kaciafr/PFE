@@ -7,7 +7,7 @@ namespace CharacterController.Script
 	{
 		public void EnterState(CharacterSetup characterSetup)
 		{
-			characterSetup.Animator.SetTrigger("Normal");
+			//characterSetup.Animator.SetTrigger("Normal");
 		}
 
 		public void UpdateState(CharacterSetup characterSetup)

@@ -1,5 +1,6 @@
 using System;
 using PnjDetection;
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 
 namespace GamePlay.Animation

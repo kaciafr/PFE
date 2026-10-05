@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RagdollSysteme
+namespace Project.Scripts.Core.RagdollSysteme
 {
 	public class ListPointGrab : MonoBehaviour
 	{
@@ -11,7 +11,7 @@ namespace RagdollSysteme
 		{
 			foreach (Rigidbody rb in PointGrab)
 			{
-				rb.mass = 1;
+				rb.mass = 20;
 			}
 		}
 	}

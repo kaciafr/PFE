@@ -1,3 +1,4 @@
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 using Utilities;
 
@@ -16,6 +17,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			Debug.Log("PatrolState");
 			GoToCurrentPoint();
 		}
 

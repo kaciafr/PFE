@@ -7,156 +7,159 @@ using Routine;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BrainPnj : RagDoll
+namespace Project.Scripts.Core.PnjSysteme
 {
-    [SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
-    [field:SerializeField] public NavMeshAgent Agent {get; private set;}
-    [field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
-    [field:SerializeField] public int currentStep = 0;
-    [field:SerializeField] public Animator Animator {get; private set;}
-    [field:SerializeField] public Transform Model {get; private set;}
+	public class BrainPnj : RagDoll
+	{
+		[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
+		[field:SerializeField] public NavMeshAgent Agent {get; private set;}
+		[field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
+		[field:SerializeField] public int currentStep = 0;
+		[field:SerializeField] public Animator Animator {get; private set;}
+		[field:SerializeField] public Transform Model {get; private set;}
 
-    public IPnjStates PNJStates { get; private set; }
-    public event Action<IPnjStates> OnStatesChanged;
+		public IPnjStates PNJStates { get; private set; }
+		public event Action<IPnjStates> OnStatesChanged;
 	
-    private Rigidbody[] ragdollRigidbodies;
-    private Collider mainCollider;
+		private Rigidbody[] ragdollRigidbodies;
+		private Collider mainCollider;
 
-    private void Awake()
-    {
-       Animator = GetComponentInChildren<Animator>();
-       Agent = GetComponent<NavMeshAgent>();
+		private void Awake()
+		{
+			Animator = GetComponentInChildren<Animator>();
+			Agent = GetComponent<NavMeshAgent>();
 
-       ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-       mainCollider = GetComponent<Collider>();
+			ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+			mainCollider = GetComponent<Collider>();
 
-       SetRagdollPhysics(false);
+			SetRagdollPhysics(false);
 
-       PnjAptitude[] found = GetComponents<PnjAptitude>();
-       aptitudes.AddRange(found);
+			PnjAptitude[] found = GetComponents<PnjAptitude>();
+			aptitudes.AddRange(found);
 
-       foreach (PnjAptitude aptitude in aptitudes)
-       {
-          aptitude.Init(this);
-       }
-    }
+			foreach (PnjAptitude aptitude in aptitudes)
+			{
+				aptitude.Init(this);
+			}
+		}
 
-    private void OnEnable()
-    {
-       VisionCone vision = GetAptitude<VisionCone>();
-       if (vision != null)
-          vision.OnTargetSeen += HandleTargetSeen;
+		private void OnEnable()
+		{
+			VisionCone vision = GetAptitude<VisionCone>();
+			if (vision != null)
+				vision.OnTargetSeen += HandleTargetSeen;
 
-       AuditionCast audition = GetAptitude<AuditionCast>();
-       if (audition != null)
-          audition.OnHearAlerte += HandleTargetSound;
+			AuditionCast audition = GetAptitude<AuditionCast>();
+			if (audition != null)
+				audition.OnHearAlerte += HandleTargetSound;
 
 
-       OnRagdoll += KoMode;
-       OnWakeUp += DisableRagdollPhysics;
-    }
+			OnRagdoll += KoMode;
+			OnWakeUp += DisableRagdollPhysics;
+		}
 
-    private void OnDisable()
-    {
-       VisionCone vision = GetAptitude<VisionCone>();
-       if (vision != null)
-          vision.OnTargetSeen -= HandleTargetSeen;
+		private void OnDisable()
+		{
+			VisionCone vision = GetAptitude<VisionCone>();
+			if (vision != null)
+				vision.OnTargetSeen -= HandleTargetSeen;
 
-       AuditionCast audition = GetAptitude<AuditionCast>();
-       if (audition != null)
-          audition.OnHearAlerte -= HandleTargetSound;
-       OnRagdoll -= KoMode;
-       OnWakeUp -= DisableRagdollPhysics;
-    }
+			AuditionCast audition = GetAptitude<AuditionCast>();
+			if (audition != null)
+				audition.OnHearAlerte -= HandleTargetSound;
+			OnRagdoll -= KoMode;
+			OnWakeUp -= DisableRagdollPhysics;
+		}
 	
 
-    private void DisableRagdollPhysics()
-    {
+		private void DisableRagdollPhysics()
+		{
 	    
-	    Transform hips = Animator.GetBoneTransform(HumanBodyBones.Hips);
-	    Vector3 hipsPos = hips.position;
-	    Quaternion hipsRot = hips.rotation;
+			Transform hips = Animator.GetBoneTransform(HumanBodyBones.Hips);
+			Vector3 hipsPos = hips.position;
+			Quaternion hipsRot = hips.rotation;
 
-	    SetRagdollPhysics(false);
+			SetRagdollPhysics(false);
 
-	    if (NavMesh.SamplePosition(hipsPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
-	    {
-		    Agent.enabled = false;
+			if (NavMesh.SamplePosition(hipsPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+			{
+				Agent.enabled = false;
 
 		    
-		    Quaternion yaw = Quaternion.Euler(0f, hipsRot.eulerAngles.y, 0f);
-		    transform.SetPositionAndRotation(hit.position, yaw);
+				Quaternion yaw = Quaternion.Euler(0f, hipsRot.eulerAngles.y, 0f);
+				transform.SetPositionAndRotation(hit.position, yaw);
 		    
-		    hips.SetPositionAndRotation(hipsPos, hipsRot);
+				hips.SetPositionAndRotation(hipsPos, hipsRot);
 
-		    Agent.enabled = true;
-		    Agent.Warp(hit.position);
-	    }
-	    else
-	    {
-		    Debug.LogWarning($"{name}: aucun NavMesh à moins de 5m du ragdoll.");
-	    }
-    }
+				Agent.enabled = true;
+				Agent.Warp(hit.position);
+			}
+			else
+			{
+				Debug.LogWarning($"{name}: aucun NavMesh à moins de 5m du ragdoll.");
+			}
+		}
 
-    private void SetRagdollPhysics(bool enableRagdoll)
-    {
-       if (ragdollRigidbodies != null)
-       {
-          foreach (Rigidbody rb in ragdollRigidbodies)
-             rb.isKinematic = !enableRagdoll;
-       }
+		private void SetRagdollPhysics(bool enableRagdoll)
+		{
+			if (ragdollRigidbodies != null)
+			{
+				foreach (Rigidbody rb in ragdollRigidbodies)
+					rb.isKinematic = !enableRagdoll;
+			}
 
-       if (mainCollider != null)
-          mainCollider.enabled = !enableRagdoll;
-    }
+			if (mainCollider != null)
+				mainCollider.enabled = !enableRagdoll;
+		}
     
 
-    private void HandleTargetSeen(Vector3 pos, IDetected target)
-    {
-       if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState || PNJStates is KoState)
-          return;
-       PnjGoTo(new SurpriseState(target));
-    }
+		private void HandleTargetSeen(Vector3 pos, IDetected target)
+		{
+			if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState || PNJStates is KoState)
+				return;
+			PnjGoTo(new SurpriseState(target));
+		}
 
-    private void HandleTargetSound(ISondDetected target, GameObject targetPosition)
-    {
-       if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState|| PNJStates is KoState)
-          return;
-       PnjGoTo(new IntrigueState(target, targetPosition));
-    }
+		private void HandleTargetSound(ISondDetected target, GameObject targetPosition)
+		{
+			if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState|| PNJStates is KoState)
+				return;
+			PnjGoTo(new IntrigueState(target, targetPosition));
+		}
 
-    private void Start()
-    {
-       PnjGoTo(new PatrolState(this));
-    }
+		private void Start()
+		{
+			PnjGoTo(new PatrolState(this));
+		}
 
-    private void Update()
-    {
-       PNJStates.UpdateState(this);
-    }
+		private void Update()
+		{
+			PNJStates.UpdateState(this);
+		}
 
-    public T GetAptitude<T>() where T : PnjAptitude
-    {
-       foreach (PnjAptitude aptitude in aptitudes)
-       {
-          if (aptitude is T match)
-             return match;
-       }
-       return null;
-    }
+		public T GetAptitude<T>() where T : PnjAptitude
+		{
+			foreach (PnjAptitude aptitude in aptitudes)
+			{
+				if (aptitude is T match)
+					return match;
+			}
+			return null;
+		}
 
-    public void PnjGoTo(IPnjStates state)
-    {
-       PNJStates?.ExitState(this);
-       PNJStates = state;
-       PNJStates?.EnterState(this);
-       OnStatesChanged?.Invoke(PNJStates);
-    }
+		public void PnjGoTo(IPnjStates state)
+		{
+			PNJStates?.ExitState(this);
+			PNJStates = state;
+			PNJStates?.EnterState(this);
+			OnStatesChanged?.Invoke(PNJStates);
+		}
 
-    public void KoMode()
-    {
-	    Agent.enabled = false; 
-	    SetRagdollPhysics(true);
-       PnjGoTo(new KoState());
-    }
+		public void KoMode()
+		{
+			Agent.enabled = false; 
+			SetRagdollPhysics(true);
+			PnjGoTo(new KoState());
+		}
+	}
 }

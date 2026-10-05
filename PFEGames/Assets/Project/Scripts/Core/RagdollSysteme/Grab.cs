@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Project.Scripts.Core.RagdollSysteme;
 using UnityEngine;
 using Utilities;
 
@@ -22,6 +23,7 @@ namespace RagdollSysteme
 
 			currentTarget = pointGrab;
 
+			pointJoint.Clear(); // <- on vide avant de remplir, sinon ça empile à l'infini
 			foreach (Rigidbody rb in currentTarget.PointGrab)
 				pointJoint.Add(rb);
 		}
@@ -29,14 +31,17 @@ namespace RagdollSysteme
 		private void OnTriggerExit(Collider other)
 		{
 			if (isGrabbing) return;
-			pointJoint.Clear();
+			
 			currentTarget = null;
 		}
 
 		public void TryGrab()
 		{
-			if(pointJoint[0].mass > GameMetrix.MaxMassPool)
+			if (pointJoint[0].mass > GameMetrix.MaxMassPool)
+			{
+				Debug.Log("Trop lourd");
 				return;
+			}
 			if (isGrabbing)
 			{
 				Release();

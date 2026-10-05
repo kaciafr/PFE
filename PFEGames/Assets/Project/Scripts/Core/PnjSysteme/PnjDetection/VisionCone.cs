@@ -40,15 +40,17 @@ namespace PnjDetection
 		protected override void Scan()
 		{
 			detectedTargets.Clear();
-			
-			Transform transform = FindTargetInRadius(ViewRadius);
-			if (transform == null)
+
+			Transform targetTransform = FindTargetInRadius(ViewRadius);
+			if (targetTransform == null)
 				return;
-			
-			IDetected target = transform.GetComponentInParent<IDetected>();
-			
+
+			IDetected target = targetTransform.GetComponentInParent<IDetected>();
+			if (target == null || !CanSee(target)) 
+				return;
+
 			OnTargetSeen?.Invoke(LastPos, target);
-			Remember(transform);
+			Remember(targetTransform);
 		}
 		
 		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)

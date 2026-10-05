@@ -1,3 +1,4 @@
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 
 namespace PnjDetection

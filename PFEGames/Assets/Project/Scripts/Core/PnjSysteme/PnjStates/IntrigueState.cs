@@ -1,4 +1,5 @@
 using PnjDetection;
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 
 namespace PnjStates
@@ -21,6 +22,7 @@ namespace PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			Debug.Log(nameof(IntrigueState));
 			brainPnj.Agent.updateRotation = false;
 			brainPnj.Agent.SetDestination(targetPosition);
 		}

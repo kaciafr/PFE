@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PrimeTween;
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 using Utilities;
 
@@ -26,6 +27,7 @@ namespace PnjStates
 
        public void EnterState(BrainPnj brainPnj)
        {
+	       Debug.Log(nameof( SearchState ));
           timer = 0f;
           currentSearchIndex = 0;
           isWaiting = false;

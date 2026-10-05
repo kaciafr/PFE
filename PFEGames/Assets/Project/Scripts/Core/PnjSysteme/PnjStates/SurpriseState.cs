@@ -1,3 +1,4 @@
+using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
 using Utilities;
 
@@ -18,9 +19,9 @@ namespace PnjStates
 		{
 			time = 0;
 			pnjPos = brainPnj.transform.position;
-			brainPnj.Agent.isStopped = true;    
+			brainPnj.Agent.updatePosition = false;    
 			brainPnj.Agent.updateRotation = false;
-			//brainPnj.Agent.SetDestination(pnjPos);
+			brainPnj.Agent.SetDestination(pnjPos);
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
@@ -45,7 +46,7 @@ namespace PnjStates
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.isStopped = false; 
+			brainPnj.Agent.updatePosition = true; 
 			brainPnj.Agent.updateRotation = true;
 		}
 	}
