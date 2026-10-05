@@ -22,7 +22,6 @@ namespace RagdollSysteme
 
 			currentTarget = pointGrab;
 
-			pointJoint.Clear();
 			foreach (Rigidbody rb in currentTarget.PointGrab)
 				pointJoint.Add(rb);
 		}
