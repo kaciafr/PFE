@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace Project.Scripts.Core.RagdollSysteme
 {
@@ -11,7 +12,7 @@ namespace Project.Scripts.Core.RagdollSysteme
 		{
 			foreach (Rigidbody rb in PointGrab)
 			{
-				rb.mass = 20;
+				rb.mass = GameMetrix.MassNoGrab;
 			}
 		}
 	}

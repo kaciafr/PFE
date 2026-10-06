@@ -13,7 +13,7 @@ namespace RagdollSysteme
 		private ListPointGrab currentTarget;
 		private bool isGrabbing;
 
-		private void OnTriggerStay(Collider other)
+		private void OnTriggerEnter(Collider other)
 		{
 			if (isGrabbing) return;
 
@@ -22,8 +22,6 @@ namespace RagdollSysteme
 				return;
 
 			currentTarget = pointGrab;
-
-			pointJoint.Clear(); // <- on vide avant de remplir, sinon ça empile à l'infini
 			foreach (Rigidbody rb in currentTarget.PointGrab)
 				pointJoint.Add(rb);
 		}
@@ -31,8 +29,8 @@ namespace RagdollSysteme
 		private void OnTriggerExit(Collider other)
 		{
 			if (isGrabbing) return;
-			
 			currentTarget = null;
+			pointJoint.Clear();
 		}
 
 		public void TryGrab()
