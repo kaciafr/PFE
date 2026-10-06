@@ -1,4 +1,4 @@
-using Characters.Data;
+ using Characters.Data;
 using UnityEngine;
 
 namespace Characters.Component
