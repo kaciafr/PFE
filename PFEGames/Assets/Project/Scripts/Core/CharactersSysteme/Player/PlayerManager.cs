@@ -86,8 +86,18 @@ namespace Project.Scripts.Core.CharactersSysteme.Player
         public void UnClimb()          => Motor.StopClimb();
 
         public void StartClimbTop()    => Motor.Freeze();
-        public void FinishClimbTop()   => Motor.ClimbOverTop(Sensor.LadderNormal);
-        public void EndClimbTop()      => Motor.Unfreeze();
+        public void FinishClimbTop()   => Motor.ClimbOverTop(Sensor.LadderNormal, Sensor.LadderTopY);
+
+        // Petit délai après un ClimbTop : en avançant en haut, l'échelle est encore détectée et le climb se relançait
+        private const float ClimbCooldown = 0.5f;
+        private float climbBlockedUntil;
+        public bool CanClimb => Time.time >= climbBlockedUntil;
+
+        public void EndClimbTop()
+        {
+            Motor.Unfreeze();
+            climbBlockedUntil = Time.time + ClimbCooldown;
+        }
 
         #endregion
 
@@ -97,6 +107,15 @@ namespace Project.Scripts.Core.CharactersSysteme.Player
         public void UnRagdollGrabing() => RagdollGrab.Release();
         public void Grab()   => Grabber.Grab(Sensor.CrateInFront);
         public void UnGrab() => Grabber.UnGrab();
+
+            if (Grabber.IsGrabbing)
+                Motor.SnapFacing(Sensor.CratePoint, Sensor.CrateNormal, Settings.Grab.GrabDistance);
+        }
+        public void UnGrab()
+        {
+            Grabber.UnGrab();
+            Motor.ResetVisualOffset();
+        }
 
         #endregion
 

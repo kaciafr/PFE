@@ -14,18 +14,22 @@ namespace Characters.Component
         public bool IsGrounded { get; private set; }
         public Vector3 GroundNormal { get; private set; } = Vector3.up;
         public bool LadderInFront { get; private set; }
-        
-        public Rigidbody ThrowableInFront { get; private set;  }
+        public bool LadderTopReached { get; private set; }
+
+        public Rigidbody ThrowableInFront { get; private set; }
         public Vector3 LadderNormal { get; private set; }
         public Vector3 LadderPoint { get; private set; }
+        public float LadderTopY { get; private set; }
         public Rigidbody CrateInFront { get; private set; }
+        public Vector3 CrateNormal { get; private set; }
+        public Vector3 CratePoint { get; private set; }
 
         private void FixedUpdate()
         {
             CheckGround();
             CheckLadder();
             CheckCrate();
-            CheckThrowable(); 
+            CheckThrowable();
 
         }
 
@@ -38,7 +42,6 @@ namespace Characters.Component
             int hits = 0;
             Vector3 normalSum = Vector3.zero;
 
-            // i = 0 : rayon central, puis un cercle de RayCount rayons autour
             for (int i = 0; i <= ground.RayCount; i++)
             {
                 Vector3 origin = center;
@@ -77,11 +80,22 @@ namespace Characters.Component
             if (LadderInFront)
             {
                 LadderNormal = hit.normal;
-                LadderPoint = hit.point;
+                LadderTopY = hit.collider.bounds.max.y;
+
+                Vector3 side = Vector3.Cross(Vector3.up, hit.normal).normalized;
+                Vector3 toCenter = hit.collider.bounds.center - hit.point;
+                LadderPoint = hit.point + side * Vector3.Dot(toCenter, side);
             }
 
+            Vector3 topOrigin = transform.position + Vector3.up * climb.TopCheckHeight;
+            LadderTopReached = LadderInFront
+                && !Physics.Raycast(topOrigin, dir, climb.DetectDistance, climb.Layer, QueryTriggerInteraction.Ignore);
+
             if (drawDebug)
+            {
                 Debug.DrawRay(origin, dir * climb.DetectDistance, LadderInFront ? Color.green : Color.red);
+                Debug.DrawRay(topOrigin, dir * climb.DetectDistance, LadderTopReached ? Color.cyan : Color.white);
+            }
         }
 
         private void CheckCrate()
@@ -90,10 +104,19 @@ namespace Characters.Component
             Vector3 origin = transform.position + Vector3.up * grab.RayHeight;
             Vector3 dir = playerObject.forward;
 
-            CrateInFront = Physics.Raycast(origin, dir, out RaycastHit hit, grab.DetectDistance,
-                                           grab.Layer, QueryTriggerInteraction.Ignore)
-                ? hit.rigidbody
-                : null;
+            bool found = Physics.Raycast(origin, dir, out RaycastHit hit, grab.DetectDistance,
+                                        grab.Layer, QueryTriggerInteraction.Ignore);
+            CrateInFront = found ? hit.rigidbody : null;
+
+            if (found)
+            {
+                CrateNormal = hit.normal;
+
+                // Recentré sur la largeur de la face, comme pour l'échelle
+                Vector3 side = Vector3.Cross(Vector3.up, hit.normal).normalized;
+                Vector3 toCenter = hit.collider.bounds.center - hit.point;
+                CratePoint = hit.point + side * Vector3.Dot(toCenter, side);
+            }
 
             if (drawDebug)
                 Debug.DrawRay(origin, dir * grab.DetectDistance, CrateInFront ? Color.blue : Color.yellow);
@@ -108,7 +131,6 @@ namespace Characters.Component
             Vector3 origin = transform.position + Vector3.up * throwSettings.RayHeight;
             Vector3 center = origin + playerObject.forward * throwSettings.DetectRadius;
 
-            // Un SphereCast ignore les objets déjà dans la sphère au départ : on prend le plus proche dans la zone devant
             int count = Physics.OverlapSphereNonAlloc(center, throwSettings.DetectRadius, throwableBuffer,
                                                       throwSettings.LayerObject, QueryTriggerInteraction.Ignore);
 

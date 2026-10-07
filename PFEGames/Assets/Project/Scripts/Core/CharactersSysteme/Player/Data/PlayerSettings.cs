@@ -65,7 +65,9 @@ namespace Characters.Data
         [field: SerializeField] public LayerMask Layer { get; private set; }
         [field: SerializeField] public float RayHeight { get; private set; } = 0f;
         [field: SerializeField, Min(0f)] public float DetectDistance { get; private set; } = 1f;
- 
+        [field: SerializeField, Tooltip("Hauteur (au-dessus du centre du joueur) du rayon qui détecte le haut de l'échelle. Plus bas = ClimbTop plus tard.")]
+        public float TopCheckHeight { get; private set; } = 0.5f;
+
         [field: SerializeField, Range(0f, 1f), Tooltip("À quel point il faut avancer face à l'échelle pour l'attraper (dot product).")]
         public float ApproachThreshold { get; private set; } = 0.5f;
  
@@ -78,6 +80,9 @@ namespace Characters.Data
         [field: SerializeField, Min(0f)] public float TopDuration { get; private set; } = 2f;
         [field: SerializeField, Min(0f)] public float TopHeight { get; private set; } = 1.5f;
         [field: SerializeField, Min(0f)] public float TopForward { get; private set; } = 0.6f;
+        
+        [field: SerializeField] public  float climbTilt { get; private set; } = 15f;          
+        [ field: SerializeField] public  float climbVisualOffset { get; private set; }= 0.2f;
     }
 
 
@@ -89,10 +94,15 @@ namespace Characters.Data
             [field: SerializeField] public float RayHeight { get; private set; } = -0.5f;
             [field: SerializeField, Min(0f)] public float PushPullSpeed { get; private set; } = 1.5f;
  
-            [field: SerializeField, Min(0f), Tooltip("Distance au-delà de laquelle la caisse est lâchée automatiquement.")]
-            public float BreakDistance { get; private set; } = 3f;
+            [field: SerializeField] public float BreakDistance { get; private set; } = 3f;
 
-            public float MaxGrabMass = 50f; 
+            [field: SerializeField] public float MaxGrabMass { get; private set; } = 50;
+
+            [field: SerializeField] public float GrabDistance { get;private set; } = 0.2f;
+            
+            [field: SerializeField] public float GrabVisualOffset { get; private set; } = 0.15f;
+            
+            
 
         }
         

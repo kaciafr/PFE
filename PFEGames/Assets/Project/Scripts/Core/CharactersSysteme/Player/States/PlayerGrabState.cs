@@ -21,6 +21,7 @@ namespace Characters
 
             ctx.Player.Animator.Play(AnimIds.Grab);
             ctx.Player.Animator.SetGrabSpeed(0f);
+            ctx.Player.Animator.GrabCorrection = true;
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -58,8 +59,9 @@ namespace Characters
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            ctx.Player.UnGrab(); 
+            ctx.Player.UnGrab();
             ctx.Player.Animator.SetGrabSpeed(0f);
+            ctx.Player.Animator.GrabCorrection = false;
         }
     }
 }

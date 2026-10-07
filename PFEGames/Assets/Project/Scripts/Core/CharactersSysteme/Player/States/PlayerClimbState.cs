@@ -16,27 +16,33 @@ namespace Characters
             ctx.Player.StartClimb();
             ctx.Player.Animator.Play(AnimIds.Climb);
         }
-        
+
 
         public override void Tick(PlayerStateMachine ctx)
         {
-            
- 
-            climbInput = ctx.Player.MoveInput.y;
+
+
+            climbInput = Vector3.Dot(ctx.Player.MoveDirection, -ctx.Player.LadderNormal);
             if (Mathf.Abs(climbInput) < MoveThreshold)
                 climbInput = 0f;
- 
+
             ctx.Player.Animator.SetClimbSpeed(climbInput);
- 
+
             if (climbInput < 0f && ctx.Player.Sensor.IsGrounded)
             {
                 ctx.SwitchState(ctx.IdleState);
                 return;
             }
- 
-            if (!ctx.Player.LadderInFront)
+
+            if (climbInput > 0f && ctx.Player.Sensor.LadderTopReached)
             {
                 ctx.SwitchState(ctx.ClimbTopState);
+                return;
+            }
+
+            if (!ctx.Player.LadderInFront)
+            {
+                ctx.SwitchState(climbInput > 0f ? ctx.ClimbTopState : ctx.IdleState);
                 return;
             }
         }
