@@ -1,4 +1,5 @@
 using Characters.Data;
+using Project.Scripts.Core.CharactersSysteme.Player;
 using UnityEngine;
 
 namespace Characters.Component
@@ -14,7 +15,6 @@ namespace Characters.Component
         private Vector3 crouchCenter;
 
         public bool IsCrouched { get; private set; }
-
         public bool CanStand
         {
             get

@@ -7,9 +7,8 @@ namespace RagdollSysteme
 {
 	public class Grab : MonoBehaviour
 	{
-		[SerializeField] private GameObject theGrabber;
 		[SerializeField] private SpringJoint joint;
-		[SerializeField] private List<Rigidbody> pointJoint = new List<Rigidbody>();
+		[SerializeField]private List<Rigidbody> pointJoint = new List<Rigidbody>();
 		private ListPointGrab currentTarget;
 		private bool isGrabbing;
 
@@ -40,23 +39,16 @@ namespace RagdollSysteme
 				Debug.Log("Trop lourd");
 				return;
 			}
-			if (isGrabbing)
-			{
-				Release();
-			}
-			else
-			{
-				if (pointJoint.Count == 0)
-					return;
-				joint.connectedBody = pointJoint[0];
-				isGrabbing = true;
-			}
+			
+			if (pointJoint.Count == 0)
+				return;
+			joint.connectedBody = pointJoint[0];
+			
 		}
 
-		private void Release()
+		public void Release()
 		{
 			joint.connectedBody = null;
-			isGrabbing = false;
 		}
 	}
 }

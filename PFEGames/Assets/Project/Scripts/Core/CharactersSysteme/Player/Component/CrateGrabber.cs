@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Characters.Data;
+using Project.Scripts.Core.CharactersSysteme.Player;
 using UnityEngine;
 
 namespace Characters.Component

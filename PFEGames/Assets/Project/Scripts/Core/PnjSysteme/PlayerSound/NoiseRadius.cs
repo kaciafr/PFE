@@ -25,7 +25,9 @@ namespace PlayerSound
 			else
 			{
 				noiseEffect.SetActive(true);
+				Debug.Log(target.speed);
 				collider.radius = target.speed / NoiseEffect;
+				
 			}
 			
 		}

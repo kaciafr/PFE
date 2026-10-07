@@ -12,13 +12,20 @@ namespace Characters.Component
         [SerializeField] private PlayerSettings settings;
         public Vector3 Forward => playerObject.forward;
         private Rigidbody rb;
-
         public Vector3 Velocity => rb.linearVelocity;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
+        }
+
+        private void Start()
+        {
+	        if (cam == null)
+	        {
+		        cam = FindObjectOfType<Camera>().transform;
+	        }
         }
 
         public Vector3 GetMoveDirection(Vector2 input)
@@ -110,5 +117,7 @@ namespace Characters.Component
             rb.isKinematic = false;
             rb.useGravity = true;
         }
+
+        
     }
 }

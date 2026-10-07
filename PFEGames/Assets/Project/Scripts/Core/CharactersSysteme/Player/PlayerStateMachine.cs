@@ -1,3 +1,4 @@
+using Project.Scripts.Core.CharactersSysteme.Player;
 using UnityEngine;
 
 namespace Characters

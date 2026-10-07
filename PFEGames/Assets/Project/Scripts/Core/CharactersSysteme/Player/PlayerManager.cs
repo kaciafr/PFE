@@ -1,24 +1,30 @@
+using System.Collections.Generic;
+using Characters;
 using Characters.Component;
 using Characters.Data;
+using Project.Scripts.Core.RagdollSysteme;
+using RagdollSysteme;
 using UnityEngine;
 
-namespace Characters
+namespace Project.Scripts.Core.CharactersSysteme.Player
 {
-    public class PlayerManager : MonoBehaviour, IDie
+    public class PlayerManager : MonoBehaviour, IDie,IDetected,ISondDetected
     {
         #region References
-
+        public Transform Transform => transform;
+        public float speed => rb.linearVelocity.magnitude;
+        [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }
         [field: SerializeField] public InputReader Input { get; private set; }
-
-        public PlayerStateMachine StateMachine { get; private set; }
-        public PlayerMotor Motor { get; private set; }
-        public PlayerSensor Sensor { get; private set; }
-        public PlayerStance Stance { get; private set; }
-        public CrateGrabber Grabber { get; private set; }
-        public ThrowObject Thrower { get; private set; }
-        public PlayerAnimator Animator { get; private set; }
-        public PlayerAnimationEvents AnimEvents { get; private set; }
+        [field: SerializeField]public PlayerStateMachine StateMachine { get; private set; }
+        [field: SerializeField]public PlayerMotor Motor { get; private set; }
+        [field: SerializeField]public PlayerSensor Sensor { get; private set; }
+        [field: SerializeField]public PlayerStance Stance { get; private set; }
+        [field: SerializeField]public CrateGrabber Grabber { get; private set; }
+        [field: SerializeField]public ThrowObject Thrower { get; private set; }
+        [field: SerializeField]public PlayerAnimator Animator { get; private set; }
+        [field: SerializeField]public PlayerAnimationEvents AnimEvents { get; private set; }
+        [field: SerializeField] public Grab RagdollGrab { get; private set; }
 
         #endregion
 
@@ -26,6 +32,7 @@ namespace Characters
 
         private void Awake()
         {
+	        rb           = GetComponent<Rigidbody>();
             StateMachine = GetComponent<PlayerStateMachine>();
             Motor        = GetComponent<PlayerMotor>();
             Sensor       = GetComponent<PlayerSensor>();
@@ -34,6 +41,7 @@ namespace Characters
             Thrower      = GetComponent<ThrowObject>();
             Animator     = GetComponentInChildren<PlayerAnimator>();
             AnimEvents   = GetComponentInChildren<PlayerAnimationEvents>();
+            RagdollGrab  = GetComponent<Grab>();
         }
 
         private void OnEnable()  => Input.EnablePlayerInput();
@@ -56,7 +64,7 @@ namespace Characters
 
         #endregion
 
-        #region Mouvement
+        #region Movement
 
         public void Move(Vector2 input, float speed)    => Motor.Move(input, speed, !Grabber.IsGrabbing);
         public void MoveWorld(Vector3 dir, float speed) => Motor.MoveWorld(dir, speed, false);
@@ -84,8 +92,10 @@ namespace Characters
 
         #endregion
 
-        #region Caisse
+        #region Grab
 
+        public void RagdollGrabing() => RagdollGrab.TryGrab();
+        public void UnRagdollGrabing() => RagdollGrab.Release();
         public void Grab()   => Grabber.Grab(Sensor.CrateInFront);
         public void UnGrab() => Grabber.UnGrab();
 
