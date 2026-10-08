@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.helteix.channeled-properties": "2.1.0",
+    "com.helteix.singletons": "1.4.1",
+    "com.helteix.tools": "1.7.1",
     "com.kyrylokuzyk.primetween": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.14",
@@ -53,5 +56,14 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "Helteix",
+      "url": "https://upm.pckgs.io",
+      "scopes": [
+        "com.helteix"
+      ]
+    }
+  ]
 }

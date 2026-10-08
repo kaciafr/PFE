@@ -53,28 +53,38 @@ namespace Runtime.Project.Scripts.Core
 
 		private void Update()
 		{
+			LogicWather();
 			LogicElement();
 			currentState.Update(this);
 		}
-
-		public void AddHeat(float heat)
+		
+		public void ChangeState(IElementState state)
 		{
-			this.Heat += heat / ElementData.FireResistance;
-			this.Heat = Mathf.Clamp(this.Heat, 0, 100);
+			state.Exit(this);
+			currentState = state;
+			state.Enter(this);
 		}
-
-		public void AddHumidity(float humidity)
+		
+		private void LogicWather()
 		{
-			this.Humidity += humidity / ElementData.AbsorptionResistance;
-			this.Humidity = Mathf.Clamp(this.Humidity, 0, 100);
-		}
+			var weather = WhaterManager.Instance;
+			float dt = Time.deltaTime;
 
-		public void AddElectricity(float electricity)
-		{
-			this.Electricity += electricity / ElementData.ElectricityConductibility;
-			this.Electricity = Mathf.Clamp(this.Electricity, 0, 100);
-		}
+			Heat = Mathf.MoveTowards(Heat, weather.standarDegres, 5f * dt);
 
+			Heat -= weather.currrentRainIntensity * 10f * dt;
+
+			float ambientHumidity = weather.currentHumidity * 10f;
+			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, 10f * dt);
+
+			TargetDegres = ElementData.Normaldegres + Heat - Humidity + weather.standarDegres * 0.2f;
+
+			currentDegres = Mathf.MoveTowards(currentDegres, TargetDegres, 5f * dt);
+
+			Heat = Mathf.Clamp(Heat, 0, 100);
+			Humidity = Mathf.Clamp(Humidity, 0, 100);
+		}
+		
 		private void LogicElement()
 		{
 			float dt = Time.deltaTime;
@@ -95,39 +105,11 @@ namespace Runtime.Project.Scripts.Core
 			Humidity = Mathf.Clamp(Humidity, 0, 100);
 
 		}
-
+		
+		public void AddHeat(float heat) => Absorbe<HeatChannel>.Run(this, heat);
+		public void AddHumidity(float humidity) => Absorbe<HumidityChannel>.Run(this, humidity);
+		public void AddElectricity(float electricity) => Absorbe<ElectricityChannel>.Run(this, electricity);
 		public void FirePropagation() => Propagation<HeatChannel>.Run(this);
 		public void ElectricityPropagation() => Propagation<ElectricityChannel>.Run(this);
-
-
-		public void ChangeState(IElementState state)
-		{
-			state.Exit(this);
-			currentState = state;
-			state.Enter(this);
-		}
-
-		
-		
-		
-		/*private void LogicWather()
-		{
-			var weather = WhaterManager.Instance;
-			float dt = Time.deltaTime;
-
-			Heat = Mathf.MoveTowards(Heat, weather.standarDegres, 5f * dt);
-
-			Heat -= weather.currrentRainIntensity * 10f * dt;
-
-			float ambientHumidity = weather.currentHumidity * 10f;
-			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, 10f * dt);
-
-			TargetDegres = ElementData.Normaldegres + Heat - Humidity + weather.standarDegres * 0.2f;
-
-			currentDegres = Mathf.MoveTowards(currentDegres, TargetDegres, 5f * dt);
-
-			Heat = Mathf.Clamp(Heat, 0, 100);
-			Humidity = Mathf.Clamp(Humidity, 0, 100);
-		}*/
 	}
 }

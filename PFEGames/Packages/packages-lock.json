@@ -1,5 +1,31 @@
 {
   "dependencies": {
+    "com.helteix.channeled-properties": {
+      "version": "2.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.8.25",
+        "com.helteix.tools": "1.7.0"
+      },
+      "url": "https://upm.pckgs.io"
+    },
+    "com.helteix.singletons": {
+      "version": "1.4.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.helteix.tools": "1.7.1"
+      },
+      "url": "https://upm.pckgs.io"
+    },
+    "com.helteix.tools": {
+      "version": "1.7.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://upm.pckgs.io"
+    },
     "com.kyrylokuzyk.primetween": {
       "version": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
       "depth": 0,
@@ -32,7 +58,7 @@
     },
     "com.unity.burst": {
       "version": "2.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "builtin",
       "dependencies": {}
     },

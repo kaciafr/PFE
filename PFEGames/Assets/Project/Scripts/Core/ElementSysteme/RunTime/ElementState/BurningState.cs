@@ -16,7 +16,7 @@ namespace Runtime.Project.Scripts.Core
 		{
 			currentHealth.TakeDamageEnv(element.ElementData.DamageHealth);
 			element.FirePropagation();
-			if (element.Heat <= element.ElementData.Chauffe)
+			if (element.Heat <= element.ElementData.Brule / 2)
 			{
 				element.ChangeState(new NormalState());
 			}

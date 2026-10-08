@@ -7,7 +7,6 @@ namespace Runtime.Project.Scripts.Core
     {
         [Header("Influence Feu")]
         [field:SerializeField]public float FireResistance{ get; private set; }
-        [field:SerializeField] public float Chauffe{ get; private set; } = 50;
         [field:SerializeField] public float Brule{ get; private set; } = 70;
         
         [Header("Sond & Particule")]
