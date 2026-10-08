@@ -9,7 +9,6 @@ namespace Runtime.Project.Scripts.Core
         public void Enter(ElementSimulation element)
         {
             Debug.Log("Entering NormalState");
-            currentHealth.SetDeathVisual(DeathVisual.Normal);
         }
 
         public void Update(ElementSimulation element)
@@ -22,7 +21,7 @@ namespace Runtime.Project.Scripts.Core
 
             if (element.Humidity > element.ElementData.Frozen && element.TargetDegres <= 5f)
             {
-                if (element.ElementData.IsLiquid)
+                if (!element.ElementData.IsLiquid)
                 {
                     element.Collider.isTrigger = false;
                 }

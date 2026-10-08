@@ -7,7 +7,7 @@ namespace Runtime.Project.Scripts.Core
     {
         [Header("Influence Feu")]
         [field:SerializeField]public float FireResistance{ get; private set; }
-        [field:SerializeField] public float Brule{ get; private set; } = 70;
+        [field:SerializeField] public float Brule{ get; private set; } 
         
         [Header("Sond & Particule")]
         [field:SerializeField] public ParticleSystem phaseOneParticule;
@@ -15,7 +15,7 @@ namespace Runtime.Project.Scripts.Core
         
         [Header("Influence Eau")]
         [field:SerializeField]public float AbsorptionResistance{ get; private set; }
-        [field:SerializeField] public float Frozen{ get; private set; } = 10;
+        [field:SerializeField] public float Frozen{ get; private set; }
         [field:SerializeField]public float VaporationSpeed{ get; private set; }
         
         [Header("Influence Électricité")]
