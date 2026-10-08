@@ -221,7 +221,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.PlayerAnimator
   animator: {fileID: 2669469105467739912}
-  hips: {fileID: 5511013057107575028}
+  head: {fileID: 0}
+  spine: {fileID: 5500017685159642450}
+  headClearance: 0.4
+  grabSpineStraighten: 15
+  grabCorrectionBlendSpeed: 8
 --- !u!120 &524933326703318740
 LineRenderer:
   serializedVersion: 3
@@ -462,6 +466,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0ae2d54ef7cc8f4479e0618ef8901201, type: 2}
+    - target: {fileID: 7635726066119915157, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
     - target: {fileID: 8103208097679968932, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -486,8 +494,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 539745478100655087, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
   m_PrefabInstance: {fileID: 5547397234511608221}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5511013057107575028 stripped
+--- !u!4 &5500017685159642450 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 38101694036556137, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 49447877029854415, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
   m_PrefabInstance: {fileID: 5547397234511608221}
   m_PrefabAsset: {fileID: 0}
