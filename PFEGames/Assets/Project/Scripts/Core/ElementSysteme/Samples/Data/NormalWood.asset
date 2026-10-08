@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c90a429fb2ed4fe438ae2ed9e3d43ce9, type: 3}
+  m_Name: NormalWood
+  m_EditorClassIdentifier: Runtime::Runtime.MaterialData
+  fireResistance: 0.5
+  absorptionResistance: 1.2
+  vaporationSpeed: 1.3
+  electricityConductibility: 0.1
+  Normaldegres: 5
+  maxHealth: 100
+  DamageHealth: 8
+  burnTransform: {fileID: 6571849475054275296, guid: e1878911718b8124784787bf86b70f70, type: 3}
+  normalTransform: {fileID: 6571849475054275296, guid: 1493223d79ead0b428754d1e6d344ab3, type: 3}
+  frozenTransform: {fileID: 6571849475054275296, guid: 1b47161aae2316e4786eb69af0e84163, type: 3}

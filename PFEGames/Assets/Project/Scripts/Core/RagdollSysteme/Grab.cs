@@ -8,7 +8,7 @@ namespace RagdollSysteme
 	public class Grab : MonoBehaviour
 	{
 		[SerializeField] private SpringJoint joint;
-		[SerializeField]private List<Rigidbody> pointJoint = new List<Rigidbody>();
+		[field:SerializeField] public List<Rigidbody> pointJoint { get; private set; }= new List<Rigidbody>();
 		private ListPointGrab currentTarget;
 		private bool isGrabbing;
 
@@ -34,7 +34,7 @@ namespace RagdollSysteme
 
 		public void TryGrab()
 		{
-			if (pointJoint[0].mass > GameMetrix.MaxMassPool)
+			if (pointJoint[0].mass > GameMetrix.MaxMassGrab)
 			{
 				Debug.Log("Trop lourd");
 				return;

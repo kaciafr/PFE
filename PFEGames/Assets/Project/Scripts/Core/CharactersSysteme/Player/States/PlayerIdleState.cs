@@ -18,6 +18,12 @@ namespace Characters
                 ctx.SwitchState(ctx.GrabState);
                 return;
             }
+            
+            if (ctx.Player.Input.GrabHeld)
+            {
+	            ctx.SwitchState(ctx.GrabRagdollState);
+            }
+            
             if (WantsToClimb(ctx))
             {
                 ctx.SwitchState(ctx.ClimbState);

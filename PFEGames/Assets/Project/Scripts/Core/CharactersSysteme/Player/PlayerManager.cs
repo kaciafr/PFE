@@ -41,7 +41,6 @@ namespace Project.Scripts.Core.CharactersSysteme.Player
             Thrower      = GetComponent<ThrowObject>();
             Animator     = GetComponentInChildren<PlayerAnimator>();
             AnimEvents   = GetComponentInChildren<PlayerAnimationEvents>();
-            RagdollGrab  = GetComponent<Grab>();
         }
 
         private void OnEnable()  => Input.EnablePlayerInput();

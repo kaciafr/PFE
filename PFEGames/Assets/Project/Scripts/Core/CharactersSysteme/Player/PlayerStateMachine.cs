@@ -17,6 +17,7 @@ namespace Characters
         public PlayerClimbState ClimbState { get; private set; }
         public PlayerClimbTopState ClimbTopState { get; private set; }
         public PlayerGrabState GrabState { get; private set; }
+        public GrabRagdollBodyState GrabRagdollState { get; private set; }
         public PlayerInteractObjectState InteractState { get; private set; }
         public PlayerThrowObjectState ThrowState { get; private set; }
 
@@ -37,6 +38,7 @@ namespace Characters
             InteractState = new PlayerInteractObjectState();
             DieState            = new PlayerDieState();
             ThrowState = new PlayerThrowObjectState(); 
+            GrabRagdollState = new GrabRagdollBodyState();
         }
 
         private void Start()

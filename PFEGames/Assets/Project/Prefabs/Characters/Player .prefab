@@ -121,9 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aedafc223f92c14db613d8058a95ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::RagdollSysteme.Grab
-  theGrabber: {fileID: 8503608136985919659}
   joint: {fileID: 2536787670272889389}
-  pointJoint: []
+  <pointJoint>k__BackingField: []
 --- !u!54 &3737976578828192713
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -349,6 +348,15 @@ MonoBehaviour:
   rb: {fileID: 0}
   <Settings>k__BackingField: {fileID: 11400000, guid: 63358784ad7001442b2681a8ce3dc933, type: 2}
   <Input>k__BackingField: {fileID: 11400000, guid: ad988b83dcd1d074e8416b22688edff8, type: 2}
+  <StateMachine>k__BackingField: {fileID: 1675564797479926826}
+  <Motor>k__BackingField: {fileID: 4362888298765131049}
+  <Sensor>k__BackingField: {fileID: 6602580008260269371}
+  <Stance>k__BackingField: {fileID: 4979999978357337543}
+  <Grabber>k__BackingField: {fileID: 621286170739517310}
+  <Thrower>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 0}
+  <AnimEvents>k__BackingField: {fileID: 0}
+  <RagdollGrab>k__BackingField: {fileID: 3598319418025787074}
 --- !u!114 &1675564797479926826
 MonoBehaviour:
   m_ObjectHideFlags: 0
