@@ -60,7 +60,7 @@ MonoBehaviour:
     <PushPullSpeed>k__BackingField: 1.5
     <BreakDistance>k__BackingField: 3
     <MaxGrabMass>k__BackingField: 50
-    <GrabDistance>k__BackingField: 0.8
+    <GrabDistance>k__BackingField: 0.65
     <GrabVisualOffset>k__BackingField: 0
   <Throw>k__BackingField:
     <LayerObject>k__BackingField:

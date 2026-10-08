@@ -15,6 +15,8 @@ namespace Characters.Component
         private Rigidbody rb;
         private PlayerSettings settings;
         private Rigidbody grabbedCrate;
+        private Vector3 grabOffset;
+        private bool hasGrabOffset;
         private readonly List<(Rigidbody crate, float releaseTime)> releasedCrates = new();
 
         public bool IsGrabbing => grabbedCrate != null;
@@ -29,12 +31,14 @@ namespace Characters.Component
         public void Grab(Rigidbody crate)
         {
             if (crate == null || IsGrabbing) return;
-            
+
             if (crate.mass > settings.Grab.MaxGrabMass) return;
 
             grabbedCrate = crate;
             grabbedCrate.isKinematic = false;
             grabbedCrate.constraints &= ~LockXZ;
+
+            hasGrabOffset = false;
         }
 
         public void UnGrab()
@@ -53,7 +57,15 @@ namespace Characters.Component
 
             if (grabbedCrate == null) return;
 
-            Vector3 v = rb.linearVelocity;
+            if (!hasGrabOffset)
+            {
+                grabOffset = grabbedCrate.position - rb.position;
+                hasGrabOffset = true;
+            }
+
+
+            Vector3 error = rb.position + grabOffset - grabbedCrate.position;
+            Vector3 v = rb.linearVelocity + error / Time.fixedDeltaTime * 0.5f;
             grabbedCrate.linearVelocity = new Vector3(v.x, grabbedCrate.linearVelocity.y, v.z);
 
             if (Vector3.Distance(rb.position, grabbedCrate.position) > settings.Grab.BreakDistance)

@@ -7,55 +7,85 @@ namespace Characters
         public Animator animator;
 
         [Header("Correction Grab")]
-        [SerializeField, Tooltip("Os des hanches (mixamorig:Hips). Vide = recherché automatiquement.")]
-        private Transform hips;
+        [SerializeField, Tooltip("Os de la tête (mixamorig:Head). Vide = recherché automatiquement.")]
+        private Transform head;
         [SerializeField, Tooltip("Os de la colonne (mixamorig:Spine). Vide = recherché automatiquement.")]
         private Transform spine;
-        [SerializeField, Range(0f, 60f), Tooltip("Redresse le buste pendant le grab : l'anim Push penche trop, la tête de Jammo rentre dans la caisse.")]
-        private float grabSpineStraighten = 40f;
+        [SerializeField, Min(0f), Tooltip("Distance minimale entre l'os de la tête et la face de la caisse (≈ demi-largeur du casque de Jammo).")]
+        private float headClearance = 0.4f;
+        [SerializeField, Range(0f, 60f), Tooltip("Redresse un peu le buste pendant le grab pour que les mains restent près de la caisse.")]
+        private float grabSpineStraighten = 15f;
         [SerializeField, Min(0f), Tooltip("Vitesse d'entrée/sortie de la correction (évite un à-coup).")]
         private float grabCorrectionBlendSpeed = 8f;
 
-        // Les anims Mixamo Push/Pull ne sont pas "In Place" et penchent beaucoup : le modèle rentre dans la caisse
-        public bool GrabCorrection { get; set; }
+        // L'anim Push penche le corps et la grosse tête de Jammo passe dans la caisse :
+        // à chaque frame on mesure la tête et on recule le modèle juste assez
+        public bool GrabCorrection => grabCrate != null;
         private float grabCorrectionWeight;
-        private Vector3 hipsRestOffset;
+        private Transform grabCrate;
+        private Vector3 grabFaceLocalPoint;
+        private Vector3 grabFaceLocalNormal;
+        private Vector3 modelBaseLocalPos;
+        private float pushBack;
 
         private void Awake()
         {
             if (animator != null)
             {
-                if (hips == null)  hips  = FindChild(animator.transform, "mixamorig:Hips");
+                if (head == null)  head  = FindChild(animator.transform, "mixamorig:Head");
                 if (spine == null) spine = FindChild(animator.transform, "mixamorig:Spine");
             }
 
-            if (hips != null)
-                hipsRestOffset = animator.transform.InverseTransformPoint(hips.position);
+            if (head == null || spine == null)
+                Debug.LogWarning($"PlayerAnimator : os introuvable (head={head}, spine={spine}) : la correction du grab ne marchera pas. Assigne-les dans l'Inspector.", this);
+        }
 
-            if (hips == null || spine == null)
-                Debug.LogWarning($"PlayerAnimator : os introuvable (hips={hips}, spine={spine}) : la correction du grab ne marchera pas. Assigne-les dans l'Inspector.", this);
+        // Face de la caisse stockée en local : elle suit la caisse quand on la pousse ou la tire
+        public void BeginGrabCorrection(Transform crate, Vector3 facePoint, Vector3 faceNormal)
+        {
+            faceNormal.y = 0f;
+            grabCrate = crate;
+            grabFaceLocalPoint = crate.InverseTransformPoint(facePoint);
+            grabFaceLocalNormal = crate.InverseTransformDirection(faceNormal.normalized);
+            modelBaseLocalPos = animator.transform.localPosition;
+            pushBack = 0f;
+        }
+
+        public void EndGrabCorrection()
+        {
+            if (grabCrate == null) return;
+            grabCrate = null;
+            animator.transform.localPosition = modelBaseLocalPos;
         }
 
         private void LateUpdate()
         {
             grabCorrectionWeight = Mathf.MoveTowards(grabCorrectionWeight, GrabCorrection ? 1f : 0f,
                                                      grabCorrectionBlendSpeed * Time.deltaTime);
-            if (grabCorrectionWeight <= 0f) return;
+            if (!GrabCorrection) return;
 
-            // Hanches : on garde la hauteur de l'anim, mais elles restent au-dessus de leur position de repos
-            if (hips != null)
-            {
-                Vector3 rest = animator.transform.TransformPoint(hipsRestOffset);
-                Vector3 current = hips.position;
-                hips.position = Vector3.Lerp(current, new Vector3(rest.x, current.y, rest.z), grabCorrectionWeight);
-            }
-
-            // Buste : pivote vers l'arrière autour de l'axe droit du perso, la tête et les bras reculent avec
+            // Buste : pivote vers l'arrière autour de l'axe droit du perso
             if (spine != null)
             {
                 Quaternion back = Quaternion.AngleAxis(-grabSpineStraighten * grabCorrectionWeight, animator.transform.right);
                 spine.rotation = back * spine.rotation;
             }
+
+            if (head == null) return;
+
+            // On mesure depuis la position de base du modèle, puis on recule de ce qui manque
+            Transform model = animator.transform;
+            model.localPosition = modelBaseLocalPos;
+
+            Vector3 facePoint = grabCrate.TransformPoint(grabFaceLocalPoint);
+            Vector3 faceNormal = grabCrate.TransformDirection(grabFaceLocalNormal);
+            float headDistance = Vector3.Dot(head.position - facePoint, faceNormal);
+
+            float target = Mathf.Max(0f, headClearance - headDistance) * grabCorrectionWeight;
+            pushBack = Mathf.Lerp(pushBack, target, 15f * Time.deltaTime);
+
+            Vector3 offset = faceNormal * pushBack;
+            model.localPosition = modelBaseLocalPos + (model.parent != null ? model.parent.InverseTransformDirection(offset) : offset);
         }
 
         private static Transform FindChild(Transform parent, string childName)

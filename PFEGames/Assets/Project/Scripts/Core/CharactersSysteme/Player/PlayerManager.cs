@@ -108,11 +108,14 @@ namespace Project.Scripts.Core.CharactersSysteme.Player
         public void Grab()   => Grabber.Grab(Sensor.CrateInFront);
         public void UnGrab() => Grabber.UnGrab();
 
-            if (Grabber.IsGrabbing)
-                Motor.SnapFacing(Sensor.CratePoint, Sensor.CrateNormal, Settings.Grab.GrabDistance);
+            if (!Grabber.IsGrabbing) return;
+
+            Motor.SnapFacing(Sensor.CratePoint, Sensor.CrateNormal, Settings.Grab.GrabDistance);
+            Animator.BeginGrabCorrection(Grabber.Objectrb.transform, Sensor.CratePoint, Sensor.CrateNormal);
         }
         public void UnGrab()
         {
+            Animator.EndGrabCorrection();
             Grabber.UnGrab();
             Motor.ResetVisualOffset();
         }
