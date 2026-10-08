@@ -1,1 +1,0 @@
-using UnityEngine;namespace CharacterController.Script{	public class HitBoxComponent : MonoBehaviour	{		[Header("HitBoxData")]		public HitBoxData hitBoxData;	}}
