@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using PnjDetection;
-using PnjStates;
-using RagdollSysteme;
-using Routine;
+using Goblfin.PnjSystem.PnjDetection;
+using Goblfin.PnjSystem.PnjStates;
+using Goblfin.PnjSystem.Routine;
+using Goblfin.PnjSystem.WhatTheyDetect;
+using Goblfin.RagdollSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Project.Scripts.Core.PnjSysteme
+namespace Goblfin.PnjSystem
 {
 	public class BrainPnj : RagDoll
 	{

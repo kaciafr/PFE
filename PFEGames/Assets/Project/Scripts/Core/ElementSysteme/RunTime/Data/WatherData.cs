@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime
+namespace Runtime.Project.Scripts.Core
 {
     [CreateAssetMenu(fileName = "WatherData")]
     public class WatherData : ScriptableObject

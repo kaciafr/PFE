@@ -1,6 +1,4 @@
-using Project.Scripts.Core.PnjSysteme;
-
-namespace PnjStates
+namespace Goblfin.PnjSystem.PnjStates
 {
 	public interface IPnjStates
 	{

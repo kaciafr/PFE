@@ -1,4 +1,4 @@
-namespace DefaultNamespace.PuzzleSystem
+namespace Goblfin.PuzzleSystem
 {
     public interface IAction
     {

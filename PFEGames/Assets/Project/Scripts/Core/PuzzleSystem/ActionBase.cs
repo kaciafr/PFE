@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.PuzzleSystem
+namespace Goblfin.PuzzleSystem
 {
     public abstract class ActionBase : MonoBehaviour, IAction
     {

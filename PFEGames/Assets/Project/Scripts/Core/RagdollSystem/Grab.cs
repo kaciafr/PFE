@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Project.Scripts.Core.RagdollSysteme;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
-using Utilities;
 
-namespace RagdollSysteme
+namespace Goblfin.RagdollSystem
 {
 	public class Grab : MonoBehaviour
 	{

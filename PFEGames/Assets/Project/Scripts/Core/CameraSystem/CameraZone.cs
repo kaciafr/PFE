@@ -1,21 +1,24 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class CameraZone : MonoBehaviour
+namespace Goblfin
 {
-    [SerializeField] CameraState state;
+	[RequireComponent(typeof(Collider))]
+	public class CameraZone : MonoBehaviour
+	{
+		[SerializeField] CameraState state;
 
-    void Reset() => GetComponent<Collider>().isTrigger = true;
+		void Reset() => GetComponent<Collider>().isTrigger = true;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            CameraController.Instance.Request(state);
-    }
+		void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag("Player"))
+				CameraController.Instance.Request(state);
+		}
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            CameraController.Instance.Release();
-    }
+		void OnTriggerExit(Collider other)
+		{
+			if (other.CompareTag("Player"))
+				CameraController.Instance.Release();
+		}
+	}
 }

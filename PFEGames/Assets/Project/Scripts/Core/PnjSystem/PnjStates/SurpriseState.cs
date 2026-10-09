@@ -1,8 +1,8 @@
-using Project.Scripts.Core.PnjSysteme;
+using Goblfin.PnjSystem.Utilities;
+using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
-using Utilities;
 
-namespace PnjStates
+namespace Goblfin.PnjSystem.PnjStates
 {
 	public class SurpriseState : IPnjStates
 	{

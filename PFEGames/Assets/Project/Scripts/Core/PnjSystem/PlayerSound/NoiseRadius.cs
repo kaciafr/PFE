@@ -1,5 +1,7 @@
+using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
-namespace PlayerSound
+
+namespace Goblfin.PnjSystem.PlayerSound
 {
 	public class NoiseRadius : MonoBehaviour
 	{

@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IDetected
+namespace Goblfin.PnjSystem.WhatTheyDetect
 {
-	Transform transform { get; }
-	float speed { get; }
+	public interface IDetected
+	{
+		Transform transform { get; }
+		float speed { get; }
+	}
 }

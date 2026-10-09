@@ -1,8 +1,7 @@
-using Project.Scripts.Core.PnjSysteme;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
-using Utilities;
 
-namespace PnjStates
+namespace Goblfin.PnjSystem.PnjStates
 {
 	public class KoState : IPnjStates
 	{

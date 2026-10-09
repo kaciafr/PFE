@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
-using Utilities;
 
-namespace Project.Scripts.Core.RagdollSysteme
+namespace Goblfin.RagdollSystem
 {
 	public class ListPointGrab : MonoBehaviour
 	{

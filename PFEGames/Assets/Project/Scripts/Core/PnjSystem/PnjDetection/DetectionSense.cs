@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PnjDetection
+namespace Goblfin.PnjSystem.PnjDetection
 {
     public abstract class DetectionSense : PnjAptitude
     {

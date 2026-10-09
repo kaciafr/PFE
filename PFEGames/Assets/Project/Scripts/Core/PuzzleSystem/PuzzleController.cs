@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace DefaultNamespace.PuzzleSystem
+namespace Goblfin.PuzzleSystem
 {
     
     public enum PuzzleState {Solved ,Locked }

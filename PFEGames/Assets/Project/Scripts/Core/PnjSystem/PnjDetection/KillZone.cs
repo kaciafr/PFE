@@ -1,8 +1,7 @@
 using System;
-
 using UnityEngine;
 
-namespace PnjDetection
+namespace Goblfin.PnjSystem.PnjDetection
 {
 	public class KillZone : DetectionSense
 	{

@@ -2,6 +2,8 @@ using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
 using Goblfin.CharactersSystem.Player.States;
+using Goblfin.PnjSystem.WhatTheyDetect;
+using Goblfin.RagdollSystem;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player

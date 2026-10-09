@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Routine
+namespace Goblfin.PnjSystem.Routine
 {
 	public class PointTime : MonoBehaviour
 	{

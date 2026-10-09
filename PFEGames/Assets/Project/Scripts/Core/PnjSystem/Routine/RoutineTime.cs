@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Routine
+namespace Goblfin.PnjSystem.Routine
 {
 	public class RoutineTime : MonoBehaviour
 	{

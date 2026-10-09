@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using Goblfin.PnjSystem.Utilities;
 using PrimeTween;
-using Project.Scripts.Core.PnjSysteme;
 using UnityEngine;
-using Utilities;
 
-namespace PnjStates
+namespace Goblfin.PnjSystem.PnjStates
 {
     public class SearchState : IPnjStates
     {

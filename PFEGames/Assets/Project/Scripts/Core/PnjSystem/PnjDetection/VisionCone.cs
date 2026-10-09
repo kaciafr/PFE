@@ -1,7 +1,8 @@
 using System;
+using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace PnjDetection
+namespace Goblfin.PnjSystem.PnjDetection
 {
 	public class VisionCone : DetectionSense
 	{

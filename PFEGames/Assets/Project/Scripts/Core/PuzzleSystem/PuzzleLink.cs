@@ -1,35 +1,37 @@
-using DefaultNamespace.PuzzleSystem;
 using UnityEngine;
 
-public class PuzzleLink : MonoBehaviour
+namespace Goblfin.PuzzleSystem
 {
-    [SerializeField] private ConditionBase condition;
-    [SerializeField] private ActionBase action;
+	public class PuzzleLink : MonoBehaviour
+	{
+		[SerializeField] private ConditionBase condition;
+		[SerializeField] private ActionBase action;
 
-    private bool running;
+		private bool running;
 
-    private void OnEnable()  => condition.Changed += OnChanged;
-    private void OnDisable() => condition.Changed -= OnChanged;
+		private void OnEnable()  => condition.Changed += OnChanged;
+		private void OnDisable() => condition.Changed -= OnChanged;
 
-    private void OnChanged()
-    {
-        if (condition.isMet && !running)
-        {
-            running = true;
-            action.Enter();
-        }
-    }
+		private void OnChanged()
+		{
+			if (condition.isMet && !running)
+			{
+				running = true;
+				action.Enter();
+			}
+		}
 
-    private void Update()
-    {
-        if (!running) return;
+		private void Update()
+		{
+			if (!running) return;
 
-        action.Tick();
+			action.Tick();
 
-        if (action.isFinished)
-        {
-            action.Exit();
-            running = false;
-        }
-    }
+			if (action.isFinished)
+			{
+				action.Exit();
+				running = false;
+			}
+		}
+	}
 }

@@ -1,8 +1,8 @@
-using PnjDetection;
-using Project.Scripts.Core.PnjSysteme;
+using Goblfin.PnjSystem.PnjDetection;
+using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace PnjStates
+namespace Goblfin.PnjSystem.PnjStates
 {
 	public class IntrigueState : IPnjStates
 	{

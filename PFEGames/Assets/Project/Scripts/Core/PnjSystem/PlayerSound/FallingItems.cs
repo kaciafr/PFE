@@ -1,9 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
+using Goblfin.Data;
+using Goblfin.PnjSystem.Utilities;
+using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
-using Utilities;
 
-namespace PlayerSound
+namespace Goblfin.PnjSystem.PlayerSound
 {
 	public class FallingItems :  MonoBehaviour,ISondDetected
 	{

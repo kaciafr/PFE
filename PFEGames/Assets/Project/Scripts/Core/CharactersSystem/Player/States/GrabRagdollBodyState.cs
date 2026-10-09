@@ -1,7 +1,7 @@
+using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
-using Utilities;
 
-namespace Characters
+namespace Goblfin.CharactersSystem.Player.States
 {
 	public class GrabRagdollBodyState : PlayerState
 	{

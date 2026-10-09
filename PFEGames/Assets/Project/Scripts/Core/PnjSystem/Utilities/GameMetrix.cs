@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Utilities
+namespace Goblfin.PnjSystem.Utilities
 {
 	public static class GameMetrix
 	{

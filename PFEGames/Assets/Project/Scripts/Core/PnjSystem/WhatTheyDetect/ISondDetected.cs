@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface ISondDetected
+namespace Goblfin.PnjSystem.WhatTheyDetect
 {
-	Transform Transform { get; }
+	public interface ISondDetected
+	{
+		Transform Transform { get; }
+	}
 }
