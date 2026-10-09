@@ -12,7 +12,7 @@ namespace Runtime.Project.Scripts.Core
 
 			if (elementSimulation != null)
 			{
-				elementSimulation.AddHeat(heatPerSecond*Time.deltaTime);
+				elementSimulation.AddHeat(heatPerSecond);
 			}
 		}
 	}

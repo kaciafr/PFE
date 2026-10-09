@@ -13,23 +13,18 @@ namespace Runtime.Project.Scripts.Core
 
         public void Update(ElementSimulation element)
         {
-            if (element.Heat > element.ElementData.Brule || element.TargetDegres >= element.ElementData.Brule)
+            if (element.Heat > element.ElementData.Brule)
             {
                 element.ChangeState(new BurningState());
             }
             
-
-            if (element.Humidity > element.ElementData.Frozen && element.TargetDegres <= 5f)
+            if (element.Humidity > element.ElementData.Frozen)
             {
                 if (!element.ElementData.IsLiquid)
                 {
                     element.Collider.isTrigger = false;
                 }
                 element.ChangeState(new FrozenState());
-            }
-            else
-            {
-                element.Collider.isTrigger = true;
             }
         }
 

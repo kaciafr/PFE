@@ -1,14 +1,14 @@
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core.ElementSysteme.RunTime
+namespace Runtime.Project.Scripts.Core
 {
 	public class ElementInfo : MonoBehaviour
 	{
 		protected ElementSimulation elementSim;
 
-		public virtual void Init(ElementSimulation elementSim)
+		public virtual void Init(ElementSimulation element)
 		{
-			this.elementSim = elementSim;
+			this.elementSim = element;
 		}
 	}
 }

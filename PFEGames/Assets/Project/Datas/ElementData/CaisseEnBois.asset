@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90a429fb2ed4fe438ae2ed9e3d43ce9, type: 3}
   m_Name: CaisseEnBois
   m_EditorClassIdentifier: Runtime::Runtime.Project.Scripts.Core.ElementData
-  <FireResistance>k__BackingField: 0
+  <FireResistance>k__BackingField: 30
   <Brule>k__BackingField: 70
   phaseOneParticule: {fileID: 9027763093632594836, guid: fae56390502084a42aa42dcf229784a9, type: 3}
   phaseTwoParticule: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}

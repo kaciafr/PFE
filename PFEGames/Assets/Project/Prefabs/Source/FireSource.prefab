@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e63dc1eb46c284d49bd81a3dd3054af1, type: 2}
+  - {fileID: 2100000, guid: 38f60366d1745c64aa71b1a5a2317fc7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1002302779879267434
 GameObject:
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d153aec9694951a274f4401333ae2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Runtime::Runtime.FireSource
-  heatPerSecond: 10
+  heatPerSecond: 30
 --- !u!54 &4827733164294795558
 Rigidbody:
   m_ObjectHideFlags: 0

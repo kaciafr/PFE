@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Runtime.Project.Scripts.Core.ElementSysteme.RunTime;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core
@@ -8,20 +8,20 @@ namespace Runtime.Project.Scripts.Core
 	{
 		[Header("References")]
 		[field:SerializeField] public ElementData ElementData { get; private set; }
-		private List<ElementInfo> elementInfos =  new List<ElementInfo>();
+		[SerializeField] private List<ElementInfo> elementInfos =  new List<ElementInfo>();
 		[field:SerializeField] public Collider Collider{ get; private set; }
 		
 		[Header("Dynamique Variables")] 
-		[field:SerializeField] public float TargetDegres{ get; private set; }
-		[field:SerializeField] public float Heat{ get; private set; }
-		[field:SerializeField] public float Humidity{ get; private set; }
-		[field:SerializeField] public float Electricity{ get; private set; }
+		[field:SerializeField] public float Heat{ get; set; }
+		[field:SerializeField] public float Humidity{ get; set; }
+		[field:SerializeField] public float Electricity{ get; set; }
 		
 		private float currentDegres;
 		private IElementState currentState;
 		private void Awake()
 		{
-			GetComponents(elementInfos);
+			ElementInfo[] found = GetComponents<ElementInfo>();
+			elementInfos.AddRange(found);
 			foreach (var elementInfo in elementInfos)
 			{
 				elementInfo.Init(this);
@@ -40,6 +40,11 @@ namespace Runtime.Project.Scripts.Core
 			return null;
 		}
 
+		public void Start()
+		{
+			ResetSimulation();
+		}
+
 		private void OnEnable() => ResetSimulation();
 
 		private void ResetSimulation()
@@ -47,7 +52,6 @@ namespace Runtime.Project.Scripts.Core
 			Heat = 0f;
 			Humidity = 0f;
 			Electricity = 0f;
-			TargetDegres = ElementData.Normaldegres;
 			ChangeState(new NormalState());
 		}
 
@@ -67,19 +71,19 @@ namespace Runtime.Project.Scripts.Core
 		
 		private void LogicWather()
 		{
-			var weather = WhaterManager.Instance;
+			var weather = 0.5f;
 			float dt = Time.deltaTime;
 
-			Heat = Mathf.MoveTowards(Heat, weather.standarDegres, 5f * dt);
+			Heat = Mathf.MoveTowards(Heat, weather, 5f * dt);
 
-			Heat -= weather.currrentRainIntensity * 10f * dt;
+			Heat -= weather * 10f * dt;
 
-			float ambientHumidity = weather.currentHumidity * 10f;
-			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, 10f * dt);
+			/*float ambientHumidity = weather * 10f;
+			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, 10f * dt);*/
 
-			TargetDegres = ElementData.Normaldegres + Heat - Humidity + weather.standarDegres * 0.2f;
+			var targetDegres = ElementData.Normaldegres + Heat - Humidity + weather * 0.2f;
 
-			currentDegres = Mathf.MoveTowards(currentDegres, TargetDegres, 5f * dt);
+			currentDegres = Mathf.MoveTowards(currentDegres, targetDegres, 5f * dt);
 
 			Heat = Mathf.Clamp(Heat, 0, 100);
 			Humidity = Mathf.Clamp(Humidity, 0, 100);

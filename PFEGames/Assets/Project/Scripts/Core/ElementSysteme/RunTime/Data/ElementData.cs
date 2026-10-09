@@ -3,10 +3,11 @@ using UnityEngine;
 namespace Runtime.Project.Scripts.Core
 {
     [CreateAssetMenu(fileName = "MaterialData")]
-    public class ElementData : ScriptableObject 
+    public class ElementData : ScriptableObject
     {
-        [Header("Influence Feu")]
-        [field:SerializeField]public float FireResistance{ get; private set; }
+	    [Header("Influence Feu")]
+	    [field: SerializeField]
+	    public float FireResistance { get; private set; } = 15;
         [field:SerializeField] public float Brule{ get; private set; } 
         
         [Header("Sond & Particule")]

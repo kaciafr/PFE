@@ -6,6 +6,6 @@ namespace Runtime.Project.Scripts.Core
 		public void Add(ElementSimulation element, float amount) => element.AddElectricity(amount);
 		public float Rate(ElementSimulation element) =>  0.5f;
 		public float Resistance(ElementData element) => element.ElectricityConductibility;
-		public float Set(ElementSimulation element, float amount) => amount * Rate(element);
+		public float Set(ElementSimulation element, float amount) => element.Electricity = amount;
 	}
 }
