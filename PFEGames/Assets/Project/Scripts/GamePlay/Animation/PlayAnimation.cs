@@ -1,9 +1,8 @@
-using System;
-using PnjDetection;
-using Project.Scripts.Core.PnjSysteme;
+using Goblfin.PnjSystem;
+using Goblfin.PnjSystem.PnjDetection;
 using UnityEngine;
 
-namespace GamePlay.Animation
+namespace Goblfin.Gameplay.Gameplay.Animation
 {
 	public class PlayAnimation : MonoBehaviour
 	{

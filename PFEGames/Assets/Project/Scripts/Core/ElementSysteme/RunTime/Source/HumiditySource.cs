@@ -1,8 +1,6 @@
-using System;
-using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime
+namespace Runtime.Project.Scripts.Core
 {
 	public class HumiditySource : MonoBehaviour
 	{

@@ -1,6 +1,6 @@
 {
-    "name": "GamePlay",
-    "rootNamespace": "GamePlay",
+    "name": "Gameplay",
+    "rootNamespace": "Goblfin.Gameplay",
     "references": [
         "GUID:4dc5a037562ddb34ca2b312594e1d919",
         "GUID:6055be8ebefd69e48b49212b09b47b2f",

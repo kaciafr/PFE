@@ -1,5 +1,5 @@
-using Project.Scripts.Core.PnjSysteme;
-using Routine;
+using Goblfin.PnjSystem;
+using Goblfin.PnjSystem.Routine;
 using UnityEditor;
 using UnityEngine;
 

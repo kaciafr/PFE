@@ -1,0 +1,49 @@
+using System;
+using Goblfin.PnjSystem.WhatTheyDetect;
+using UnityEngine;
+
+namespace Goblfin.PnjSystem.PnjDetection
+{
+    public class AuditionCast : DetectionSense
+    {
+        [Header("Réglages de la portée de l'audition")]
+        [Tooltip("Rayon proche : une cible ici déclenche une alerte immédiate.")]
+        [Range(1, 60)]
+        [field: SerializeField] public float DangerHearingRadius { get; private set; } = 5f;
+
+        [Tooltip("Rayon large : une cible ici est simplement entendue.")]
+        [Range(1, 60)]
+        [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
+
+        public event Action<ISondDetected , GameObject > OnHearAlerte;  
+        
+
+        protected override void Scan()
+        {
+	        detectedTargets.Clear();
+   
+	        Transform dangerTarget = FindTargetInRadius(DangerHearingRadius);
+    
+	        if (dangerTarget == null)
+		        return;
+
+	        ISondDetected target = dangerTarget.GetComponentInParent<ISondDetected>();
+	        Remember(dangerTarget);
+	        OnHearAlerte?.Invoke(target, this.gameObject);
+	        
+        }
+
+        protected override void OnDrawGizmos()
+        {
+            Vector3 origin = SensorOrigin;
+
+            /*Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(origin, HearingRadius);*/
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(origin, DangerHearingRadius);
+
+            base.OnDrawGizmos(); 
+        }
+    }
+}

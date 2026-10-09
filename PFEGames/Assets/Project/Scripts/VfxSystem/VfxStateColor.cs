@@ -1,7 +1,4 @@
-namespace DefaultNamespace
+public class VfxStateColor : IVfx
 {
-    public class VfxStateColor : IVfx
-    {
         
-    }
 }

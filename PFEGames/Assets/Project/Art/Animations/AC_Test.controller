@@ -93,7 +93,7 @@ AnimatorStateMachine:
     m_Position: {x: 330, y: 810, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1298887630382052697}
-    m_Position: {x: 710, y: 380, z: 0}
+    m_Position: {x: 720, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1274539870468514196}
     m_Position: {x: 850, y: 510, z: 0}
@@ -139,7 +139,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walk
-  m_Speed: 1
+  m_Speed: 1.26
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -225,15 +225,15 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 96b41c32145250547babb1ee3512e1b1, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 4c57d2228aaf5e4469fdda9aebd4782a, type: 3}
   m_Tag: 
-  m_SpeedParameter: GrabSpeed
+  m_SpeedParameter: 
   m_MirrorParameter: 
-  m_CycleOffsetParameter: 
+  m_CycleOffsetParameter: ClimbSpeed
   m_TimeParameter: 
 --- !u!91 &9100000
 AnimatorController:
@@ -286,13 +286,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: 53879885958897143826f0296252c1f9, type: 3}
   m_Tag: 
-  m_SpeedParameter: GrabSpeed
+  m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -390,13 +390,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: 06962953f3fe0024388232202fb8daf4, type: 3}
   m_Tag: 
-  m_SpeedParameter: ClimbSpeed
+  m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
