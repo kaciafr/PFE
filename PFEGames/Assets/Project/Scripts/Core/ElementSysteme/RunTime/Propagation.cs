@@ -18,7 +18,7 @@ namespace Runtime.Project.Scripts.Core
 
 			foreach (ElementSimulation voisin in chain.neighbours)
 			{
-				float transfer = (currentStat - Channel.Get(voisin)) * speed * Time.deltaTime;
+				float transfer = (currentStat - Channel.Get(voisin)) * speed/2;
 				Channel.Add(voisin, transfer);
 			}
 		}

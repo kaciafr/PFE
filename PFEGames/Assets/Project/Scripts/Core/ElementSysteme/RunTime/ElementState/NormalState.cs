@@ -8,7 +8,6 @@ namespace Runtime.Project.Scripts.Core
 	    private Health currentHealth;
         public void Enter(ElementSimulation element)
         {
-            Debug.Log("Entering NormalState");
         }
 
         public void Update(ElementSimulation element)

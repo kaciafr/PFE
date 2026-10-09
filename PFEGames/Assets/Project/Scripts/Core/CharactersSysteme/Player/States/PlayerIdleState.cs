@@ -7,7 +7,7 @@ namespace Characters
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering PlayerIdleState");
+
             ctx.Player.Animator.Play(AnimIds.Idle);
         }
 

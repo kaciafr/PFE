@@ -57,9 +57,13 @@ namespace Runtime.Project.Scripts.Core
 
 		private void Update()
 		{
-			LogicWather();
 			LogicElement();
 			currentState.Update(this);
+			
+			if(Heat <= 0.2f)
+				return;
+			
+			LogicWeather();
 		}
 		
 		public void ChangeState(IElementState state)
@@ -69,45 +73,43 @@ namespace Runtime.Project.Scripts.Core
 			state.Enter(this);
 		}
 		
-		private void LogicWather()
+		private void LogicWeather()
 		{
-			var weather = 0.5f;
-			float dt = Time.deltaTime;
+			float ambientHeat = 0f;       
+			float ambientHumidity = 0f;      
+    
+			float coolingRate = 5f;
+			float dryingRate = 2f;
 
-			Heat = Mathf.MoveTowards(Heat, weather, 5f * dt);
-
-			Heat -= weather * 10f * dt;
-
-			/*float ambientHumidity = weather * 10f;
-			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, 10f * dt);*/
-
-			var targetDegres = ElementData.Normaldegres + Heat - Humidity + weather * 0.2f;
-
-			currentDegres = Mathf.MoveTowards(currentDegres, targetDegres, 5f * dt);
-
-			Heat = Mathf.Clamp(Heat, 0, 100);
-			Humidity = Mathf.Clamp(Humidity, 0, 100);
+			Heat = Mathf.MoveTowards(Heat, ambientHeat, coolingRate * Time.deltaTime);
+			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, dryingRate * Time.deltaTime);
+			
+			float targetDegrees = ElementData.Normaldegres + Heat - (Humidity * 0.1f);
+			currentDegres = Mathf.MoveTowards(currentDegres, targetDegrees, 10f * Time.deltaTime);
 		}
 		
 		private void LogicElement()
 		{
-			float dt = Time.deltaTime;
+			float evaporation = (Heat * 0.1f + ElementData.VaporationSpeed) * Time.deltaTime;
+			Humidity -= evaporation;
+			
+			float cooling = Humidity * 0.05f * Time.deltaTime;
+			Heat -= cooling;
+			
+			if (Heat < 0.1f) 
+				Heat = 0f;
+			
+			if (Electricity > 0f)
+			{
+				float conductivity = Mathf.Max(0.01f, ElementData.ElectricityConductibility);
+				Electricity -= (1f / conductivity) * Time.deltaTime;
 
-			Heat -= Humidity * dt;
-
-			Humidity -= Heat * ElementData.VaporationSpeed * dt;
-
-			float electricityLoss = Electricity * (1f / ElementData.ElectricityConductibility) * dt;
-			Electricity -= electricityLoss;
-
-			if (Electricity < 0.1f)
-				Electricity = 0f;
-
-
-			Electricity = Mathf.Clamp(Electricity, 0, 100);
-			Heat = Mathf.Clamp(Heat, 0, 100);
-			Humidity = Mathf.Clamp(Humidity, 0, 100);
-
+				if (Electricity < 0.1f) 
+					Electricity = 0f;
+			}
+			Heat = Mathf.Clamp(Heat, 0f, 100f);
+			Humidity = Mathf.Clamp(Humidity, 0f, 100f);
+			Electricity = Mathf.Clamp(Electricity, 0f, 100f);
 		}
 		
 		public void AddHeat(float heat) => Absorbe<HeatChannel>.Run(this, heat);
