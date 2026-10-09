@@ -10,8 +10,9 @@ namespace DefaultNamespace.PuzzleSystem
     public class PuzzleController :  MonoBehaviour
     {
         [SerializeField ] private  List<ActionBase> onSolved;
-        [SerializeField ] private  List<CondtionBase> conditions;
+        [SerializeField ] private  List<ConditionBase> conditions;
         PuzzleState state =  PuzzleState.Locked;
+        [SerializeField] private bool reversible;
 
         private void OnEnable() { foreach (var c in conditions) c.Changed += Evaluate; }
 
@@ -23,13 +24,20 @@ namespace DefaultNamespace.PuzzleSystem
         }
 
         void OnDisable() { foreach (var c in conditions) c.Changed -= Evaluate; }
+        
         void Evaluate()
         {
-            if ( state == PuzzleState.Solved) return;
-            if (conditions.All(c => c.isMet))
+            bool met = conditions.All(c => c.isMet);
+
+            if (met && state == PuzzleState.Locked)
             {
                 state = PuzzleState.Solved;
-                foreach ( var  a  in onSolved ) a.Enter();
+                foreach (var a in onSolved) a.Enter();
+            }
+            else if (!met && state == PuzzleState.Solved && reversible)
+            {
+                state = PuzzleState.Locked;
+                foreach (var a in onSolved) a.Undo();
             }
         }
     }
