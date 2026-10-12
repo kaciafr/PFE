@@ -5,6 +5,7 @@ using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Routine;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -136,6 +137,21 @@ namespace Goblfin.PnjSystem
 		private void Update()
 		{
 			PNJStates.UpdateState(this);
+		}
+
+		private void FixedUpdate()
+		{
+			var FindProblem = GetAptitude<ProblemeAttraction>();
+			if (FindProblem == null)
+			{
+				Debug.Log("IL MANQUE UN TRUC LA");
+				return;
+			}
+			if (FindProblem.TryFindProblem(out ElementSimulation element))
+			{
+				PnjGoTo(new SeeAndResolveProblemState(element));
+				return;
+			}
 		}
 
 		public T GetAptitude<T>() where T : PnjAptitude

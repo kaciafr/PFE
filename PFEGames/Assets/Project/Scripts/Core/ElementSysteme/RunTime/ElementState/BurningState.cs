@@ -10,6 +10,7 @@ namespace Runtime.Project.Scripts.Core
 			Debug.Log("Entering BurningState");
 			currentHealth = element.GetInfo<Health>();
 			currentHealth.SetDeathVisual(DeathVisual.Burned);
+			ProblemRegestry.RegisterProblem(element);
 		}
 
 		public void Update(ElementSimulation element)
@@ -24,6 +25,7 @@ namespace Runtime.Project.Scripts.Core
 
 		public void Exit(ElementSimulation element)
 		{
+			ProblemRegestry.UnregisterProblem(element);
 		}
 	}
 }

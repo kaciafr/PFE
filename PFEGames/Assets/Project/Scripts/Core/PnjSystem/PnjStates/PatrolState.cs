@@ -1,4 +1,5 @@
 using Goblfin.PnjSystem.Utilities;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem.PnjStates
@@ -22,6 +23,8 @@ namespace Goblfin.PnjSystem.PnjStates
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
+			
+			
 			if (isWaiting)
 			{
 				brainPnj.Agent.speed = 0;

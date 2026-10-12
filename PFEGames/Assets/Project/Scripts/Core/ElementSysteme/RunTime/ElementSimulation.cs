@@ -17,7 +17,7 @@ namespace Runtime.Project.Scripts.Core
 		[field:SerializeField] public float Electricity{ get; set; }
 		
 		private float currentDegres;
-		[field:SerializeField] public IElementState currentState { get; private set; }
+		[field:SerializeField] public IElementState CurrentState { get; private set; }
 		[Header("References")]
 		[SerializeField] private GameObject root;
 		public GameObject Root
@@ -69,7 +69,7 @@ namespace Runtime.Project.Scripts.Core
 		private void Update()
 		{
 			LogicElement();
-			currentState.Update(this);
+			CurrentState.Update(this);
 			
 			if(Heat <= 0.2f)
 				return;
@@ -80,7 +80,7 @@ namespace Runtime.Project.Scripts.Core
 		public void ChangeState(IElementState state)
 		{
 			state.Exit(this);
-			currentState = state;
+			CurrentState = state;
 			state.Enter(this);
 		}
 		private void LogicWeather()

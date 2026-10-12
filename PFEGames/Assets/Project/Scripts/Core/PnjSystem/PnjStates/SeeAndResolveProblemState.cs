@@ -21,7 +21,7 @@ namespace Goblfin.PnjSystem.PnjStates
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			if (problem == null || problem.currentState is not BurningState)
+			if (problem == null || problem.CurrentState is not BurningState)
 			{
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 				return;
@@ -41,7 +41,6 @@ namespace Goblfin.PnjSystem.PnjStates
 				{
 					isResolving = false;
 					resolveAptitude.Resolve(problem);
-					brainPnj.Agent.isStopped = true;
 					brainPnj.Agent.SetDestination(problem.transform.position);
 				}
 				return;
@@ -50,7 +49,6 @@ namespace Goblfin.PnjSystem.PnjStates
 			if (!isResolving)
 			{
 				isResolving = true;
-				brainPnj.Agent.isStopped = true;
 			}
 			FaceFire(brainPnj);
 		}
