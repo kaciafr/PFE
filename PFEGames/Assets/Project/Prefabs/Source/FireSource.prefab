@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d153aec9694951a274f4401333ae2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Runtime::Runtime.FireSource
-  heatPerSecond: 30
+  heatPerSecond: 50
 --- !u!54 &4827733164294795558
 Rigidbody:
   m_ObjectHideFlags: 0

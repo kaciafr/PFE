@@ -3,7 +3,9 @@
     "rootNamespace": "Runtime",
     "references": [
         "GUID:7acb51286fd4db748aee27e2117b20ae",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:4dc5a037562ddb34ca2b312594e1d919",
+        "Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

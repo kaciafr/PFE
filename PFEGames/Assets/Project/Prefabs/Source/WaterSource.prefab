@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ef56838ec048ff9849c357fa65be92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Runtime::Runtime.HumiditySource
-  humidityPerSecond: 20
+  humidityPerSecond: 50
 --- !u!1 &2775620874781123985
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd32de40e17d16d43864fed17a20df9a, type: 2}
+  - {fileID: 2100000, guid: f1df5cac27b534447a6b3553b8c7d134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -184,4 +184,5 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}

@@ -17,7 +17,7 @@ namespace Runtime.Project.Scripts.Core
 		[field:SerializeField] public float Electricity{ get; set; }
 		
 		private float currentDegres;
-		private IElementState currentState;
+		[field:SerializeField] public IElementState currentState { get; private set; }
 		[Header("References")]
 		[SerializeField] private GameObject root;
 		public GameObject Root
