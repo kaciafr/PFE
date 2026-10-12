@@ -18,6 +18,17 @@ namespace Runtime.Project.Scripts.Core
 		
 		private float currentDegres;
 		private IElementState currentState;
+		[Header("References")]
+		[SerializeField] private GameObject root;
+		public GameObject Root
+		{
+			get
+			{
+				if (root != null) return root;
+				var pooled = GetComponentInParent<PooledInstance>();
+				return pooled != null ? pooled.gameObject : gameObject;
+			}
+		}
 		private void Awake()
 		{
 			ElementInfo[] found = GetComponents<ElementInfo>();
@@ -72,7 +83,6 @@ namespace Runtime.Project.Scripts.Core
 			currentState = state;
 			state.Enter(this);
 		}
-		
 		private void LogicWeather()
 		{
 			float ambientHeat = 0f;       
@@ -87,31 +97,33 @@ namespace Runtime.Project.Scripts.Core
 			float targetDegrees = ElementData.Normaldegres + Heat - (Humidity * 0.1f);
 			currentDegres = Mathf.MoveTowards(currentDegres, targetDegrees, 10f * Time.deltaTime);
 		}
-		
 		private void LogicElement()
 		{
-			float evaporation = (Heat * 0.1f + ElementData.VaporationSpeed) * Time.deltaTime;
-			Humidity -= evaporation;
-			
-			float cooling = Humidity * 0.05f * Time.deltaTime;
-			Heat -= cooling;
-			
-			if (Heat < 0.1f) 
+			var dt = Time.deltaTime;
+
+			if (Humidity > 0f && Heat > 0f)
+			{
+				float evaporated = Mathf.Min(Humidity, Heat * ElementData.VaporationSpeed * dt);
+				Humidity -= evaporated;
+				Heat -= evaporated * 2;  
+			}
+
+			if (Heat < 0.1f)
 				Heat = 0f;
-			
+
 			if (Electricity > 0f)
 			{
 				float conductivity = Mathf.Max(0.01f, ElementData.ElectricityConductibility);
-				Electricity -= (1f / conductivity) * Time.deltaTime;
+				Electricity -= (1f / conductivity) * dt;
 
-				if (Electricity < 0.1f) 
+				if (Electricity < 0.1f)
 					Electricity = 0f;
 			}
+
 			Heat = Mathf.Clamp(Heat, 0f, 100f);
 			Humidity = Mathf.Clamp(Humidity, 0f, 100f);
 			Electricity = Mathf.Clamp(Electricity, 0f, 100f);
 		}
-		
 		public void AddHeat(float heat) => Absorbe<HeatChannel>.Run(this, heat);
 		public void AddHumidity(float humidity) => Absorbe<HumidityChannel>.Run(this, humidity);
 		public void AddElectricity(float electricity) => Absorbe<ElectricityChannel>.Run(this, electricity);

@@ -11,7 +11,7 @@ namespace Runtime.Project.Scripts.Core
 			ElementSimulation elementSimulation = other.GetComponent<ElementSimulation>();
 			if (elementSimulation != null)
 			{
-				elementSimulation.AddHumidity(humidityPerSecond * Time.deltaTime);
+				elementSimulation.AddHumidity(humidityPerSecond * 0.3f);
 			}
 		}
 	}

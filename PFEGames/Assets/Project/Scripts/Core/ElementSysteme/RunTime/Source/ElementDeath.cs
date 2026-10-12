@@ -1,3 +1,4 @@
+using Runtime.Project.Scripts.Core.Utilities;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core
@@ -6,20 +7,20 @@ namespace Runtime.Project.Scripts.Core
 	{
 		public static GameObject Replace(ElementSimulation element, DeathVisual visual)
 		{
-			ElementData data = element.ElementData;
+			GameObject target = element.Root;
+			if (!target.activeSelf) return null;  
 
-			GameObject prefab = data.GetDeathPrefab(visual);
-
-			Transform t = element.transform;
+			GameObject prefab = element.ElementData.GetDeathPrefab(visual);
+			Transform t = target.transform;
 			GameObject result = null;
 
 			if (prefab != null)
 			{
-				result = PrefabPool.Get(prefab,t.position,t.rotation);
-				result.transform.localScale = t.localScale; 
+				result = PrefabPool.Get(prefab, t.position, t.rotation);
+				result.transform.localScale = t.localScale;
 			}
 
-			PrefabPool.Release(element.gameObject);
+			PrefabPool.Release(target);
 			return result;
 		}
 	}

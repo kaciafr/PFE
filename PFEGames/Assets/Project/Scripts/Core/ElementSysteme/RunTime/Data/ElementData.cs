@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core
@@ -5,6 +7,7 @@ namespace Runtime.Project.Scripts.Core
     [CreateAssetMenu(fileName = "MaterialData")]
     public class ElementData : ScriptableObject
     {
+	   
 	    [Header("Influence Feu")]
 	    [field: SerializeField]
 	    public float FireResistance { get; private set; } = 15;
@@ -38,6 +41,14 @@ namespace Runtime.Project.Scripts.Core
         [field:SerializeField]public GameObject NormalPrefab{ get; private set; }
         [field:SerializeField]public GameObject FrozenPrefab{ get; private set; }
         
+        [Header("Pool")]
+        [field: SerializeField] public int PoolSize { get; private set; } = 8;
+        public IEnumerable<GameObject> GetPoolPrefabs()
+        {
+	        if (BurnPrefab != null)   yield return BurnPrefab;
+	        if (FrozenPrefab != null) yield return FrozenPrefab;
+	        if (NormalPrefab != null) yield return NormalPrefab;
+        }
         public GameObject GetDeathPrefab(DeathVisual visual) => visual switch
         {
 	        DeathVisual.Frozen => FrozenPrefab,
