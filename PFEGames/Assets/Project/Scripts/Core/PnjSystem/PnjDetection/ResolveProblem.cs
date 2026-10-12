@@ -1,9 +1,9 @@
 using Goblfin.PnjSystem.PnjDetection;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin.PnjSystem
 {
-	public class ResolveProbleme : PnjAptitude
+	public class ResolveProblem : PnjAptitude
 	{
 		[SerializeField] private float range = 5f;
 		[SerializeField] private float humidityPerSecond = 25f;

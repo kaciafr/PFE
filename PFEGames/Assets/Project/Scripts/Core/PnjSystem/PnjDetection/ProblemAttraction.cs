@@ -1,9 +1,10 @@
 using Goblfin.PnjSystem.PnjDetection;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin.PnjSystem
 {
-	public class ProblemeAttraction : PnjAptitude
+	public class ProblemAttraction : PnjAptitude
 	{
 		[SerializeField] private float scanInterval = 0.25f;
 		private float nextScan;
@@ -26,7 +27,6 @@ namespace Runtime.Project.Scripts.Core
 				if (visionCone.CanSeePoint(pos, sim.Root.transform))
 				{
 					hasProblem = sim;
-					bestSqr = sqr;
 				}
 			}
 

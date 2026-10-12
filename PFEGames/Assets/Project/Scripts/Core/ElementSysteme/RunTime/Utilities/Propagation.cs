@@ -1,3 +1,4 @@
+using Goblfin;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core

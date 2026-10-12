@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
     [CreateAssetMenu(fileName = "MaterialData")]
     public class ElementData : ScriptableObject
@@ -11,32 +11,30 @@ namespace Runtime.Project.Scripts.Core
 	    [Header("Influence Feu")]
 	    [field: SerializeField]
 	    public float FireResistance { get; private set; } = 15;
-        [field:SerializeField] public float Brule{ get; private set; } 
+
+	    [field: SerializeField] public float Hot { get; private set; } = 15; 
+        [field:SerializeField] public float Burn{ get; private set; } 
         
-        [Header("Sond & Particule")]
-        [field:SerializeField] public ParticleSystem phaseOneParticule;
-        [field:SerializeField] public ParticleSystem phaseTwoParticule;
-        
-        [Header("Influence Eau")]
-        [field:SerializeField]public float AbsorptionResistance{ get; private set; }
+        [Header("Sound & Particle")]
+        [field:SerializeField] public ParticleSystem phaseOneParticle;
+        [field:SerializeField] public ParticleSystem phaseTwoParticle;
+
         [field:SerializeField] public float Frozen{ get; private set; }
-        [field:SerializeField]public float VaporationSpeed{ get; private set; }
+        [field:SerializeField]public float EvaporationSpeed{ get; private set; }
         
-        [Header("Influence Électricité")]
-        [field:SerializeField] public float Tazzer{ get; private set; }
-        [field:SerializeField]public float ElectricityConductibility{ get; private set; }
+        [Header("Influence Electricity")]
+        [field:SerializeField] public float Electrify{ get; private set; }
+        [field:SerializeField]public float ElectricalConduct{ get; private set; }
         
-        [Header("Sond & Particule")]
-        [SerializeField] private ParticleSystem electroParticule;
+        [Header("Sound & Particle")]
+        [SerializeField] private ParticleSystem electroParticle;
 
         [Header("Structure")] 
-        [field:SerializeField] public float Normaldegres{ get; private set; }
+        [field:SerializeField] public float AverageDegree{ get; private set; }
         [field:SerializeField]public float MaxHealth{ get; private set; }
-        [field:SerializeField]public float DamageHealth{ get; private set; }
+        [field:SerializeField]public float HitPower{ get; private set; }
         [field:SerializeField]public bool IsLiquid{ get; private set; }
-        
-        [Header("Transformation")]
-        [field:SerializeField]public GameObject Prefab{ get; private set; }
+
         [field:SerializeField]public GameObject BurnPrefab{ get; private set; }
         [field:SerializeField]public GameObject NormalPrefab{ get; private set; }
         [field:SerializeField]public GameObject FrozenPrefab{ get; private set; }

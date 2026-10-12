@@ -1,12 +1,12 @@
+using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Utilities;
-using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class PatrolState : IPnjStates
 	{
-		private BrainPnj guard;
+		private readonly BrainPnj guard;
 		private float waitTimer;
 		private bool isWaiting;
 		

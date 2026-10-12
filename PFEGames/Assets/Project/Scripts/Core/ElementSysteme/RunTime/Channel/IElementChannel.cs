@@ -1,3 +1,5 @@
+using Goblfin;
+
 namespace Runtime.Project.Scripts.Core
 {
 	public interface IElementChannel

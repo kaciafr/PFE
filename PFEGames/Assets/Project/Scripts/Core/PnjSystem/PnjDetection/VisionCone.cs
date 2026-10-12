@@ -1,12 +1,13 @@
 using System;
+using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjDetection
+namespace Goblfin.PnjSystem
 {
 	public class VisionCone : DetectionSense
 	{
-		[Header("Réglages du cône de vision")]
+		[Header("Field of view settings")]
 		[field: SerializeField] public float ViewRadius { get; private set; } = 10f;
 		[Range(0, 360)]
 		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;

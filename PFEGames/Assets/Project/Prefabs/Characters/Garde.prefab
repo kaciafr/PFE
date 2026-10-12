@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1960191244103734526}
   - component: {fileID: 5865955604385915622}
   - component: {fileID: 2715845544373113073}
+  - component: {fileID: 8543819964279989890}
+  - component: {fileID: 6191303730724366069}
   m_Layer: 12
   m_Name: Garde
   m_TagString: Guard
@@ -103,7 +105,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentStep: 0
   <Animator>k__BackingField: {fileID: 1832180271137414552}
-  <Model>k__BackingField: {fileID: 5732267498756245474}
+  model: {fileID: 0}
 --- !u!114 &8447189675878180899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +195,33 @@ MonoBehaviour:
   - {fileID: 2924948406142237078}
   - {fileID: 3399199334976899038}
   - {fileID: 8010161553871523153}
+--- !u!114 &8543819964279989890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7855507035447891060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071bdb1c72a04e668af7eac1d8172c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Runtime.Project.Scripts.Core.ResolveProbleme
+  range: 5
+  humidityPerSecond: 25
+--- !u!114 &6191303730724366069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7855507035447891060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fa77481fc4362afa5bbc5a76e6a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Runtime.Project.Scripts.Core.ProblemeAttraction
+  scanInterval: 0.25
 --- !u!1001 &5190296960919101449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -534,8 +563,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 416b5b70d1867da48a3a5fb007b59f78, type: 2}
     - target: {fileID: 5866666021909216657, guid: d9ff3043f848bed4e97b88202aee0adc, type: 3}
-      propertyPath: m_ApplyRootMotion
+      propertyPath: m_CullingMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d9ff3043f848bed4e97b88202aee0adc, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6240733294840144465, guid: d9ff3043f848bed4e97b88202aee0adc, type: 3}
       propertyPath: m_Layer

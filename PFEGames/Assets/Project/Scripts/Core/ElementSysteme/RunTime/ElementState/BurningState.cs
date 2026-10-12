@@ -1,6 +1,7 @@
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class BurningState: IElementState
 	{
@@ -15,9 +16,9 @@ namespace Runtime.Project.Scripts.Core
 
 		public void Update(ElementSimulation element)
 		{
-			currentHealth.TakeDamageEnv(element.ElementData.DamageHealth);
+			currentHealth.TakeDamageEnv(element.ElementData.HitPower);
 			element.FirePropagation();
-			if (element.Heat <= element.ElementData.Brule / 2)
+			if (element.Heat <= element.ElementData.Hot)
 			{
 				element.ChangeState(new NormalState());
 			}

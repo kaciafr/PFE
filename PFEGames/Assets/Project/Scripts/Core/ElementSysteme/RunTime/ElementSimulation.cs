@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class ElementSimulation : MonoBehaviour
 	{
@@ -11,13 +11,13 @@ namespace Runtime.Project.Scripts.Core
 		[SerializeField] private List<ElementInfo> elementInfos =  new List<ElementInfo>();
 		[field:SerializeField] public Collider Collider{ get; private set; }
 		
-		[Header("Dynamique Variables")] 
+		[Header("Dynamics Variables")] 
 		[field:SerializeField] public float Heat{ get; set; }
 		[field:SerializeField] public float Humidity{ get; set; }
 		[field:SerializeField] public float Electricity{ get; set; }
 		
-		private float currentDegres;
-		[field:SerializeField] public IElementState CurrentState { get; private set; }
+		private float currentDegrees;
+		public IElementState CurrentState { get; private set; }
 		[Header("References")]
 		[SerializeField] private GameObject root;
 		public GameObject Root
@@ -94,8 +94,8 @@ namespace Runtime.Project.Scripts.Core
 			Heat = Mathf.MoveTowards(Heat, ambientHeat, coolingRate * Time.deltaTime);
 			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, dryingRate * Time.deltaTime);
 			
-			float targetDegrees = ElementData.Normaldegres + Heat - (Humidity * 0.1f);
-			currentDegres = Mathf.MoveTowards(currentDegres, targetDegrees, 10f * Time.deltaTime);
+			float targetDegrees = ElementData.AverageDegree + Heat - (Humidity * 0.1f);
+			currentDegrees = Mathf.MoveTowards(currentDegrees, targetDegrees, 10f * Time.deltaTime);
 		}
 		private void LogicElement()
 		{
@@ -103,7 +103,7 @@ namespace Runtime.Project.Scripts.Core
 
 			if (Humidity > 0f && Heat > 0f)
 			{
-				float evaporated = Mathf.Min(Humidity, Heat * ElementData.VaporationSpeed * dt);
+				float evaporated = Mathf.Min(Humidity, Heat * ElementData.EvaporationSpeed * dt);
 				Humidity -= evaporated;
 				Heat -= evaporated * 2;  
 			}
@@ -113,7 +113,7 @@ namespace Runtime.Project.Scripts.Core
 
 			if (Electricity > 0f)
 			{
-				float conductivity = Mathf.Max(0.01f, ElementData.ElectricityConductibility);
+				float conductivity = Mathf.Max(0.01f, ElementData.ElectricalConduct);
 				Electricity -= (1f / conductivity) * dt;
 
 				if (Electricity < 0.1f)

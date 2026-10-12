@@ -1,7 +1,7 @@
-using Runtime.Project.Scripts.Core;
+using Goblfin.PnjSystem.PnjStates;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class SeeAndResolveProblemState : IPnjStates
 	{
@@ -27,7 +27,7 @@ namespace Goblfin.PnjSystem.PnjStates
 				return;
 			}
 
-			var resolveAptitude = brainPnj.GetAptitude<ResolveProbleme>();
+			var resolveAptitude = brainPnj.GetAptitude<ResolveProblem>();
 			
 			if(resolveAptitude == null)
 			{

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Runtime.Project.Scripts.Core.Utilities;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core.Utilities
+namespace Goblfin
 {
     public class PoolManager : MonoBehaviour
     {

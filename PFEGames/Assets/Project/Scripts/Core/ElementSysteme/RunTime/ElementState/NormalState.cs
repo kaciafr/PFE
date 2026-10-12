@@ -1,18 +1,20 @@
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
+using UnityEngine.Audio;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
     public class NormalState : IElementState
- 
     {
 	    private Health currentHealth;
+	    
         public void Enter(ElementSimulation element)
         {
         }
 
         public void Update(ElementSimulation element)
         {
-            if (element.Heat > element.ElementData.Brule)
+            if (element.Heat > element.ElementData.Burn)
             {
                 element.ChangeState(new BurningState());
             }

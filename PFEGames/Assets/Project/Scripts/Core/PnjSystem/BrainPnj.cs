@@ -5,7 +5,6 @@ using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Routine;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
-using Runtime.Project.Scripts.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,11 +15,11 @@ namespace Goblfin.PnjSystem
 		[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
 		[field:SerializeField] public NavMeshAgent Agent {get; private set;}
 		[field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
-		[field:SerializeField] public int currentStep = 0;
+		public int currentStep;
 		[field:SerializeField] public Animator Animator {get; private set;}
-		[field:SerializeField] public Transform Model {get; private set;}
+		[SerializeField] private Transform model;
 
-		public IPnjStates PNJStates { get; private set; }
+		private IPnjStates PNJStates { get; set; }
 		public event Action<IPnjStates> OnStatesChanged;
 	
 		private Rigidbody[] ragdollRigidbodies;
@@ -96,10 +95,6 @@ namespace Goblfin.PnjSystem
 				Agent.enabled = true;
 				Agent.Warp(hit.position);
 			}
-			else
-			{
-				Debug.LogWarning($"{name}: aucun NavMesh à moins de 5m du ragdoll.");
-			}
 		}
 
 		private void SetRagdollPhysics(bool enableRagdoll)
@@ -141,16 +136,15 @@ namespace Goblfin.PnjSystem
 
 		private void FixedUpdate()
 		{
-			var FindProblem = GetAptitude<ProblemeAttraction>();
-			if (FindProblem == null)
+			var findProblem = GetAptitude<ProblemAttraction>();
+			if (findProblem == null)
 			{
 				Debug.Log("IL MANQUE UN TRUC LA");
 				return;
 			}
-			if (FindProblem.TryFindProblem(out ElementSimulation element))
+			if (findProblem.TryFindProblem(out ElementSimulation element))
 			{
 				PnjGoTo(new SeeAndResolveProblemState(element));
-				return;
 			}
 		}
 
@@ -172,7 +166,7 @@ namespace Goblfin.PnjSystem
 			OnStatesChanged?.Invoke(PNJStates);
 		}
 
-		public void KoMode()
+		private void KoMode()
 		{
 			Agent.enabled = false; 
 			SetRagdollPhysics(true);
