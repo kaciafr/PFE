@@ -14,9 +14,9 @@ namespace Goblfin
 
         public void Update(ElementSimulation element)
         {
-            if (element.Heat > element.ElementData.Burn)
+            if (element.Heat > element.ElementData.Hot)
             {
-                element.ChangeState(new BurningState());
+                element.ChangeState(new HotState());
             }
             
             if (element.Humidity > element.ElementData.Frozen)

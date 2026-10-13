@@ -53,6 +53,8 @@ namespace Goblfin
 
 		public void Start()
 		{
+			ElementData.phaseOneParticle.Stop();
+			ElementData.phaseTwoParticle.Stop();
 			ResetSimulation();
 		}
 

@@ -9,6 +9,7 @@ namespace Goblfin
 		public void Enter(ElementSimulation element)
 		{
 			Debug.Log("Entering BurningState");
+			element.ElementData.phaseTwoParticle.Play();
 			currentHealth = element.GetInfo<Health>();
 			currentHealth.SetDeathVisual(DeathVisual.Burned);
 			ProblemRegestry.RegisterProblem(element);
@@ -26,6 +27,7 @@ namespace Goblfin
 
 		public void Exit(ElementSimulation element)
 		{
+			element.ElementData.phaseTwoParticle.Stop();
 			ProblemRegestry.UnregisterProblem(element);
 		}
 	}

@@ -16,6 +16,7 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			brainPnj.Animator.SetBool("ResolveAction", isResolving);
 			brainPnj.Agent.SetDestination(problem.transform.position);
 		}
 
@@ -55,7 +56,7 @@ namespace Goblfin.PnjSystem
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			
+			brainPnj.Animator.SetBool("Blender Tree", isResolving);
 		}
 		
 		private void FaceFire(BrainPnj brainPnj)
