@@ -1,14 +1,15 @@
-using Goblfin.PnjSystem.PnjDetection;
+using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Utilities;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class ChaseState : IPnjStates
 	{
 		private IDetected target;
 		private Vector3 lastKnownPosition;
+		private VisionCone vision;
 
 		public ChaseState(IDetected target)
 		{
@@ -20,12 +21,16 @@ namespace Goblfin.PnjSystem.PnjStates
 		{
 			Debug.Log(nameof( ChaseState));
 			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			vision = brainPnj.GetAptitude<VisionCone>();
+			if (vision == null)
+			{
+				Debug.LogError($"{nameof(vision)} is null");
+				brainPnj.PnjGoTo(new SearchState(brainPnj,lastKnownPosition));
+			}
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			VisionCone vision = brainPnj.GetAptitude<VisionCone>();
-			
 			if (vision != null && vision.CanSee(target))
 			{
 				lastKnownPosition = target.transform.position;

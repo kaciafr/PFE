@@ -142,9 +142,18 @@ namespace Goblfin.PnjSystem
 				Debug.Log("IL MANQUE UN TRUC LA");
 				return;
 			}
-			if (findProblem.TryFindProblem(out ElementSimulation element))
+			if (findProblem.TryFindProblem(out ElementSimulation element, out TypeOfProblem type) || PNJStates is ChaseState )
 			{
-				PnjGoTo(new SeeAndResolveProblemState(element));
+				switch (type)
+				{
+					case TypeOfProblem.Burn :
+					PnjGoTo(new ResolveBurnProblemState(element));
+						break;
+					case TypeOfProblem.Broke :
+						PnjGoTo(new ResolveBrokeProblemState(element));
+						break;
+					
+				}
 			}
 		}
 

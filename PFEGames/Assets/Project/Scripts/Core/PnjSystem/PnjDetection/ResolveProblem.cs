@@ -10,6 +10,6 @@ namespace Goblfin.PnjSystem
 		
 		public bool CloseToTheProbleme(ElementSimulation probleme)=> (probleme.transform.position -  transform.position).sqrMagnitude <= range;
 		
-		public void Resolve(ElementSimulation probleme) => probleme.AddHumidity(humidityPerSecond * 0.5f ); 
+		public void Resolve(ElementSimulation probleme) => probleme.AddHumidity(humidityPerSecond); 
 	}
 }

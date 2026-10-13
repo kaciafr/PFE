@@ -1,14 +1,15 @@
 using Goblfin.PnjSystem.PnjStates;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem
 {
-	public class SeeAndResolveProblemState : IPnjStates
+	public class ResolveBurnProblemState : IPnjStates
 	{
 		private readonly ElementSimulation problem;
 		private bool isResolving;
 
-		public SeeAndResolveProblemState(ElementSimulation problem)
+		public ResolveBurnProblemState(ElementSimulation problem)
 		{
 			this.problem = problem;
 		}
@@ -16,6 +17,8 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			Debug.Log("Burn state entered");
 			brainPnj.Animator.SetBool("ResolveAction", isResolving);
 			brainPnj.Agent.SetDestination(problem.transform.position);
 		}
@@ -27,7 +30,6 @@ namespace Goblfin.PnjSystem
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 				return;
 			}
-
 			var resolveAptitude = brainPnj.GetAptitude<ResolveProblem>();
 			
 			if(resolveAptitude == null)
@@ -38,20 +40,10 @@ namespace Goblfin.PnjSystem
 
 			if (resolveAptitude.CloseToTheProbleme(problem))
 			{
-				if (isResolving)
-				{
-					isResolving = false;
-					resolveAptitude.Resolve(problem);
-					brainPnj.Agent.SetDestination(problem.transform.position);
-				}
-				return;
+				resolveAptitude.Resolve(problem);
+				FaceFire(brainPnj);
+				brainPnj.Agent.SetDestination(problem.transform.position);
 			}
-
-			if (!isResolving)
-			{
-				isResolving = true;
-			}
-			FaceFire(brainPnj);
 		}
 
 		public void ExitState(BrainPnj brainPnj)

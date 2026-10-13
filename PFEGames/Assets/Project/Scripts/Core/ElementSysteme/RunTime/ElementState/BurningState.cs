@@ -9,17 +9,17 @@ namespace Goblfin
 		public void Enter(ElementSimulation element)
 		{
 			Debug.Log("Entering BurningState");
-			element.ElementData.phaseTwoParticle.Play();
+			element.burn.Play();
 			currentHealth = element.GetInfo<Health>();
 			currentHealth.SetDeathVisual(DeathVisual.Burned);
-			ProblemRegestry.RegisterProblem(element);
+			ProblemRegistry.RegisterProblem(element, TypeOfProblem.Burn);
 		}
 
 		public void Update(ElementSimulation element)
 		{
 			currentHealth.TakeDamageEnv(element.ElementData.HitPower);
 			element.FirePropagation();
-			if (element.Heat <= element.ElementData.Hot)
+			if (element.Heat <= 0.1f)
 			{
 				element.ChangeState(new NormalState());
 			}
@@ -27,8 +27,8 @@ namespace Goblfin
 
 		public void Exit(ElementSimulation element)
 		{
-			element.ElementData.phaseTwoParticle.Stop();
-			ProblemRegestry.UnregisterProblem(element);
+			element.burn.Stop();
+			ProblemRegistry.UnregisterProblem(element,TypeOfProblem.Burn);
 		}
 	}
 }

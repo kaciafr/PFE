@@ -8,20 +8,20 @@ namespace Goblfin
 	{
 		public void Enter(ElementSimulation element)
 		{
-			element.ElementData.phaseOneParticle.Play();
+			element.hot.Play();
 		}
 
 		public void Update(ElementSimulation element)
 		{
 			if (element.Heat > element.ElementData.Burn)
 			{
+				element.hot.Stop();
 				element.ChangeState(new BurningState());
 			}
 		}
 
 		public void Exit(ElementSimulation element)
 		{
-			element.ElementData.phaseOneParticle.Stop();
 		}
 	}
 }

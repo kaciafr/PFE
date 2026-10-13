@@ -23,8 +23,6 @@ namespace Goblfin.PnjSystem
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			
-			
 			if (isWaiting)
 			{
 				brainPnj.Agent.speed = 0;

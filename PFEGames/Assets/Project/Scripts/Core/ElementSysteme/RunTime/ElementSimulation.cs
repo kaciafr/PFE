@@ -15,6 +15,9 @@ namespace Goblfin
 		[field:SerializeField] public float Heat{ get; set; }
 		[field:SerializeField] public float Humidity{ get; set; }
 		[field:SerializeField] public float Electricity{ get; set; }
+
+		public ParticleSystem hot;
+		public ParticleSystem burn;
 		
 		private float currentDegrees;
 		public IElementState CurrentState { get; private set; }
@@ -53,8 +56,8 @@ namespace Goblfin
 
 		public void Start()
 		{
-			ElementData.phaseOneParticle.Stop();
-			ElementData.phaseTwoParticle.Stop();
+			hot.Stop();
+			burn.Stop();
 			ResetSimulation();
 		}
 
@@ -76,7 +79,7 @@ namespace Goblfin
 			if(Heat <= 0.2f)
 				return;
 			
-			LogicWeather();
+			//LogicWeather();
 		}
 		
 		public void ChangeState(IElementState state)

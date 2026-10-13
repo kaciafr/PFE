@@ -26,7 +26,6 @@ namespace Goblfin.PnjSystem.PnjStates
 
        public void EnterState(BrainPnj brainPnj)
        {
-	       Debug.Log(nameof( SearchState ));
           timer = 0f;
           currentSearchIndex = 0;
           isWaiting = false;
