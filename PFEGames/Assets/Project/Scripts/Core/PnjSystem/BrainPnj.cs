@@ -147,7 +147,7 @@ namespace Goblfin.PnjSystem
 				switch (type)
 				{
 					case TypeOfProblem.Burn :
-					PnjGoTo(new ResolveBurnProblemState(element));
+					PnjGoTo(new ResolveBurnProblemState(element,type));
 						break;
 					case TypeOfProblem.Broke :
 						PnjGoTo(new ResolveBrokeProblemState(element));

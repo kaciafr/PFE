@@ -311,7 +311,7 @@ namespace ToolSaverio.Editor
         private const float ROW_H = 48f;
         private const float PALETTE_ROW_H = 52f;
 
-        [MenuItem("Tools/Scatter Brush Tool")]
+        [MenuItem("Tools/TechArtTools/BrushAsset")]
         public static void ShowWindow()
         {
             var window = GetWindow<BrushWindow>();

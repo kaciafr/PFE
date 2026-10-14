@@ -40,7 +40,7 @@ namespace ToolSaverio.Editor
 		Vector2 scroll;
 		Action pending; // action différée (évite de modifier la liste pendant le dessin)
 
-		[MenuItem("Tools/Asset Checker")]
+		[MenuItem("Tools/TechArtTools/AssetChecker")]
 		static void Open()
 		{
 			var w = GetWindow<AssetCheckerWindow>();

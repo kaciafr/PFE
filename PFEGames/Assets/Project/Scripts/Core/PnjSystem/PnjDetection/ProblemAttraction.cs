@@ -42,7 +42,21 @@ namespace Goblfin.PnjSystem
 			}
 			return target != null;
 		}
-		
-		//public Vector3 FindResolution(TypeOfProblem type)
+
+		public Vector3 FindBurnResolution(TypeOfProblem type,Vector3 pnjPos)
+		{
+			if (type != TypeOfProblem.Burn)
+				return pnjPos;
+
+			foreach (var resolve in ResolveRegistry.GetResolve(TypeOfResolution.Water))
+			{
+				if (visionCone.CanSeePoint(pnjPos, resolve.transform))
+				{
+					return resolve.transform.position;
+				}
+			}
+			
+			return pnjPos;
+		}
 	}
 }

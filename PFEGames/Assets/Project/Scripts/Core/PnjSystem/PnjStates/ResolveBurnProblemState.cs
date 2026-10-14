@@ -6,26 +6,29 @@ namespace Goblfin.PnjSystem
 {
 	public class ResolveBurnProblemState : IPnjStates
 	{
-		private readonly ElementSimulation problem;
+		
+		private readonly TypeOfProblem problem;
+		private readonly ElementSimulation elementSim;
 		private bool isResolving;
 
-		public ResolveBurnProblemState(ElementSimulation problem)
+		public ResolveBurnProblemState(ElementSimulation elementSim,TypeOfProblem problem)
 		{
 			this.problem = problem;
+			this.elementSim = elementSim;
 		}
 
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
-			Debug.Log("Burn state entered");
-			brainPnj.Animator.SetBool("ResolveAction", isResolving);
-			brainPnj.Agent.SetDestination(problem.transform.position);
+			var resolveAptitude = brainPnj.GetAptitude<ProblemAttraction>();
+			
+			var resolvePos = resolveAptitude.FindBurnResolution(problem,brainPnj.transform.position);
+			brainPnj.Agent.SetDestination(resolvePos);
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			if (problem == null || problem.CurrentState is not BurningState)
+			if (problem == null || elementSim.CurrentState is not BurningState)
 			{
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 				return;
@@ -38,27 +41,16 @@ namespace Goblfin.PnjSystem
 				return;
 			}
 
-			if (resolveAptitude.CloseToTheProbleme(problem))
+			if (resolveAptitude.CloseToTheProbleme(elementSim))
 			{
-				resolveAptitude.Resolve(problem);
-				FaceFire(brainPnj);
-				brainPnj.Agent.SetDestination(problem.transform.position);
+				resolveAptitude.Resolve(elementSim);
+				brainPnj.Agent.SetDestination(elementSim.transform.position);
 			}
 		}
 
 		public void ExitState(BrainPnj brainPnj)
 		{
 			brainPnj.Animator.SetBool("Blender Tree", isResolving);
-		}
-		
-		private void FaceFire(BrainPnj brainPnj)
-		{
-			Vector3 dir = problem.transform.position - brainPnj.transform.position;
-			dir.y = 0f;
-			if (dir.sqrMagnitude < 0.001f) return;
-
-			brainPnj.transform.rotation = Quaternion.RotateTowards(
-				brainPnj.transform.rotation, Quaternion.LookRotation(dir), 360f * Time.deltaTime);
 		}
 	}
 }
