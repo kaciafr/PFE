@@ -1,8 +1,0 @@
-:root
-{
-    --ds-node-background-color: #1D1D1E;
-    --ds-node-custom-data-background-color: #212325;
-    --ds-node-border-color: #27292C;
-    --ds-node-hover-color: #2B2D2F;
-    --ds-node-accent-color: #FDD057;
-}
