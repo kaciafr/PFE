@@ -17,8 +17,6 @@ namespace Goblfin.PnjSystem
 		[field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
 		public int currentStep;
 		[field:SerializeField] public Animator Animator {get; private set;}
-		[SerializeField] private Transform model;
-
 		private IPnjStates PNJStates { get; set; }
 		public event Action<IPnjStates> OnStatesChanged;
 	
@@ -147,7 +145,7 @@ namespace Goblfin.PnjSystem
 				switch (type)
 				{
 					case TypeOfProblem.Burn :
-					PnjGoTo(new ResolveBurnProblemState(element,type));
+					PnjGoTo(new FindAndResolveState(element,type));
 						break;
 					case TypeOfProblem.Broke :
 						PnjGoTo(new ResolveBrokeProblemState(element));

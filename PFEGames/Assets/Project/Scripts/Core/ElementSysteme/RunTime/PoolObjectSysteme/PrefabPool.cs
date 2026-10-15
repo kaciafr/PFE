@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Runtime.Project.Scripts.Core.Utilities
+namespace Goblfin
 {
 	public static class PrefabPool
 	{

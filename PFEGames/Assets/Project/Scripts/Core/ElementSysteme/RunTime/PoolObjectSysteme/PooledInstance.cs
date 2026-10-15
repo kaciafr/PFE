@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class PooledInstance : MonoBehaviour
 	{

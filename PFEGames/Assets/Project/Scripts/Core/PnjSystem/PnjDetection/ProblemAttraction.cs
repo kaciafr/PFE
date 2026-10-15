@@ -8,6 +8,7 @@ namespace Goblfin.PnjSystem
 	{
 		[SerializeField] private float scanInterval = 0.25f;
 		[SerializeField] private TypeOfProblem[] handledTypes = { TypeOfProblem.Burn, TypeOfProblem.Broke };
+		[SerializeField] private TypeOfResolution[] handledResolutions = { TypeOfResolution.Reparation, TypeOfResolution.Water, TypeOfResolution.None  };
 
 		private float nextScan;
 		private VisionCone visionCone;
@@ -43,20 +44,33 @@ namespace Goblfin.PnjSystem
 			return target != null;
 		}
 
-		public Vector3 FindBurnResolution(TypeOfProblem type,Vector3 pnjPos)
+		public bool TryFindResolution( out ResolutionSource target, out TypeOfResolution type)
 		{
-			if (type != TypeOfProblem.Burn)
-				return pnjPos;
+			target = null;
+			type = default;
 
-			foreach (var resolve in ResolveRegistry.GetResolve(TypeOfResolution.Water))
+			if (Time.time < nextScan) return false;
+			nextScan = Time.time + scanInterval;
+
+			float bestSqr = float.MaxValue;
+
+			foreach (TypeOfResolution problem in handledResolutions)
 			{
-				if (visionCone.CanSeePoint(pnjPos, resolve.transform))
+				foreach (ResolutionSource resolutionSource in ResolveRegistry.GetResolve(problem))
 				{
-					return resolve.transform.position;
+					Vector3 pos = resolutionSource.transform.position;
+					float sqr = (pos - transform.position).sqrMagnitude;
+					if (sqr >= bestSqr) continue;
+
+					if (visionCone.CanSeePoint(pos, resolutionSource.transform))
+					{
+						target = resolutionSource;
+						type = problem;
+						bestSqr = sqr;
+					}
 				}
 			}
-			
-			return pnjPos;
+			return target != null;
 		}
 	}
 }

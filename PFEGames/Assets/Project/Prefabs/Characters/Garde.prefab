@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Runtime.Project.Scripts.Core.ProblemeAttraction
   scanInterval: 0.25
+  handledTypes: 0000000001000000i
+  handledResolutions: 010000000000000002000000i
 --- !u!1001 &5190296960919101449
 PrefabInstance:
   m_ObjectHideFlags: 0

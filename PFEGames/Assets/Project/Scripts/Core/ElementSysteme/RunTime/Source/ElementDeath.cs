@@ -1,8 +1,7 @@
-using Goblfin;
-using Runtime.Project.Scripts.Core.Utilities;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public static class ElementDeath
 	{

@@ -1,9 +1,8 @@
-using Goblfin;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
-	public class HumiditySource : MonoBehaviour
+	public class WaterSource : ResolutionSource
 	{
 		[SerializeField] private float humidityPerSecond;
 

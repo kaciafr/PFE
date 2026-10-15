@@ -1,11 +1,9 @@
-using Goblfin;
-using UnityEngine;
+using Runtime.Project.Scripts.Core;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public static class Propagation<T> where T : struct, IElementChannel 
 	{
-		private static readonly T Channel = default;
 
 		public static void Run(ElementSimulation source)
 		{
@@ -14,13 +12,15 @@ namespace Runtime.Project.Scripts.Core
 			if (chain == null) 
 				return;
 
-			float currentStat = Channel.Get(source);
-			float speed = Channel.Rate(source);
+			T channel = ChannelBag<T>.Channel;
+			
+			float currentStat = channel.Get(source);
+			float speed = channel.Rate(source);
 
 			foreach (ElementSimulation voisin in chain.neighbours)
 			{
-				float transfer = (currentStat - Channel.Get(voisin)) * speed/2;
-				Channel.Add(voisin, transfer);
+				float transfer = (currentStat - channel.Get(voisin)) * speed/2;
+				channel.Add(voisin, transfer);
 			}
 		}
 	}

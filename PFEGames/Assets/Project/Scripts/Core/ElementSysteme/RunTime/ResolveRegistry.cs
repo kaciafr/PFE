@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,31 +8,38 @@ namespace Goblfin
 	{
 		Water,
 		Reparation,
+		None,
 	}
+
 	public static class ResolveRegistry
 	{
-		private static Dictionary<TypeOfResolution,HashSet<ElementSimulation>> resolution = new ();
-		private static readonly HashSet<ElementSimulation> Empty = new ();
-		
-		public static IReadOnlyCollection<ElementSimulation> GetResolve(TypeOfResolution type) => resolution.TryGetValue(type, out var result) ? result : Empty;
+		private static readonly Dictionary<TypeOfResolution, HashSet<ResolutionSource>> Sources = new();
+		private static readonly HashSet<ResolutionSource> Empty = new();
 
-		public static void RegisterResolve(ElementSimulation simulation, TypeOfResolution type)
+		public static IReadOnlyCollection<ResolutionSource> GetResolve(TypeOfResolution type)
+			=> Sources.TryGetValue(type, out var set) ? set : Empty;
+
+		public static void Register(ResolutionSource source)
 		{
-			if(!resolution.TryGetValue(type, out var result))
-			{
-				resolution[type] = result = new HashSet<ElementSimulation>();
-				result.Add(simulation);
-			}
+			if (!Sources.TryGetValue(source.Type, out var set))
+				Sources[source.Type] = set = new HashSet<ResolutionSource>();
+			set.Add(source);
 		}
-		
-		public static void UnregisterProblem(ElementSimulation simulation, TypeOfResolution type)
+
+		public static void Unregister(ResolutionSource source)
 		{
-			if(resolution.TryGetValue(type, out var result))
-				result.Remove(simulation);
+			if (Sources.TryGetValue(source.Type, out var set))
+				set.Remove(source);
 		}
-			
-		
+
+		public static TypeOfResolution WhatForWhat(TypeOfProblem problem) => problem switch
+		{
+			TypeOfProblem.Burn => TypeOfResolution.Water,
+			TypeOfProblem.Broke => TypeOfResolution.Reparation,
+			_ => TypeOfResolution.None,
+		};
+
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-		private static void Reset() => resolution.Clear();
+		private static void Reset() => Sources.Clear();
 	}
 }
