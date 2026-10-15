@@ -1,6 +1,6 @@
-using Goblfin;
+using Runtime.Project.Scripts.Core;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class FrozenState : IElementState
 	{

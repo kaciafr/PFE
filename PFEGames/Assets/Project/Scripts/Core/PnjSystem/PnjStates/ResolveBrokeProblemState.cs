@@ -1,7 +1,6 @@
 using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
-using Time = Codice.Client.Common.Time;
 
 namespace Goblfin.PnjSystem
 {
@@ -61,7 +60,6 @@ namespace Goblfin.PnjSystem
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			brainPnj.Animator.SetBool("Blender Tree", isResolving);
 		}
 		
 		private void FaceFire(BrainPnj brainPnj)

@@ -14,6 +14,7 @@ namespace Goblfin
 		    InitializePool();
 	    }
 	    
+	    [Obsolete("Obsolete")]
 	    private void InitializePool()
 	    {
 		    var sims = FindObjectsByType<ElementSimulation>(FindObjectsInactive.Include, FindObjectsSortMode.None);

@@ -11,6 +11,7 @@ namespace Goblfin.PnjSystem
 		private readonly ElementSimulation elementSim;
 		private bool isResolving;
 		private bool isGrabbing;
+		private Vector3 lastPos;
 		private TypeOfResolution resolution;
 		private ProblemAttraction resolveAptitude;
 		private ResolveProblem resolveProblem;
@@ -25,6 +26,7 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			lastPos = elementSim.transform.position;
 			isGrabbing = false;
 			resolveAptitude = brainPnj.GetAptitude<ProblemAttraction>();
 			grabThings = brainPnj.GetAptitude<GrabThings>();
@@ -47,21 +49,26 @@ namespace Goblfin.PnjSystem
 
 			if (isGrabbing)
 			{
-				if (resolveAptitude == null)
+				if (resolveAptitude == null || elementSim.CurrentState is not BurningState)
 				{
 					brainPnj.PnjGoTo(new PatrolState(brainPnj));
 					return;
 				}
-				if (resolveProblem.CloseToTheProbleme(elementSim))
+				brainPnj.Agent.SetDestination(lastPos);
+				if(brainPnj.Agent.remainingDistance <= 0.2f)
 				{
-					brainPnj.Agent.SetDestination(elementSim.transform.position);
-					resolveProblem.Resolve(elementSim);
+					if (resolveProblem.CloseToTheProbleme(elementSim))
+					{
+						resolveProblem.Resolve(elementSim);
+					}
 				}
+				
 			}
 		}
 
 		public void ExitState(BrainPnj brainPnj)
 		{
+			brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 		}
 	}
 }
