@@ -25,22 +25,26 @@ namespace Goblfin.CharactersSystem.Player
         public PlayerThrowObjectState ThrowState { get; private set; }
 
         public PlayerDieState DieState { get; private set; }
+        
+        public PlayerDialogueState DialogueState { get; private set; }
 
         private void Awake()
         {
             Player = GetComponent<PlayerManager>();
 
-            IdleState           = new PlayerIdleState();
-            MoveState           = new PlayerMoveState();
-            SprintState         = new PlayerSprintState();
-            CrouchState         = new PlayerCrouchState();
-            JumpState           = new PlayerJumpState();
-            ClimbState          = new PlayerClimbState();
-            ClimbTopState       = new PlayerClimbTopState();
-            GrabState           = new PlayerGrabState();
+            IdleState = new PlayerIdleState();
+            MoveState = new PlayerMoveState();
+            SprintState = new PlayerSprintState();
+            CrouchState = new PlayerCrouchState();
+            JumpState = new PlayerJumpState();
+            ClimbState = new PlayerClimbState();
+            ClimbTopState = new PlayerClimbTopState();
+            GrabState = new PlayerGrabState();
             InteractObjectState = new PlayerInteractObjectState();
-            DieState            = new PlayerDieState();
-            ThrowState = new PlayerThrowObjectState(); 
+            InteractState = new PlayerInteractState();
+            DieState = new PlayerDieState();
+            ThrowState = new PlayerThrowObjectState();
+            DialogueState = new PlayerDialogueState();
         }
 
         private void Start()

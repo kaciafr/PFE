@@ -11,13 +11,19 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             Debug.Log("Entered PlayerInteractState");
             timer = 0f;
+            ctx.Player.Animator.Play(AnimIds.Idle);
 
-            // Une seule interaction par entrée dans l'état (= un appui sur la touche)
             ctx.Player.Interact();
         }
 
         public override void Tick(PlayerStateMachine ctx)
         {
+            if (DialogueManager.IsOpen)
+            {
+                ctx.SwitchState(ctx.DialogueState);
+                return;
+            }
+
             timer += Time.deltaTime;
             if (timer >= Duration)
                 ctx.SwitchState(ctx.IdleState);
