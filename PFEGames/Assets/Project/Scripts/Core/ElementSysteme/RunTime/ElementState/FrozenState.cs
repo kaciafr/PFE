@@ -7,7 +7,7 @@ namespace Goblfin
 		private Health currentHealth;
 		public void Enter(ElementSimulation element)
 		{
-			currentHealth.SetDeathVisual(DeathVisual.Frozen);
+			//currentHealth.SetDeathVisual(DeathVisual.Frozen);
 		}
 
 		public void Update(ElementSimulation element)

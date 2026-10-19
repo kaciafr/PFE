@@ -1,5 +1,4 @@
 using Goblfin.PnjSystem;
-using Goblfin.PnjSystem.PnjStates;
 using Runtime.Project.Scripts.Core;
 
 namespace Goblfin

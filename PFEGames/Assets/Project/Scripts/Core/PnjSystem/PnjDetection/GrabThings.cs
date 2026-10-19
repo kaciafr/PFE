@@ -9,7 +9,8 @@ namespace Goblfin.PnjSystem
     {
 	    [SerializeField] private Transform socketTransform;
 	    private bool grab =  false;
-	    [SerializeField] private HashSet<GameObject> grabbedObjects = new ();
+	    private HashSet<GameObject> grabbedObjects = new ();
+	    private GameObject objectGrab;
 
 	    private void OnTriggerStay(Collider other)
 	    {
@@ -34,7 +35,13 @@ namespace Goblfin.PnjSystem
 		    foreach (GameObject obj in grabbedObjects)
 		    {
 			    obj.transform.SetParent(socketTransform);
+			    objectGrab = obj;
 		    }
+	    }
+	    public void UnGrab()
+	    {
+		    objectGrab.transform.SetParent(null);
+		    objectGrab = null;
 	    }
     }
 }

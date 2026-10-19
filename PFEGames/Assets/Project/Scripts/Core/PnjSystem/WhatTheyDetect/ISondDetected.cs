@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.WhatTheyDetect
+namespace Goblfin.PnjSystem
 {
 	public interface ISondDetected
 	{

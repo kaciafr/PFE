@@ -3,10 +3,11 @@ using Goblfin.PnjSystem.Utilities;
 using PrimeTween;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
     public class SearchState : IPnjStates
     {
+	    public StatePriority Priority => StatePriority.Searching;
        private float timer;
        private BrainPnj guard;
        private Tween lookTween;
@@ -25,12 +26,14 @@ namespace Goblfin.PnjSystem.PnjStates
        }
 
        public void EnterState(BrainPnj brainPnj)
-       {
+       { 
+	       //A ENLEVER
+	       brainPnj.material.color = Color.yellow;
           timer = 0f;
           currentSearchIndex = 0;
           isWaiting = false;
 
-          guard.Agent.updateRotation = false;
+        guard.Agent.updateRotation = false;
           guard.Agent.updatePosition = true;
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
 

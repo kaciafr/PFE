@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Goblfin.RagdollSystem
+namespace Goblfin
 {
 	public abstract class RagDoll : MonoBehaviour
 	{

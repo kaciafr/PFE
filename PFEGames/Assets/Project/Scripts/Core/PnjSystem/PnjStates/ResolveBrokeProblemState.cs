@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 
@@ -6,15 +5,13 @@ namespace Goblfin.PnjSystem
 {
 	public class ResolveBrokeProblemState : IPnjStates
 	{
+		public StatePriority Priority => StatePriority.Resolve;
 		private readonly ElementSimulation problem;
 		private bool isResolving;
-
 		public ResolveBrokeProblemState(ElementSimulation problem)
 		{
 			this.problem = problem;
 		}
-
-
 		public void EnterState(BrainPnj brainPnj)
 		{
 			Debug.Log("Broke state entered");
@@ -22,7 +19,6 @@ namespace Goblfin.PnjSystem
 			brainPnj.Animator.SetBool("ResolveAction", isResolving);
 			brainPnj.Agent.SetDestination(problem.transform.position);
 		}
-
 		public void UpdateState(BrainPnj brainPnj)
 		{
 			if (problem == null || problem.CurrentState is not BurningState)
@@ -30,7 +26,6 @@ namespace Goblfin.PnjSystem
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 				return;
 			}
-
 			var resolveAptitude = brainPnj.GetAptitude<ResolveProblem>();
 			
 			if(resolveAptitude == null)

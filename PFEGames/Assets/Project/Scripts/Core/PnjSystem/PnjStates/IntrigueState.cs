@@ -1,17 +1,18 @@
-using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class IntrigueState : IPnjStates
 	{
+		public StatePriority Priority => StatePriority.Intrigue;
 		private Vector3 targetPosition;
 		private ISondDetected sondTarget;
-		private GameObject dangerTarget;
+		private Transform dangerTarget;
 		private IDetected cachedDetected;
+		private VisionCone vision;
 
-		public IntrigueState(ISondDetected sondTarget,GameObject dangerTarget)
+		public IntrigueState(ISondDetected sondTarget,Transform dangerTarget)
 		{
 			this.sondTarget = sondTarget;
 			this.dangerTarget = dangerTarget;
@@ -22,6 +23,10 @@ namespace Goblfin.PnjSystem.PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			//A ENLEVER
+			brainPnj.material.color = Color.green;
+			vision = brainPnj.GetAptitude<VisionCone>();
+
 			Debug.Log(nameof(IntrigueState));
 			brainPnj.Agent.updateRotation = false;
 			brainPnj.Agent.SetDestination(targetPosition);
@@ -29,8 +34,6 @@ namespace Goblfin.PnjSystem.PnjStates
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			var vision = brainPnj.GetAptitude<VisionCone>();
-			
 			if (vision != null && cachedDetected != null && vision.CanSee(cachedDetected))
 			{
 				brainPnj.PnjGoTo(new ChaseState(cachedDetected));

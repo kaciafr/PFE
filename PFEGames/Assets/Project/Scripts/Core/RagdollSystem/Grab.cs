@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Goblfin.PnjSystem;
 using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 

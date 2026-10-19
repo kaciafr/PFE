@@ -21,14 +21,15 @@ namespace Goblfin
 			element.FirePropagation();
 			if (element.Heat <= 0.1f)
 			{
+				ProblemRegistry.UnregisterProblem(element,TypeOfProblem.Burn);
 				element.ChangeState(new NormalState());
 			}
 		}
 
 		public void Exit(ElementSimulation element)
 		{
-			element.burn.Stop();
 			ProblemRegistry.UnregisterProblem(element,TypeOfProblem.Burn);
+			element.burn.Stop();
 		}
 	}
 }

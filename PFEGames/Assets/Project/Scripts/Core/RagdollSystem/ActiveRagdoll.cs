@@ -1,6 +1,7 @@
+using Goblfin.RagdollSystem;
 using UnityEngine;
 
-namespace Goblfin.RagdollSystem
+namespace Goblfin
 {
 	public class ActiveRagdoll :  MonoBehaviour
 	{

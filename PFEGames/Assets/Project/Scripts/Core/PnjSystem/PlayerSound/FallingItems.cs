@@ -4,9 +4,9 @@ using Goblfin.PnjSystem.Utilities;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PlayerSound
+namespace Goblfin.PnjSystem
 {
-	public class FallingItems :  MonoBehaviour,ISondDetected
+	public class FallingItems : MonoBehaviour, ISondDetected
 	{
 		[SerializeField] private SphereCollider collider;
 		[SerializeField] private ItemsData items;
@@ -24,7 +24,7 @@ namespace Goblfin.PnjSystem.PlayerSound
 
 		private void Update()
 		{
-			if(collider.radius<=0.02)
+			if(collider.radius<=0.05f)
 				collider.enabled = false;
 			else
 				collider.enabled = true;

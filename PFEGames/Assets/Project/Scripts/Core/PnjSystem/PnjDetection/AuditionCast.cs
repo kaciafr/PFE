@@ -15,7 +15,7 @@ namespace Goblfin.PnjSystem.PnjDetection
         [Range(1, 60)]
         [field: SerializeField] public float HearingRadius { get; private set; } = 10f;
 
-        public event Action<ISondDetected , GameObject > OnHearAlerte;  
+        public event Action<ISondDetected, Transform > OnHearAlerte;  
         
 
         protected override void Scan()
@@ -29,7 +29,7 @@ namespace Goblfin.PnjSystem.PnjDetection
 
 	        ISondDetected target = dangerTarget.GetComponentInParent<ISondDetected>();
 	        Remember(dangerTarget);
-	        OnHearAlerte?.Invoke(target, this.gameObject);
+	        OnHearAlerte?.Invoke(target, this.gameObject.transform);
 	        
         }
 

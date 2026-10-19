@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Utilities;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
@@ -17,8 +16,12 @@ namespace Goblfin.PnjSystem
 			lastKnownPosition = target.transform.position;
 		}
 
+		public StatePriority Priority => StatePriority.Chase;
+
 		public void EnterState(BrainPnj brainPnj)
 		{
+			//A ENLEVER
+			brainPnj.material.color = Color.blue;
 			Debug.Log(nameof( ChaseState));
 			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
 			vision = brainPnj.GetAptitude<VisionCone>();
