@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
@@ -8,7 +10,7 @@ using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player
 {
-    public class PlayerManager : MonoBehaviour, IDie,IDetected,ISondDetected
+    public class PlayerManager : MonoBehaviour,IDie,IDetected,ISondDetected
     {
         #region References
         public Transform Transform => transform;
@@ -25,10 +27,25 @@ namespace Goblfin.CharactersSystem.Player
         [field: SerializeField]public PlayerAnimator Animator { get; private set; }
         [field: SerializeField]public PlayerAnimationEvents AnimEvents { get; private set; }
         [field: SerializeField] public Grab RagdollGrab { get; private set; }
+        
+        [field: SerializeField] public Vector3 startPosition  { get; private set; }
+        [field: SerializeField] public Quaternion startRotation   { get; private set; }
+
+        
+
+        
+        
 
         #endregion
 
         #region Unity Functions
+
+        public void Start()
+        {
+            startPosition = rb.position;
+            startRotation = rb.rotation;
+        }
+
 
         private void Awake()
         {
@@ -70,6 +87,28 @@ namespace Goblfin.CharactersSystem.Player
         public void Jump()                              => Motor.Jump(Settings.Jump.Force);
         public void Stop()                              => Motor.Stop();
 
+        public async   void Respawn(float delay )
+        {
+            await Awaitable.WaitForSecondsAsync(delay);
+            if (this == null) return;
+
+            PlayerRagdoll ragdoll = GetComponentInChildren<PlayerRagdoll>();
+            if (ragdoll != null) ragdoll.Revive();
+
+            Vector3 position = CheckPointSystem.HasCheckPoint ? CheckPointSystem.Position : startPosition;
+            Quaternion rotation = CheckPointSystem.HasCheckPoint ? CheckPointSystem.Rotation : startRotation;
+
+            if (CheckPointSystem.HasCheckPoint && TryGetComponent(out CapsuleCollider capsule))
+                position += Vector3.up * ((capsule.height * 0.5f - capsule.center.y) * transform.lossyScale.y);
+
+            rb.linearVelocity = Vector3.zero;
+            rb.position = position;
+            transform.position = position;
+            Motor.Face(rotation * Vector3.forward);
+
+            StateMachine.SwitchState(StateMachine.IdleState);
+        }
+
         #endregion
 
         #region Posture
@@ -104,7 +143,7 @@ namespace Goblfin.CharactersSystem.Player
 
         public void RagdollGrabing() => RagdollGrab.TryGrab();
         public void UnRagdollGrabing() => RagdollGrab.Release();
-        public void Grab()   => Grabber.Grab(Sensor.CrateInFront);
+        public void Grab()   => Grabber.Grab(Sensor.CrateInFront, Sensor.CrateHitPoint, Sensor.CrateHitNormal);
         public void UnGrab() => Grabber.UnGrab();
 
         #endregion

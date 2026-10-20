@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12501, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: DialogueGraph
+  m_Name: Template_Dialogue
   m_EditorClassIdentifier: UnityEditor.dll::Unity.GraphToolkit.Editor.Implementation.GraphObjectImp
   m_GraphModel:
     rid: 3625803767840244042
@@ -28,7 +28,7 @@ MonoBehaviour:
         m_HashGuid:
           serializedVersion: 2
           Hash: 1b425371e6c1d23e0388f2e45e1d8858
-        m_Name: 
+        m_Name: Template_Dialogue
         m_GraphNodeModels:
         - rid: 3625803793160994822
         - rid: 3625803793160994828
@@ -41,7 +41,8 @@ MonoBehaviour:
         - rid: 3625803793160994829
         - rid: 3625803793160994844
         - rid: 3625803793160994846
-        m_GraphStickyNoteModels: []
+        m_GraphStickyNoteModels:
+        - rid: 3625803847635042304
         m_GraphPlacematModels: []
         m_GraphVariableModels:
         - rid: 3625803774766874624
@@ -51,10 +52,10 @@ MonoBehaviour:
         m_LocalSubgraphs: []
         m_LastKnownBounds:
           serializedVersion: 2
-          x: 884.6667
-          y: -161.33333
-          width: 2602
-          height: 600.6666
+          x: 764
+          y: -578.6667
+          width: 2998.6667
+          height: 1196.6667
         m_GraphElementMetaData:
         - m_Guid:
             m_Value0: 11333565109028523062
@@ -235,7 +236,7 @@ MonoBehaviour:
     - rid: 3625803793160994823
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: BobSalut
+        m_Value: 'Start             '
     - rid: 3625803793160994824
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -339,7 +340,7 @@ MonoBehaviour:
     - rid: 3625803793160994830
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: 'BobDemande '
+        m_Value: BobDemande
     - rid: 3625803793160994831
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -578,7 +579,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 90b0a1993529e0bc88fc41d5ddc9f2da
         m_Version: 2
-        m_Position: {x: 2385.6575, y: -69.91615}
+        m_Position: {x: 2399.1426, y: -153.5243}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -613,7 +614,7 @@ MonoBehaviour:
     - rid: 3625803793160994853
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: 'BobEncours '
+        m_Value: Active
     - rid: 3625803793160994854
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -644,7 +645,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e29e8010fcee39dbb6af840834f3308b
         m_Version: 2
-        m_Position: {x: 2432.386, y: 209.88077}
+        m_Position: {x: 2410.8098, y: 114.318405}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -679,7 +680,7 @@ MonoBehaviour:
     - rid: 3625803793160994864
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: 'BobRendu '
+        m_Value: 'Ready '
     - rid: 3625803793160994865
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -710,7 +711,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9b9352cc7f31899cd73e34bc653e22ec
         m_Version: 2
-        m_Position: {x: 3058.9863, y: -5.069554}
+        m_Position: {x: 2929.5286, y: -18.554789}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -745,7 +746,7 @@ MonoBehaviour:
     - rid: 3625803793160994870
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: BobFini
+        m_Value: Completed
     - rid: 3625803793160994871
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -766,3 +767,23 @@ MonoBehaviour:
     - rid: 3625803793160994874
       type: {class: DSSingleChoiceDialogueNode, ns: Goblfin.DialogueView.GraphToolkit, asm: Core}
       data: 
+    - rid: 3625803847635042304
+      type: {class: StickyNoteModel, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 13371510234991850078
+          m_Value1: 6174746923089243061
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 5e7230a3b62591b9b5abab809c1bb155
+        m_Version: 2
+        m_Title: 
+        m_Contents: 
+        m_ThemeName: Classic
+        m_TextSizeName: Small
+        m_Position:
+          serializedVersion: 2
+          x: 764.25775
+          y: -578.7124
+          width: 2998.9885
+          height: 1196.6667

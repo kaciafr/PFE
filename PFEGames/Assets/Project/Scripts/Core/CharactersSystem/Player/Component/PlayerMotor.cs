@@ -25,6 +25,11 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
+            if (model == null || model == transform)
+            {
+                Animator animator = GetComponentInChildren<Animator>();
+                model = animator != null && animator.transform != transform ? animator.transform : null;
+            }
             if (model != null)
             {
                 modelStartLocalPos = model.localPosition;
@@ -45,8 +50,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             if ((rb.position - lastPos).sqrMagnitude > 9f)
             {
-                Debug.LogError($"TP détecté : {lastPos} -> {rb.position}\n{System.Environment.StackTrace}");
-                Debug.Break();
+                Debug.LogWarning($"TP détecté : {lastPos} -> {rb.position}\n{System.Environment.StackTrace}");
             }
             lastPos = rb.position;
         }
@@ -88,6 +92,14 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             playerObject.forward = Vector3.Slerp(playerObject.forward, dir.normalized,
                 Time.deltaTime * settings.Movement.RotationSpeed);
+        }
+
+        // Tourne le joueur instantanement vers une direction (ex : face a la caisse qu'on attrape)
+        public void Face(Vector3 dir)
+        {
+            dir.y = 0f;
+            if (dir.sqrMagnitude > 0.001f)
+                playerObject.forward = dir.normalized;
         }
 
         public void Jump(float force)

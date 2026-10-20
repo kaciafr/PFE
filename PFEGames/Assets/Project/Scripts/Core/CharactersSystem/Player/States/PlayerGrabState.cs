@@ -18,7 +18,7 @@ namespace Goblfin.CharactersSystem.Player.States
             isPulling = false;
 
             ctx.Player.Grab();
-            tooHeavy = !ctx.Player.IsGrabbing; 
+            tooHeavy = !ctx.Player.IsGrabbing;
 
             ctx.Player.Animator.Play(AnimIds.Grab);
             ctx.Player.Animator.SetGrabSpeed(0f);

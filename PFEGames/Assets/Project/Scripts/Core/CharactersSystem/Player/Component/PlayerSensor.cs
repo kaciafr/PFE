@@ -21,7 +21,21 @@ namespace Goblfin.CharactersSystem.Player.Component
         public Vector3 LadderPoint { get; private set; }
         public float LadderTopY { get; private set; }
         public Rigidbody CrateInFront { get; private set; }
+        public Vector3 CrateHitPoint { get; private set; }   // point touche par le rayon sur la caisse
+        public Vector3 CrateHitNormal { get; private set; }  // direction de la face touchee
         public IInteractable InteractableInFront  { get; private set; }
+
+        // Direction du regard : on prend celle du Motor (l'objet qu'il fait tourner),
+        // pour que les detections suivent toujours le personnage
+        private PlayerMotor motor;
+        private Vector3 Forward
+        {
+            get
+            {
+                if (motor == null) motor = GetComponent<PlayerMotor>();
+                return motor != null ? motor.Forward : playerObject.forward;
+            }
+        }
         private void FixedUpdate()
         {
             CheckGround();
@@ -72,7 +86,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             var climb = settings.Climb;
             Vector3 origin = transform.position + Vector3.down * climb.RayHeight;
-            Vector3 dir = playerObject.forward;
+            Vector3 dir = Forward;
 
             LadderInFront = Physics.Raycast(origin, dir, out RaycastHit hit, climb.DetectDistance,
                                             climb.Layer, QueryTriggerInteraction.Ignore);
@@ -101,12 +115,18 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             var grab = settings.Grab;
             Vector3 origin = transform.position + Vector3.up * grab.RayHeight;
-            Vector3 dir = playerObject.forward;
+            Vector3 dir = Forward;
 
             CrateInFront = Physics.Raycast(origin, dir, out RaycastHit hit, grab.DetectDistance,
                                            grab.Layer, QueryTriggerInteraction.Ignore)
                 ? hit.rigidbody
                 : null;
+
+            if (CrateInFront != null)
+            {
+                CrateHitPoint = hit.point;
+                CrateHitNormal = hit.normal;
+            }
 
             if (drawDebug)
                 Debug.DrawRay(origin, dir * grab.DetectDistance, CrateInFront ? Color.blue : Color.yellow);
@@ -119,7 +139,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             var throwSettings = settings.Throw;
             Vector3 origin = transform.position + Vector3.up * throwSettings.RayHeight;
-            Vector3 center = origin + playerObject.forward * throwSettings.DetectRadius;
+            Vector3 center = origin + Forward * throwSettings.DetectRadius;
 
             int count = Physics.OverlapSphereNonAlloc(center, throwSettings.DetectRadius, throwableBuffer,
                                                       throwSettings.LayerObject, QueryTriggerInteraction.Ignore);
@@ -148,7 +168,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void CheckInteractable()
         {
             Vector3 origin = transform.position + Vector3.up * settings.Interact.InteractHeight;
-            Vector3 center = origin + playerObject.forward * settings.Interact.InteractRadius;
+            Vector3 center = origin + Forward * settings.Interact.InteractRadius;
 
             Collider[] hits = Physics.OverlapSphere(center, settings.Interact.InteractRadius);
             InteractableInFront = null;
@@ -168,7 +188,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (playerObject == null) return;
 
             Vector3 origin = transform.position + Vector3.up * settings.Interact.InteractHeight;
-            Vector3 center = origin + playerObject.forward * settings.Interact.InteractRadius;
+            Vector3 center = origin + Forward * settings.Interact.InteractRadius;
 
             Gizmos.color = InteractableInFront != null ? Color.green : Color.yellow;
             Gizmos.DrawWireSphere(center, settings.Interact.InteractRadius);

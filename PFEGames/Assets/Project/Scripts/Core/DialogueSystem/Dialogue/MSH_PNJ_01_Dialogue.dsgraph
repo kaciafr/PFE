@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12501, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Template_Dialogue
+  m_EditorClassIdentifier: UnityEditor.dll::Unity.GraphToolkit.Editor.Implementation.GraphObjectImp
+  m_GraphModel:
+    rid: 3625803842347073621
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3625803842347073621
+      type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 17475773808047359790
+          m_Value1: 10963195731278088900
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 2e07bd13b06b86f2c4cae89d6e182598
+        m_Name: Template_Dialogue
+        m_GraphNodeModels:
+        - rid: 3625803842347073624
+        m_GraphWireModels: []
+        m_GraphStickyNoteModels: []
+        m_GraphPlacematModels: []
+        m_GraphVariableModels: []
+        m_GraphPortalModels: []
+        m_SectionModels:
+        - rid: 3625803842347073622
+        m_LocalSubgraphs: []
+        m_LastKnownBounds:
+          serializedVersion: 2
+          x: 100.666664
+          y: 191.33333
+          width: 428.66672
+          height: 230.00002
+        m_GraphElementMetaData:
+        - m_Guid:
+            m_Value0: 12873078560864784883
+            m_Value1: 4411920090879312249
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: f3d10a22bf5ca6b279414582f2493a3d
+          m_Category: 0
+          m_Index: 0
+        m_EntryPoint:
+          rid: 3625803842347073624
+        m_Graph:
+          rid: 3625803842347073623
+    - rid: 3625803842347073622
+      type: {class: SectionModel, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 12902079423381043992
+          m_Value1: 775088055599096037
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 18fb809ee0640db3e5e0a1df7aaac10a
+        m_Version: 2
+        m_Items: []
+        m_Title: 
+    - rid: 3625803842347073623
+      type: {class: DSDialogueGraph, ns: Goblfin.DialogueView.GraphToolkit, asm: Core}
+      data: 
+    - rid: 3625803842347073624
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 12873078560864784883
+          m_Value1: 4411920090879312249
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: f3d10a22bf5ca6b279414582f2493a3d
+        m_Version: 2
+        m_Position: {x: 101.11598, y: 191.58815}
+        m_Title: 
+        m_Tooltip: 
+        m_NodePreviewModel:
+          rid: -2
+        m_State: 0
+        m_InputConstantsById:
+          m_KeyList:
+          - __option_DialogueName
+          - __option_Text
+          - QuestAction
+          - Quest
+          m_ValueList:
+          - rid: 3625803842347073625
+          - rid: 3625803842347073626
+          - rid: 3625803842347073627
+          - rid: 3625803842347073628
+        m_InputPortInfos:
+          expandedPortsById:
+            m_KeyList: []
+            m_ValueList: 
+        m_OutputPortInfos:
+          expandedPortsById:
+            m_KeyList: []
+            m_ValueList: 
+        m_Collapsed: 0
+        m_CurrentModeIndex: 0
+        m_ElementColor:
+          m_Color: {r: 0, g: 0, b: 0, a: 0}
+          m_HasUserColor: 0
+        m_Node:
+          rid: 3625803842347073629
+    - rid: 3625803842347073625
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: DialogueName
+    - rid: 3625803842347073626
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: Salut!
+    - rid: 3625803842347073627
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: Goblfin.QuestSystem.QuestAction, Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 0
+        m_EnumType:
+          m_Identification: Goblfin.QuestSystem.QuestAction, Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3625803842347073628
+      type: {class: 'Constant`1[[QuestSO, Core]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 3625803842347073629
+      type: {class: DSSingleChoiceDialogueNode, ns: Goblfin.DialogueView.GraphToolkit, asm: Core}
+      data: 

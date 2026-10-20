@@ -28,6 +28,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (ctx.Player.Input.GrabHeld)
             {
 	            ctx.SwitchState(ctx.GrabRagdollState);
+	            return;
             }
             if (WantsToClimb(ctx))
             {
@@ -41,7 +42,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (ctx.Player.Input.InteractPressed && ctx.Player.CanInteract)
+            if (ctx.Player.Input.InteractPressed && ctx.Player.CanInteract)
             {
                 ctx.SwitchState(ctx.InteractState);
                 return; 

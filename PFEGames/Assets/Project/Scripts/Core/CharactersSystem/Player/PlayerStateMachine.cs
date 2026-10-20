@@ -40,6 +40,7 @@ namespace Goblfin.CharactersSystem.Player
             ClimbState = new PlayerClimbState();
             ClimbTopState = new PlayerClimbTopState();
             GrabState = new PlayerGrabState();
+            GrabRagdollState = new GrabRagdollBodyState();
             InteractObjectState = new PlayerInteractObjectState();
             InteractState = new PlayerInteractState();
             DieState = new PlayerDieState();

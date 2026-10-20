@@ -31,18 +31,21 @@ namespace Goblfin.RagdollSystem
 			pointJoint.Clear();
 		}
 
+		public bool IsHolding => joint != null && joint.connectedBody != null;
+
 		public void TryGrab()
 		{
+			// D'abord verifier qu'il y a quelque chose a attraper (sinon pointJoint[0] plante)
+			if (pointJoint.Count == 0)
+				return;
+
 			if (pointJoint[0].mass > GameMetrix.MaxMassGrab)
 			{
 				Debug.Log("Trop lourd");
 				return;
 			}
-			
-			if (pointJoint.Count == 0)
-				return;
+
 			joint.connectedBody = pointJoint[0];
-			
 		}
 
 		public void Release()

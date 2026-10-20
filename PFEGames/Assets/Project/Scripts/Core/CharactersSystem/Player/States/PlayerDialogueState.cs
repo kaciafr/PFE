@@ -6,7 +6,6 @@ namespace Goblfin.CharactersSystem.Player.States
     {
         public override void Enter(PlayerStateMachine ctx)
         {
-            UnityEngine.Debug.Log("[Dialogue] Entered PlayerDialogueState");
             ctx.Player.Stop();
             ctx.Player.Animator.Play(AnimIds.Idle);
         }

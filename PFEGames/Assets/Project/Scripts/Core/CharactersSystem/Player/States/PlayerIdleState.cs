@@ -23,6 +23,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (ctx.Player.Input.GrabHeld)
             {
 	            ctx.SwitchState(ctx.GrabRagdollState);
+	            return;
             }
             
             if (WantsToClimb(ctx))

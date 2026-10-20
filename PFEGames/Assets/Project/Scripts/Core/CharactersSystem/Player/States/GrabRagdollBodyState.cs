@@ -20,6 +20,14 @@ namespace Goblfin.CharactersSystem.Player.States
 			{
 				ctx.SwitchState(ctx.IdleState);
 				ctx.Player.Animator.Play(AnimIds.Grab);
+				return;
+			}
+
+			// On tient R sans ragdoll attrape, et une caisse arrive devant : on passe au grab de caisse
+			bool holdsRagdoll = ctx.Player.RagdollGrab != null && ctx.Player.RagdollGrab.IsHolding;
+			if (!holdsRagdoll && ctx.Player.CanGrab)
+			{
+				ctx.SwitchState(ctx.GrabState);
 			}
 		}
 

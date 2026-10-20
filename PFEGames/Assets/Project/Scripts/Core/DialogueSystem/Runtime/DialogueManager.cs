@@ -45,7 +45,6 @@ namespace Goblfin
 
         public void Continue()
         {
-            Debug.Log($"[Dialogue] Continue | open={open} isTyping={isTyping} type={currentDialogue?.DialogueType} choices={currentDialogue?.Choices?.Count} next={(currentDialogue != null && currentDialogue.Choices.Count > 0 ? currentDialogue.Choices[0].NextDialogue : null)}");
             if (!open) return;
 
             if (isTyping)

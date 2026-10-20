@@ -1,5 +1,7 @@
+using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Goblfin.CharactersSystem.Player.States
 {
@@ -10,8 +12,17 @@ namespace Goblfin.CharactersSystem.Player.States
             Debug.Log("Entering Die State");
             ctx.Player.Input.DisableAllInput();
             ctx.Player.Stop();
-            ctx.Player.Animator.Play(AnimIds.Die);
+
+            PlayerRagdoll ragdoll = ctx.Player.GetComponentInChildren<PlayerRagdoll>();
+            if (ragdoll != null)
+                ragdoll.Kill();
+            else
+                ctx.Player.Animator.Play(AnimIds.Die);
+
+            ctx.Player.Respawn(ctx.Player.Settings.Death.RespawnDelay);
         }
+
+
 
         public override void Exit(PlayerStateMachine ctx)
         {

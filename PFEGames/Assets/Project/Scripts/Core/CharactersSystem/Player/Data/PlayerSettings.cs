@@ -17,7 +17,7 @@ namespace Goblfin.CharactersSystem.Player.Data
         [field: SerializeField] public ThrowSettings Throw { get; private set; } = ThrowSettings.Default;
         
         [field: SerializeField] public InteractSettings Interact { get; private set; } = InteractSettings.Default;
-
+        [field: SerializeField] public DeathSettings Death { get; private set; } = DeathSettings.Default;
     }
 
     #endregion
@@ -236,6 +236,8 @@ namespace Goblfin.CharactersSystem.Player.Data
         [field: SerializeField] public float BreakDistance { get; private set; }
         [field: SerializeField] public float MaxGrabMass { get; private set; }
 
+        [field: SerializeField, Min(0f), Tooltip("Distance entre le centre du joueur et la face de la caisse quand on l'attrape.")]
+        public float GrabDistance { get; private set; }
         #endregion
 
         #region Constructeur et valeurs par défaut
@@ -249,6 +251,7 @@ namespace Goblfin.CharactersSystem.Player.Data
             PushPullSpeed = pushPullSpeed;
             BreakDistance = breakDistance;
             MaxGrabMass = maxGrabMass;
+            GrabDistance = 0.65f;
         }
 
         public static GrabSettings Default => new(default, 1.2f, -0.5f, 1.5f, 3f, 50f);
@@ -308,9 +311,38 @@ namespace Goblfin.CharactersSystem.Player.Data
             Layer = layer;
             InteractRadius = interactRadius;
         }
-        // Hauteur 0 = sphère au niveau du centre du joueur, elle touche aussi les leviers bas
         public static InteractSettings Default => new(default, 0f, 0.8f);
 
+    }
+
+    #endregion
+    
+    #region DeathSettings
+
+    [Serializable]
+    public struct DeathSettings
+    {
+        #region Données
+
+        [field: SerializeField, Min(0f), Tooltip("Temps entre la mort et la reapparition (s).")]
+        public float RespawnDelay { get; private set; }
+
+        [field: SerializeField, Tooltip("Poussee donnee au corps au moment de la mort (vers l'arriere).")]
+        public float DeathPush { get; private set; }
+
+        #endregion
+
+        #region Constructeur et valeurs par défaut
+
+        public DeathSettings(float respawnDelay, float deathPush)
+        {
+            RespawnDelay = respawnDelay;
+            DeathPush = deathPush;
+        }
+
+        public static DeathSettings Default => new(3f, 2f);
+
+        #endregion
     }
 
     #endregion

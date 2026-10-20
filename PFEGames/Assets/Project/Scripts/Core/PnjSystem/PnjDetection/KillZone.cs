@@ -1,4 +1,5 @@
 using System;
+using Goblfin.CharactersSystem.Player;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem.PnjDetection
@@ -17,6 +18,7 @@ namespace Goblfin.PnjSystem.PnjDetection
 				return;
 			
 			Debug.Log("Dead");
+			dangerTarget.GetComponentInParent<IDie>()?.Die();
 			OnDeath?.Invoke();
 		}
 		

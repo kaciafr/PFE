@@ -18,10 +18,11 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             get
             {
-                float radius = playerCollider.radius * 0.5f;
-                Vector3 feet = transform.TransformPoint(standCenter) - Vector3.up * (standHeight * 0.5f);
-                Vector3 origin = feet + Vector3.up * radius;
-                float distance = standHeight - radius;
+                float scale = transform.lossyScale.y;
+                float radius = playerCollider.radius * transform.lossyScale.x * 0.9f;
+                Vector3 feet = transform.TransformPoint(standCenter) - Vector3.up * (standHeight * 0.5f * scale);
+                Vector3 origin = feet + Vector3.up * (settings.Crouch.Height * scale - radius);
+                float distance = (standHeight - settings.Crouch.Height) * scale;
 
                 return !Physics.SphereCast(origin, radius, Vector3.up, out _, distance,
                     settings.Crouch.CeilingLayer, QueryTriggerInteraction.Ignore);
