@@ -37,7 +37,11 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (crate == null || IsGrabbing) return;
             if (crate.mass > settings.Grab.MaxGrabMass) return;
             hitNormal.y = 0f;
-            if (hitNormal.sqrMagnitude < 0.0001f) return;
+            if (hitNormal.sqrMagnitude < 0.0001f)
+            {
+                Debug.LogWarning("Grab raté : le rayon a touché le dessus ou le dessous de la caisse");
+                return;
+            }
             hitNormal.Normalize();
 
             grabbedCrate = crate;
@@ -84,7 +88,10 @@ namespace Goblfin.CharactersSystem.Player.Component
             grabbedCrate.linearVelocity = new Vector3(velocity.x, grabbedCrate.linearVelocity.y, velocity.z);
 
             if (Vector3.Distance(rb.position, grabbedCrate.position) > settings.Grab.BreakDistance)
+            {
+                Debug.LogWarning("Grab lâché : le joueur est trop loin du centre de la caisse (BreakDistance)");
                 UnGrab();
+            }
         }
 
         private void SettleReleasedCrates()

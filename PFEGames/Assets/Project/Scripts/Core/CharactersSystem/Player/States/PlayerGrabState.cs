@@ -17,8 +17,11 @@ namespace Goblfin.CharactersSystem.Player.States
             pushOrPull = 0f;
             isPulling = false;
 
+            // Trop lourd seulement si la masse dépasse le max (pas pour n'importe quel échec)
+            Rigidbody crate = ctx.Player.Sensor.CrateInFront;
+            tooHeavy = crate != null && crate.mass > ctx.Player.Settings.Grab.MaxGrabMass;
+
             ctx.Player.Grab();
-            tooHeavy = !ctx.Player.IsGrabbing;
 
             ctx.Player.Animator.Play(AnimIds.Grab);
             ctx.Player.Animator.SetGrabSpeed(0f);
@@ -26,8 +29,16 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
-            if (!ctx.Player.Input.GrabHeld || (!tooHeavy && !ctx.Player.IsGrabbing))
+            if (!ctx.Player.Input.GrabHeld)
             {
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
+
+            // Le grab a raté (ou la caisse a été lâchée) : on sort au lieu de rester figé
+            if (!tooHeavy && !ctx.Player.IsGrabbing)
+            {
+                ctx.Player.BlockGrab();
                 ctx.SwitchState(ctx.IdleState);
                 return;
             }

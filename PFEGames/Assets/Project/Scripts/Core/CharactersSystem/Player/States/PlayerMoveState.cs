@@ -25,7 +25,8 @@ namespace Goblfin.CharactersSystem.Player.States
 	            return;
             }
 
-            if (ctx.Player.Input.GrabHeld)
+            // Grab ragdoll seulement s'il y a un corps à attraper (sinon on continue à marcher)
+            if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrabRagdoll)
             {
 	            ctx.SwitchState(ctx.GrabRagdollState);
 	            return;

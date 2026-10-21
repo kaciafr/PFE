@@ -77,4 +77,4 @@ MonoBehaviour:
       m_Bits: 0
   <Death>k__BackingField:
     <RespawnDelay>k__BackingField: 3
-    <DeathPush>k__BackingField: 2
+    <DeathPush>k__BackingField: 9

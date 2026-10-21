@@ -19,39 +19,39 @@ namespace Goblfin.CharactersSystem.Player.States
                 ctx.SwitchState(ctx.GrabState);
                 return;
             }
-            
-            if (ctx.Player.Input.GrabHeld)
+
+            if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrabRagdoll)
             {
-	            ctx.SwitchState(ctx.GrabRagdollState);
-	            return;
+                ctx.SwitchState(ctx.GrabRagdollState);
+                return;
             }
-            
+
             if (WantsToClimb(ctx))
             {
                 ctx.SwitchState(ctx.ClimbState);
                 return;
             }
-            
+
             if (ctx.Player.Input.InteractPressed && ctx.Player.CanPickUp)
             {
                 ctx.SwitchState(ctx.InteractObjectState);
                 return;
             }
-            
+
 
             if (ctx.Player.Input.CrouchHeld)
             {
                 ctx.SwitchState(ctx.CrouchState);
                 return;
             }
-            
+
             if (ctx.Player.Input.InteractPressed && ctx.Player.CanInteract)
             {
                 ctx.SwitchState(ctx.InteractState);
-                return; 
+                return;
             }
-            
-            
+
+
             if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
             {
                 ctx.SwitchState(ctx.JumpState);
@@ -69,6 +69,6 @@ namespace Goblfin.CharactersSystem.Player.States
             ctx.Player.Stop();
         }
     }
-    
-    
+
+
 }
