@@ -27,6 +27,7 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			brainPnj.material.color = Color.yellowGreen;
 			timer = 0;
 			lastPos = elementSim.transform.position;
 			resolveAptitude = brainPnj.GetAptitude<ProblemAttraction>();

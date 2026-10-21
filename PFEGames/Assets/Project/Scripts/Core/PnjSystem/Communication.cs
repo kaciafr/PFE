@@ -8,13 +8,13 @@ namespace Goblfin.PnjSystem
 	    public static bool SomeoneIsIn(BrainPnj brainPnj)
 	    {
 		    if (inAction != null) return true;
-		    
 		    inAction = brainPnj;
 		    return false;
 	    }
 
 	    public static void EndAction(BrainPnj brainPnj)
 	    {
+		    Debug.Log("Wazaaaa");
 		    inAction = null;
 	    }
 	    
@@ -22,3 +22,4 @@ namespace Goblfin.PnjSystem
 	    private static void Reset() => inAction = null;
     }
 }
+ 

@@ -24,7 +24,7 @@ namespace Goblfin.PnjSystem
 		private Collider mainCollider;
 		private ProblemAttraction findProblem;
 		
-		private IPnjStates PNJStates { get; set; }
+		[field:SerializeField] public IPnjStates PNJStates {get; private set;}
 		private IPnjStates pendingRequest;
 
 		private AuditionCast audition;
@@ -51,6 +51,7 @@ namespace Goblfin.PnjSystem
 		}
 		private void OnEnable()
 		{
+			PnjRegistry.Register(this);
 			OnRagdoll += KoMode;
 			OnWakeUp += DisableRagdollPhysics;
 		}
@@ -61,6 +62,7 @@ namespace Goblfin.PnjSystem
 			
 			OnRagdoll -= KoMode;
 			OnWakeUp -= DisableRagdollPhysics;
+			PnjRegistry.Unregister(this);
 		}
 		private void DisableRagdollPhysics()
 		{
@@ -103,7 +105,6 @@ namespace Goblfin.PnjSystem
 
 		private void HandleTargetSound(ISondDetected target, Transform source)
 		{
-			Debug.Log("Tu entends ?");
 			if (!CanEnter(StatePriority.Intrigue)) return;
 			RequestState(new IntrigueState(target, source));
 		}
@@ -144,6 +145,9 @@ namespace Goblfin.PnjSystem
 
 			if (findProblem.TryFindProblem(out ElementSimulation element, out TypeOfProblem type) && !Communication.SomeoneIsIn(this))
 				RequestState(new FindAResolveState(element, type));
+			if (CanEnter(StatePriority.Following) && TryFindChasingFriend(out BrainPnj friend))
+				RequestState(new FollowFriend(friend));
+			
 		}
 
 		public T GetAptitude<T>() where T : PnjAptitude
@@ -188,6 +192,28 @@ namespace Goblfin.PnjSystem
 
 			if (CanEnter(requested.Priority))
 				PnjGoTo(requested);
+		}
+		
+		private bool TryFindChasingFriend(out BrainPnj friend)
+		{
+			friend = null;
+
+			VisionCone vision = GetAptitude<VisionCone>();
+			if (vision == null) return false;
+
+			IReadOnlyList<BrainPnj> all = PnjRegistry.All;
+			for (int i = 0; i < all.Count; i++)
+			{
+				BrainPnj other = all[i];
+				if (other == this) continue;
+
+				if (vision.SeeFriendChasing(other))
+				{
+					friend = other;
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private void KoMode() => ForceState(new KoState());

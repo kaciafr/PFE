@@ -20,6 +20,7 @@ namespace Goblfin.PnjSystem
 			//A ENLEVER
 			brainPnj.material.color = Color.red;
 			Debug.Log("PatrolState");
+			brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 			GoToCurrentPoint();
 		}
 

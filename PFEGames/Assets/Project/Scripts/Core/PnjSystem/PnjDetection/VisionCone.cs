@@ -20,6 +20,12 @@ namespace Goblfin.PnjSystem
 			return CanSeePoint(target.transform.position);
 		}
 
+		public bool SeeFriendChasing(BrainPnj friend)
+		{
+			if (friend == null || friend.PNJStates is not ChaseState) return false;
+			return CanSeePoint(friend.transform.position + Vector3.up * 1.2f, friend.transform);
+		}
+
 		public bool CanSeePoint(Vector3 targetPos, Transform ignore = null)
 		{
 			Vector3 origin = SensorOrigin;

@@ -38,14 +38,17 @@ namespace Goblfin.PnjSystem
 				{
 					if (resolveProblem.CloseToTheProbleme(elementSim) && elementSim.CurrentState is BurningState)
 					{
-						brainPnj.Agent.SetDestination(elementSim.transform.position);
+						brainPnj.Agent.speed = 0;
+						resolveProblem.Resolve(elementSim);
 					}
 				}
+				
+				if(elementSim.CurrentState is not BurningState)
+				{
+					brainPnj.ForceState(new PatrolState(brainPnj));
+				}
 			}
-			if(elementSim.CurrentState is not BurningState)
-			{
-				brainPnj.ForceState(new PatrolState(brainPnj));
-			}
+			
 
 		}
 
