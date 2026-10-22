@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 3195884692212323099}
   - component: {fileID: 8443424654209551857}
   - component: {fileID: 665803601431520831}
+  - component: {fileID: 8061724133825268821}
   m_Layer: 10
   m_Name: 'Player '
   m_TagString: Player
@@ -216,7 +217,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8503608136985919659}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0df9ca43dd7f5e344877fbd52fb5285f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -279,10 +280,13 @@ MonoBehaviour:
   <Sensor>k__BackingField: {fileID: 6602580008260269371}
   <Stance>k__BackingField: {fileID: 4979999978357337543}
   <Grabber>k__BackingField: {fileID: 621286170739517310}
-  <Thrower>k__BackingField: {fileID: 0}
-  <Animator>k__BackingField: {fileID: 0}
-  <AnimEvents>k__BackingField: {fileID: 0}
+  <Thrower>k__BackingField: {fileID: 3195884692212323099}
+  <Animator>k__BackingField: {fileID: 2840615213188184643}
+  <AnimEvents>k__BackingField: {fileID: 5878287419926374990}
   <RagdollGrab>k__BackingField: {fileID: 3598319418025787074}
+  <Juice>k__BackingField: {fileID: 8061724133825268821}
+  <startPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <startRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1675564797479926826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +549,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a09a23c01b5a05488684fe23617a6cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Component.PlayerRagdoll
-  deathPush: 2
+--- !u!114 &8061724133825268821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503608136985919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c7a6bf93777b94f8f563a8a3b8ae60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Component.PlayerJuice
+  model: {fileID: 5440875856209404530}
+  squashDuration: 0.25
+  jumpStretch: {x: 0.75, y: 1.3, z: 0.75}
+  landSquash: 0.4
+  maxLandSpeed: 6
 --- !u!1001 &5547397234511608221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1846,6 +1866,17 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5878287419926374990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2121071347841340371, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
+  m_PrefabInstance: {fileID: 5547397234511608221}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068708251457720417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5be9b5a9a69d246974186f254f0a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.PlayerAnimationEvents
 --- !u!1 &6585291022984673163 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1702350966220492310, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
