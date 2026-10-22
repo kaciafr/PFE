@@ -7,7 +7,6 @@ namespace Goblfin.CharactersSystem.Player.States
     {
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entered PlayerMoveState");
             ctx.Player.Animator.Play(AnimIds.Move);
         }
 
@@ -25,7 +24,6 @@ namespace Goblfin.CharactersSystem.Player.States
 	            return;
             }
 
-            // Grab ragdoll seulement s'il y a un corps à attraper (sinon on continue à marcher)
             if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrabRagdoll)
             {
 	            ctx.SwitchState(ctx.GrabRagdollState);
@@ -55,7 +53,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
+            if (ctx.Player.WantsJump)
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;

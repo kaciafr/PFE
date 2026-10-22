@@ -9,7 +9,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering PlayerClimbTopState");
             timer = 0f;
             ctx.Player.StartClimbTop();
             ctx.Player.Animator.Play(AnimIds.ClimbTop);

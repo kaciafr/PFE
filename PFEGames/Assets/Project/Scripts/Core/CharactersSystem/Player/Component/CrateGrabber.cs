@@ -39,7 +39,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             hitNormal.y = 0f;
             if (hitNormal.sqrMagnitude < 0.0001f)
             {
-                Debug.LogWarning("Grab raté : le rayon a touché le dessus ou le dessous de la caisse");
                 return;
             }
             hitNormal.Normalize();
@@ -89,7 +88,6 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             if (Vector3.Distance(rb.position, grabbedCrate.position) > settings.Grab.BreakDistance)
             {
-                Debug.LogWarning("Grab lâché : le joueur est trop loin du centre de la caisse (BreakDistance)");
                 UnGrab();
             }
         }

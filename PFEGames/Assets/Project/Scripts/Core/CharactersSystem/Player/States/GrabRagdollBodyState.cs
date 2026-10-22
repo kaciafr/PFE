@@ -7,7 +7,6 @@ namespace Goblfin.CharactersSystem.Player.States
 	{
 		public override void Enter(PlayerStateMachine ctx)
 		{
-			Debug.Log("Entered GrabRagdollBodyState");
 			ctx.Player.RagdollGrabing();
 			
 			ctx.Player.Animator.Play(AnimIds.Grab);
@@ -23,7 +22,6 @@ namespace Goblfin.CharactersSystem.Player.States
 				return;
 			}
 
-			// On tient R sans ragdoll attrape, et une caisse arrive devant : on passe au grab de caisse
 			bool holdsRagdoll = ctx.Player.RagdollGrab != null && ctx.Player.RagdollGrab.IsHolding;
 			if (!holdsRagdoll && ctx.Player.CanGrab)
 			{

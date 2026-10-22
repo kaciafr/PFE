@@ -20,7 +20,7 @@ namespace Goblfin.CharactersSystem.Player.States
           return ctx.Player.CanClimb
                    && !ctx.Player.Grabber.IsGrabbing
                    && ctx.Player.Sensor.LadderInFront
-                   && Vector3.Dot(ctx.Player.MoveDirection, -ctx.Player.Sensor.LadderNormal) > ctx.Player.Settings.Climb.ApproachThreshold;
+                   && ctx.Player.Input.InteractPressed;
         }
         
     }

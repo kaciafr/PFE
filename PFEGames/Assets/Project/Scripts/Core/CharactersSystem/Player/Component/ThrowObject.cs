@@ -111,7 +111,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             heldObject.transform.SetParent(initialParent);
             heldObject.isKinematic = false;
 
-            // Un ancien timer encore en cours réactiverait la collision trop tôt : on le termine tout de suite
             FinishPendingRestore();
 
             SetPlayerCollisionIgnored(heldColliders, true);
@@ -167,7 +166,6 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         private Vector3 GetThrowVelocity()
         {
-            // releasePoint est sur un os de la main : son forward suit l'animation, on vise avec l'orientation du perso
             Vector3 forward = motor != null ? motor.Forward : transform.forward;
             forward.y = 0f;
             forward.Normalize();

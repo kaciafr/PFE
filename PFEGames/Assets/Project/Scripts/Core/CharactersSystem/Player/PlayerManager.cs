@@ -27,6 +27,7 @@ namespace Goblfin.CharactersSystem.Player
         [field: SerializeField] public PlayerAnimator Animator { get; private set; }
         [field: SerializeField] public PlayerAnimationEvents AnimEvents { get; private set; }
         [field: SerializeField] public Grab RagdollGrab { get; private set; }
+        [field: SerializeField] public PlayerJuice Juice { get; private set; }
 
         [field: SerializeField] public Vector3 startPosition { get; private set; }
         [field: SerializeField] public Quaternion startRotation { get; private set; }
@@ -58,6 +59,23 @@ namespace Goblfin.CharactersSystem.Player
             Thrower = GetComponent<ThrowObject>();
             Animator = GetComponentInChildren<PlayerAnimator>();
             AnimEvents = GetComponentInChildren<PlayerAnimationEvents>();
+            if (!TryGetComponent(out PlayerJuice juice))
+                juice = gameObject.AddComponent<PlayerJuice>();
+            Juice = juice;
+        }
+
+        private void Update()
+        {
+            if (Sensor.IsGrounded)
+                lastGroundedTime = Time.time;
+
+            if (Input.JumpPressed)
+                lastJumpPressedTime = Time.time;
+        }
+
+        private void FixedUpdate()
+        {
+            Motor.ApplyExtraGravity(Input.JumpHeld);
         }
 
         private void OnEnable() => Input.EnablePlayerInput();
@@ -85,7 +103,21 @@ namespace Goblfin.CharactersSystem.Player
         public void Move(Vector2 input, float speed) => Motor.Move(input, speed, !Grabber.IsGrabbing);
         public void MoveWorld(Vector3 dir, float speed) => Motor.MoveWorld(dir, speed, false);
         public void Jump() => Motor.Jump(Settings.Jump.Force);
+
+        private float lastGroundedTime = -1f;
+        private float lastJumpPressedTime = -1f;
+
+        public bool WantsJump =>
+            Time.time - lastJumpPressedTime <= Settings.Jump.JumpBuffer &&
+            Time.time - lastGroundedTime <= Settings.Jump.CoyoteTime;
+
+        public void ConsumeJump()
+        {
+            lastJumpPressedTime = -1f;
+            lastGroundedTime = -1f;
+        }
         public void Stop() => Motor.Stop();
+        public void SlowDown() => Motor.SlowDown();
 
         public async void Respawn(float delay)
         {

@@ -7,13 +7,24 @@ namespace Goblfin.CharactersSystem.Player.States
     {
         private const float MinAirTime = 0.15f;
         private float timer;
+        private float airSpeed;
+        private float maxFallSpeed;
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering PlayerJumpState");
             timer = 0f;
+
+            ctx.Player.ConsumeJump();
+
+            airSpeed = ctx.Player.Input.SprintHeld
+                ? ctx.Player.Settings.Movement.SprintSpeed
+                : ctx.Player.Settings.Movement.WalkSpeed;
+
             ctx.Player.Jump();
             ctx.Player.Animator.Play(AnimIds.Jump);
+
+            maxFallSpeed = 0f;
+            ctx.Player.Juice?.OnJump();
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -29,7 +40,13 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, ctx.Player.Settings.Movement.WalkSpeed);
+            MoveAt(ctx, airSpeed);
+            maxFallSpeed = Mathf.Max(maxFallSpeed, -ctx.Player.VerticalVelocity);
+        }
+
+        public override void Exit(PlayerStateMachine ctx)
+        {
+            ctx.Player.Juice?.OnLand(maxFallSpeed);
         }
     }
 }

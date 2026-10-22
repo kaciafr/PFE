@@ -72,7 +72,6 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             if (animator == null)
             {
-                Debug.LogWarning("[PlayerRagdoll] Aucun Animator avec un Avatar trouve sous le Player.");
                 return;
             }
 

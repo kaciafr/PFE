@@ -14,12 +14,12 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField] private PlayerSettings settings;
 
         public Vector3 Forward => playerObject.forward;
+        public Transform Model => model;
         private Rigidbody rb;
         private Vector3 modelStartLocalPos;
         private Quaternion modelStartLocalRot;
 
         public Vector3 Velocity => rb.linearVelocity;
-        private Vector3 lastPos;
 
         private void Awake()
         {
@@ -35,7 +35,6 @@ namespace Goblfin.CharactersSystem.Player.Component
                 modelStartLocalPos = model.localPosition;
                 modelStartLocalRot = model.localRotation;
             }
-            lastPos = rb.position;
         }
 
         private void Start()
@@ -44,15 +43,6 @@ namespace Goblfin.CharactersSystem.Player.Component
 	        {
 		        cam = FindObjectOfType<Camera>().transform;
 	        }
-        }
-
-        private void FixedUpdate()
-        {
-            if ((rb.position - lastPos).sqrMagnitude > 9f)
-            {
-                Debug.LogWarning($"TP détecté : {lastPos} -> {rb.position}\n{System.Environment.StackTrace}");
-            }
-            lastPos = rb.position;
         }
 
         public Vector3 GetMoveDirection(Vector2 input)
@@ -73,9 +63,37 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (rotate && dir.sqrMagnitude > 0.001f)
                 RotateTowards(dir);
 
-            Vector3 velocity = dir * speed;
+            Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            Vector3 target = dir * speed;
+            float rate = target.sqrMagnitude < current.sqrMagnitude
+                ? settings.Movement.Deceleration
+                : settings.Movement.Acceleration;
+            Vector3 velocity = Vector3.MoveTowards(current, target, rate * Time.fixedDeltaTime);
+
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = velocity;
+        }
+
+        public void SlowDown()
+        {
+            Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            Vector3 velocity = Vector3.MoveTowards(current, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
+
+            velocity.y = rb.linearVelocity.y;
+            rb.linearVelocity = velocity;
+        }
+
+        public void ApplyExtraGravity(bool jumpHeld)
+        {
+            if (rb.isKinematic || !rb.useGravity) return;
+
+            float multiplier = 1f;
+            if (rb.linearVelocity.y < 0f)
+                multiplier = settings.Jump.FallMultiplier;
+            else if (rb.linearVelocity.y > 0f && !jumpHeld)
+                multiplier = settings.Jump.LowJumpMultiplier;
+
+            rb.linearVelocity += Physics.gravity * (multiplier - 1f) * Time.fixedDeltaTime;
         }
 
         public void MoveWorld(Vector3 dir, float speed, bool rotate = true)
@@ -94,7 +112,6 @@ namespace Goblfin.CharactersSystem.Player.Component
                 Time.deltaTime * settings.Movement.RotationSpeed);
         }
 
-        // Tourne le joueur instantanement vers une direction (ex : face a la caisse qu'on attrape)
         public void Face(Vector3 dir)
         {
             dir.y = 0f;
@@ -119,7 +136,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             ladderNormal.y = 0f;
             if (ladderNormal.sqrMagnitude < 0.001f || ladderPoint == Vector3.zero)
             {
-                Debug.LogWarning($"StartClimb ignoré : ladderPoint={ladderPoint} normal={ladderNormal}");
                 return;
             }
             ladderNormal.Normalize();
@@ -143,7 +159,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             snap.y = rb.position.y;
             rb.position = snap;
             
-            Debug.Log($"ladderPoint={ladderPoint} normal={ladderNormal} snap={snap} dist={settings.Climb.LadderDistance} rbPos={rb.position}");
         }
 
         public void Climb(float verticalSpeed)
@@ -176,7 +191,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             Vector3 target = rb.position + Vector3.up * settings.Climb.TopHeight
                                          - ladderNormal * settings.Climb.TopForward;
 
-            // Toujours posé au-dessus du haut de l'échelle : sinon le joueur retombe devant et relance un climb
             float standY = ladderTopY + GetComponent<CapsuleCollider>().height * 0.5f + 0.05f;
             target.y = Mathf.Max(target.y, standY);
 

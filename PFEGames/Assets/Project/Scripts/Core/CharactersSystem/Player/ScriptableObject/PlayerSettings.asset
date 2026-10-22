@@ -11,16 +11,22 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff6e2ce31c0443ea85652203b91f3294, type: 3}
   m_Name: PlayerSettings
-  m_EditorClassIdentifier: Assembly-CSharp::Characters.Data.PlayerSettings
+  m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Data.PlayerSettings
   <Movement>k__BackingField:
-    <WalkSpeed>k__BackingField: 3.5
-    <SprintSpeed>k__BackingField: 7.5
+    <WalkSpeed>k__BackingField: 2.75
+    <SprintSpeed>k__BackingField: 5.5
     <RotationSpeed>k__BackingField: 16
+    <Acceleration>k__BackingField: 35
+    <Deceleration>k__BackingField: 25
   <Jump>k__BackingField:
-    <Force>k__BackingField: 7
-    <JumpSpeed>k__BackingField: 4
+    <Force>k__BackingField: 5.5
+    <JumpSpeed>k__BackingField: 2.8
+    <FallMultiplier>k__BackingField: 2
+    <LowJumpMultiplier>k__BackingField: 2.5
+    <CoyoteTime>k__BackingField: 0.1
+    <JumpBuffer>k__BackingField: 0.12
   <Crouch>k__BackingField:
-    <Speed>k__BackingField: 2
+    <Speed>k__BackingField: 1.4
     <Height>k__BackingField: 1.5
     <TransitionSpeed>k__BackingField: 12
     <CeilingLayer>k__BackingField:
@@ -30,10 +36,10 @@ MonoBehaviour:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 8
-    <RaycastDistance>k__BackingField: 0.55
+    <RaycastDistance>k__BackingField: 1.1
     <CheckOffset>k__BackingField: 0.1
     <RayCount>k__BackingField: 8
-    <RayRadius>k__BackingField: 0.1
+    <RayRadius>k__BackingField: 0.4
     <MaxSlopeAngle>k__BackingField: 50
   <Climb>k__BackingField:
     <Layer>k__BackingField:
@@ -50,25 +56,25 @@ MonoBehaviour:
     <TopHeight>k__BackingField: 1.5
     <TopForward>k__BackingField: 0.6
     <climbTilt>k__BackingField: 15
-    <climbVisualOffset>k__BackingField: 0
+    <climbVisualOffset>k__BackingField: 0.2
   <Grab>k__BackingField:
     <Layer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 4224
     <DetectDistance>k__BackingField: 1.5
     <RayHeight>k__BackingField: 0
-    <PushPullSpeed>k__BackingField: 1.2
+    <PushPullSpeed>k__BackingField: 1
     <BreakDistance>k__BackingField: 3
     <MaxGrabMass>k__BackingField: 50
-    <GrabDistance>k__BackingField: 0.2
+    <GrabDistance>k__BackingField: 0.65
   <Throw>k__BackingField:
     <LayerObject>k__BackingField:
       serializedVersion: 2
       m_Bits: 256
     <DetectRadius>k__BackingField: 1.2
     <RayHeight>k__BackingField: 0
-    <PickupDuration>k__BackingField: 0.35
-    <ThrowDuration>k__BackingField: 0.8
+    <PickupDuration>k__BackingField: 0.5
+    <ThrowDuration>k__BackingField: 1
   <Interact>k__BackingField:
     InteractHeight: 0
     InteractRadius: 0.8
@@ -77,4 +83,4 @@ MonoBehaviour:
       m_Bits: 0
   <Death>k__BackingField:
     <RespawnDelay>k__BackingField: 3
-    <DeathPush>k__BackingField: 9
+    <DeathPush>k__BackingField: 2

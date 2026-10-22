@@ -9,7 +9,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering PlayerCrouchState");
             ctx.Player.Crouch();
 
             isMoving = HasMoveInput(ctx);
@@ -32,7 +31,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (player.Input.JumpPressed && player.IsGrounded && player.CanStand)
+            if (player.WantsJump && player.CanStand)
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;
@@ -53,7 +52,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            Debug.Log("Exiting PlayerCrouchState");
             ctx.Player.UnCrouch();
         }
     }

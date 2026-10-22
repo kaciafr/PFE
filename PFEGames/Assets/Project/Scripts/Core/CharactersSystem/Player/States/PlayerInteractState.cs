@@ -9,7 +9,6 @@ namespace Goblfin.CharactersSystem.Player.States
         private const float Duration = 0.3f;
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entered PlayerInteractState");
             timer = 0f;
             ctx.Player.Animator.Play(AnimIds.Idle);
 

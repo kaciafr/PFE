@@ -8,13 +8,11 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log ("Entered PlayerSprintState");
             ctx.Player.Animator.Play (AnimIds.Run);
         }
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            Debug.Log ("Exited PlayerSprintState");
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -31,7 +29,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
+            if (ctx.Player.WantsJump)
             {
                 ctx.SwitchState(ctx.JumpState);
             }

@@ -10,7 +10,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entered PlayerInteractObjectState");
             timer = 0f;
             target = ctx.Player.ThrowableInFront;
             ctx.Player.Animator.Play(AnimIds.Interact);
@@ -38,7 +37,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            Debug.Log("Exited PlayerInteractObjectState");
             target = null;
         }
     }

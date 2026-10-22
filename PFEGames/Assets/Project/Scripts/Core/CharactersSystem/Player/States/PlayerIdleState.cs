@@ -52,7 +52,7 @@ namespace Goblfin.CharactersSystem.Player.States
             }
 
 
-            if (ctx.Player.Input.JumpPressed && ctx.Player.Sensor.IsGrounded)
+            if (ctx.Player.WantsJump)
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;
@@ -66,7 +66,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            ctx.Player.Stop();
+            ctx.Player.SlowDown();
         }
     }
 

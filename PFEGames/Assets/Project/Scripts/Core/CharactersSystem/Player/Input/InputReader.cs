@@ -39,6 +39,8 @@ namespace Goblfin.CharactersSystem.Player.Input
         public Vector2 MoveValue { get; private set; }
 
         public bool JumpPressed => _playerInput != null && _playerInput.Player.Jump.WasPressedThisFrame();
+
+        public bool JumpHeld => _playerInput != null && _playerInput.Player.Jump.IsPressed();
         
         public bool CrouchHeld => _playerInput != null && _playerInput.Player.Crouch.IsPressed();
 

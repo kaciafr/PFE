@@ -6,13 +6,11 @@ namespace Goblfin.CharactersSystem.Player.States
     public class PlayerClimbState : PlayerState
     {
 
-
         private const float MoveThreshold = 0.05f;
 
         private float climbInput;
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering PlayerClimbState");
             climbInput = 0f;
             ctx.Player.StartClimb();
             ctx.Player.Animator.Play(AnimIds.Climb);
@@ -23,7 +21,9 @@ namespace Goblfin.CharactersSystem.Player.States
         {
 
 
-            climbInput = Vector3.Dot(ctx.Player.MoveDirection, -ctx.Player.LadderNormal);
+            float stickUp = ctx.Player.MoveInput.y;
+            float towardWall = Vector3.Dot(ctx.Player.MoveDirection, -ctx.Player.LadderNormal);
+            climbInput = Mathf.Abs(stickUp) >= Mathf.Abs(towardWall) ? stickUp : towardWall;
             if (Mathf.Abs(climbInput) < MoveThreshold)
                 climbInput = 0f;
 
@@ -41,11 +41,24 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
+            if (ctx.Player.Input.InteractPressed)
+            {
+                ctx.SwitchState(ctx.IdleState);
+                return;
+            }
+
+            if (ctx.Player.Input.JumpPressed)
+            {
+                ctx.SwitchState(ctx.JumpState);
+                return;
+            }
+
             if (!ctx.Player.LadderInFront)
             {
                 ctx.SwitchState(climbInput > 0f ? ctx.ClimbTopState : ctx.IdleState);
                 return;
             }
+
         }
         public override void FixedTick(PlayerStateMachine ctx)
         {

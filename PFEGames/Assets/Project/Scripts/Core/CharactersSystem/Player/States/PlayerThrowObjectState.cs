@@ -13,7 +13,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entered PlayerThrowObjectState");
             player = ctx.Player;
             isThrowing = false;
             throwTimer = 0f;
@@ -79,7 +78,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
             if (player.IsHolding)
             {
-                Debug.LogWarning("Throw : Animation Event OnThrowRelease manquant sur le clip Throw.");
                 player.Throw();
             }
 
@@ -96,7 +94,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            Debug.Log("Exited PlayerThrowObjectState");
             isThrowing = false;
             player.SetAiming(false);
 

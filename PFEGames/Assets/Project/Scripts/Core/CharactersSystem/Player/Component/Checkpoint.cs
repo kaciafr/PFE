@@ -17,7 +17,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             activated = true;
             Transform point = spawnPoint !=null ? spawnPoint : transform;
             CheckPointSystem.SaveCheckPoint(point.position, point.rotation);
-            Debug.Log($"Checkpoint {point.name} has been activated");
             
         }
     }

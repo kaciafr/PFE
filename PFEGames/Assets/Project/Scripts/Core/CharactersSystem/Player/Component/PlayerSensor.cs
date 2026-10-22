@@ -21,12 +21,11 @@ namespace Goblfin.CharactersSystem.Player.Component
         public Vector3 LadderPoint { get; private set; }
         public float LadderTopY { get; private set; }
         public Rigidbody CrateInFront { get; private set; }
-        public Vector3 CrateHitPoint { get; private set; }   // point touche par le rayon sur la caisse
-        public Vector3 CrateHitNormal { get; private set; }  // direction de la face touchee
+        public Vector3 CrateHitPoint { get; private set; }   
+        public Vector3 CrateHitNormal { get; private set; }  
         public IInteractable InteractableInFront  { get; private set; }
 
-        // Direction du regard : on prend celle du Motor (l'objet qu'il fait tourner),
-        // pour que les detections suivent toujours le personnage
+       
         private PlayerMotor motor;
         private Vector3 Forward
         {

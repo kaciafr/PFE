@@ -9,7 +9,6 @@ namespace Goblfin.CharactersSystem.Player.States
     {
         public override void Enter(PlayerStateMachine ctx)
         {
-            Debug.Log("Entering Die State");
             ctx.Player.Input.DisableAllInput();
             ctx.Player.Stop();
 
