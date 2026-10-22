@@ -1,4 +1,5 @@
 using System;
+using Goblfin.Player;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player.Component

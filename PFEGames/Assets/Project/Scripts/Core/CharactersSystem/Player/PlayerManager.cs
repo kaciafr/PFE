@@ -1,5 +1,4 @@
-using System;
-using System.Threading.Tasks;
+using Goblfin.CharactersSystem.Player;
 using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
@@ -9,7 +8,7 @@ using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
 using UnityEngine;
 
-namespace Goblfin.CharactersSystem.Player
+namespace Goblfin.Player
 {
     public class PlayerManager : MonoBehaviour, IDie, IDetected, ISondDetected
     {
