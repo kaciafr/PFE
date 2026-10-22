@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: CaisseEnBois
   m_EditorClassIdentifier: Runtime::Runtime.Project.Scripts.Core.ElementData
   <FireResistance>k__BackingField: 30
-  <Brule>k__BackingField: 70
-  phaseOneParticule: {fileID: 9027763093632594836, guid: fae56390502084a42aa42dcf229784a9, type: 3}
-  phaseTwoParticule: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
-  <AbsorptionResistance>k__BackingField: 0
+  <Hot>k__BackingField: 15
+  <Burn>k__BackingField: 75
+  phaseOneParticle: {fileID: 9027763093632594836, guid: fae56390502084a42aa42dcf229784a9, type: 3}
+  phaseTwoParticle: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
   <Frozen>k__BackingField: 90
-  <VaporationSpeed>k__BackingField: 20
-  <Tazzer>k__BackingField: 70
-  <ElectricityConductibility>k__BackingField: 30
-  electroParticule: {fileID: 4297449609456317666, guid: 24db42e90eda7b241aecd3d4243b0d52, type: 3}
-  <Normaldegres>k__BackingField: 23
-  <MaxHealth>k__BackingField: 100
-  <DamageHealth>k__BackingField: 2
+  <EvaporationSpeed>k__BackingField: 1
+  <Electrify>k__BackingField: 1
+  <ElectricalConduct>k__BackingField: 1
+  electroParticle: {fileID: 4297449609456317666, guid: 24db42e90eda7b241aecd3d4243b0d52, type: 3}
+  <AverageDegree>k__BackingField: 23
+  <MaxHealth>k__BackingField: 800
+  <HitPower>k__BackingField: 5
   <IsLiquid>k__BackingField: 0
-  <Prefab>k__BackingField: {fileID: 7598166122818026569, guid: 1018dfe3195b8c849bb998782b607220, type: 3}
   <BurnPrefab>k__BackingField: {fileID: 4598181672369359721, guid: bbbd54a6337ddcd469339a2b3b77e76e, type: 3}
   <NormalPrefab>k__BackingField: {fileID: 9091235643180231143, guid: e501d3893bd5b5c4797d19723615d88c, type: 3}
-  <FrozenPrefab>k__BackingField: {fileID: 0}
+  <FrozenPrefab>k__BackingField: {fileID: 9091235643180231143, guid: e501d3893bd5b5c4797d19723615d88c, type: 3}
+  <PoolSize>k__BackingField: 8

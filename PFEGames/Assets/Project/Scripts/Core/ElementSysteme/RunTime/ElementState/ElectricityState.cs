@@ -1,3 +1,4 @@
+using Goblfin;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core
@@ -12,7 +13,7 @@ namespace Runtime.Project.Scripts.Core
 		public void Update(ElementSimulation element)
 		{
 			element.ElectricityPropagation();
-			if (element.Electricity >= element.ElementData.Tazzer)
+			if (element.Electricity >= element.ElementData.Electrify)
 			{
 				isElectrifing = true;
 				element.ElectricityPropagation();

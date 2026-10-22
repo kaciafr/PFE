@@ -1,4 +1,4 @@
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public interface IElementChannel
 	{

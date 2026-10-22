@@ -2,10 +2,11 @@ using Goblfin.PnjSystem.Utilities;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class SurpriseState : IPnjStates
 	{
+		public StatePriority Priority => StatePriority.Suspicious;
 		private float timeBeSurprised = GameMetrix.TimeToBeSurprise;
 		private float time;
 		private IDetected target;
@@ -17,6 +18,8 @@ namespace Goblfin.PnjSystem.PnjStates
 		}
 		public void EnterState(BrainPnj brainPnj)
 		{
+			//A ENLEVER
+			brainPnj.material.color = Color.deepPink;
 			time = 0;
 			pnjPos = brainPnj.transform.position;
 			brainPnj.Agent.updatePosition = false;    

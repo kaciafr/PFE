@@ -1,3 +1,4 @@
+using Goblfin;
 using UnityEngine;
 
 namespace Runtime.Project.Scripts.Core
@@ -7,7 +8,7 @@ namespace Runtime.Project.Scripts.Core
 		[field: SerializeField] public DeathVisual CurrentDeathVisual { get; private set; }
 
 		private ElementSimulation simulation;
-		private float currentHealth;
+		[SerializeField] private float currentHealth;
 		private bool isDead;
 
 		public override void Init(ElementSimulation element)
@@ -42,6 +43,7 @@ namespace Runtime.Project.Scripts.Core
 		private void Die()
 		{
 			isDead = true;
+			Debug.Log($"Die: {simulation.gameObject.name} active={simulation.gameObject.activeSelf}", simulation.gameObject);
 			ElementDeath.Replace(simulation, CurrentDeathVisual);
 		}
 	}

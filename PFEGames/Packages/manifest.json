@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "com.helteix.channeled-properties": "2.1.0",
-    "com.helteix.singletons": "1.4.1",
-    "com.helteix.tools": "1.7.1",
     "com.kyrylokuzyk.primetween": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.14",
@@ -20,6 +17,7 @@
     "com.unity.test-framework": "1.8.0",
     "com.unity.timeline": "6.6.0",
     "com.unity.ugui": "2.6.0",
+    "com.unity.visualeffectgraph": "17.6.0",
     "com.unity.visualscripting": "1.9.12",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.adaptiveperformance": "1.0.0",

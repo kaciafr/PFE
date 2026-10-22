@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Runtime.Project.Scripts.Core;
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class ElementSimulation : MonoBehaviour
 	{
@@ -11,13 +11,27 @@ namespace Runtime.Project.Scripts.Core
 		[SerializeField] private List<ElementInfo> elementInfos =  new List<ElementInfo>();
 		[field:SerializeField] public Collider Collider{ get; private set; }
 		
-		[Header("Dynamique Variables")] 
+		[Header("Dynamics Variables")] 
 		[field:SerializeField] public float Heat{ get; set; }
 		[field:SerializeField] public float Humidity{ get; set; }
 		[field:SerializeField] public float Electricity{ get; set; }
+
+		public ParticleSystem hot;
+		public ParticleSystem burn;
 		
-		private float currentDegres;
-		private IElementState currentState;
+		private float currentDegrees;
+		public IElementState CurrentState { get; private set; }
+		[Header("References")]
+		[SerializeField] private GameObject root;
+		public GameObject Root
+		{
+			get
+			{
+				if (root != null) return root;
+				var pooled = GetComponentInParent<PooledInstance>();
+				return pooled != null ? pooled.gameObject : gameObject;
+			}
+		}
 		private void Awake()
 		{
 			ElementInfo[] found = GetComponents<ElementInfo>();
@@ -42,6 +56,8 @@ namespace Runtime.Project.Scripts.Core
 
 		public void Start()
 		{
+			hot.Stop();
+			burn.Stop();
 			ResetSimulation();
 		}
 
@@ -58,21 +74,20 @@ namespace Runtime.Project.Scripts.Core
 		private void Update()
 		{
 			LogicElement();
-			currentState.Update(this);
+			CurrentState.Update(this);
 			
 			if(Heat <= 0.2f)
 				return;
 			
-			LogicWeather();
+			//LogicWeather();
 		}
 		
 		public void ChangeState(IElementState state)
 		{
 			state.Exit(this);
-			currentState = state;
+			CurrentState = state;
 			state.Enter(this);
 		}
-		
 		private void LogicWeather()
 		{
 			float ambientHeat = 0f;       
@@ -84,34 +99,36 @@ namespace Runtime.Project.Scripts.Core
 			Heat = Mathf.MoveTowards(Heat, ambientHeat, coolingRate * Time.deltaTime);
 			Humidity = Mathf.MoveTowards(Humidity, ambientHumidity, dryingRate * Time.deltaTime);
 			
-			float targetDegrees = ElementData.Normaldegres + Heat - (Humidity * 0.1f);
-			currentDegres = Mathf.MoveTowards(currentDegres, targetDegrees, 10f * Time.deltaTime);
+			float targetDegrees = ElementData.AverageDegree + Heat - (Humidity * 0.1f);
+			currentDegrees = Mathf.MoveTowards(currentDegrees, targetDegrees, 10f * Time.deltaTime);
 		}
-		
 		private void LogicElement()
 		{
-			float evaporation = (Heat * 0.1f + ElementData.VaporationSpeed) * Time.deltaTime;
-			Humidity -= evaporation;
-			
-			float cooling = Humidity * 0.05f * Time.deltaTime;
-			Heat -= cooling;
-			
-			if (Heat < 0.1f) 
+			var dt = Time.deltaTime;
+
+			if (Humidity > 0f && Heat > 0f)
+			{
+				float evaporated = Mathf.Min(Humidity, Heat * ElementData.EvaporationSpeed * dt);
+				Humidity -= evaporated;
+				Heat -= evaporated * 2;  
+			}
+
+			if (Heat < 0.1f)
 				Heat = 0f;
-			
+
 			if (Electricity > 0f)
 			{
-				float conductivity = Mathf.Max(0.01f, ElementData.ElectricityConductibility);
-				Electricity -= (1f / conductivity) * Time.deltaTime;
+				float conductivity = Mathf.Max(0.01f, ElementData.ElectricalConduct);
+				Electricity -= (1f / conductivity) * dt;
 
-				if (Electricity < 0.1f) 
+				if (Electricity < 0.1f)
 					Electricity = 0f;
 			}
+
 			Heat = Mathf.Clamp(Heat, 0f, 100f);
 			Humidity = Mathf.Clamp(Humidity, 0f, 100f);
 			Electricity = Mathf.Clamp(Electricity, 0f, 100f);
 		}
-		
 		public void AddHeat(float heat) => Absorbe<HeatChannel>.Run(this, heat);
 		public void AddHumidity(float humidity) => Absorbe<HumidityChannel>.Run(this, humidity);
 		public void AddElectricity(float electricity) => Absorbe<ElectricityChannel>.Run(this, electricity);

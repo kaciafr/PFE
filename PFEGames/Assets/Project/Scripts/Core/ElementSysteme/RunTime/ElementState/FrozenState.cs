@@ -1,11 +1,13 @@
-namespace Runtime.Project.Scripts.Core
+using Runtime.Project.Scripts.Core;
+
+namespace Goblfin
 {
 	public class FrozenState : IElementState
 	{
 		private Health currentHealth;
 		public void Enter(ElementSimulation element)
 		{
-			currentHealth.SetDeathVisual(DeathVisual.Frozen);
+			//currentHealth.SetDeathVisual(DeathVisual.Frozen);
 		}
 
 		public void Update(ElementSimulation element)

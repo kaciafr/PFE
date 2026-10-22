@@ -1,12 +1,12 @@
-using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.Utilities;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class SuspiciousState : IPnjStates
 	{
+		public StatePriority Priority =>  StatePriority.Patrol;
 		private SuspiciousMeter meter;
 		private IDetected target;
 

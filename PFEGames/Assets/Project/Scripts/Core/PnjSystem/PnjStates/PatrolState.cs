@@ -1,11 +1,12 @@
 using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjStates
+namespace Goblfin.PnjSystem
 {
 	public class PatrolState : IPnjStates
 	{
-		private BrainPnj guard;
+		public StatePriority Priority => StatePriority.Patrol;
+		private readonly BrainPnj guard;
 		private float waitTimer;
 		private bool isWaiting;
 		
@@ -16,7 +17,10 @@ namespace Goblfin.PnjSystem.PnjStates
 
 		public void EnterState(BrainPnj brainPnj)
 		{
+			//A ENLEVER
+			brainPnj.material.color = Color.red;
 			Debug.Log("PatrolState");
+			brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 			GoToCurrentPoint();
 		}
 

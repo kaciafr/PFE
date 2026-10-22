@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Goblfin.PnjSystem.PnjDetection;
-using Goblfin.PnjSystem.PnjStates;
 using Goblfin.PnjSystem.Routine;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
@@ -12,18 +11,25 @@ namespace Goblfin.PnjSystem
 {
 	public class BrainPnj : RagDoll
 	{
+		//A ENLEVER
+		public Material material;
 		[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
 		[field:SerializeField] public NavMeshAgent Agent {get; private set;}
 		[field:SerializeField] public List<PointTime> FirstRoutine {get; private set;} = new List<PointTime>();
-		[field:SerializeField] public int currentStep = 0;
+		public int currentStep;
 		[field:SerializeField] public Animator Animator {get; private set;}
-		[field:SerializeField] public Transform Model {get; private set;}
-
-		public IPnjStates PNJStates { get; private set; }
 		public event Action<IPnjStates> OnStatesChanged;
 	
 		private Rigidbody[] ragdollRigidbodies;
 		private Collider mainCollider;
+		private ProblemAttraction findProblem;
+		
+		[field:SerializeField] public IPnjStates PNJStates {get; private set;}
+		private IPnjStates pendingRequest;
+
+		private AuditionCast audition;
+		private VisionCone vision;
+		
 
 		private void Awake()
 		{
@@ -43,39 +49,23 @@ namespace Goblfin.PnjSystem
 				aptitude.Init(this);
 			}
 		}
-
 		private void OnEnable()
 		{
-			VisionCone vision = GetAptitude<VisionCone>();
-			if (vision != null)
-				vision.OnTargetSeen += HandleTargetSeen;
-
-			AuditionCast audition = GetAptitude<AuditionCast>();
-			if (audition != null)
-				audition.OnHearAlerte += HandleTargetSound;
-
-
+			PnjRegistry.Register(this);
 			OnRagdoll += KoMode;
 			OnWakeUp += DisableRagdollPhysics;
 		}
-
 		private void OnDisable()
 		{
-			VisionCone vision = GetAptitude<VisionCone>();
-			if (vision != null)
-				vision.OnTargetSeen -= HandleTargetSeen;
-
-			AuditionCast audition = GetAptitude<AuditionCast>();
-			if (audition != null)
-				audition.OnHearAlerte -= HandleTargetSound;
+			vision.OnTargetSeen -= HandleTargetSeen;
+			audition.OnHearAlerte -= HandleTargetSound;
+			
 			OnRagdoll -= KoMode;
 			OnWakeUp -= DisableRagdollPhysics;
+			PnjRegistry.Unregister(this);
 		}
-	
-
 		private void DisableRagdollPhysics()
 		{
-	    
 			Transform hips = Animator.GetBoneTransform(HumanBodyBones.Hips);
 			Vector3 hipsPos = hips.position;
 			Quaternion hipsRot = hips.rotation;
@@ -85,8 +75,7 @@ namespace Goblfin.PnjSystem
 			if (NavMesh.SamplePosition(hipsPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
 			{
 				Agent.enabled = false;
-
-		    
+				
 				Quaternion yaw = Quaternion.Euler(0f, hipsRot.eulerAngles.y, 0f);
 				transform.SetPositionAndRotation(hit.position, yaw);
 		    
@@ -95,13 +84,8 @@ namespace Goblfin.PnjSystem
 				Agent.enabled = true;
 				Agent.Warp(hit.position);
 			}
-			else
-			{
-				Debug.LogWarning($"{name}: aucun NavMesh à moins de 5m du ragdoll.");
-			}
 		}
-
-		private void SetRagdollPhysics(bool enableRagdoll)
+		public void SetRagdollPhysics(bool enableRagdoll)
 		{
 			if (ragdollRigidbodies != null)
 			{
@@ -112,30 +96,58 @@ namespace Goblfin.PnjSystem
 			if (mainCollider != null)
 				mainCollider.enabled = !enableRagdoll;
 		}
-    
-
+		
 		private void HandleTargetSeen(Vector3 pos, IDetected target)
 		{
-			if (PNJStates is SuspiciousState || PNJStates is ChaseState || PNJStates is SurpriseState || PNJStates is KoState)
-				return;
-			PnjGoTo(new SurpriseState(target));
+			if (!CanEnter(StatePriority.Suspicious)) return;
+			RequestState(new SurpriseState(target));
 		}
 
-		private void HandleTargetSound(ISondDetected target, GameObject targetPosition)
+		private void HandleTargetSound(ISondDetected target, Transform source)
 		{
-			if (PNJStates is SurpriseState || PNJStates is ChaseState || PNJStates is IntrigueState|| PNJStates is KoState)
-				return;
-			PnjGoTo(new IntrigueState(target, targetPosition));
+			if (!CanEnter(StatePriority.Intrigue)) return;
+			RequestState(new IntrigueState(target, source));
 		}
 
 		private void Start()
 		{
+			//A ENLEVER
+			material.color = Color.red;
+			
 			PnjGoTo(new PatrolState(this));
+			findProblem = GetAptitude<ProblemAttraction>();
+			vision = GetAptitude<VisionCone>();
+			if (vision == null)
+			{
+				Debug.Log("No vision found");
+			}
+			audition = GetAptitude<AuditionCast>();
+			if (audition == null)
+			{
+				Debug.Log("No audition found");
+			}
+			vision.OnTargetSeen += HandleTargetSeen;
+			audition.OnHearAlerte += HandleTargetSound;
+			if (findProblem == null)
+			{
+				Debug.Log("IL MANQUE UN TRUC LA");
+			}
 		}
 
 		private void Update()
 		{
 			PNJStates.UpdateState(this);
+		}
+
+		private void FixedUpdate()
+		{
+			if (findProblem == null || !CanEnter(StatePriority.Resolve)) return;
+
+			if (findProblem.TryFindProblem(out ElementSimulation element, out TypeOfProblem type) && !Communication.SomeoneIsIn(this))
+				RequestState(new FindAResolveState(element, type));
+			if (CanEnter(StatePriority.Following) && TryFindChasingFriend(out BrainPnj friend))
+				RequestState(new FollowFriend(friend));
+			
 		}
 
 		public T GetAptitude<T>() where T : PnjAptitude
@@ -155,12 +167,55 @@ namespace Goblfin.PnjSystem
 			PNJStates?.EnterState(this);
 			OnStatesChanged?.Invoke(PNJStates);
 		}
+		
+		private bool CanEnter(StatePriority priority) => priority > PNJStates.Priority;
 
-		public void KoMode()
+		public void RequestState(IPnjStates requested)
 		{
-			Agent.enabled = false; 
-			SetRagdollPhysics(true);
-			PnjGoTo(new KoState());
+			if (pendingRequest == null || requested.Priority > pendingRequest.Priority)
+				pendingRequest = requested;
+			ApplyPendingRequest();
 		}
+  
+		public void ForceState(IPnjStates state)
+		{
+			pendingRequest = null;
+			PnjGoTo(state);
+		}
+
+		private void ApplyPendingRequest()
+		{
+			if (pendingRequest == null) return;
+
+			IPnjStates requested = pendingRequest;
+			pendingRequest = null;
+
+			if (CanEnter(requested.Priority))
+				PnjGoTo(requested);
+		}
+		
+		private bool TryFindChasingFriend(out BrainPnj friend)
+		{
+			friend = null;
+
+			VisionCone vision = GetAptitude<VisionCone>();
+			if (vision == null) return false;
+
+			IReadOnlyList<BrainPnj> all = PnjRegistry.All;
+			for (int i = 0; i < all.Count; i++)
+			{
+				BrainPnj other = all[i];
+				if (other == this) continue;
+
+				if (vision.SeeFriendChasing(other))
+				{
+					friend = other;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		private void KoMode() => ForceState(new KoState());
 	}
 }

@@ -1,12 +1,13 @@
 using System;
+using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjDetection
+namespace Goblfin.PnjSystem
 {
 	public class VisionCone : DetectionSense
 	{
-		[Header("Réglages du cône de vision")]
+		[Header("Field of view settings")]
 		[field: SerializeField] public float ViewRadius { get; private set; } = 10f;
 		[Range(0, 360)]
 		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;
@@ -15,27 +16,33 @@ namespace Goblfin.PnjSystem.PnjDetection
 
 		public bool CanSee(IDetected target)
 		{
-			if (target == null)
-				return false;
+			if (target == null) return false;
+			return CanSeePoint(target.transform.position);
+		}
+
+		public bool SeeFriendChasing(BrainPnj friend)
+		{
+			if (friend == null || friend.PNJStates is not ChaseState) return false;
+			return CanSeePoint(friend.transform.position + Vector3.up * 1.2f, friend.transform);
+		}
+
+		public bool CanSeePoint(Vector3 targetPos, Transform ignore = null)
+		{
 			Vector3 origin = SensorOrigin;
-			Vector3 targetPos = target.transform.position;
 			Vector3 toTarget = targetPos - origin;
 			float dist = toTarget.magnitude;
-			
 
-			if (dist > ViewRadius)
-				return false;
-
-			if (dist < 0.0001f)
-				return true; 
+			if (dist > ViewRadius) return false;
+			if (dist < 0.0001f) return true;
 
 			Vector3 dir = toTarget / dist;
+			if (!PassesFilter(dir, dist)) return false;
 
-			if (!PassesFilter(dir, dist))
-				return false;
-
-			if (Physics.Raycast(origin, dir, dist, obstacleMask))
-				return false;
+			if (Physics.Raycast(origin, dir, out RaycastHit hit, dist, obstacleMask))
+			{
+				if (ignore == null || !hit.transform.IsChildOf(ignore))
+					return false;
+			}
 			return true;
 		}
 		protected override void Scan()

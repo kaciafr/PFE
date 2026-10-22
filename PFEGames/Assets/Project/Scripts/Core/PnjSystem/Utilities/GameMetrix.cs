@@ -2,16 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Goblfin.PnjSystem.Utilities
+namespace Goblfin.PnjSystem
 {
 	public static class GameMetrix
 	{
 
 		[Header("GardeSettings")]
 		[field: SerializeField]
-		public static float GuardPatrolSpeed { get; private set; } = 0.6f;
+		public static float GuardPatrolSpeed { get; private set; } = 1f;
 		public static float GuardChaseSpeed { get; private set; } = 2;
-		public static float TimeToSearch { get; private set; } = 5;
 		public static float TimeToBeSurprise { get; private set; } = 1f;
 		public static float WakeUpTime { get; private set; } = 23f;
 		public static int SearchPointCount = 4;

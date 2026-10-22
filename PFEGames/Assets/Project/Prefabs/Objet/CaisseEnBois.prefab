@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 7338549032380788664}
   - component: {fileID: 2873753408029215167}
   - component: {fileID: 3838700467060019238}
+  - component: {fileID: 4912204484315178723}
   m_Layer: 0
   m_Name: CaisseEnBois
   m_TagString: Untagged
@@ -351,9 +352,9 @@ MonoBehaviour:
     m_AngleError: 8
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
-  assetGuid: a3892681bedd4ba28a78f8b556f76494
-  m_Mesh: {fileID: 4300000, guid: 0338fd7d93de30c4a80a6f330f9fa6f6, type: 2}
-  m_VersionIndex: 2307
+  assetGuid: 139dbc9392d34448b140a39930fb0f85
+  m_Mesh: {fileID: 4300000, guid: a1e3933afbf3d0a47b461500f5d46dbb, type: 2}
+  m_VersionIndex: 2344
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -438,7 +439,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598166122818026569}
-  m_Mesh: {fileID: 4300000, guid: 0338fd7d93de30c4a80a6f330f9fa6f6, type: 2}
+  m_Mesh: {fileID: 4300000, guid: a1e3933afbf3d0a47b461500f5d46dbb, type: 2}
 --- !u!64 &2686467844223333504
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -458,7 +459,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 0338fd7d93de30c4a80a6f330f9fa6f6, type: 2}
 --- !u!54 &7338549032380788664
@@ -484,7 +485,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -524,6 +525,18 @@ MonoBehaviour:
   maxDetectionRadius: 3.61
   distanceMaxOfDetection: 2.1
   wasFalling: 0
+--- !u!114 &4912204484315178723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598166122818026569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ed733319b82724bac708eaaf96c4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.VFXElement
 --- !u!1 &8390872858247989895
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +590,7 @@ MonoBehaviour:
   <Heat>k__BackingField: 0
   <Humidity>k__BackingField: 0
   <Electricity>k__BackingField: 0
+  root: {fileID: 7598166122818026569}
 --- !u!65 &310010321569798751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -611,6 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Runtime::Runtime.Health
   <CurrentDeathVisual>k__BackingField: 0
+  currentHealth: 0
 --- !u!114 &1758933313655852242
 MonoBehaviour:
   m_ObjectHideFlags: 0

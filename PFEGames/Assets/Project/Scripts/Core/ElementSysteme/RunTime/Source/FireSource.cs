@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime.Project.Scripts.Core
+namespace Goblfin
 {
 	public class FireSource : MonoBehaviour
 	{
@@ -12,7 +12,7 @@ namespace Runtime.Project.Scripts.Core
 
 			if (elementSimulation != null)
 			{
-				elementSimulation.AddHeat(heatPerSecond*Time.deltaTime);
+				elementSimulation.AddHeat(heatPerSecond * 0.3f);
 			}
 		}
 	}
