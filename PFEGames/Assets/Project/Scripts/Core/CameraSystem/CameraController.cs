@@ -1,3 +1,4 @@
+using Goblfin.CharactersSystem.Player;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -13,10 +14,13 @@ namespace Goblfin
 		CinemachineFollow follow;
 		CinemachineRotationComposer composer;
 		CameraState current;
+		PlayerManager player;
+		float lookSide = -1f;
 
 		void Awake()
 		{
 			Instance = this;
+			player = FindFirstObjectByType<PlayerManager>();
 
 			follow = vcam.GetComponent<CinemachineFollow>();
 			composer = vcam.GetComponent<CinemachineRotationComposer>();
@@ -33,7 +37,7 @@ namespace Goblfin
 			// Placement immédiat au démarrage
 			follow.FollowOffset = current.followOffset;
 			SetFov(current.fov);
-			SetScreen(current.screenX, current.screenY);
+			SetScreen(ScreenX(), current.screenY);
 		}
 
 		[Header("Debug")]
@@ -52,7 +56,22 @@ namespace Goblfin
 			follow.FollowOffset = Vector3.Lerp(follow.FollowOffset, current.followOffset, t);
 			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, current.fov, t));
 			Vector2 screen = composer.Composition.ScreenPosition;
-			SetScreen(Mathf.Lerp(screen.x, current.screenX, t), Mathf.Lerp(screen.y, current.screenY, t));
+			SetScreen(Mathf.Lerp(screen.x, ScreenX(), t), Mathf.Lerp(screen.y, current.screenY, t));
+		}
+
+		float ScreenX()
+		{
+			if (!current.followDirection || player == null || player.Motor == null) return current.screenX;
+
+			// 1. Le joueur regarde vers la droite de l'écran (> 0) ou vers la gauche (< 0) ?
+			float facing = Vector3.Dot(player.Facing, vcam.transform.right);
+
+			// 2. On change de côté seulement s'il va vraiment à gauche ou à droite (pas vers la caméra)
+			if (Mathf.Abs(facing) > 0.3f)
+				lookSide = facing > 0f ? -1f : 1f;
+
+			// 3. Il va à droite : on le place à gauche pour voir devant lui, et inversement
+			return Mathf.Abs(current.screenX) * lookSide;
 		}
 
 		void SetFov(float value)

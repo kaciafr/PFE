@@ -2322,9 +2322,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3541754002163558908, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6410071682523688545}
-    - targetCorrespondingSourceObject: {fileID: 3541754002163558908, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5566444472779255764}
     - targetCorrespondingSourceObject: {fileID: 6036028704857767229, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8290615713367353745}
@@ -3923,24 +3920,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::Goblfin.PlayerLook
   lookRig: {fileID: 1158583304643821394}
   lookTarget: {fileID: 8863932213816955909}
-  detectRadius: 4
-  targetSpeed: 6
-  weightSpeed: 1
-  maxAngle: 110
---- !u!114 &5566444472779255764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9068708251457720417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5012ec4883c5bc149af0487136f9765f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.PlayerLook
-  lookRig: {fileID: 1158583304643821394}
-  lookTarget: {fileID: 0}
   detectRadius: 4
   targetSpeed: 6
   weightSpeed: 1

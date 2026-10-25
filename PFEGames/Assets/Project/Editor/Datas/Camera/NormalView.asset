@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::CameraState
   followOffset: {x: 0, y: 2, z: -22}
   fov: 20
+  screenX: 0.1
   screenY: 0.12
-  smooth: 3
+  followDirection: 1
+  smooth: 2

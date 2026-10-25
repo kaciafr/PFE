@@ -6,6 +6,7 @@ namespace Goblfin.Player.Component
 {
     public class SpeedEffect :  MonoBehaviour
     {
+    /*
         [SerializeField] private float fadeSpeed = 3f;
         [SerializeField] private Volume volume;
         private PlayerManager playerManager;
@@ -25,5 +26,7 @@ namespace Goblfin.Player.Component
             
             volume.weight = Mathf.MoveTowards(volume.weight, wanted, fadeSpeed * Time.deltaTime);
         }
+        */
     }
 }
+

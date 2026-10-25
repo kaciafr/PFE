@@ -16,6 +16,8 @@ namespace Goblfin
 		public float screenX = 0f;
 		[Tooltip("Position du joueur a l'ecran : -0.5 = tout en bas, 0 = centre, 0.5 = tout en haut")]
 		public float screenY = -0.2f;
+		[Tooltip("Coché : le joueur passe du côté opposé à sa direction pour voir devant lui (Screen X sert de distance au centre)")]
+		public bool followDirection = false;
 
 		[Header("Transition")]
 		public float smooth = 3f;
