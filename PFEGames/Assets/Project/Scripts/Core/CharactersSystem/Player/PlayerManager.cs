@@ -96,6 +96,7 @@ namespace Goblfin.CharactersSystem.Player
         public bool CanGrab => Time.time >= grabBlockedUntil && Sensor.IsGrounded && Sensor.CrateInFront != null;
         public bool IsGrabbing => Grabber.IsGrabbing;
         public float VerticalVelocity => Motor.Velocity.y;
+        public float HorizontalSpeed => new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude;
 
         #endregion
 
@@ -153,9 +154,21 @@ namespace Goblfin.CharactersSystem.Player
 
         #region Échelle
 
-        public void StartClimb() => Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal);
+        public bool IsClimbing { get; private set; }
+
+        public void StartClimb()
+        {
+            IsClimbing = true;
+            Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal);
+        }
+
         public void Climb(float input) => Motor.Climb(input * Settings.Climb.Speed);
-        public void UnClimb() => Motor.StopClimb();
+
+        public void UnClimb()
+        {
+            IsClimbing = false;
+            Motor.StopClimb();
+        }
 
         public void StartClimbTop() => Motor.Freeze();
         public void FinishClimbTop() => Motor.ClimbOverTop(Sensor.LadderNormal, Sensor.LadderTopY);

@@ -51,7 +51,12 @@ namespace Goblfin.CharactersSystem.Player.States
                 ctx.Player.Animator.Play(isPulling ? AnimIds.Pull : AnimIds.Grab);
             }
 
-            ctx.Player.Animator.SetGrabSpeed(Mathf.Abs(pushOrPull));
+            // Caisse trop lourde : il force sur place, l'animation suit le joystick
+            // Sinon : l'animation suit la vraie vitesse (caisse bloquée = pieds arrêtés)
+            float animSpeed = tooHeavy
+                ? Mathf.Abs(pushOrPull)
+                : ctx.Player.HorizontalSpeed / ctx.Player.Settings.Grab.PushPullSpeed;
+            ctx.Player.Animator.SetGrabSpeed(animSpeed);
         }
 
         public override void FixedTick(PlayerStateMachine ctx)

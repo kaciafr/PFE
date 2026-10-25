@@ -27,5 +27,6 @@ namespace Goblfin.CharactersSystem.Player.Data
         public static readonly int DirY       = Animator.StringToHash("DirY");
         public static readonly int ClimbSpeed = Animator.StringToHash("ClimbSpeed");
         public static readonly int GrabSpeed  = Animator.StringToHash("GrabSpeed");
+        public static readonly int MoveSpeed  = Animator.StringToHash("MoveSpeed");
     }
 }

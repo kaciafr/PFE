@@ -26,7 +26,10 @@ namespace Goblfin.CharactersSystem.Player
             animator.SetFloat(AnimsParams.ClimbSpeed, speed); 
         }
 
-        public void SetGrabSpeed(float speed) => animator.SetFloat(AnimsParams.GrabSpeed, speed);        
+        public void SetGrabSpeed(float speed) => animator.SetFloat(AnimsParams.GrabSpeed, speed);
+
+        // 1 = l'animation joue à sa vitesse normale, 0.5 = deux fois plus lent (lissé sur 0.1 s)
+        public void SetMoveSpeed(float ratio) => animator.SetFloat(AnimsParams.MoveSpeed, ratio, 0.1f, Time.deltaTime);
         
         
     }

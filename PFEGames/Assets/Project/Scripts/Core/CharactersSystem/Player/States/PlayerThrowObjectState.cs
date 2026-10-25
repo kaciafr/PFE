@@ -39,6 +39,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
+            player.Animator.SetMoveSpeed(player.HorizontalSpeed / player.Settings.Movement.WalkSpeed);
             player.AdjustThrowPower(player.Input.AimScroll);
 
             if (player.Input.ThrowPressed)

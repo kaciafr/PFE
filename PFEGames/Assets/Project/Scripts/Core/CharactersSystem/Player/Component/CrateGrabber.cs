@@ -9,7 +9,9 @@ namespace Goblfin.CharactersSystem.Player.Component
         private const RigidbodyConstraints LockXZ = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         private const float SettleDelay = 0.1f;
         private const float SettleSpeed = 0.05f;
+        [SerializeField] private float faceMargin = 0.075f;
         private Rigidbody rb;
+        private CapsuleCollider capsule;
         private PlayerMotor motor;
         private PlayerSettings settings;
 
@@ -28,6 +30,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            capsule = GetComponent<CapsuleCollider>();
             motor = GetComponent<PlayerMotor>();
             settings = GetComponent<PlayerManager>().Settings;
         }
@@ -51,10 +54,17 @@ namespace Goblfin.CharactersSystem.Player.Component
             localGrabNormal = crate.transform.InverseTransformDirection(hitNormal);
 
             SnapPoint snapPoint = SnapPoint.FindForFace(crate, hitPoint, hitNormal);
-            if (snapPoint != null)
-                PlacePlayer(snapPoint.transform.position, snapPoint.transform.forward);
-            else
-                PlacePlayer(hitPoint + hitNormal * settings.Grab.GrabDistance, -hitNormal);
+            Vector3 position = snapPoint != null
+                ? snapPoint.transform.position
+                : hitPoint + hitNormal * settings.Grab.GrabDistance;
+            Vector3 lookDirection = snapPoint != null ? snapPoint.transform.forward : -hitNormal;
+
+            float distanceFromFace = Vector3.Dot(position - hitPoint, hitNormal);
+            float minDistance = CapsuleRadius() + faceMargin;
+            if (distanceFromFace < minDistance)
+                position += hitNormal * (minDistance - distanceFromFace);
+
+            PlacePlayer(position, lookDirection);
 
             grabOffset = grabbedCrate.position - rb.position;
             grabOffset.y = 0f;
@@ -68,6 +78,13 @@ namespace Goblfin.CharactersSystem.Player.Component
             grabbedCrate.constraints |= LockXZ;
             releasedCrates.Add((grabbedCrate, Time.time));
             grabbedCrate = null;
+        }
+
+        private float CapsuleRadius()
+        {
+            if (capsule == null) return 0f;
+            Vector3 scale = capsule.transform.lossyScale;
+            return capsule.radius * Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
         }
 
         private void PlacePlayer(Vector3 position, Vector3 lookDirection)

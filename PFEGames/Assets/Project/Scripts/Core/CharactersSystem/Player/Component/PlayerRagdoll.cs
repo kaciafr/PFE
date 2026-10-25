@@ -86,9 +86,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             playerBody.isKinematic = true;
             if (playerCollider != null) playerCollider.enabled = false;
 
-            HandIK handIK = animator.GetComponent<HandIK>();
-            if (handIK != null) handIK.enabled = false;
-
             SetBonesPhysics(true);
             foreach (Rigidbody bone in bones)
                 bone.linearVelocity = velocity;
@@ -121,8 +118,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             RestoreSkeletonPose();
             playerBody.isKinematic = false;
             if (playerCollider != null) playerCollider.enabled = true;
-            HandIK handIK = animator.GetComponent<HandIK>();
-            if (handIK != null) handIK.enabled = true;
 
             WakeUp(animator);
         }

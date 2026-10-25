@@ -33,19 +33,26 @@ namespace Goblfin
 			// Placement immédiat au démarrage
 			follow.FollowOffset = current.followOffset;
 			SetFov(current.fov);
-			SetScreenY(current.screenY);
+			SetScreen(current.screenX, current.screenY);
 		}
+
+		[Header("Debug")]
+		[SerializeField, Tooltip("Vue active en ce moment (lecture seule).")]
+		string activeState;
 
 		public void Request(CameraState state) => current = state;
 		public void Release() => current = defaultState;
 
 		void Update()
 		{
+			activeState = current != null ? current.name : "aucune";
+
 			float t = 1f - Mathf.Exp(-current.smooth * Time.deltaTime);
 
 			follow.FollowOffset = Vector3.Lerp(follow.FollowOffset, current.followOffset, t);
 			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, current.fov, t));
-			SetScreenY(Mathf.Lerp(composer.Composition.ScreenPosition.y, current.screenY, t));
+			Vector2 screen = composer.Composition.ScreenPosition;
+			SetScreen(Mathf.Lerp(screen.x, current.screenX, t), Mathf.Lerp(screen.y, current.screenY, t));
 		}
 
 		void SetFov(float value)
@@ -55,10 +62,10 @@ namespace Goblfin
 			vcam.Lens = lens;
 		}
 
-		void SetScreenY(float value)
+		void SetScreen(float x, float y)
 		{
-			var comp = composer.Composition;   
-			comp.ScreenPosition.y = value;
+			var comp = composer.Composition;
+			comp.ScreenPosition = new Vector2(x, y);
 			composer.Composition = comp;
 		}
 	}

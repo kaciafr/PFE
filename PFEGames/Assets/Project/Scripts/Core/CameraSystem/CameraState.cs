@@ -12,6 +12,9 @@ namespace Goblfin
 		public float fov = 55f;
 
 		[Header("Cadrage")]
+		[Tooltip("Position du joueur a l'ecran : -0.5 = tout a gauche, 0 = centre, 0.5 = tout a droite")]
+		public float screenX = 0f;
+		[Tooltip("Position du joueur a l'ecran : -0.5 = tout en bas, 0 = centre, 0.5 = tout en haut")]
 		public float screenY = -0.2f;
 
 		[Header("Transition")]

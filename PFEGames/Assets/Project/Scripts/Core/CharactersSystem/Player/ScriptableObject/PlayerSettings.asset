@@ -47,16 +47,16 @@ MonoBehaviour:
       m_Bits: 64
     <RayHeight>k__BackingField: 0
     <DetectDistance>k__BackingField: 1
-    <TopCheckHeight>k__BackingField: 0.5
+    <TopCheckHeight>k__BackingField: 0.25
     <ApproachThreshold>k__BackingField: 0.5
     <Speed>k__BackingField: 1
-    <LadderDistance>k__BackingField: 0.4
+    <LadderDistance>k__BackingField: 0.24
     <ExitPush>k__BackingField: 2
     <TopDuration>k__BackingField: 2
     <TopHeight>k__BackingField: 1.5
     <TopForward>k__BackingField: 0.6
-    <climbTilt>k__BackingField: 15
-    <climbVisualOffset>k__BackingField: 0.2
+    <climbTilt>k__BackingField: 5
+    <climbVisualOffset>k__BackingField: 0
   <Grab>k__BackingField:
     <Layer>k__BackingField:
       serializedVersion: 2
@@ -66,7 +66,7 @@ MonoBehaviour:
     <PushPullSpeed>k__BackingField: 1
     <BreakDistance>k__BackingField: 3
     <MaxGrabMass>k__BackingField: 50
-    <GrabDistance>k__BackingField: 0.65
+    <GrabDistance>k__BackingField: 0.8
   <Throw>k__BackingField:
     <LayerObject>k__BackingField:
       serializedVersion: 2

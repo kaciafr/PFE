@@ -18,6 +18,7 @@ namespace Goblfin.CharactersSystem.Player.States
         public override void Tick(PlayerStateMachine ctx)
         {
             var player = ctx.Player;
+            player.Animator.SetMoveSpeed(player.HorizontalSpeed / player.Settings.Crouch.Speed);
 
             if (WantsToClimb(ctx))
             {
