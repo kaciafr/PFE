@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Goblfin.QuestSystem
         
         private Dictionary<QuestSO, QuestState> questsStatess = new Dictionary<QuestSO, QuestState>();
         private Dictionary<QuestItemSO, int  > invetory = new Dictionary<QuestItemSO, int>();
+
+        public event Action<QuestSO> OnQuestCompleted;
+
 
         void Awake()
         {
@@ -101,7 +105,16 @@ namespace Goblfin.QuestSystem
                 }
             }
 
+            CompleteQuest(quest);
+        }
+
+        // Termine une quête active, peu importe la façon (objet rendu, zone, puzzle...)
+        public void CompleteQuest(QuestSO quest)
+        {
+            if (GetState(quest) != QuestState.Active) return;
+
             questsStatess[quest] = QuestState.Completed;
+            OnQuestCompleted?.Invoke(quest);
             Debug.Log($"[Quest] Terminée : {quest.QuestName}");
             RefreshTracker();
         }
