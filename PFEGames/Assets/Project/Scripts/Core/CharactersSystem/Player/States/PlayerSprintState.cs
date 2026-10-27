@@ -8,7 +8,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            ctx.Player.Animator.Play (AnimIds.Run);
+            ctx.Player.Animator.Play (AnimIds.Run , 0.25f);
         }
 
         public override void Exit(PlayerStateMachine ctx)

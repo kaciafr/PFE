@@ -16,7 +16,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (ragdoll != null)
                 ragdoll.Kill();
             else
-                ctx.Player.Animator.Play(AnimIds.Die);
+                ctx.Player.Animator.Play(AnimIds.Die , 0.1f);
 
             ctx.Player.Respawn(ctx.Player.Settings.Death.RespawnDelay);
         }

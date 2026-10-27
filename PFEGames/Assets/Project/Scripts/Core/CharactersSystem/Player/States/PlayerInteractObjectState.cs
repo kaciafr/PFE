@@ -12,7 +12,7 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             timer = 0f;
             target = ctx.Player.ThrowableInFront;
-            ctx.Player.Animator.Play(AnimIds.Interact);
+            ctx.Player.Animator.Play(AnimIds.Interact , 0.1f);
         }
 
         public override void Tick(PlayerStateMachine ctx)

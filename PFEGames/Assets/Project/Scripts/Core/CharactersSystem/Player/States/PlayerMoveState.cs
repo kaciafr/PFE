@@ -7,7 +7,7 @@ namespace Goblfin.CharactersSystem.Player.States
     {
         public override void Enter(PlayerStateMachine ctx)
         {
-            ctx.Player.Animator.Play(AnimIds.Move);
+            ctx.Player.Animator.Play(AnimIds.Move , 0.2f);
         }
 
         public override void Tick(PlayerStateMachine ctx)

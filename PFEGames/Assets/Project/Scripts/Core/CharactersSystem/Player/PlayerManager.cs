@@ -104,6 +104,11 @@ namespace Goblfin.CharactersSystem.Player
 
         public void Move(Vector2 input, float speed) => Motor.Move(input, speed, !Grabber.IsGrabbing);
         public void MoveWorld(Vector3 dir, float speed) => Motor.MoveWorld(dir, speed, false);
+
+        public void MoveinAir(Vector2 input, float speed) => Motor.Move(input, speed, true, Settings.Jump.AirControl , false );
+        
+        
+        
         public void Jump() => Motor.Jump(Settings.Jump.Force);
 
         private float lastGroundedTime = -1f;

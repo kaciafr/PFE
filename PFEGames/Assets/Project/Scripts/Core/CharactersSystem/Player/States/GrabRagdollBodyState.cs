@@ -9,7 +9,7 @@ namespace Goblfin.CharactersSystem.Player.States
 		{
 			ctx.Player.RagdollGrabing();
 			
-			ctx.Player.Animator.Play(AnimIds.Grab);
+			ctx.Player.Animator.Play(AnimIds.Grab , 0.15f);
 			ctx.Player.Animator.SetGrabSpeed(0f);
 		}
 
@@ -18,7 +18,7 @@ namespace Goblfin.CharactersSystem.Player.States
 			if (!ctx.Player.Input.GrabHeld )
 			{
 				ctx.SwitchState(ctx.IdleState);
-				ctx.Player.Animator.Play(AnimIds.Grab);
+				ctx.Player.Animator.Play(AnimIds.Grab , 0.15f);
 				return;
 			}
 

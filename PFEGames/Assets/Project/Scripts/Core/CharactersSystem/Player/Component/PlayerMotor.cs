@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField] private Transform cam;
         [SerializeField] private Transform orientation;
         [SerializeField] private Transform playerObject;
-        [SerializeField, Tooltip("Modèle visuel (enfant du Player) : reçoit l'inclinaison et le décalage pendant le climb.")]
         private Transform model;
         [SerializeField] private PlayerSettings settings;
 
@@ -18,12 +18,18 @@ namespace Goblfin.CharactersSystem.Player.Component
         private Rigidbody rb;
         private Vector3 modelStartLocalPos;
         private Quaternion modelStartLocalRot;
+        private PlayerSensor playerSensor;
+        private float lastjump = -1; 
 
         public Vector3 Velocity => rb.linearVelocity;
 
+        private bool OnSlope => playerSensor.IsGrounded
+                                && Vector3.Angle(playerSensor.GroundNormal, Vector3.up) > 1f
+                                && Time.time -  lastjump >0.2f ; 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            playerSensor = GetComponent<PlayerSensor>(); 
             rb.freezeRotation = true;
             if (model == null || model == transform)
             {
@@ -56,7 +62,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             return Vector3.ClampMagnitude(dir, 1f);
         }
 
-        public void Move(Vector2 input, float speed, bool rotate = true)
+        public void Move(Vector2 input, float speed, bool rotate = true, float rateair = 1f ,bool followSlope = true)
         {
             Vector3 dir = GetMoveDirection(input);
 
@@ -68,17 +74,34 @@ namespace Goblfin.CharactersSystem.Player.Component
             float rate = target.sqrMagnitude < current.sqrMagnitude
                 ? settings.Movement.Deceleration
                 : settings.Movement.Acceleration;
-            Vector3 velocity = Vector3.MoveTowards(current, target, rate * Time.fixedDeltaTime);
-
+            
+            if (OnSlope && followSlope)
+            {
+                target = Vector3.ProjectOnPlane(target, playerSensor.GroundNormal);
+                rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, target, rate * rateair * Time.fixedDeltaTime);
+                return; 
+            }
+            
+            Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair *Time.fixedDeltaTime);
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = velocity;
+
+           
         }
 
         public void SlowDown()
         {
+
+            if (OnSlope)
+            {
+                rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
+                rb.AddForce(-Physics.gravity, ForceMode.Acceleration);  
+                return;
+            }
+
             Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 velocity = Vector3.MoveTowards(current, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
-
+            
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = velocity;
         }
@@ -94,6 +117,10 @@ namespace Goblfin.CharactersSystem.Player.Component
                 multiplier = settings.Jump.LowJumpMultiplier;
 
             rb.linearVelocity += Physics.gravity * (multiplier - 1f) * Time.fixedDeltaTime;
+
+            Vector3 velocity = rb.linearVelocity;
+            velocity.y = Mathf.Max(velocity.y, -settings.Jump.MaxFallSpeed);
+            rb.linearVelocity = velocity;
         }
 
         public void MoveWorld(Vector3 dir, float speed, bool rotate = true)
@@ -121,6 +148,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         public void Jump(float force)
         {
+            lastjump = Time.time;
             Vector3 velocity = rb.linearVelocity;
             velocity.y = force;
             rb.linearVelocity = velocity;
@@ -202,6 +230,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.isKinematic = false;
             rb.useGravity = true;
         }
+        
 
         
     }

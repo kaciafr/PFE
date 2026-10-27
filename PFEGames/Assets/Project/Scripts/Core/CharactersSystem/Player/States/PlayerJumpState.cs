@@ -21,7 +21,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 : ctx.Player.Settings.Movement.WalkSpeed;
 
             ctx.Player.Jump();
-            ctx.Player.Animator.Play(AnimIds.Jump);
+            ctx.Player.Animator.Play(AnimIds.Jump , 0.05f );
 
             maxFallSpeed = 0f;
             ctx.Player.Juice?.OnJump();
@@ -34,19 +34,26 @@ namespace Goblfin.CharactersSystem.Player.States
 
             if (ctx.Player.IsGrounded && ctx.Player.VerticalVelocity <= 0.01f)
             {
+                if ( maxFallSpeed >= ctx.Player.Settings.Jump.HardLandSpeed)
+                {
+                    ctx.SwitchState(ctx.LandState);
+                    return;
+                }
                 ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
             }
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, airSpeed);
+            ctx.Player.MoveinAir(ctx.Player.MoveInput, airSpeed);
             maxFallSpeed = Mathf.Max(maxFallSpeed, -ctx.Player.VerticalVelocity);
         }
 
         public override void Exit(PlayerStateMachine ctx)
         {
             ctx.Player.Juice?.OnLand(maxFallSpeed);
+            Debug.Log($"Vitesse de chute : {maxFallSpeed}");
+
         }
     }
 }

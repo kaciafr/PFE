@@ -11,7 +11,7 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             timer = 0f;
             ctx.Player.StartClimbTop();
-            ctx.Player.Animator.Play(AnimIds.ClimbTop);
+            ctx.Player.Animator.Play(AnimIds.ClimbTop , 0.1f);
         }
 
         public override void Tick(PlayerStateMachine ctx)

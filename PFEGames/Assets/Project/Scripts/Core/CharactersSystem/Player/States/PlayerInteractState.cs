@@ -10,7 +10,7 @@ namespace Goblfin.CharactersSystem.Player.States
         public override void Enter(PlayerStateMachine ctx)
         {
             timer = 0f;
-            ctx.Player.Animator.Play(AnimIds.Idle);
+            ctx.Player.Animator.Play(AnimIds.Idle , 0.15f);
 
             ctx.Player.Interact();
         }

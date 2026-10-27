@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d813f24720e44c0afa84c5aa8adc669, type: 3}
   m_Name: PoutreView
   m_EditorClassIdentifier: Core::Goblfin.CameraState
-  followOffset: {x: 7, y: 4, z: 0}
-  fov: 40
-  screenX: 0.15
-  screenY: 0.1
+  followOffset: {x: 2, y: 0.6, z: -8}
+  fov: 50
+  screenX: -0.2
+  screenY: 0
+  followDirection: 0
   smooth: 3

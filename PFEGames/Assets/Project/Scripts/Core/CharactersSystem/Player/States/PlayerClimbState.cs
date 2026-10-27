@@ -13,7 +13,7 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             climbInput = 0f;
             ctx.Player.StartClimb();
-            ctx.Player.Animator.Play(AnimIds.Climb);
+            ctx.Player.Animator.Play(AnimIds.Climb , 0.15f);
         }
 
 

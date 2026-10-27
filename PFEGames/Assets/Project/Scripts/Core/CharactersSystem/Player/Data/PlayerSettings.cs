@@ -80,13 +80,26 @@ namespace Goblfin.CharactersSystem.Player.Data
 
         [field: SerializeField, Min(0f), Tooltip("Temps (s) pendant lequel un appui sur Saut juste avant d'atterrir est gardé.")]
         public float JumpBuffer { get; private set; }
+        
+        [field: SerializeField , Range(0f,1f)]
+        public float AirControl { get; private set; }
+        
+        [field: SerializeField  ]
+        public float MaxFallSpeed { get; private set; }
+        
+        [field: SerializeField]
+        public float HardLandSpeed { get; private set;  }
+        [field : SerializeField]
+        public float HardLandDuration { get; private set; }
+        
+        
 
         #endregion
 
         #region Constructeur et valeurs par défaut
 
         public JumpSettings(float force, float jumpSpeed, float fallMultiplier, float lowJumpMultiplier,
-                            float coyoteTime, float jumpBuffer)
+                            float coyoteTime, float jumpBuffer , float airControl, float maxFallSpeed , float hardLandSpeed , float hardLandDuration)
         {
             Force = force;
             JumpSpeed = jumpSpeed;
@@ -94,9 +107,14 @@ namespace Goblfin.CharactersSystem.Player.Data
             LowJumpMultiplier = lowJumpMultiplier;
             CoyoteTime = coyoteTime;
             JumpBuffer = jumpBuffer;
+            AirControl = airControl;
+            MaxFallSpeed = maxFallSpeed;
+            HardLandDuration = hardLandDuration; 
+            HardLandSpeed = hardLandSpeed;
+
         }
 
-        public static JumpSettings Default => new(4.4f, 2f, 2f, 2.5f, 0.1f, 0.12f);
+        public static JumpSettings Default => new(4.4f, 2f, 2f, 2.5f, 0.1f, 0.12f,0.5f , 20f ,10f,0.4f );
 
         #endregion
     }

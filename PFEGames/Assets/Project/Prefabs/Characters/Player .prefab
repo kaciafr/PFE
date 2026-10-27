@@ -1375,7 +1375,6 @@ MonoBehaviour:
   cam: {fileID: 0}
   orientation: {fileID: 6060156052595759617}
   playerObject: {fileID: 4573860005680755537}
-  model: {fileID: 5440875856209404530}
   settings: {fileID: 11400000, guid: 63358784ad7001442b2681a8ce3dc933, type: 2}
 --- !u!114 &6602580008260269371
 MonoBehaviour:

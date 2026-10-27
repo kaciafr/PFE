@@ -25,6 +25,10 @@ MonoBehaviour:
     <LowJumpMultiplier>k__BackingField: 2.5
     <CoyoteTime>k__BackingField: 0.1
     <JumpBuffer>k__BackingField: 0.12
+    <AirControl>k__BackingField: 0.5
+    <MaxFallSpeed>k__BackingField: 20
+    <HardLandSpeed>k__BackingField: 10
+    <HardLandDuration>k__BackingField: 0.4
   <Crouch>k__BackingField:
     <Speed>k__BackingField: 1.4
     <Height>k__BackingField: 1.5

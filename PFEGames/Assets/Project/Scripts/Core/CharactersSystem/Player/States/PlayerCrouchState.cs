@@ -12,7 +12,7 @@ namespace Goblfin.CharactersSystem.Player.States
             ctx.Player.Crouch();
 
             isMoving = HasMoveInput(ctx);
-            ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+            ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -42,7 +42,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (moving != isMoving)
             {
                 isMoving = moving;
-                player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+                player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
             }
         }
 
