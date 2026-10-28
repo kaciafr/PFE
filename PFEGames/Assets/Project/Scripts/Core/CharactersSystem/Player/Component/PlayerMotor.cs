@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
@@ -19,17 +18,17 @@ namespace Goblfin.CharactersSystem.Player.Component
         private Vector3 modelStartLocalPos;
         private Quaternion modelStartLocalRot;
         private PlayerSensor playerSensor;
-        private float lastjump = -1; 
+        private float lastjump = -1;
 
         public Vector3 Velocity => rb.linearVelocity;
 
         private bool OnSlope => playerSensor.IsGrounded
                                 && Vector3.Angle(playerSensor.GroundNormal, Vector3.up) > 1f
-                                && Time.time -  lastjump >0.2f ; 
+                                && Time.time - lastjump > 0.2f;
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            playerSensor = GetComponent<PlayerSensor>(); 
+            playerSensor = GetComponent<PlayerSensor>();
             rb.freezeRotation = true;
             if (model == null || model == transform)
             {
@@ -45,10 +44,10 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         private void Start()
         {
-	        if (cam == null)
-	        {
-		        cam = FindObjectOfType<Camera>().transform;
-	        }
+            if (cam == null)
+            {
+                cam = Camera.main.transform;
+            }
         }
 
         public Vector3 GetMoveDirection(Vector2 input)
@@ -62,31 +61,31 @@ namespace Goblfin.CharactersSystem.Player.Component
             return Vector3.ClampMagnitude(dir, 1f);
         }
 
-        public void Move(Vector2 input, float speed, bool rotate = true, float rateair = 1f ,bool followSlope = true)
+        public void Move(Vector2 input, float speed, bool rotate = true, float rateair = 1f, bool followSlope = true ,float rotationmultiplier = 1f )
         {
             Vector3 dir = GetMoveDirection(input);
 
             if (rotate && dir.sqrMagnitude > 0.001f)
-                RotateTowards(dir);
+                RotateTowards(dir , rotationmultiplier);
 
             Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 target = dir * speed;
             float rate = target.sqrMagnitude < current.sqrMagnitude
                 ? settings.Movement.Deceleration
                 : settings.Movement.Acceleration;
-            
+
             if (OnSlope && followSlope)
             {
                 target = Vector3.ProjectOnPlane(target, playerSensor.GroundNormal);
                 rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, target, rate * rateair * Time.fixedDeltaTime);
-                return; 
+                return;
             }
-            
-            Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair *Time.fixedDeltaTime);
+
+            Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair * Time.fixedDeltaTime);
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = velocity;
 
-           
+
         }
 
         public void SlowDown()
@@ -95,13 +94,13 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (OnSlope)
             {
                 rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
-                rb.AddForce(-Physics.gravity, ForceMode.Acceleration);  
+                rb.AddForce(-Physics.gravity, ForceMode.Acceleration);
                 return;
             }
 
             Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 velocity = Vector3.MoveTowards(current, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
-            
+
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = velocity;
         }
@@ -133,12 +132,9 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.linearVelocity = velocity;
         }
 
-        public void RotateTowards(Vector3 dir)
+        public void RotateTowards(Vector3 dir , float multiplier = 1f)
         {
-            playerObject.rotation = Quaternion.RotateTowards(playerObject.rotation, Quaternion.LookRotation(dir), settings.Movement.RotationSpeed * Time.fixedDeltaTime );
-                //Rotation Speed Rotation par seconde 
-               // Vector3.Slerp(playerObject.forward, dir.normalized,
-                   //  Time.deltaTime * settings.Movement.RotationSpeed);
+            playerObject.rotation = Quaternion.RotateTowards(playerObject.rotation, Quaternion.LookRotation(dir), settings.Movement.RotationSpeed * multiplier * Time.fixedDeltaTime);
         }
 
         public void Face(Vector3 dir)
@@ -188,7 +184,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             Vector3 snap = ladderPoint + ladderNormal * settings.Climb.LadderDistance;
             snap.y = rb.position.y;
             rb.position = snap;
-            
+
         }
 
         public void Climb(float verticalSpeed)
@@ -232,8 +228,8 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.isKinematic = false;
             rb.useGravity = true;
         }
-        
 
-        
+
+
     }
 }

@@ -1,6 +1,8 @@
+using System.Numerics;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Interface;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Goblfin.CharactersSystem.Player.Component
 {
@@ -9,8 +11,16 @@ namespace Goblfin.CharactersSystem.Player.Component
     {
         [SerializeField] private Transform playerObject;
         [SerializeField] private PlayerSettings settings;
-        [SerializeField] private bool drawDebug = true;
+        [SerializeField] private bool drawDebugGround  = true;
+        [SerializeField] private bool drawDebugLadder  = true;
+        [SerializeField] private bool drawDebugCrate  = true;
+        [SerializeField] private bool drawDebugThrowable = true;
+        [SerializeField] private bool drawDebugGroundAhead = true;
 
+        
+        [SerializeField] private float edgeCheckDistance = 0.35f;
+        [SerializeField] private float edgeMaxDrop = 0.5f;   
+        
         public bool IsGrounded { get; private set; }
         public Vector3 GroundNormal { get; private set; } = Vector3.up;
         public bool LadderInFront { get; private set; }
@@ -73,7 +83,7 @@ namespace Goblfin.CharactersSystem.Player.Component
                     normalSum += info.normal;
                 }
 
-                if (drawDebug)
+                if (drawDebugGround)
                     Debug.DrawRay(origin, Vector3.down * distance, hit ? Color.green : Color.red);
             }
 
@@ -103,7 +113,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             LadderTopReached = LadderInFront
                 && !Physics.Raycast(topOrigin, dir, climb.DetectDistance, climb.Layer, QueryTriggerInteraction.Ignore);
 
-            if (drawDebug)
+            if (drawDebugLadder)
             {
                 Debug.DrawRay(origin, dir * climb.DetectDistance, LadderInFront ? Color.green : Color.red);
                 Debug.DrawRay(topOrigin, dir * climb.DetectDistance, LadderTopReached ? Color.cyan : Color.white);
@@ -127,7 +137,7 @@ namespace Goblfin.CharactersSystem.Player.Component
                 CrateHitNormal = hit.normal;
             }
 
-            if (drawDebug)
+            if (drawDebugCrate)
                 Debug.DrawRay(origin, dir * grab.DetectDistance, CrateInFront ? Color.blue : Color.yellow);
         }
 
@@ -160,7 +170,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             ThrowableInFront = closest;
 
-            if (drawDebug)
+            if (drawDebugThrowable)
                 Debug.DrawLine(origin, center, ThrowableInFront ? Color.magenta : Color.gray);
         }
         
@@ -182,6 +192,22 @@ namespace Goblfin.CharactersSystem.Player.Component
             }
         }
 
+
+        public bool HasGroundAhead(Vector3 dir)
+        {
+            var ground = settings.Ground;
+            // Point un peu devant, dans la direction où le joueur VEUT aller
+            Vector3 origin = transform.position + dir.normalized * edgeCheckDistance + Vector3.up * ground.CheckOffset;
+            float distance = ground.RaycastDistance + ground.CheckOffset + edgeMaxDrop;
+            
+            bool hit =  Physics.Raycast(origin, Vector3.down, distance, ground.GroundLayer, QueryTriggerInteraction.Ignore);
+
+            if (drawDebugGroundAhead)
+                Debug.DrawRay(origin, Vector3.down * distance, hit ? Color.green : Color.magenta);
+            
+            return hit;
+        }
+                
         private void OnDrawGizmos()
         {
             if (playerObject == null) return;

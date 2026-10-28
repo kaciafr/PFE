@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
@@ -104,10 +102,10 @@ namespace Goblfin.CharactersSystem.Player
 
         #region Movement
 
-        public void Move(Vector2 input, float speed) => Motor.Move(input, speed, !Grabber.IsGrabbing);
+        public void Move(Vector2 input, float speed , float rotationMultiplier = 1f) => Motor.Move(input, speed, !Grabber.IsGrabbing, 1f, true , rotationMultiplier );
         public void MoveWorld(Vector3 dir, float speed) => Motor.MoveWorld(dir, speed, false);
 
-        public void MoveinAir(Vector2 input, float speed) => Motor.Move(input, speed, true, Settings.Jump.AirControl , false );
+        public void MoveinAir(Vector2 input, float speed) => Motor.Move(input, speed, true, Settings.Jump.AirControl , false , Settings.Movement.AirRotationMultiplier);
         
         
         

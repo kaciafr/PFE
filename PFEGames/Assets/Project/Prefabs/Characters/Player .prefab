@@ -1350,7 +1350,7 @@ MonoBehaviour:
   <Juice>k__BackingField: {fileID: 8061724133825268821}
   <startPosition>k__BackingField: {x: 0, y: 0, z: 0}
   <startRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
-  <VFX>k__BackingField: {fileID: 0}
+  <VFX>k__BackingField: {fileID: 4509686469926939881}
 --- !u!114 &1675564797479926826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,7 +1393,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Component.PlayerSensor
   playerObject: {fileID: 4573860005680755537}
   settings: {fileID: 11400000, guid: 63358784ad7001442b2681a8ce3dc933, type: 2}
-  drawDebug: 1
+  drawDebugGround: 0
+  drawDebugLadder: 0
+  drawDebugCrate: 0
+  drawDebugThrowable: 0
+  drawDebugGroundAhead: 1
+  edgeCheckDistance: 0.35
+  edgeMaxDrop: 0.5
 --- !u!114 &4979999978357337543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1646,6 +1652,8 @@ MonoBehaviour:
   minSpeed: 0.5
   walkMultiplier: 0.5
   sprintMultiplier: 1.5
+  walkSize: 0.7
+  sprintSize: 1.2
   jumpPuff: 6
   maxLandPuff: 20
   maxLandSpeed: 10

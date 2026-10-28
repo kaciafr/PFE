@@ -21,6 +21,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (IsFalling(ctx))
             {
                 ctx.SwitchState(ctx.FallState);
+                return;
             }
             ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Crouch.Speed);
 
@@ -52,6 +53,11 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
+            if (HasMoveInput(ctx) && !ctx.Player.Sensor.HasGroundAhead(ctx.Player.MoveDirection))
+            {
+                ctx.Player.Motor.Stop();
+                return;
+            }
             MoveAt(ctx, ctx.Player.Settings.Crouch.Speed);
         }
 

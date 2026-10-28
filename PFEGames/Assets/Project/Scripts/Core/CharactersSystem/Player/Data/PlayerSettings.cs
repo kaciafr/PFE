@@ -32,27 +32,34 @@ namespace Goblfin.CharactersSystem.Player.Data
         [field: SerializeField, Min(0f)] public float WalkSpeed { get; private set; }
         [field: SerializeField, Min(0f)] public float SprintSpeed { get; private set; }
         [field: SerializeField, Min(0f)] public float RotationSpeed { get; private set; }
-
+        
         [field: SerializeField, Min(0f), Tooltip("m/s gagnés par seconde au démarrage (plus haut = démarre plus sec).")]
         public float Acceleration { get; private set; }
 
         [field: SerializeField, Min(0f), Tooltip("m/s perdus par seconde quand on ralentit ou s'arrête (plus haut = s'arrête plus sec).")]
         public float Deceleration { get; private set; }
+        
+        [field: SerializeField , Range(0,1)] public float SprintRotationMultiplier { get; private set; }
+        
+        [field: SerializeField , Range(0,1)] public float AirRotationMultiplier { get; private set; }
 
         #endregion
 
         #region Constructeur et valeurs par défaut
 
-        public MovementSettings(float walkSpeed, float sprintSpeed, float rotationSpeed, float acceleration, float deceleration)
+        public MovementSettings(float walkSpeed, float sprintSpeed, float rotationSpeed, float acceleration, float deceleration , float sprintRotationMultiplier , float airRotationMultiplier )
         {
             WalkSpeed = walkSpeed;
             SprintSpeed = sprintSpeed;
             RotationSpeed = rotationSpeed;
             Acceleration = acceleration;
             Deceleration = deceleration;
+            SprintRotationMultiplier = sprintRotationMultiplier;
+            AirRotationMultiplier = airRotationMultiplier;
+            
         }
 
-        public static MovementSettings Default => new(2.75f, 5.5f, 720f, 35f, 25f);
+        public static MovementSettings Default => new(2.75f, 5.5f, 720f, 35f, 25f, 0.75f,0.5f );
 
         #endregion
     }

@@ -42,7 +42,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, ctx.Player.Settings.Movement.SprintSpeed);
+            MoveAt(ctx, ctx.Player.Settings.Movement.SprintSpeed, ctx.Player.Settings.Movement.SprintRotationMultiplier);
         }
     }
 }

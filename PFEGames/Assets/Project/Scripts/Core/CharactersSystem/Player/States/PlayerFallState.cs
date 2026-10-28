@@ -27,18 +27,18 @@ namespace Goblfin.CharactersSystem.Player.States
             if (ctx.Player.WantsJump)
             {
                 ctx.SwitchState(ctx.JumpState);
-                return; 
+                return;
             };
 
-            if (ctx.Player.IsGrounded)
+            if (WantsToClimb(ctx))
             {
-                if ( maxFallSpeed >= ctx.Player.Settings.Jump.HardLandSpeed)
-                {
-                    ctx.SwitchState(ctx.LandState);
-                    return;
-                }
-                ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
+                ctx.SwitchState(ctx.ClimbState);
+                return;
             }
+
+            TryLand(ctx ,maxFallSpeed);
+            
+          
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
@@ -49,8 +49,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            ctx.Player.Juice?.OnLand(maxFallSpeed);
-            ctx.Player.VFX?.OnLand(maxFallSpeed);
             Debug.Log($"Vitesse de chute : {maxFallSpeed}");
 
         }

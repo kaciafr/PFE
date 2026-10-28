@@ -18,6 +18,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (IsFalling(ctx))
             {
                 ctx.SwitchState(ctx.FallState);
+                return;
             }
             if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrab)
             {
