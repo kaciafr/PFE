@@ -1245,6 +1245,7 @@ GameObject:
   - component: {fileID: 665803601431520831}
   - component: {fileID: 8061724133825268821}
   - component: {fileID: 4509686469926939881}
+  - component: {fileID: 7130284990342234014}
   m_Layer: 10
   m_Name: 'Player '
   m_TagString: Player
@@ -1658,6 +1659,21 @@ MonoBehaviour:
   maxLandPuff: 20
   maxLandSpeed: 10
   _playerManager: {fileID: 7539717071375471903}
+--- !u!114 &7130284990342234014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503608136985919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149c70a5892aed14a8557381c37b722f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.PlayerLean
+  MaxLean: 20
+  fullLeanTurnSpeed: 240
+  leanSmooth: 12
 --- !u!1 &8550033297258655309
 GameObject:
   m_ObjectHideFlags: 0

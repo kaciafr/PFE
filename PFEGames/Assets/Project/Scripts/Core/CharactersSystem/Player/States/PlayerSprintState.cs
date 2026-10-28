@@ -20,6 +20,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (IsFalling(ctx))
             {
                 ctx.SwitchState(ctx.FallState);
+                return;
             }
             ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Movement.SprintSpeed);
 

@@ -53,12 +53,25 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            if (HasMoveInput(ctx) && !ctx.Player.Sensor.HasGroundAhead(ctx.Player.MoveDirection))
+            var sensor = ctx.Player.Sensor;
+            Vector3 dir = ctx.Player.MoveDirection;
+            float speed = ctx.Player.Settings.Crouch.Speed;
+
+            if (!HasMoveInput(ctx) || sensor.HasGroundAhead(dir))
             {
-                ctx.Player.Motor.Stop();
+                MoveAt(ctx, speed);
                 return;
             }
-            MoveAt(ctx, ctx.Player.Settings.Crouch.Speed);
+
+            Vector3 dirX = new Vector3(dir.x, 0f, 0f);
+            Vector3 dirZ = new Vector3(0f, 0f, dir.z);
+
+            if (dirX.magnitude > 0.1f && sensor.HasGroundAhead(dirX))
+                ctx.Player.MoveWorld(dirX, speed);
+            else if (dirZ.magnitude > 0.1f && sensor.HasGroundAhead(dirZ))
+                ctx.Player.MoveWorld(dirZ, speed);
+            else
+                ctx.Player.Motor.Stop();  
         }
 
         public override void Exit(PlayerStateMachine ctx)

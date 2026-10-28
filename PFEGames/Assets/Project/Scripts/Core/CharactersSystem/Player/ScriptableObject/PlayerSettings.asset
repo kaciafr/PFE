@@ -18,6 +18,8 @@ MonoBehaviour:
     <RotationSpeed>k__BackingField: 720
     <Acceleration>k__BackingField: 35
     <Deceleration>k__BackingField: 25
+    <SprintRotationMultiplier>k__BackingField: 0.75
+    <AirRotationMultiplier>k__BackingField: 0.5
   <Jump>k__BackingField:
     <Force>k__BackingField: 5.5
     <JumpSpeed>k__BackingField: 2.8
