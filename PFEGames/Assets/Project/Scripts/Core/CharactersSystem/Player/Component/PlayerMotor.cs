@@ -135,8 +135,10 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         public void RotateTowards(Vector3 dir)
         {
-            playerObject.forward = Vector3.Slerp(playerObject.forward, dir.normalized,
-                Time.deltaTime * settings.Movement.RotationSpeed);
+            playerObject.rotation = Quaternion.RotateTowards(playerObject.rotation, Quaternion.LookRotation(dir), settings.Movement.RotationSpeed * Time.fixedDeltaTime );
+                //Rotation Speed Rotation par seconde 
+               // Vector3.Slerp(playerObject.forward, dir.normalized,
+                   //  Time.deltaTime * settings.Movement.RotationSpeed);
         }
 
         public void Face(Vector3 dir)

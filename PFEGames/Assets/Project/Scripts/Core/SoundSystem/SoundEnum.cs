@@ -1,7 +1,16 @@
-namespace Sound
+namespace Goblfin.SoundSystem
 {
-    public class SoundEnum
+    public enum  SoundType  
     {
-        
+        None, 
+        Footstep,
+        Jump,
+        Land 
+    }
+    
+    
+    public enum MusicType
+    {
+        None,
     }
 }

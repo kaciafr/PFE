@@ -29,6 +29,8 @@ namespace Goblfin.CharactersSystem.Player
         public PlayerLandState LandState { get; private set; }
         
         public PlayerDialogueState DialogueState { get; private set; }
+        
+        public PlayerFallState FallState { get; private set; }
 
         private void Awake()
         {
@@ -49,6 +51,7 @@ namespace Goblfin.CharactersSystem.Player
             ThrowState = new PlayerThrowObjectState();
             DialogueState = new PlayerDialogueState();
             LandState = new PlayerLandState();
+            FallState = new PlayerFallState();
         }
 
         private void Start()

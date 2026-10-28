@@ -37,7 +37,8 @@ AnimatorState:
   m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 3153876221434435689}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -109,6 +110,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -3433310972718492579}
     m_Position: {x: 820, y: 620, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -1039907643507615905}
+    m_Position: {x: 820, y: 690, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
@@ -171,7 +175,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 4437223676828029546}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -263,6 +268,32 @@ AnimatorState:
   m_SpeedParameter: GrabSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: ClimbSpeed
+  m_TimeParameter: 
+--- !u!1102 &-1039907643507615905
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Fall
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -203655887218126122, guid: 518e7069e4e358a4999f33d435d572d2, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!91 &9100000
 AnimatorController:
@@ -435,6 +466,21 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &3153876221434435689
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30a97ee1d884a728c9bb213b7ebbd52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.SoundSystem.PlaySoundState
+  soundType: 2
+  playSoundEnter: 1
+  playSoundExit: 0
 --- !u!1102 &4149587696620815101
 AnimatorState:
   serializedVersion: 6
@@ -461,6 +507,21 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &4437223676828029546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30a97ee1d884a728c9bb213b7ebbd52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.SoundSystem.PlaySoundState
+  soundType: 3
+  playSoundEnter: 1
+  playSoundExit: 0
 --- !u!1102 &5214014229409384317
 AnimatorState:
   serializedVersion: 6

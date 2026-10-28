@@ -52,7 +52,7 @@ namespace Goblfin.CharactersSystem.Player.Data
             Deceleration = deceleration;
         }
 
-        public static MovementSettings Default => new(2.75f, 5.5f, 16f, 35f, 25f);
+        public static MovementSettings Default => new(2.75f, 5.5f, 720f, 35f, 25f);
 
         #endregion
     }

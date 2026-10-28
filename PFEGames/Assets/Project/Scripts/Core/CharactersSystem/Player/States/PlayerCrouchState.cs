@@ -17,8 +17,12 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
-            var player = ctx.Player;
-            player.Animator.SetMoveSpeed(player.HorizontalSpeed / player.Settings.Crouch.Speed);
+
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+            }
+            ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Crouch.Speed);
 
             if (WantsToClimb(ctx))
             {
@@ -26,13 +30,13 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (!player.Input.CrouchHeld && player.CanStand)
+            if (!ctx.Player.Input.CrouchHeld && ctx.Player.CanStand)
             {
                 ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
                 return;
             }
 
-            if (player.WantsJump && player.CanStand)
+            if (ctx.Player.WantsJump && ctx.Player.CanStand)
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;
@@ -42,7 +46,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (moving != isMoving)
             {
                 isMoving = moving;
-                player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
+                ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
             }
         }
 

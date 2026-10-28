@@ -25,6 +25,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
             maxFallSpeed = 0f;
             ctx.Player.Juice?.OnJump();
+            ctx.Player.VFX?.OnJump();
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -52,6 +53,7 @@ namespace Goblfin.CharactersSystem.Player.States
         public override void Exit(PlayerStateMachine ctx)
         {
             ctx.Player.Juice?.OnLand(maxFallSpeed);
+            ctx.Player.VFX?.OnLand(maxFallSpeed);
             Debug.Log($"Vitesse de chute : {maxFallSpeed}");
 
         }

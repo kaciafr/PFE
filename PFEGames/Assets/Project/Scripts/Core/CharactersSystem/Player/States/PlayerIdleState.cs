@@ -14,6 +14,11 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
+
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+            }
             if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrab)
             {
                 ctx.SwitchState(ctx.GrabState);

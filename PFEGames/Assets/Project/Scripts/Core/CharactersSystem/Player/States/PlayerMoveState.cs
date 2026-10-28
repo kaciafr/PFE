@@ -12,6 +12,10 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+            }
             ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Movement.WalkSpeed);
 
             if (!HasMoveInput(ctx))

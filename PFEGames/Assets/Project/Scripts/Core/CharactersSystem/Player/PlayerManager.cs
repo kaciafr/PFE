@@ -32,6 +32,8 @@ namespace Goblfin.CharactersSystem.Player
 
         [field: SerializeField] public Vector3 startPosition { get; private set; }
         [field: SerializeField] public Quaternion startRotation { get; private set; }
+        
+        [field: SerializeField] public PlayerVFX VFX { get; private set; }
 
 
 

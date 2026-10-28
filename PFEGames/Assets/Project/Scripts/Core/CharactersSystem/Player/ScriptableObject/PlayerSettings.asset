@@ -15,7 +15,7 @@ MonoBehaviour:
   <Movement>k__BackingField:
     <WalkSpeed>k__BackingField: 2.75
     <SprintSpeed>k__BackingField: 5.5
-    <RotationSpeed>k__BackingField: 16
+    <RotationSpeed>k__BackingField: 720
     <Acceleration>k__BackingField: 35
     <Deceleration>k__BackingField: 25
   <Jump>k__BackingField:
@@ -28,7 +28,7 @@ MonoBehaviour:
     <AirControl>k__BackingField: 0.5
     <MaxFallSpeed>k__BackingField: 20
     <HardLandSpeed>k__BackingField: 10
-    <HardLandDuration>k__BackingField: 0.4
+    <HardLandDuration>k__BackingField: 0.6
   <Crouch>k__BackingField:
     <Speed>k__BackingField: 1.4
     <Height>k__BackingField: 1.5

@@ -22,6 +22,8 @@ namespace Goblfin.CharactersSystem.Player.States
                    && ctx.Player.Sensor.LadderInFront
                    && ctx.Player.Input.InteractPressed;
         }
+
+        protected bool IsFalling(PlayerStateMachine ctx) => !ctx.Player.IsGrounded;
         
     }
 }
