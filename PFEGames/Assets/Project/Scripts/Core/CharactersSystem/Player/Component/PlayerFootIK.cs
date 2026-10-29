@@ -7,10 +7,10 @@ namespace Goblfin
     {
         [SerializeField] LayerMask GroundLayer;
         [SerializeField] private float footOffset = 0.1f;
-        private float raystart = 0.5f; 
+        private float raystart = 0.5f;
         private float raydistance = 1.2f;
         private Animator animator;
-        [SerializeField]private PlayerManager playerManager;
+        [SerializeField] private PlayerManager playerManager;
         void Start()
         {
             animator = GetComponent<Animator>();
@@ -19,7 +19,7 @@ namespace Goblfin
         private void OnAnimatorIK(int layerIndex)
         {
             float weight;
-            if (!playerManager.IsGrounded)
+            if (!playerManager.IsGrounded || playerManager.IsClimbing)
                 weight = 0;
             else
                 weight = 1f - Mathf.Clamp01(playerManager.HorizontalSpeed / playerManager.Settings.Movement.WalkSpeed);
@@ -38,7 +38,7 @@ namespace Goblfin
             Vector3 origin = footPos + Vector3.up * raystart;
             if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit, raydistance, GroundLayer)) return 0f;
             Vector3 target = hit.point + Vector3.up * footOffset;
-            Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward , hit.normal), hit.normal);
+            Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, hit.normal), hit.normal);
             animator.SetIKPositionWeight(foot, weight);
             animator.SetIKRotationWeight(foot, weight);
             animator.SetIKPosition(foot, target);
@@ -47,6 +47,6 @@ namespace Goblfin
             return target.y - footPos.y;
         }
 
-        
+
     }
 }

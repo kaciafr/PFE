@@ -17,7 +17,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 ? ctx.Player.Settings.Movement.SprintSpeed
                 : ctx.Player.Settings.Movement.WalkSpeed;
 
-            ctx.Player.Animator.Play(AnimIds.Fall , 0.05f );
+            ctx.Player.Animator.Play(AnimIds.Fall, 0.05f);
 
             maxFallSpeed = 0f;
         }
@@ -28,7 +28,8 @@ namespace Goblfin.CharactersSystem.Player.States
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;
-            };
+            }
+            ;
 
             if (WantsToClimb(ctx))
             {
@@ -36,9 +37,9 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            TryLand(ctx ,maxFallSpeed);
-            
-          
+            TryLand(ctx, maxFallSpeed);
+
+
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
@@ -49,7 +50,6 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            Debug.Log($"Vitesse de chute : {maxFallSpeed}");
 
         }
     }

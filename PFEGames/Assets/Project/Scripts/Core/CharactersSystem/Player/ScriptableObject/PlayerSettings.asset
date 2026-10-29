@@ -30,7 +30,7 @@ MonoBehaviour:
     <AirControl>k__BackingField: 0.5
     <MaxFallSpeed>k__BackingField: 20
     <HardLandSpeed>k__BackingField: 10
-    <HardLandDuration>k__BackingField: 0.6
+    <HardLandDuration>k__BackingField: 0.35
   <Crouch>k__BackingField:
     <Speed>k__BackingField: 1.4
     <Height>k__BackingField: 1.5
@@ -42,10 +42,10 @@ MonoBehaviour:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 8
-    <RaycastDistance>k__BackingField: 1.1
+    <RaycastDistance>k__BackingField: 0.6
     <CheckOffset>k__BackingField: 0.1
     <RayCount>k__BackingField: 8
-    <RayRadius>k__BackingField: 0.4
+    <RayRadius>k__BackingField: 0.18
     <MaxSlopeAngle>k__BackingField: 50
   <Climb>k__BackingField:
     <Layer>k__BackingField:
@@ -55,10 +55,10 @@ MonoBehaviour:
     <DetectDistance>k__BackingField: 1
     <TopCheckHeight>k__BackingField: 0.25
     <ApproachThreshold>k__BackingField: 0.5
-    <Speed>k__BackingField: 1
-    <LadderDistance>k__BackingField: 0.24
+    <Speed>k__BackingField: 1.8
+    <LadderDistance>k__BackingField: 0.1
     <ExitPush>k__BackingField: 2
-    <TopDuration>k__BackingField: 2
+    <TopDuration>k__BackingField: 1
     <TopHeight>k__BackingField: 1.5
     <TopForward>k__BackingField: 0.6
     <climbTilt>k__BackingField: 5
@@ -80,7 +80,7 @@ MonoBehaviour:
     <DetectRadius>k__BackingField: 1.2
     <RayHeight>k__BackingField: 0
     <PickupDuration>k__BackingField: 0.5
-    <ThrowDuration>k__BackingField: 1
+    <ThrowDuration>k__BackingField: 0.7
   <Interact>k__BackingField:
     InteractHeight: 0
     InteractRadius: 0.8

@@ -20,7 +20,9 @@ namespace Goblfin.PnjSystem.PlayerSound
 		}
 		private void Update()
 		{
-  			if (target.speed <= minSpeed)
+			// target.speed = niveau de BRUIT du joueur (voir PlayerManager.NoiseLevel) :
+			// vitesse au sol, presque 0 accroupi, pic après une grosse réception
+  			if (target.speed <= minSpeed || NoiseEffect <= 0f)   // NoiseEffect à 0 = division par zéro
 			{
 				noiseEffect.SetActive(false);
 			}

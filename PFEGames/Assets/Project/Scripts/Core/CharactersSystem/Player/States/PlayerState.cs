@@ -31,6 +31,7 @@ namespace Goblfin.CharactersSystem.Player.States
             
             ctx.Player.Juice?.OnLand(maxSpeed);
             ctx.Player.VFX?.OnLand(maxSpeed);
+            ctx.Player.MakeLandNoise(maxSpeed);
 
             if (maxSpeed >= ctx.Player.Settings.Jump.HardLandSpeed)
                 ctx.SwitchState(ctx.LandState);

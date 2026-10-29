@@ -1606,7 +1606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::PlayerSound.NoiseRadius
   collider: {fileID: 7559036774076821162}
   noiseEffect: {fileID: 3706627616303412281}
-  minSpeed: 4.5
+  minSpeed: 2
   <NoiseEffect>k__BackingField: 2
 --- !u!114 &665803601431520831
 MonoBehaviour:

@@ -1,3 +1,4 @@
+using System;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
@@ -209,26 +210,35 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.isKinematic = true;
         }
 
-        public void ClimbOverTop(Vector3 ladderNormal, float ladderTopY)
-        {
-            ladderNormal.y = 0f;
-            ladderNormal.Normalize();
-
-            Vector3 target = rb.position + Vector3.up * settings.Climb.TopHeight
-                                         - ladderNormal * settings.Climb.TopForward;
-
-            float standY = ladderTopY + GetComponent<CapsuleCollider>().height * 0.5f + 0.05f;
-            target.y = Mathf.Max(target.y, standY);
-
-            rb.position = target;
-        }
-
         public void Unfreeze()
         {
             rb.isKinematic = false;
             rb.useGravity = true;
+            rb.linearVelocity = Vector3.zero;   
         }
 
+        public Vector3 GetClimbTopTarget(Vector3 ladderNormal, float LadderTopY)
+        {
+            ladderNormal.y = 0f;
+            ladderNormal.Normalize();
+
+            Vector3 target = rb.position + Vector3.up *  settings.Climb.TopHeight - ladderNormal * settings.Climb.TopForward;
+            
+            float halfHeight = GetComponent<CapsuleCollider>().height * 0.5f * transform.lossyScale.y;
+
+            Vector3 rayStart = new Vector3(target.x, LadderTopY + 2f, target.z);
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 4f, settings.Ground.GroundLayer, QueryTriggerInteraction.Ignore))
+                target.y = hit.point.y + halfHeight + 0.05f;   
+            else
+                target.y = LadderTopY + halfHeight + 0.05f;    
+
+            return target;
+        }
+        
+        public Vector3 Position => rb.position;
+
+        public void MoveKinematic(Vector3 position) => rb.MovePosition(position);
+        
 
 
     }

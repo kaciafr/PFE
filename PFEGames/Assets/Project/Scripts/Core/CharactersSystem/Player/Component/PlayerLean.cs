@@ -7,7 +7,7 @@ namespace Goblfin
     {
         [SerializeField] private float MaxLean = 12f;
         [SerializeField] private float fullLeanTurnSpeed = 360f;
-        [SerializeField] private float leanSmooth = 8f;
+        [SerializeField] private float leanSmoothTime = 0.15f;   // temps (s) pour atteindre l'inclinaison : plus haut = plus doux
 
         private PlayerManager player;
         private Transform model; 
@@ -15,6 +15,7 @@ namespace Goblfin
         private Vector3 lastForward;
         private float targetLean; 
         private float currentLean;
+        private float leanVelocity;   // utilisé par SmoothDamp (il s'en sert pour lisser)
         
         
         
@@ -51,7 +52,8 @@ namespace Goblfin
         {
             if (player.IsClimbing) return;
             
-            currentLean = Mathf.Lerp(currentLean, targetLean, leanSmooth * Time.deltaTime);
+            // SmoothDamp : démarre doucement, accélère, puis ralentit en arrivant (plus naturel que Lerp)
+            currentLean = Mathf.SmoothDamp(currentLean, targetLean, ref leanVelocity, leanSmoothTime);
             
             model.localRotation = modelStartRotation * Quaternion.Euler(0,0,currentLean);
         }

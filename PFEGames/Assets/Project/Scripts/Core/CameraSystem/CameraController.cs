@@ -10,7 +10,7 @@ namespace Goblfin
 
 		[SerializeField] CinemachineCamera vcam;
 		[SerializeField] CameraState defaultState;
-
+		[SerializeField] private float sprintFovBonus = 4f;
 		CinemachineFollow follow;
 		CinemachineRotationComposer composer;
 		CameraState current;
@@ -34,7 +34,6 @@ namespace Goblfin
 
 			current = defaultState;
 
-			// Placement immédiat au démarrage
 			follow.FollowOffset = current.followOffset;
 			SetFov(current.fov);
 			SetScreen(ScreenX(), current.screenY);
@@ -54,7 +53,8 @@ namespace Goblfin
 			float t = 1f - Mathf.Exp(-current.smooth * Time.deltaTime);
 
 			follow.FollowOffset = Vector3.Lerp(follow.FollowOffset, current.followOffset, t);
-			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, current.fov, t));
+			float targetFov = current.fov + sprintFovBonus * SprintAmount();
+			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, targetFov, t));
 			Vector2 screen = composer.Composition.ScreenPosition;
 			SetScreen(Mathf.Lerp(screen.x, ScreenX(), t), Mathf.Lerp(screen.y, current.screenY, t));
 		}
@@ -63,14 +63,11 @@ namespace Goblfin
 		{
 			if (!current.followDirection || player == null || player.Motor == null) return current.screenX;
 
-			// 1. Le joueur regarde vers la droite de l'écran (> 0) ou vers la gauche (< 0) ?
 			float facing = Vector3.Dot(player.Facing, vcam.transform.right);
 
-			// 2. On change de côté seulement s'il va vraiment à gauche ou à droite (pas vers la caméra)
 			if (Mathf.Abs(facing) > 0.3f)
 				lookSide = facing > 0f ? -1f : 1f;
 
-			// 3. Il va à droite : on le place à gauche pour voir devant lui, et inversement
 			return Mathf.Abs(current.screenX) * lookSide;
 		}
 
@@ -86,6 +83,13 @@ namespace Goblfin
 			var comp = composer.Composition;
 			comp.ScreenPosition = new Vector2(x, y);
 			composer.Composition = comp;
+		}
+
+		float SprintAmount()
+		{
+			if (player == null) return 0f;
+			var move = player.Settings.Movement;
+			return Mathf.InverseLerp(move.WalkSpeed, move.SprintSpeed, player.HorizontalSpeed);
 		}
 	}
 }

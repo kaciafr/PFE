@@ -27,7 +27,8 @@ namespace Goblfin.CharactersSystem.Player.States
             if (Mathf.Abs(climbInput) < MoveThreshold)
                 climbInput = 0f;
 
-            ctx.Player.Animator.SetClimbSpeed(climbInput);
+            // L'animation va aussi vite que la montée (Speed = 1 -> anim normale, Speed = 2 -> anim 2x plus rapide)
+            ctx.Player.Animator.SetClimbSpeed(climbInput * ctx.Player.Settings.Climb.Speed);
 
             if (climbInput < 0f && ctx.Player.Sensor.IsGrounded)
             {
@@ -62,8 +63,7 @@ namespace Goblfin.CharactersSystem.Player.States
         }
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            ctx.Player.Climb(climbInput);
-        }
+            ctx.Player.Climb(climbInput);        }
 
         public override void Exit(PlayerStateMachine ctx)
         {

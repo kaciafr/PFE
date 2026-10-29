@@ -13,7 +13,24 @@ namespace Goblfin.CharactersSystem.Player
     {
         #region References
         public Transform Transform => transform;
-        public float speed => rb.linearVelocity.magnitude;
+        public float speed => NoiseLevel;
+
+        public float NoiseLevel
+        {
+            get
+            {
+                float noise = HorizontalSpeed;
+
+                if (Stance.IsCrouched)
+                    noise *= crouchNoiseMultiplier;
+
+                if (landNoiseTimer > 0f)
+                    noise = Mathf.Max(noise, landNoise * (landNoiseTimer / landNoiseDuration));
+
+                return noise;
+            }
+        }
+
         [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }
         [field: SerializeField] public InputReader Input { get; private set; }
@@ -32,9 +49,16 @@ namespace Goblfin.CharactersSystem.Player
         [field: SerializeField] public Quaternion startRotation { get; private set; }
         
         [field: SerializeField] public PlayerVFX VFX { get; private set; }
-
-
-
+        
+        [Header("Bruit")]
+        
+        [SerializeField, Range(0, 1), Tooltip("Bruit en crouch (0 = silence total).")]
+        private float crouchNoiseMultiplier = 0.2f;
+        [SerializeField, Tooltip("Bruit d'une grosse réception (même échelle qu'une vitesse en m/s).")]
+        private float landNoise = 8f;
+        [SerializeField, Min(0.01f), Tooltip("Durée du pic de bruit après une grosse réception.")]
+        private float landNoiseDuration = 0.5f;
+        private float landNoiseTimer;   
 
 
 
@@ -72,6 +96,17 @@ namespace Goblfin.CharactersSystem.Player
 
             if (Input.JumpPressed)
                 lastJumpPressedTime = Time.time;
+
+            // Le pic de bruit de réception diminue avec le temps
+            if (landNoiseTimer > 0f)
+                landNoiseTimer -= Time.deltaTime;
+        }
+
+        // Appelé à l'atterrissage : bruit seulement pour les grosses chutes
+        public void MakeLandNoise(float fallSpeed)
+        {
+            if (fallSpeed >= Settings.Jump.HardLandSpeed)
+                landNoiseTimer = landNoiseDuration;
         }
 
         private void FixedUpdate()
@@ -176,7 +211,6 @@ namespace Goblfin.CharactersSystem.Player
         }
 
         public void StartClimbTop() => Motor.Freeze();
-        public void FinishClimbTop() => Motor.ClimbOverTop(Sensor.LadderNormal, Sensor.LadderTopY);
 
         private const float ClimbCooldown = 0.5f;
         private float climbBlockedUntil;

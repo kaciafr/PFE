@@ -78,5 +78,7 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             ctx.Player.UnCrouch();
         }
+        
+
     }
 }

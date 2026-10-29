@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Unity.Cinemachine;
 namespace Goblfin.CharactersSystem.Player.Component
 {
     public class PlayerJuice : MonoBehaviour
@@ -15,6 +15,12 @@ namespace Goblfin.CharactersSystem.Player.Component
         private Vector3 baseScale;
         private Vector3 squashFactor = Vector3.one;
         private float squashTimer;
+        [SerializeField]
+        private CinemachineImpulseSource impulseSource;
+        [SerializeField, Min(0f)]
+        private float minShakeSpeed = 4f;
+        [SerializeField, Min(0f)]
+        private float maxShakeForce = 0.6f;
 
         private void Start()
         {
@@ -42,6 +48,12 @@ namespace Goblfin.CharactersSystem.Player.Component
             float strength = Mathf.Clamp01(fallSpeed / maxLandSpeed);
             float squash = landSquash * strength;
             Squash(new Vector3(1f + squash, 1f - squash, 1f + squash));
+
+            if (impulseSource != null && fallSpeed >= minShakeSpeed)
+            {
+                float force = strength * maxShakeForce;
+                impulseSource.GenerateImpulseWithForce(force);
+            }
         }
 
         private void Squash(Vector3 factor)
