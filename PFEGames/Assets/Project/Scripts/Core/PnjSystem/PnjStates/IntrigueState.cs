@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem
@@ -16,7 +15,7 @@ namespace Goblfin.PnjSystem
 		{
 			this.sondTarget = sondTarget;
 			this.dangerTarget = dangerTarget;
-			this.targetPosition = sondTarget.Transform.position;
+			targetPosition = sondTarget.Transform.position;
 			if (dangerTarget != null)
 				cachedDetected = dangerTarget.GetComponent<IDetected>();
 		}
@@ -42,6 +41,12 @@ namespace Goblfin.PnjSystem
 			
 			Vector3 direction = brainPnj.transform.position - targetPosition;
 			direction.y = 0;
+			
+			if (sondTarget != null && sondTarget.Transform != null)
+			{
+				targetPosition = sondTarget.Transform.position;
+				brainPnj.Agent.SetDestination(targetPosition);
+			}
 			
 			if (direction.sqrMagnitude > 0.001f)
 			{

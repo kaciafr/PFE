@@ -3,6 +3,7 @@
     "com.kyrylokuzyk.primetween": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.14",
+    "com.unity.animation.rigging": "6.6.0",
     "com.unity.cinemachine": "6.6.0",
     "com.unity.collab-proxy": "2.13.6",
     "com.unity.ext.nunit": "2.1.0",

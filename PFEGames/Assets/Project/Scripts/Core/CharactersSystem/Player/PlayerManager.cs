@@ -4,7 +4,6 @@ using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
 using Goblfin.CharactersSystem.Player.States;
 using Goblfin.PnjSystem;
-using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ namespace Goblfin.Player
     {
         #region References
         public Transform Transform => transform;
+        public float VisibilityState => 1;
         public float speed => rb.linearVelocity.magnitude;
         [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }

@@ -106,7 +106,7 @@ Material:
     - _Darkness: 0.12
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Dissolve: 0
+    - _Dissolve: 0.8004968
     - _DissolveTick: -0.41
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -143,7 +143,7 @@ Material:
     - _Color: {r: 0.23148806, g: 0.9622642, b: 0.6577741, a: 1}
     - _CurrentColor: {r: 0.33333334, g: 0.554717, b: 0.42239234, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _NewColor: {r: 0.33333334, g: 0.554717, b: 0.42239234, a: 1}
+    - _NewColor: {r: 0.5320754, g: 0.14355995, b: 0.14355995, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

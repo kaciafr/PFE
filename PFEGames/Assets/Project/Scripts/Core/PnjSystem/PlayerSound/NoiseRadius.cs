@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem.PlayerSound

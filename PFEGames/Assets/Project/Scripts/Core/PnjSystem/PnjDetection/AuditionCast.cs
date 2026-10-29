@@ -1,5 +1,4 @@
 using System;
-using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem.PnjDetection

@@ -1,6 +1,5 @@
 using System;
 using Goblfin.PnjSystem.PnjDetection;
-using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem
@@ -9,14 +8,31 @@ namespace Goblfin.PnjSystem
 	{
 		[Header("Field of view settings")]
 		[field: SerializeField] public float ViewRadius { get; private set; } = 10f;
-		[Range(0, 360)]
-		[field: SerializeField] public float ViewAngle { get; private set; } = 90f;
+		[field: SerializeField][Range(0, 360)] public float ViewAngle { get; private set; } = 90f;
+		[SerializeField] private float contactDistance = 0.2f;
 
-		public event Action<Vector3,IDetected> OnTargetSeen;
+		
+		[Header("Détection progressive")]
+		[SerializeField] private float fillSpeed = 0.6f;
+		[SerializeField] private float decaySpeed = 0.25f;
+		[SerializeField, Range(0f, 1f)] private float minFactor = 0.2f;
+		private SuspiciousMeter meter;
+		private float lastScanTime;
+		private IDetected currentTarget;
+		[field: SerializeField] public event Action<Vector3, IDetected> OnTargetSeen;
+		[field: SerializeField] public event Action<Vector3> Target;
+		[field: SerializeField] public event Action LostTarget;
 
+		protected override void OnEnable()
+		{
+			meter ??= new SuspiciousMeter(fillSpeed, decaySpeed);   
+			meter.Reset();                                          
+			currentTarget = null;
+			lastScanTime = Time.time;
+			base.OnEnable();
+		}
 		public bool CanSee(IDetected target)
 		{
-			if (target == null) return false;
 			return CanSeePoint(target.transform.position);
 		}
 
@@ -40,25 +56,39 @@ namespace Goblfin.PnjSystem
 
 			if (Physics.Raycast(origin, dir, out RaycastHit hit, dist, obstacleMask))
 			{
+				LostTarget?.Invoke();
 				if (ignore == null || !hit.transform.IsChildOf(ignore))
 					return false;
 			}
+			Target?.Invoke(targetPos);
 			return true;
 		}
 		protected override void Scan()
 		{
+			float dt = Mathf.Min(Time.time - lastScanTime, 0.25f);
+			lastScanTime = Time.time;
+
 			detectedTargets.Clear();
 
 			Transform targetTransform = FindTargetInRadius(ViewRadius);
-			if (targetTransform == null)
-				return;
+			IDetected target = targetTransform != null ? targetTransform.GetComponent<IDetected>() : null;
+			if (target != null)
+			{
+				Remember(targetTransform);
+				currentTarget = target;
 
-			IDetected target = targetTransform.GetComponentInParent<IDetected>();
-			if (target == null || !CanSee(target)) 
-				return;
-
-			OnTargetSeen?.Invoke(LastPos, target);
-			Remember(targetTransform);
+				meter.IncreaseFromDetection(Mathf.Lerp(minFactor, 1f, GetDistanceFactor(target)),
+					Mathf.Lerp(minFactor, 1f, GetAngleFactor(target)),
+					dt* target.VisibilityState);
+			}
+			else
+			{
+				meter.Decrease(dt);
+				if (meter.Value <= 0f) currentTarget = null;
+			}
+			
+			if ( meter.Value >= 1f)
+				OnTargetSeen?.Invoke(LastPos, target);
 		}
 		
 		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)

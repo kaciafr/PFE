@@ -15,10 +15,6 @@ namespace Goblfin.PnjSystem
        private Vector3 lastTargetPos;
        private List<Vector3> searchPoints = new List<Vector3>();
        private bool isWaiting;
-
-       [SerializeField] private float lookAngle = 45f;
-       [SerializeField] private float lookDuration = 2.5f;
-
        public SearchState(BrainPnj guard, Vector3 lastTargetPos)
        {
           this.guard = guard;
@@ -29,12 +25,11 @@ namespace Goblfin.PnjSystem
        { 
 	       //A ENLEVER
 	       brainPnj.material.color = Color.yellow;
+          
           timer = 0f;
           currentSearchIndex = 0;
           isWaiting = false;
-
-        guard.Agent.updateRotation = false;
-          guard.Agent.updatePosition = true;
+          
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
 
           searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, GameMetrix.SearchPointCount);
@@ -42,12 +37,6 @@ namespace Goblfin.PnjSystem
           if (searchPoints.Count > 0)
              brainPnj.Agent.SetDestination(searchPoints[0]);
           
-          Quaternion baseRotation = guard.transform.rotation;
-          Quaternion leftRotation = baseRotation * Quaternion.Euler(0, -lookAngle, 0);
-          Quaternion rightRotation = baseRotation * Quaternion.Euler(0, lookAngle, 0);
-
-          lookTween = Tween.LocalRotation(guard.transform, leftRotation, rightRotation, lookDuration,
-             cycles: -1, cycleMode: CycleMode.Yoyo);
        }
 
        public void UpdateState(BrainPnj brainPnj)
@@ -78,7 +67,6 @@ namespace Goblfin.PnjSystem
        {
           lookTween.Stop();
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
-          brainPnj.Agent.updateRotation = true;
        }
        
        private void GoToNextPoint(BrainPnj brainPnj)

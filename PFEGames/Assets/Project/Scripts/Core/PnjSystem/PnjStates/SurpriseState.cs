@@ -1,5 +1,4 @@
 using Goblfin.PnjSystem.Utilities;
-using Goblfin.PnjSystem.WhatTheyDetect;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem
@@ -20,7 +19,9 @@ namespace Goblfin.PnjSystem
 		{
 			//A ENLEVER
 			brainPnj.material.color = Color.deepPink;
+			
 			time = 0;
+			brainPnj.Agent.speed = 0;
 			pnjPos = brainPnj.transform.position;
 			brainPnj.Agent.updatePosition = false;    
 			brainPnj.Agent.updateRotation = false;

@@ -11,7 +11,7 @@ namespace Goblfin.PnjSystem
 		[field: SerializeField]
 		public static float GuardPatrolSpeed { get; private set; } = 1f;
 		public static float GuardChaseSpeed { get; private set; } = 2;
-		public static float TimeToBeSurprise { get; private set; } = 1f;
+		public static float TimeToBeSurprise { get; private set; } = 0.3f;
 		public static float WakeUpTime { get; private set; } = 23f;
 		public static int SearchPointCount = 4;
 		public static float SearchRadius = 6f;        

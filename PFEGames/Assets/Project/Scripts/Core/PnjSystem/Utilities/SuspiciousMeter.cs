@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.Utilities
+namespace Goblfin.PnjSystem
 {
 	public class SuspiciousMeter
 	{
@@ -30,5 +30,7 @@ namespace Goblfin.PnjSystem.Utilities
 		{
 			Value = 0f;
 		}
+
+		public void Contact() => Value = 1;
 	}
 }

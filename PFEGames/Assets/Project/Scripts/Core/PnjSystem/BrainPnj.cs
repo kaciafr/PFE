@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.Routine;
-using Goblfin.PnjSystem.WhatTheyDetect;
 using Goblfin.RagdollSystem;
 using UnityEngine;
 using UnityEngine.AI;
