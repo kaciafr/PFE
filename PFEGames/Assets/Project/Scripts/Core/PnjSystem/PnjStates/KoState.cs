@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class KoState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Ko;
+		public float AgentSpeed => 0;
 		private float wakeUpTime;
 		private float maxWakeUpTime = GameMetrix.WakeUpTime;
 		public void EnterState(BrainPnj brainPnj)
@@ -15,7 +16,7 @@ namespace Goblfin.PnjSystem
 			brainPnj.Agent.enabled = false; 
 			brainPnj.SetRagdollPhysics(true);
 			wakeUpTime = 0;
-			brainPnj.Agent.speed = 0;
+			brainPnj.Agent.speed = AgentSpeed;
 		}
 
 		public void UpdateState(BrainPnj brainPnj)

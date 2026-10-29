@@ -12,6 +12,7 @@ namespace Goblfin.Gameplay
             {
                 playerHiden = true;
                 ShaderManager.Instance.Hide(playerHiden);
+                VisibilityManager.Instance.HideInTheShadow(true);
             }
         }
 
@@ -20,6 +21,7 @@ namespace Goblfin.Gameplay
             if (other.gameObject.tag == "Player")
             {
                 playerHiden = false;
+                VisibilityManager.Instance.HideInTheShadow(false);
                 ShaderManager.Instance.Hide(playerHiden);
             }
         }

@@ -8,6 +8,7 @@ namespace Goblfin.PnjSystem
 	public class FindAResolveState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Resolve;
+		public float AgentSpeed =>  GameMetrix.GuardChaseSpeed;
 		private readonly TypeOfProblem problem;
 		private readonly ElementSimulation elementSim;
 		private Vector3 lastPos;
@@ -33,7 +34,7 @@ namespace Goblfin.PnjSystem
 			resolveAptitude = brainPnj.GetAptitude<ProblemAttraction>();
 			
 			brainPnj.GetAptitude<ResolveProblem>();
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			resolution = ResolveRegistry.WhatForWhat(problem);
 		}
 

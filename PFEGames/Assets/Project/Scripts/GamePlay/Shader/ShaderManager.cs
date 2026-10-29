@@ -3,7 +3,6 @@ using Goblfin.CharactersSystem.Player.States;
 using Goblfin.Player;
 using Goblfin.PnjSystem;
 using UnityEngine;
-
 namespace Goblfin.Gameplay
 {
     public class ShaderManager : MonoBehaviour
@@ -55,7 +54,7 @@ namespace Goblfin.Gameplay
             {
                 DangerStateChanged?.Invoke();
             }
-            else if(!isAnyPnjChasing && !otherThings)
+            if(!isAnyPnjChasing && !otherThings)
             {
                 NormalStateChanged?.Invoke();
             }
@@ -63,7 +62,7 @@ namespace Goblfin.Gameplay
 
         public void Hide(bool hide)
         {
-            if (hide &&  !isAnyPnjChasing)
+            if (hide)
             {
                 otherThings=true;
                 HideStateChanged?.Invoke();

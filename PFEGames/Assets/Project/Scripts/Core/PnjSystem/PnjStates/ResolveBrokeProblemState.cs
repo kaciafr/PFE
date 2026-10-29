@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class ResolveBrokeProblemState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Resolve;
+		public float AgentSpeed => GameMetrix.GuardChaseSpeed;
 		private readonly ElementSimulation problem;
 		private bool isResolving;
 		public ResolveBrokeProblemState(ElementSimulation problem)
@@ -15,7 +16,7 @@ namespace Goblfin.PnjSystem
 		public void EnterState(BrainPnj brainPnj)
 		{
 			Debug.Log("Broke state entered");
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			brainPnj.Animator.SetBool("ResolveAction", isResolving);
 			brainPnj.Agent.SetDestination(problem.transform.position);
 		}

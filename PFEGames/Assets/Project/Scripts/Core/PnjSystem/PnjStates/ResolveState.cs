@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class ResolveState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Resolve;
+		public float AgentSpeed=> GameMetrix.GuardChaseSpeed;
 		private GrabThings grabThings;
 		private Vector3 lastPos;
 		private readonly ElementSimulation elementSim;
@@ -21,7 +22,7 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			brainPnj.Agent.SetDestination(resolutionSource.transform.position);
 			resolveProblem = brainPnj.GetAptitude<ResolveProblem>();
 			grabThings = brainPnj.GetAptitude<GrabThings>();

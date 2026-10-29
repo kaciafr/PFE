@@ -16,13 +16,14 @@ namespace Goblfin.PnjSystem
 		}
 
 		public StatePriority Priority => StatePriority.Chase;
+		public float AgentSpeed => GameMetrix.GuardChaseSpeed;
 
 		public void EnterState(BrainPnj brainPnj)
 		{
 			//A ENLEVER
 			brainPnj.material.color = Color.blue;
 			Debug.Log(nameof( ChaseState));
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			vision = brainPnj.GetAptitude<VisionCone>();
 			if (vision == null)
 			{

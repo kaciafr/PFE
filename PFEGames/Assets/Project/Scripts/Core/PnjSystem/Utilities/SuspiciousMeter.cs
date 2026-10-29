@@ -32,5 +32,6 @@ namespace Goblfin.PnjSystem
 		}
 
 		public void Contact() => Value = 1;
+		public void visionNerf() => Value = GameMetrix.VisionNerf;
 	}
 }

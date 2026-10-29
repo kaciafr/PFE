@@ -5,6 +5,7 @@ using UnityEngine;
 	{
 		private BrainPnj friend;
 		public StatePriority Priority => StatePriority.Following;
+		public float AgentSpeed => GameMetrix.GuardChaseSpeed;
 
 		public FollowFriend(BrainPnj friend)
 		{
@@ -14,7 +15,7 @@ using UnityEngine;
 		public void EnterState(BrainPnj brainPnj)
 		{
 			brainPnj.material.color = Color.cyan;
-			brainPnj.Agent.speed = GameMetrix.GuardChaseSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			brainPnj.Agent.SetDestination(friend.transform.position);
 		}
 

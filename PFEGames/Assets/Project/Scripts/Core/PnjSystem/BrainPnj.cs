@@ -135,6 +135,14 @@ namespace Goblfin.PnjSystem
 
 		private void Update()
 		{
+			if (Agent.remainingDistance<=0.1)
+			{
+				Agent.speed = 0;
+			}
+			else
+			{
+				Agent.speed = PNJStates.AgentSpeed;
+			}
 			PNJStates.UpdateState(this);
 		}
 

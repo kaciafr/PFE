@@ -136,6 +136,14 @@ namespace Goblfin.PnjSystem
 			float angle = Vector3.Angle(transform.forward, dirToTarget);
 			return Mathf.Clamp01(1f - (angle / (ViewAngle / 2f)));
 		}
-		
+
+		private void Update()
+		{
+			Debug.Log(meter.Value);
+		}
+
+		public void VisionNerf() => meter.visionNerf();
+		public void VisionNormal() => meter.Reset();
+
 	}
 }

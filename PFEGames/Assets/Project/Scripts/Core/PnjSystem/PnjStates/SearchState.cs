@@ -8,6 +8,7 @@ namespace Goblfin.PnjSystem
     public class SearchState : IPnjStates
     {
 	    public StatePriority Priority => StatePriority.Searching;
+       public float AgentSpeed => GameMetrix.GuardPatrolSpeed;
        private float timer;
        private BrainPnj guard;
        private Tween lookTween;
@@ -30,7 +31,7 @@ namespace Goblfin.PnjSystem
           currentSearchIndex = 0;
           isWaiting = false;
           
-          guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
+          guard.Agent.speed = AgentSpeed;
 
           searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, GameMetrix.SearchPointCount);
 

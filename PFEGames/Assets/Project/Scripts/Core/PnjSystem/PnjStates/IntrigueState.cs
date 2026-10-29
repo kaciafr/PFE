@@ -5,6 +5,7 @@ namespace Goblfin.PnjSystem
 	public class IntrigueState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Intrigue;
+		public float AgentSpeed => GameMetrix.GuardPatrolSpeed;
 		private Vector3 targetPosition;
 		private ISondDetected sondTarget;
 		private Transform dangerTarget;

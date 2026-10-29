@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class SurpriseState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Suspicious;
+		public float AgentSpeed => 0;
 		private float timeBeSurprised = GameMetrix.TimeToBeSurprise;
 		private float time;
 		private IDetected target;
@@ -21,7 +22,7 @@ namespace Goblfin.PnjSystem
 			brainPnj.material.color = Color.deepPink;
 			
 			time = 0;
-			brainPnj.Agent.speed = 0;
+			brainPnj.Agent.speed = AgentSpeed;
 			pnjPos = brainPnj.transform.position;
 			brainPnj.Agent.updatePosition = false;    
 			brainPnj.Agent.updateRotation = false;

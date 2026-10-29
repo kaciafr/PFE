@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class SuspiciousState : IPnjStates
 	{
 		public StatePriority Priority =>  StatePriority.Patrol;
+		public float AgentSpeed { get; }
 		private SuspiciousMeter meter;
 		private IDetected target;
 

@@ -6,6 +6,7 @@ namespace Goblfin.PnjSystem
 	public class PatrolState : IPnjStates
 	{
 		public StatePriority Priority => StatePriority.Patrol;
+		public float AgentSpeed => GameMetrix.GuardPatrolSpeed;
 		private readonly BrainPnj guard;
 		private float waitTimer;
 		private bool isWaiting;
@@ -20,7 +21,7 @@ namespace Goblfin.PnjSystem
 			//A ENLEVER
 			brainPnj.material.color = Color.red;
 			Debug.Log("PatrolState");
-			brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
+			brainPnj.Agent.speed = AgentSpeed;
 			GoToCurrentPoint();
 		}
 
