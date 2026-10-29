@@ -222,7 +222,8 @@ namespace Goblfin.CharactersSystem.Player.Component
             ladderNormal.y = 0f;
             ladderNormal.Normalize();
 
-            Vector3 target = rb.position + Vector3.up *  settings.Climb.TopHeight - ladderNormal * settings.Climb.TopForward;
+            // On avance sur la plateforme (la hauteur est calculée juste en dessous)
+            Vector3 target = rb.position - ladderNormal * settings.Climb.TopForward;
             
             float halfHeight = GetComponent<CapsuleCollider>().height * 0.5f * transform.lossyScale.y;
 

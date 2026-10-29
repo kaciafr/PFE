@@ -56,10 +56,9 @@ MonoBehaviour:
     <TopCheckHeight>k__BackingField: 0.25
     <ApproachThreshold>k__BackingField: 0.5
     <Speed>k__BackingField: 1.8
-    <LadderDistance>k__BackingField: 0.1
+    <LadderDistance>k__BackingField: 0.24
     <ExitPush>k__BackingField: 2
     <TopDuration>k__BackingField: 1
-    <TopHeight>k__BackingField: 1.5
     <TopForward>k__BackingField: 0.6
     <climbTilt>k__BackingField: 5
     <climbVisualOffset>k__BackingField: 0

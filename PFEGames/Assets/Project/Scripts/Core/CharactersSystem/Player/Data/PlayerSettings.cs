@@ -228,7 +228,6 @@ namespace Goblfin.CharactersSystem.Player.Data
 
         [Header("Sortie par le haut")]
         [field: SerializeField, Min(0f)] public float TopDuration { get; private set; }
-        [field: SerializeField, Min(0f)] public float TopHeight { get; private set; }
         [field: SerializeField, Min(0f)] public float TopForward { get; private set; }
 
         [field: SerializeField] public float climbTilt { get; private set; }
@@ -241,7 +240,7 @@ namespace Goblfin.CharactersSystem.Player.Data
         public ClimbSettings(LayerMask layer, float rayHeight, float detectDistance,
                              float topCheckHeight, float approachThreshold,
                              float speed, float ladderDistance, float exitPush,
-                             float topDuration, float topHeight, float topForward,
+                             float topDuration, float topForward,
                              float climbTilt, float climbVisualOffset)
         {
             Layer = layer;
@@ -253,7 +252,6 @@ namespace Goblfin.CharactersSystem.Player.Data
             LadderDistance = ladderDistance;
             ExitPush = exitPush;
             TopDuration = topDuration;
-            TopHeight = topHeight;
             TopForward = topForward;
             this.climbTilt = climbTilt;
             this.climbVisualOffset = climbVisualOffset;
@@ -263,7 +261,7 @@ namespace Goblfin.CharactersSystem.Player.Data
             default, 0f, 1f,
             0.5f, 0.5f,
             1f, 0.4f, 2f,
-            2f, 1.5f, 0.6f,
+            2f, 0.6f,
             15f, 0.2f);
 
         #endregion
