@@ -21,6 +21,8 @@ using UnityEngine;
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
+			if(friend.PnjStates is not ChaseState)
+				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 		}
 
 		public void ExitState(BrainPnj brainPnj)

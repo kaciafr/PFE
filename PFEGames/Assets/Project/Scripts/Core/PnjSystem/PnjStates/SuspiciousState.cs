@@ -7,7 +7,7 @@ namespace Goblfin.PnjSystem
 	{
 		public StatePriority Priority =>  StatePriority.Patrol;
 		public float AgentSpeed { get; }
-		private SuspiciousMeter meter;
+		private VisionMeter meter;
 		private IDetected target;
 
 		public SuspiciousState(IDetected target)
@@ -27,8 +27,8 @@ namespace Goblfin.PnjSystem
 
 			if (vision.CanSee(target))
 			{
-				float distFactor = vision.GetDistanceFactor(target);
-				float angleFactor = vision.GetAngleFactor(target);
+				float distFactor = MathGame.GetDistanceFactor(target.transform, target.transform.position,vision.ViewRadius);
+				float angleFactor = MathGame.GetAngleFactor(target.transform,brainPnj.transform,target.transform.position,vision.ViewAngle);
 				meter.IncreaseFromDetection(distFactor, angleFactor, Time.deltaTime);
 			}
 			else

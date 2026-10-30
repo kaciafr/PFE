@@ -1229,7 +1229,7 @@ GameObject:
   - component: {fileID: 3201443032861636064}
   - component: {fileID: 8698791343436211908}
   - component: {fileID: 4762037234272381173}
-  - component: {fileID: 8545358914501880421}
+  - component: {fileID: 6392523036914832402}
   m_Layer: 12
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -1349,7 +1349,7 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &8545358914501880421
+--- !u!114 &6392523036914832402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1368,10 +1368,10 @@ MonoBehaviour:
   brainPnj: {fileID: 30069336759854763}
   weightSpeed: 5
   followSharpness: 10
-  maxAngle: 100
+  maxAngle: 90
   targetHeight: 1.5
   maxWeight: 0.7
-  angleSweep: 30
+  angleSweep: 43
   speedSweep: 2
 --- !u!1 &3482498444697046310
 GameObject:
@@ -3350,7 +3350,7 @@ Transform:
   m_GameObject: {fileID: 7289543399010342977}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: -0, y: 0.544, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3506,9 +3506,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4811072632905387946}
-  - component: {fileID: 2221501964036103349}
   - component: {fileID: 8030732813623190141}
   - component: {fileID: 30069336759854763}
+  - component: {fileID: 5956264988208089001}
   - component: {fileID: 1960191244103734526}
   - component: {fileID: 5865955604385915622}
   - component: {fileID: 2715845544373113073}
@@ -3516,7 +3516,6 @@ GameObject:
   - component: {fileID: 6191303730724366069}
   - component: {fileID: 3564656795183459671}
   - component: {fileID: 7274633667537882091}
-  - component: {fileID: 5956264988208089001}
   m_Layer: 12
   m_Name: Garde
   m_TagString: Guard
@@ -3540,29 +3539,6 @@ Transform:
   - {fileID: 5732267498756245474}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2221501964036103349
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7855507035447891060}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.23332584
-  m_Height: 1.7890452
-  m_Direction: 1
-  m_Center: {x: 0.01017344, y: 0.8561786, z: 0}
 --- !u!195 &8030732813623190141
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3600,14 +3576,39 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 38f60366d1745c64aa71b1a5a2317fc7, type: 2}
   aptitudes: []
   <Agent>k__BackingField: {fileID: 8030732813623190141}
-  <FirstRoutine>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  <RoutinePattern>k__BackingField:
   - {fileID: 0}
   - {fileID: 0}
   currentStep: 0
   <Animator>k__BackingField: {fileID: 1832180271137414552}
+--- !u!114 &5956264988208089001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7855507035447891060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ba0db45b1360d4495c65a45bd08ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::PnjDetection.VisionCone
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 2049
+  sensorOffset: {x: 0, y: 1.5, z: 0}
+  scanInterval: 0.05
+  detectedTargets: []
+  <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
+  <ViewRadius>k__BackingField: 10
+  <ViewAngle>k__BackingField: 85
+  contactDistance: 0.2
+  fillSpeed: 3
+  decaySpeed: 0.2
+  minFactor: 0.5
 --- !u!114 &1960191244103734526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3729,34 +3730,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.GrabThings
   socketTransform: {fileID: 5886784552402460609}
---- !u!114 &5956264988208089001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7855507035447891060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ba0db45b1360d4495c65a45bd08ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::PnjDetection.VisionCone
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 2049
-  sensorOffset: {x: 0, y: 1.5, z: 0}
-  scanInterval: 0.05
-  detectedTargets: []
-  <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
-  <ViewRadius>k__BackingField: 10
-  <ViewAngle>k__BackingField: 85
-  contactDistance: 0.2
-  fillSpeed: 3
-  decaySpeed: 0.2
-  minFactor: 0.5
 --- !u!1 &7901568672524225800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3995,8 +3968,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -117
-    m_MaxLimit: 143
+    m_MinLimit: -45
+    m_MaxLimit: 45
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0

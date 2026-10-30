@@ -1,18 +1,28 @@
-using Goblfin.Gameplay.Gameplay.Shader;
+using Goblfin.PnjSystem;
 using UnityEngine;
 
 namespace Goblfin.Gameplay
 {
     public class HidenZone : MonoBehaviour
     {
-        private bool playerHiden = false;
+        private NoiseRadius noiseRadius;
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                playerHiden = true;
-                ShaderManager.Instance.Hide(playerHiden);
-                VisibilityManager.Instance.HideInTheShadow(true);
+                HidenManager.Instance.HideInTheShadow(true);
+            }
+            
+            if (other.gameObject.GetComponent<NoiseRadius>() == null) return;
+            noiseRadius = other.gameObject.GetComponent<NoiseRadius>();
+            Debug.Log(noiseRadius.gameObject.name);
+            if (noiseRadius.GetComponentInParent<CharacterController>()!=null)
+            {
+                HidenManager.Instance.HideSpoted(true);
+            }
+            else
+            {
+                HidenManager.Instance.HideSpoted(false);
             }
         }
 
@@ -20,10 +30,10 @@ namespace Goblfin.Gameplay
         {
             if (other.gameObject.tag == "Player")
             {
-                playerHiden = false;
-                VisibilityManager.Instance.HideInTheShadow(false);
-                ShaderManager.Instance.Hide(playerHiden);
+                HidenManager.Instance.HideInTheShadow(false);
             }
+            if (other.gameObject.GetComponent<NoiseRadius>()) 
+                noiseRadius = null;
         }
     
     }

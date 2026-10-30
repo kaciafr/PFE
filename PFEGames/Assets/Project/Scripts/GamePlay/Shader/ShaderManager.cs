@@ -43,7 +43,7 @@ namespace Goblfin.Gameplay
             isAnyPnjChasing = false;
             foreach (BrainPnj brainPnj in PnjRegistry.All)
             {
-                if (brainPnj.PNJStates is ChaseState)
+                if (brainPnj.PnjStates is ChaseState)
                 {
                     isAnyPnjChasing = true;
                     break;

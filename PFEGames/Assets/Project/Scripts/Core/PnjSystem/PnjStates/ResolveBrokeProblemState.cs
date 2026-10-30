@@ -9,6 +9,7 @@ namespace Goblfin.PnjSystem
 		public float AgentSpeed => GameMetrix.GuardChaseSpeed;
 		private readonly ElementSimulation problem;
 		private bool isResolving;
+		private ResolveProblem resolveAptitude;
 		public ResolveBrokeProblemState(ElementSimulation problem)
 		{
 			this.problem = problem;
@@ -19,6 +20,8 @@ namespace Goblfin.PnjSystem
 			brainPnj.Agent.speed = AgentSpeed;
 			brainPnj.Animator.SetBool("ResolveAction", isResolving);
 			brainPnj.Agent.SetDestination(problem.transform.position);
+			resolveAptitude = brainPnj.GetAptitude<ResolveProblem>();
+			
 		}
 		public void UpdateState(BrainPnj brainPnj)
 		{
@@ -27,7 +30,6 @@ namespace Goblfin.PnjSystem
 				brainPnj.PnjGoTo(new PatrolState(brainPnj));
 				return;
 			}
-			var resolveAptitude = brainPnj.GetAptitude<ResolveProblem>();
 			
 			if(resolveAptitude == null)
 			{

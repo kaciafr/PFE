@@ -107,7 +107,7 @@ namespace Goblfin.Gameplay.Animation
 
        private void Update()
        {
-          if (brainPnj.PNJStates is SearchState)
+          if (brainPnj.PnjStates is SearchState)
           {
              Sweep(angleSweep, speedSweep);
           }

@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace Goblfin.PnjSystem
 {
-	public class SuspiciousMeter
+	public class VisionMeter
 	{
 		public float Value { get; private set; }
 
 		private float increaseSpeed;
 		private float decreaseSpeed;
 
-		public SuspiciousMeter(float increaseSpeed, float decreaseSpeed)
+		public VisionMeter(float increaseSpeed, float decreaseSpeed)
 		{
 			this.increaseSpeed = increaseSpeed;
 			this.decreaseSpeed = decreaseSpeed;
@@ -21,17 +21,9 @@ namespace Goblfin.PnjSystem
 			Value = Mathf.Clamp01(Value + speed * deltaTime);
 		}
 
-		public void Decrease(float deltaTime)
-		{
-			Value = Mathf.Clamp01(Value - decreaseSpeed * deltaTime);
-		}
-
-		public void Reset()
-		{
-			Value = 0f;
-		}
-
+		public void Decrease(float deltaTime) => Value = Mathf.Clamp01(Value - decreaseSpeed * deltaTime);
+		public void Reset() => Value = 0f;
 		public void Contact() => Value = 1;
-		public void visionNerf() => Value = GameMetrix.VisionNerf;
+		
 	}
 }

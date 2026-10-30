@@ -7,6 +7,7 @@ namespace Goblfin.PnjSystem
 {
 	public class FallingItems : MonoBehaviour, ISondDetected
 	{
+		
 		[SerializeField] private SphereCollider collider;
 		[SerializeField] private ItemsData items;
 		[SerializeField] private LayerMask groundMask;
@@ -16,17 +17,31 @@ namespace Goblfin.PnjSystem
 		public Transform Transform => transform;
 		private const float Gravity = 9.81f;
 		private float height;
+		private ActiveRagdoll ragdoll;
 		
 		private bool IsFalling => !MathGame.RayCastCheck( transform.position,Vector3.down,
 			distanceMaxOfDetection, groundMask,
 			out RaycastHit hit, Color.chartreuse);
 
+		private void Start()
+		{
+			ragdoll = GetComponentInChildren<ActiveRagdoll>();
+			ragdoll.enabled = false;
+		}
+
 		private void Update()
 		{
-			if(collider.radius<=0.05f)
+			if (collider.radius <= 0.05f)
+			{
+				ragdoll.enabled = false;
 				collider.enabled = false;
+			}
 			else
+			{
+				ragdoll.enabled = true;
 				collider.enabled = true;
+			}
+				
 			
 			bool isFallingNow = IsFalling;
 

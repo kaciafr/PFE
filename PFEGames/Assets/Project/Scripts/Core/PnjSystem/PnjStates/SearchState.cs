@@ -11,7 +11,6 @@ namespace Goblfin.PnjSystem
        public float AgentSpeed => GameMetrix.GuardPatrolSpeed;
        private float timer;
        private BrainPnj guard;
-       private Tween lookTween;
        private int currentSearchIndex;
        private Vector3 lastTargetPos;
        private List<Vector3> searchPoints = new List<Vector3>();
@@ -66,7 +65,6 @@ namespace Goblfin.PnjSystem
 
        public void ExitState(BrainPnj brainPnj)
        {
-          lookTween.Stop();
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
        }
        

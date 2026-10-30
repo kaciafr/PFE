@@ -32,7 +32,7 @@ namespace Goblfin.PnjSystem
 				brainPnj.Agent.speed = 0;
 				guard.transform.rotation = Quaternion.Slerp(
 					guard.transform.rotation,
-					guard.FirstRoutine[guard.currentStep].targetRotation,
+					guard.RoutinePattern[guard.currentStep].targetRotation,
 					Time.deltaTime * 5f
 				);
 				waitTimer -= Time.deltaTime;
@@ -41,7 +41,7 @@ namespace Goblfin.PnjSystem
 				{
 					brainPnj.Agent.speed = GameMetrix.GuardPatrolSpeed;
 					isWaiting = false;
-					guard.currentStep = (guard.currentStep + 1) % guard.FirstRoutine.Count;
+					guard.currentStep = (guard.currentStep + 1) % guard.RoutinePattern.Count;
 					GoToCurrentPoint();
 				}
 			}
@@ -50,7 +50,7 @@ namespace Goblfin.PnjSystem
 				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.02f)
 				{
 					isWaiting = true;
-					waitTimer = guard.FirstRoutine[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
+					waitTimer = guard.RoutinePattern[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
 				}
 			}
 		}
@@ -62,7 +62,7 @@ namespace Goblfin.PnjSystem
 		
 		void GoToCurrentPoint()
 		{
-			guard.Agent.destination = guard.FirstRoutine[guard.currentStep].transform.position;
+			guard.Agent.destination = guard.RoutinePattern[guard.currentStep].transform.position;
 		}
 	}
 }

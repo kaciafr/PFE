@@ -1,5 +1,6 @@
 using System;
 using Goblfin.PnjSystem.PnjDetection;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem
@@ -15,17 +16,18 @@ namespace Goblfin.PnjSystem
 		[Header("Détection progressive")]
 		[SerializeField] private float fillSpeed = 0.6f;
 		[SerializeField] private float decaySpeed = 0.25f;
-		[SerializeField, Range(0f, 1f)] private float minFactor = 0.2f;
-		private SuspiciousMeter meter;
+		[SerializeField, Range(0f, 1f)] private float minFactor = 0.5f;
+		private VisionMeter meter;
 		private float lastScanTime;
 		private IDetected currentTarget;
 		[field: SerializeField] public event Action<Vector3, IDetected> OnTargetSeen;
 		[field: SerializeField] public event Action<Vector3> Target;
 		[field: SerializeField] public event Action LostTarget;
+		
 
 		protected override void OnEnable()
 		{
-			meter ??= new SuspiciousMeter(fillSpeed, decaySpeed);   
+			meter ??= new VisionMeter(fillSpeed, decaySpeed);   
 			meter.Reset();                                          
 			currentTarget = null;
 			lastScanTime = Time.time;
@@ -38,7 +40,7 @@ namespace Goblfin.PnjSystem
 
 		public bool SeeFriendChasing(BrainPnj friend)
 		{
-			if (friend == null || friend.PNJStates is not ChaseState) return false;
+			if (friend == null || friend.PnjStates is not ChaseState) return false;
 			return CanSeePoint(friend.transform.position + Vector3.up * 1.2f, friend.transform);
 		}
 
@@ -77,8 +79,8 @@ namespace Goblfin.PnjSystem
 				Remember(targetTransform);
 				currentTarget = target;
 
-				meter.IncreaseFromDetection(Mathf.Lerp(minFactor, 1f, GetDistanceFactor(target)),
-					Mathf.Lerp(minFactor, 1f, GetAngleFactor(target)),
+				meter.IncreaseFromDetection(Mathf.Lerp(minFactor, 1f, MathGame.GetDistanceFactor(target.transform, SensorOrigin,ViewRadius)),
+					Mathf.Lerp(minFactor, 1f, MathGame.GetAngleFactor(target.transform,transform,SensorOrigin,ViewAngle)),
 					dt* target.VisibilityState);
 			}
 			else
@@ -105,8 +107,8 @@ namespace Goblfin.PnjSystem
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawWireSphere(origin, ViewRadius);
 
-			Vector3 leftBoundary = DirFromAngle(-ViewAngle / 2f);
-			Vector3 rightBoundary = DirFromAngle(ViewAngle / 2f);
+			Vector3 leftBoundary = MathGame.DirFromAngle(-ViewAngle / 2f,this.transform);
+			Vector3 rightBoundary = MathGame.DirFromAngle(ViewAngle / 2f,this.transform);
 
 			Gizmos.DrawLine(origin, origin + leftBoundary * ViewRadius);
 			Gizmos.DrawLine(origin, origin + rightBoundary * ViewRadius);
@@ -118,32 +120,10 @@ namespace Goblfin.PnjSystem
 					Gizmos.DrawLine(origin, target.position);
 			}
 		}
-		Vector3 DirFromAngle(float angleInDegrees)
-		{
-			angleInDegrees += transform.eulerAngles.y;
-			return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-		}
 		
-		public float GetDistanceFactor(IDetected target)
-		{
-			float dist = Vector3.Distance(SensorOrigin, target.transform.position);
-			return Mathf.Clamp01(1f - (dist / ViewRadius));
-		}
-
-		public float GetAngleFactor(IDetected target)
-		{
-			Vector3 dirToTarget = (target.transform.position - SensorOrigin).normalized;
-			float angle = Vector3.Angle(transform.forward, dirToTarget);
-			return Mathf.Clamp01(1f - (angle / (ViewAngle / 2f)));
-		}
-
-		private void Update()
-		{
-			Debug.Log(meter.Value);
-		}
-
-		public void VisionNerf() => meter.visionNerf();
-		public void VisionNormal() => meter.Reset();
+		public void VisionNerf() => minFactor = 0;
+		public void VisionNormal() => minFactor = 0.7f;
+		public void PersonalVisionValue(float value) => minFactor = value;
 
 	}
 }

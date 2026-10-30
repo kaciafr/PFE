@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Goblfin.Gameplay.Gameplay.Shader
@@ -19,7 +18,6 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		[SerializeField] private Color dieColor;
 		[SerializeField] private Color baseColor;
 		[SerializeField] private Color hideColor;
-		
 
 		private static readonly int CurrentColorId = UnityEngine.Shader.PropertyToID("_CurrentColor");
 		private static readonly int NewColorId     = UnityEngine.Shader.PropertyToID("_NewColor");
@@ -32,9 +30,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		private bool isChanging;
 		private bool hasPending;
 		
-
-
-		void Awake()
+		private void Awake()
 		{
 			mat = targetRenderer.sharedMaterial;
 			currentColor = baseColor;
@@ -57,10 +53,8 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 			shaderManager.DieStateChanged -= InDie;
 			shaderManager.HideStateChanged -= Hide;
 		}
-
 		
-
-		void Update()
+		private void Update()
 		{
 			if (isChanging)
 			{
@@ -70,7 +64,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 					FinishTransition();
 			}
 		}
-		private void Hide() => ChangeColor(hideColor);
+		public void Hide() => ChangeColor(hideColor);
 		public void InNormal()=> ChangeColor(baseColor);
 		public void InDanger()=> ChangeColor(dangerColor);
 		public void InDie()=> ChangeColor(dieColor);

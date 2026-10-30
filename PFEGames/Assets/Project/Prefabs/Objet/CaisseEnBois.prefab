@@ -33,6 +33,72 @@ Transform:
   - {fileID: 4441543171779953985}
   m_Father: {fileID: 587770490655231548}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6612479178052762064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5094364153281911608}
+  - component: {fileID: 6791827684249921273}
+  - component: {fileID: 2581190980916309207}
+  m_Layer: 0
+  m_Name: KoZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5094364153281911608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612479178052762064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 587770490655231548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6791827684249921273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612479178052762064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0e5817a44b440d8d8d4c3107cf8dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::RagdollSysteme.ActiveRagdoll
+--- !u!65 &2581190980916309207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612479178052762064}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.09, y: 0.79, z: 0.79}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6863895719310803314
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +109,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6299213684647775123}
   - component: {fileID: 7027338129809543256}
-  - component: {fileID: 6138907557516868104}
   m_Layer: 9
   m_Name: SphereFallNoise
   m_TagString: Untagged
@@ -87,18 +152,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.00001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6138907557516868104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863895719310803314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee0e5817a44b440d8d8d4c3107cf8dd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::RagdollSysteme.ActiveRagdoll
 --- !u!1 &7598166122818026569
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +169,6 @@ GameObject:
   - component: {fileID: 7338549032380788664}
   - component: {fileID: 2873753408029215167}
   - component: {fileID: 3838700467060019238}
-  - component: {fileID: 4912204484315178723}
   m_Layer: 0
   m_Name: CaisseEnBois
   m_TagString: Untagged
@@ -140,6 +192,7 @@ Transform:
   - {fileID: 6299213684647775123}
   - {fileID: 5322268202771963839}
   - {fileID: 6320317124958438630}
+  - {fileID: 5094364153281911608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5882629433659206084
@@ -352,8 +405,8 @@ MonoBehaviour:
     m_AngleError: 8
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
-  assetGuid: 139dbc9392d34448b140a39930fb0f85
-  m_Mesh: {fileID: 4300000, guid: a1e3933afbf3d0a47b461500f5d46dbb, type: 2}
+  assetGuid: d5bb69389c4e4829ac43c70eddd0cb65
+  m_Mesh: {fileID: 4300000, guid: f0dd5133c3b76f249b5975abc47965ea, type: 2}
   m_VersionIndex: 2344
   m_IsSelectable: 1
   m_SelectedFaces: 
@@ -377,6 +430,7 @@ MonoBehaviour:
   m_UnmodifiedMeshVersion: 2259
   m_Size: {x: 0.97318745, y: 0.6692767, z: 0.68159884}
   m_LocalCenter: {x: 0, y: 0, z: 0}
+  m_PivotRatio: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -439,7 +493,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598166122818026569}
-  m_Mesh: {fileID: 4300000, guid: a1e3933afbf3d0a47b461500f5d46dbb, type: 2}
+  m_Mesh: {fileID: 4300000, guid: f0dd5133c3b76f249b5975abc47965ea, type: 2}
 --- !u!64 &2686467844223333504
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -461,7 +515,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 0338fd7d93de30c4a80a6f330f9fa6f6, type: 2}
+  m_Mesh: {fileID: 4300000, guid: f0dd5133c3b76f249b5975abc47965ea, type: 2}
 --- !u!54 &7338549032380788664
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -525,18 +579,6 @@ MonoBehaviour:
   maxDetectionRadius: 3.61
   distanceMaxOfDetection: 2.1
   wasFalling: 0
---- !u!114 &4912204484315178723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598166122818026569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76ed733319b82724bac708eaaf96c4c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.VFXElement
 --- !u!1 &8390872858247989895
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +632,8 @@ MonoBehaviour:
   <Heat>k__BackingField: 0
   <Humidity>k__BackingField: 0
   <Electricity>k__BackingField: 0
+  hot: {fileID: 0}
+  burn: {fileID: 0}
   root: {fileID: 7598166122818026569}
 --- !u!65 &310010321569798751
 BoxCollider:

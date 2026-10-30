@@ -14,7 +14,6 @@ namespace Goblfin.PnjSystem
 
 	    public static void EndAction(BrainPnj brainPnj)
 	    {
-		    Debug.Log("Wazaaaa");
 		    inAction = null;
 	    }
 	    
