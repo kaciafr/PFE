@@ -20,6 +20,8 @@ namespace Goblfin.CharactersSystem.Player.Component
         private Quaternion modelStartLocalRot;
         private PlayerSensor playerSensor;
         private float lastjump = -1;
+        // Normale d'une pente trop raide touchée (zero = aucune)
+        private Vector3 steepNormal;
 
         public Vector3 Velocity => rb.linearVelocity;
 
@@ -78,15 +80,43 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (OnSlope && followSlope)
             {
                 target = Vector3.ProjectOnPlane(target, playerSensor.GroundNormal);
-                rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, target, rate * rateair * Time.fixedDeltaTime);
+                rb.linearVelocity = BlockSteepSlope(Vector3.MoveTowards(rb.linearVelocity, target, rate * rateair * Time.fixedDeltaTime));
                 return;
             }
 
             Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair * Time.fixedDeltaTime);
             velocity.y = rb.linearVelocity.y;
-            rb.linearVelocity = velocity;
+            rb.linearVelocity = BlockSteepSlope(velocity);
 
 
+        }
+
+        // 1. On repère les pentes trop raides que le gobelin touche (plus de MaxSlopeAngle)
+        private void OnCollisionStay(Collision collision)
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                float angle = Vector3.Angle(contact.normal, Vector3.up);
+                // Pente trop raide, mais pas un mur droit (90°)
+                if (angle > settings.Ground.MaxSlopeAngle && angle < 89f)
+                    steepNormal = contact.normal;
+            }
+        }
+
+        // 2. On retire la partie de la vitesse qui pousse DANS la pente raide,
+        //    sinon la physique la transforme en montée
+        private Vector3 BlockSteepSlope(Vector3 velocity)
+        {
+            if (steepNormal == Vector3.zero) return velocity;
+
+            // Direction horizontale qui "sort" de la pente
+            Vector3 outDir = new Vector3(steepNormal.x, 0f, steepNormal.z).normalized;
+            float into = Vector3.Dot(velocity, outDir);
+            if (into < 0f)
+                velocity -= outDir * into;
+
+            steepNormal = Vector3.zero;
+            return velocity;
         }
 
         public void SlowDown()
