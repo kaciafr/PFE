@@ -7,7 +7,6 @@ namespace Goblfin.PnjSystem
 {
 	public class FallingItems : MonoBehaviour, ISondDetected
 	{
-		
 		[SerializeField] private SphereCollider collider;
 		[SerializeField] private ItemsData items;
 		[SerializeField] private LayerMask groundMask;

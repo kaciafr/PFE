@@ -15,6 +15,7 @@ namespace Goblfin.Player
         public Transform Transform => transform;
         public float VisibilityState => 1;
         public float speed => rb.linearVelocity.magnitude;
+        public bool isMakingNoise => rb.linearVelocity.magnitude >= 0.5f;
         [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }
         [field: SerializeField] public InputReader Input { get; private set; }

@@ -18,7 +18,6 @@ namespace Goblfin.PnjSystem
 		public static float SearchWaitPerPoint = 1.5f;
 		public static float MaxMassGrab{ get; private set; } = 123f;
 		public static float MassNoGrab { get; set; } = 70f;
-		public static float VisionNerf { get; set; } = 0;
 		public static float IsPlayerNoise { get; set; } = 1; // It range from 0 at 1
 		public static float IsNotPlayerNoise { get; set; } = 0.7f; // It range from 0 at 1
 

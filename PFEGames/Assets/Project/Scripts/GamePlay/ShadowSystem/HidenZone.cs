@@ -1,3 +1,4 @@
+using Goblfin.Player;
 using Goblfin.PnjSystem;
 using UnityEngine;
 
@@ -5,36 +6,48 @@ namespace Goblfin.Gameplay
 {
     public class HidenZone : MonoBehaviour
     {
-        private NoiseRadius noiseRadius;
-        private void OnTriggerStay(Collider other)
+        private bool isPlayerHidden = false;
+        private PlayerManager player;
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.GetComponent<PlayerManager>())
             {
+                player = other.GetComponent<PlayerManager>();
+                isPlayerHidden = true;
                 HidenManager.Instance.HideInTheShadow(true);
             }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
             
-            if (other.gameObject.GetComponent<NoiseRadius>() == null) return;
-            noiseRadius = other.gameObject.GetComponent<NoiseRadius>();
-            Debug.Log(noiseRadius.gameObject.name);
-            if (noiseRadius.GetComponentInParent<CharacterController>()!=null)
+            if (isPlayerHidden && other.GetComponent<PlayerManager>())
             {
-                HidenManager.Instance.HideSpoted(true);
+                if (player.isMakingNoise) 
+                {
+                    Debug.Log("Joueur repéré/fait du bruit -> Alerte Max");
+                    HidenManager.Instance.HideSpoted(true);
+                    return;
+                }
             }
-            else
+
+            if (other.GetComponent<MakeSound>() != null )
             {
-                HidenManager.Instance.HideSpoted(false);
+                Debug.Log("Distraction sonore détectée -> Alerte Moyenne" + other.name);
+                HidenManager.Instance.HideSpoted(false); 
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            
+            if (other.GetComponent<PlayerManager>())
             {
+                isPlayerHidden = false;
                 HidenManager.Instance.HideInTheShadow(false);
+                HidenManager.Instance.HideSpoted(false);
             }
-            if (other.gameObject.GetComponent<NoiseRadius>()) 
-                noiseRadius = null;
         }
-    
     }
 }

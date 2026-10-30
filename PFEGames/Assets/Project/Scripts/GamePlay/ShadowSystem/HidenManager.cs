@@ -6,6 +6,7 @@ namespace Goblfin.Gameplay
     public class HidenManager : MonoBehaviour
     {
         public static HidenManager Instance;
+        private bool isQuiet;
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -20,7 +21,7 @@ namespace Goblfin.Gameplay
         public void HideInTheShadow(bool playerHiden)
         {
             ShaderManager.Instance.Hide(playerHiden);
-            if (playerHiden)
+            if (playerHiden && isQuiet)
             {
                 foreach (var pnj in PnjRegistry.All)
                 {
@@ -40,6 +41,7 @@ namespace Goblfin.Gameplay
 
         public void HideSpoted(bool playerNoise)
         {
+            isQuiet = false;
             if (playerNoise)
             {
                 foreach (var pnj in PnjRegistry.All)
