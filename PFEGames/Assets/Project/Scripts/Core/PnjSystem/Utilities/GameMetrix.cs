@@ -8,7 +8,6 @@ namespace Goblfin.PnjSystem
 	{
 
 		[Header("GardeSettings")]
-		[field: SerializeField]
 		public static float GuardPatrolSpeed { get; private set; } = 1f;
 		public static float GuardChaseSpeed { get; private set; } = 2;
 		public static float TimeToBeSurprise { get; private set; } = 0.3f;
@@ -18,8 +17,8 @@ namespace Goblfin.PnjSystem
 		public static float SearchWaitPerPoint = 1.5f;
 		public static float MaxMassGrab{ get; private set; } = 123f;
 		public static float MassNoGrab { get; set; } = 70f;
-		public static float IsPlayerNoise { get; set; } = 1; // It range from 0 at 1
-		public static float IsNotPlayerNoise { get; set; } = 0.7f; // It range from 0 at 1
+		public static float IsPlayerNoise { get; set; } = 0.8f; // It ranges from 0 at 1
+		public static float IsNotPlayerNoise { get; set; } = 0.5f; // It ranges from 0 at 1
 
 		public static List<Vector3> SearchPointsGenerated(Vector3 center, float radius, int count)
 		{

@@ -14,8 +14,14 @@ namespace Goblfin.Player
         #region References
         public Transform Transform => transform;
         public float VisibilityState => 1;
-        public float speed => rb.linearVelocity.magnitude;
-        public bool isMakingNoise => rb.linearVelocity.magnitude >= 0.5f;
+        public float speed
+        {
+            get
+            {
+                Vector3 v = rb.linearVelocity;
+                return new Vector2(v.x, v.z).magnitude; 
+            }
+        }
         [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }
         [field: SerializeField] public InputReader Input { get; private set; }
@@ -29,12 +35,13 @@ namespace Goblfin.Player
         [field: SerializeField] public PlayerAnimationEvents AnimEvents { get; private set; }
         [field: SerializeField] public Grab RagdollGrab { get; private set; }
         [field: SerializeField] public PlayerJuice Juice { get; private set; }
-
+        private NoiseRadius noise;
         [field: SerializeField] public Vector3 startPosition { get; private set; }
         [field: SerializeField] public Quaternion startRotation { get; private set; }
+        
+        
 
-
-
+        public bool isMakingNoise => noise != null && noise.IsMakingNoise;
 
 
 
@@ -51,6 +58,7 @@ namespace Goblfin.Player
 
         private void Awake()
         {
+            noise = GetComponentInChildren<NoiseRadius>();
             rb = GetComponent<Rigidbody>();
             StateMachine = GetComponent<PlayerStateMachine>();
             Motor = GetComponent<PlayerMotor>();
@@ -72,6 +80,8 @@ namespace Goblfin.Player
 
             if (Input.JumpPressed)
                 lastJumpPressedTime = Time.time;
+            
+            
         }
 
         private void FixedUpdate()

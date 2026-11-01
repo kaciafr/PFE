@@ -18,7 +18,7 @@ namespace Goblfin.PnjSystem
 			this.dangerTarget = dangerTarget;
 			targetPosition = sondTarget.Transform.position;
 			if (dangerTarget != null)
-				cachedDetected = dangerTarget.GetComponent<IDetected>();
+				cachedDetected = dangerTarget.GetComponentInParent<IDetected>();
 		}
 
 		public void EnterState(BrainPnj brainPnj)

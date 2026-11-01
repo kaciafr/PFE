@@ -21,7 +21,7 @@ namespace Goblfin.PnjSystem
 			Value = Mathf.Clamp01(Value + speed * deltaTime);
 		}
 
-		public void Decrease(float deltaTime) => Value = Mathf.Clamp01(Value - decreaseSpeed * deltaTime);
+		public void Decrease(float deltaTime) => Value = Mathf.Clamp01(Value - (decreaseSpeed * deltaTime));
 		public void Reset() => Value = 0f;
 		public void Contact() => Value = 1;
 		

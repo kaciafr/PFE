@@ -16,17 +16,20 @@ namespace Goblfin.PnjSystem
 		[Header("Détection progressive")]
 		[SerializeField] private float fillSpeed = 0.6f;
 		[SerializeField] private float decaySpeed = 0.25f;
-		[SerializeField, Range(0f, 1f)] private float minFactor = 0.5f;
+		[SerializeField, Range(0f, 1f)] private float minFactor = 0.7f;
+		private float currentMinFactor;
 		private VisionMeter meter;
 		private float lastScanTime;
+		private bool isSeeing;
 		private IDetected currentTarget;
-		[field: SerializeField] public event Action<Vector3, IDetected> OnTargetSeen;
-		[field: SerializeField] public event Action<Vector3> Target;
-		[field: SerializeField] public event Action LostTarget;
+		public event Action<Vector3, IDetected> OnTargetSeen;
+		public event Action<Vector3> Target;
+		public event Action LostTarget;
 		
-
 		protected override void OnEnable()
 		{
+			currentMinFactor = minFactor;
+			isSeeing = false;
 			meter ??= new VisionMeter(fillSpeed, decaySpeed);   
 			meter.Reset();                                          
 			currentTarget = null;
@@ -35,7 +38,8 @@ namespace Goblfin.PnjSystem
 		}
 		public bool CanSee(IDetected target)
 		{
-			return CanSeePoint(target.transform.position);
+			if(target ==  null) return false;
+			return CanSeePoint(target.transform.position + Vector3.up * 1.2f);
 		}
 
 		public bool SeeFriendChasing(BrainPnj friend)
@@ -58,11 +62,9 @@ namespace Goblfin.PnjSystem
 
 			if (Physics.Raycast(origin, dir, out RaycastHit hit, dist, obstacleMask))
 			{
-				LostTarget?.Invoke();
 				if (ignore == null || !hit.transform.IsChildOf(ignore))
 					return false;
 			}
-			Target?.Invoke(targetPos);
 			return true;
 		}
 		protected override void Scan()
@@ -73,24 +75,45 @@ namespace Goblfin.PnjSystem
 			detectedTargets.Clear();
 
 			Transform targetTransform = FindTargetInRadius(ViewRadius);
-			IDetected target = targetTransform != null ? targetTransform.GetComponent<IDetected>() : null;
+			IDetected target = targetTransform != null ? targetTransform.GetComponentInParent<IDetected>() : null;
 			if (target != null)
 			{
 				Remember(targetTransform);
 				currentTarget = target;
+				
+				float dist = Vector3.Distance(SensorOrigin, target.transform.position);
 
-				meter.IncreaseFromDetection(Mathf.Lerp(minFactor, 1f, MathGame.GetDistanceFactor(target.transform, SensorOrigin,ViewRadius)),
-					Mathf.Lerp(minFactor, 1f, MathGame.GetAngleFactor(target.transform,transform,SensorOrigin,ViewAngle)),
-					dt* target.VisibilityState);
+				if (dist <= contactDistance)
+					meter.Contact();
+				else
+					meter.IncreaseFromDetection(
+					Mathf.Lerp(currentMinFactor, 1f, MathGame.GetDistanceFactor(target.transform, SensorOrigin, ViewRadius)),
+					Mathf.Lerp(currentMinFactor, 1f, MathGame.GetAngleFactor(target.transform, transform, SensorOrigin, ViewAngle)),
+					dt * target.VisibilityState);
 			}
 			else
 			{
 				meter.Decrease(dt);
 				if (meter.Value <= 0f) currentTarget = null;
 			}
-			
-			if ( meter.Value >= 1f)
+			if (currentMinFactor <= 0.02f) 
+			{
+				meter.Decrease(dt); 
+				return;
+			}
+			if ( target != null && meter.Value >= 1f)
 				OnTargetSeen?.Invoke(LastPos, target);
+			
+			if (target != null && !isSeeing)
+			{
+				isSeeing = true;
+				Target?.Invoke(target.transform.position);
+			}
+			else if (target == null)
+			{
+				isSeeing = false;
+				LostTarget?.Invoke();
+			}
 		}
 		
 		protected override bool PassesFilter(Vector3 dirToTarget, float distToTarget)
@@ -121,9 +144,9 @@ namespace Goblfin.PnjSystem
 			}
 		}
 		
-		public void VisionNerf() => minFactor = 0;
-		public void VisionNormal() => minFactor = 0.7f;
-		public void PersonalVisionValue(float value) => minFactor = value;
+		public void VisionNerf() => currentMinFactor = 0;
+		public void VisionNormal() => currentMinFactor = minFactor;
+		public void PersonalVisionValue(float value) => currentMinFactor = value;
 
 	}
 }

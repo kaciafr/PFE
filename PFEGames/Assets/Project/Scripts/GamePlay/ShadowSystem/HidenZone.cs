@@ -6,48 +6,41 @@ namespace Goblfin.Gameplay
 {
     public class HidenZone : MonoBehaviour
     {
-        private bool isPlayerHidden = false;
-        private PlayerManager player;
+        private int distractions;   
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerManager>())
+            if (other.TryGetComponent(out PlayerManager player))
             {
-                player = other.GetComponent<PlayerManager>();
-                isPlayerHidden = true;
-                HidenManager.Instance.HideInTheShadow(true);
+                HidenManager.Instance.EnterZone(this, player);
             }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            
-            if (isPlayerHidden && other.GetComponent<PlayerManager>())
+            else if (other.TryGetComponent(out MakeSound _))
             {
-                if (player.isMakingNoise) 
-                {
-                    Debug.Log("Joueur repéré/fait du bruit -> Alerte Max");
-                    HidenManager.Instance.HideSpoted(true);
-                    return;
-                }
-            }
-
-            if (other.GetComponent<MakeSound>() != null )
-            {
-                Debug.Log("Distraction sonore détectée -> Alerte Moyenne" + other.name);
-                HidenManager.Instance.HideSpoted(false); 
+                distractions++;
+                HidenManager.Instance.DistractionStarted();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            
-            if (other.GetComponent<PlayerManager>())
+            if (other.TryGetComponent(out PlayerManager _))
             {
-                isPlayerHidden = false;
-                HidenManager.Instance.HideInTheShadow(false);
-                HidenManager.Instance.HideSpoted(false);
+                HidenManager.Instance.ExitZone(this);
             }
+            else if (other.TryGetComponent(out MakeSound _) && distractions > 0)
+            {
+                distractions--;
+                HidenManager.Instance.DistractionEnded();
+            }
+        }
+        
+        private void OnDisable()
+        {
+            if (HidenManager.Instance == null) return;
+
+            HidenManager.Instance.ExitZone(this);
+            for (; distractions > 0; distractions--)
+                HidenManager.Instance.DistractionEnded();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjDetection
+namespace Goblfin.PnjSystem
 {
     public class AuditionCast : DetectionSense
     {
