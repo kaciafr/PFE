@@ -24,7 +24,7 @@ namespace Goblfin.PnjSystem
 			wakeUpTime += Time.deltaTime;
 			if (wakeUpTime > maxWakeUpTime)
 			{
-				brainPnj.PnjGoTo(new PatrolState(brainPnj));
+				brainPnj.PnjGoTo(new SearchState( brainPnj,brainPnj.transform.position));
 			}
 		}
 
