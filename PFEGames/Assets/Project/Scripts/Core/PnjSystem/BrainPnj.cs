@@ -27,6 +27,9 @@ namespace Goblfin.PnjSystem
 
 		private AuditionCast audition;
 		private VisionCone vision;
+		
+		[field:SerializeField]  public bool isAlertedBySound = false;
+		private float soundAlertTimer = 0f;
 
 		#region Configuration
 
@@ -138,6 +141,15 @@ namespace Goblfin.PnjSystem
 		#endregion
 		private void Update()
 		{
+			if (isAlertedBySound)
+			{
+				soundAlertTimer -= Time.deltaTime;
+				if (soundAlertTimer <= 0f)
+				{
+					isAlertedBySound = false;
+				}
+			}
+			
 			if (Agent.remainingDistance<=0.1)
 			{
 				Agent.speed = 0;
@@ -197,6 +209,12 @@ namespace Goblfin.PnjSystem
 		#endregion
 		#region PnjAptitude
 		
+		public void TriggerSoundAlert(float duration = 2f)
+		{
+			isAlertedBySound = true;
+			soundAlertTimer = duration;
+		}
+		
 		private void HandleTargetSeen(Vector3 pos, IDetected target)
 		{
 			if (!CanEnter(StatePriority.Suspicious)) return;
@@ -205,6 +223,8 @@ namespace Goblfin.PnjSystem
 
 		private void HandleTargetSound(ISondDetected target, Transform source)
 		{
+			TriggerSoundAlert(3f);
+			
 			if (!CanEnter(StatePriority.Intrigue)) return;
 			RequestState(new IntrigueState(target, source));
 		}

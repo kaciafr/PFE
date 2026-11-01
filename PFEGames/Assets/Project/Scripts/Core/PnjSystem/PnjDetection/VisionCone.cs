@@ -17,11 +17,14 @@ namespace Goblfin.PnjSystem
 		[SerializeField] private float fillSpeed = 0.6f;
 		[SerializeField] private float decaySpeed = 0.25f;
 		[SerializeField, Range(0f, 1f)] private float minFactor = 0.7f;
+		[SerializeField] private float soundAlertMultiplier = 2.5f;
+		
 		private float currentMinFactor;
 		private VisionMeter meter;
 		private float lastScanTime;
 		private bool isSeeing;
 		private IDetected currentTarget;
+		private BrainPnj brainPnj;
 		public event Action<Vector3, IDetected> OnTargetSeen;
 		public event Action<Vector3> Target;
 		public event Action LostTarget;
@@ -29,6 +32,7 @@ namespace Goblfin.PnjSystem
 		protected override void OnEnable()
 		{
 			currentMinFactor = minFactor;
+			brainPnj = GetComponent<BrainPnj>();
 			isSeeing = false;
 			meter ??= new VisionMeter(fillSpeed, decaySpeed);   
 			meter.Reset();                                          
@@ -80,16 +84,20 @@ namespace Goblfin.PnjSystem
 			{
 				Remember(targetTransform);
 				currentTarget = target;
-				
+
 				float dist = Vector3.Distance(SensorOrigin, target.transform.position);
+
+				float noiseBonus = (brainPnj != null && brainPnj.isAlertedBySound) ? soundAlertMultiplier : 1f;
 
 				if (dist <= contactDistance)
 					meter.Contact();
 				else
 					meter.IncreaseFromDetection(
-					Mathf.Lerp(currentMinFactor, 1f, MathGame.GetDistanceFactor(target.transform, SensorOrigin, ViewRadius)),
-					Mathf.Lerp(currentMinFactor, 1f, MathGame.GetAngleFactor(target.transform, transform, SensorOrigin, ViewAngle)),
-					dt * target.VisibilityState);
+						Mathf.Lerp(currentMinFactor, 1f,
+							MathGame.GetDistanceFactor(target.transform, SensorOrigin, ViewRadius)),
+						Mathf.Lerp(currentMinFactor, 1f,
+							MathGame.GetAngleFactor(target.transform, transform, SensorOrigin, ViewAngle)),
+						dt * target.VisibilityState * noiseBonus);
 			}
 			else
 			{
