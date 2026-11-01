@@ -14,11 +14,11 @@ namespace Goblfin.Gameplay
             {
                 HidenManager.Instance.EnterZone(this, player);
             }
-            else if (other.TryGetComponent(out MakeSound _))
+            /*if (other.TryGetComponent(out MakeSound _))
             {
                 distractions++;
                 HidenManager.Instance.DistractionStarted();
-            }
+            }*/
         }
 
         private void OnTriggerExit(Collider other)
@@ -27,11 +27,11 @@ namespace Goblfin.Gameplay
             {
                 HidenManager.Instance.ExitZone(this);
             }
-            else if (other.TryGetComponent(out MakeSound _) && distractions > 0)
+           /* if (other.TryGetComponent(out MakeSound _) && distractions > 0)
             {
                 distractions--;
                 HidenManager.Instance.DistractionEnded();
-            }
+            }*/
         }
         
         private void OnDisable()
@@ -41,6 +41,12 @@ namespace Goblfin.Gameplay
             HidenManager.Instance.ExitZone(this);
             for (; distractions > 0; distractions--)
                 HidenManager.Instance.DistractionEnded();
+            
+            if (distractions > 0)
+            {
+                distractions = 0;
+                HidenManager.Instance.DistractionEnded();
+            }
         }
     }
 }

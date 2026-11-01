@@ -19,7 +19,6 @@ namespace Goblfin
         private Vector3 previousPosition;
         private Quaternion previousRotation;
         private Vector3 previousScale;
-        
         private bool canUpdateCollider = true;
         
         [SerializeField][Range(0.02f,1f)]  private float updateInterval;
@@ -46,11 +45,11 @@ namespace Goblfin
                 UpdateShadowcollider();
                 canUpdateCollider = false;
             }
+            
             previousPosition = transform.position;
             previousRotation = transform.rotation;
             previousScale = transform.localScale;
         }
-
         private void UpdateShadowcollider()
         {
             shadowMesh.vertices = ComputeShadowMeshVertices();
@@ -94,17 +93,22 @@ namespace Goblfin
             RaycastHit hit;
             if (Physics.Raycast(fromPosition, direction, out hit, Mathf.Infinity, targetMask))
             {
-                return hit.point - transform.position;
+                return shadowTransform.InverseTransformPoint(hit.point);
             }
-            return fromPosition + 100 * direction - transform.position;
+    
+            Vector3 fallbackPoint = fromPosition + (direction.normalized * 100f);
+            return shadowTransform.InverseTransformPoint(fallbackPoint);
         }
 
-        private Vector3 ComputerExtrusionPoint(Vector3 objectVertexPosition, Vector3 shaderPointPosition)
+        private Vector3 ComputerExtrusionPoint(Vector3 objectVertexPosition, Vector3 shadowPointPosition)
         {
-            if ( extrusionDirection.sqrMagnitude == 0 )
-                return objectVertexPosition - transform.position;
-            
-            return shaderPointPosition + extrusionDirection;
+            if (extrusionDirection.sqrMagnitude == 0)
+            {
+                return shadowTransform.InverseTransformPoint(objectVertexPosition);
+            }
+    
+            Vector3 worldExtruded = shadowTransform.TransformPoint(shadowPointPosition) + extrusionDirection;
+            return shadowTransform.InverseTransformPoint(worldExtruded);
         }
 
         private bool TransformListChanged()

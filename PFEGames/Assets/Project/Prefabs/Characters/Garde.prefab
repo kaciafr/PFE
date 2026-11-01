@@ -3581,6 +3581,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentStep: 0
   <Animator>k__BackingField: {fileID: 1832180271137414552}
+  isAlertedBySound: 0
 --- !u!114 &5956264988208089001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3598,7 +3599,7 @@ MonoBehaviour:
     m_Bits: 1024
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 2048
   sensorOffset: {x: 0, y: 1.5, z: 0}
   scanInterval: 0.05
   detectedTargets: []
@@ -3609,6 +3610,7 @@ MonoBehaviour:
   fillSpeed: 3
   decaySpeed: 0.2
   minFactor: 0.5
+  soundAlertMultiplier: 2.5
 --- !u!114 &1960191244103734526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3626,7 +3628,7 @@ MonoBehaviour:
     m_Bits: 512
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 2048
   sensorOffset: {x: 0, y: 0.21, z: 1.33}
   scanInterval: 0
   detectedTargets: []
