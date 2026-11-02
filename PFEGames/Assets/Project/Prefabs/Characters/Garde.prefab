@@ -3516,6 +3516,7 @@ GameObject:
   - component: {fileID: 6191303730724366069}
   - component: {fileID: 3564656795183459671}
   - component: {fileID: 7274633667537882091}
+  - component: {fileID: 2795274875025048836}
   m_Layer: 12
   m_Name: Garde
   m_TagString: Guard
@@ -3732,6 +3733,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.GrabThings
   socketTransform: {fileID: 5886784552402460609}
+--- !u!114 &2795274875025048836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7855507035447891060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da1bdf1138348f28cc8f1847b73b124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.PnjSystem.ThrowThingsManager
+  rockPrefab: {fileID: 0}
+  hand: {fileID: 1313862800954488266}
+  maxRocks: 15
+  throwCooldown: 1.5
+  rockLifeTime: 1.16
+  throwAngular: 12
+  maxThrowRange: 22
+  minThrowRange: 4
+  vagueness: 0
+  aimHeight: 0.75
 --- !u!1 &7901568672524225800
 GameObject:
   m_ObjectHideFlags: 0
