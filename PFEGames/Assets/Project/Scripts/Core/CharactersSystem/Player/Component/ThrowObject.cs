@@ -22,6 +22,8 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField, Min(0f), Tooltip("Temps pendant lequel l'objet lâché ne touche pas le joueur (évite qu'il le pousse en l'air).")]
         private float ignorePlayerTime = 0.3f;
 
+
+        private float  currentMaxSpeed; 
         [Header("Trajectory")]
         [SerializeField, Range(10, 100)] private int linePoints = 25;
         [SerializeField, Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
@@ -61,7 +63,11 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             heldObject = obj;
             heldColliders = obj.GetComponentsInChildren<Collider>();
-            currentSpeed = Mathf.Clamp(throwSpeed, minThrowSpeed, maxThrowSpeed);
+            
+            PlayerCorpse corpse = obj.GetComponentInParent<PlayerCorpse>();
+            currentMaxSpeed = corpse != null ? corpse.MaxThrowSpeed : maxThrowSpeed;
+            currentSpeed = Mathf.Clamp(throwSpeed, minThrowSpeed, currentMaxSpeed);
+            
             initialParent = obj.transform.parent;
 
             heldObject.isKinematic = true;
@@ -83,7 +89,8 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (Mathf.Approximately(scroll, 0f)) return;
 
             currentSpeed = Mathf.Clamp(currentSpeed + Mathf.Sign(scroll) * speedStep,
-                                       minThrowSpeed, maxThrowSpeed);
+                minThrowSpeed, currentMaxSpeed);
+
         }
 
         public void Release()

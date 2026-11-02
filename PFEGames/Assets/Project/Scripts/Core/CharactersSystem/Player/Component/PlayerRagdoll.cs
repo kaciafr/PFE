@@ -7,6 +7,12 @@ namespace Goblfin.CharactersSystem.Player.Component
 {
     public class PlayerRagdoll : RagDoll
     {
+        [Header("Cadavre")]
+        [SerializeField] private PlayerCorpse corpsePrefab;
+        [SerializeField, Min(1), Tooltip("Nombre max de cadavres dans la scène, le plus vieux retourne au pool.")]
+        private int maxCorpses = 5;
+        private readonly Queue<PlayerCorpse> corpses = new();
+
         private Animator animator;
         private float deathPush;
         private Rigidbody playerBody;
@@ -113,8 +119,23 @@ namespace Goblfin.CharactersSystem.Player.Component
 
 
 
+        private void LeaveCorpse()
+        {
+            if (corpsePrefab == null) return;
+
+            if (corpses.Count >= maxCorpses)
+                PrefabPool.Release(corpses.Dequeue().gameObject);
+
+            GameObject corpseObject = PrefabPool.Get(corpsePrefab.gameObject, animator.transform.position, animator.transform.rotation);
+            PlayerCorpse corpse = corpseObject.GetComponent<PlayerCorpse>();
+            corpse.CopyPose(animator.transform);
+            corpses.Enqueue(corpse);
+        }
+
         public void Revive()
         {
+            LeaveCorpse();
+
             SetBonesPhysics(false);
             RestoreSkeletonPose();
             playerBody.isKinematic = false;

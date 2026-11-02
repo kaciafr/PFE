@@ -52,5 +52,10 @@ namespace Goblfin.CharactersSystem.Player.Component
             HasCheckPoint = false;
             Order = -1;
         }
+
+        // Le projet ne recharge pas les variables static en entrant en Play :
+        // on vide le checkpoint à chaque lancement, sinon on garde celui de la partie d'avant
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetOnPlay() => Clear();
     }
 } 

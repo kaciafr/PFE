@@ -106,7 +106,7 @@ Material:
     - _Darkness: 0.12
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Dissolve: 2.430455
+    - _Dissolve: 0
     - _DissolveTick: -0.41
     - _DstBlend: 0
     - _DstBlendAlpha: 0

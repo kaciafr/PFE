@@ -33,7 +33,7 @@ namespace Goblfin
             data.objects.Clear();
 
             // 1. On récupère tous les scripts de la scène
-            MonoBehaviour[] all = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+            MonoBehaviour[] all = Object.FindObjectsByType<MonoBehaviour>();
 
             foreach (MonoBehaviour mb in all)
             {
@@ -51,7 +51,7 @@ namespace Goblfin
         // Rend à chaque ISaveable de la scène l'état trouvé dans data.objects
         public static void RestoreWorld(SaveData data)
         {
-            MonoBehaviour[] all = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+            MonoBehaviour[] all = Object.FindObjectsByType<MonoBehaviour>();
 
             foreach (MonoBehaviour mb in all)
             {
