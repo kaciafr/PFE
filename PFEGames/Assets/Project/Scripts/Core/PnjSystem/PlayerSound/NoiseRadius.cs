@@ -4,11 +4,10 @@ namespace Goblfin.PnjSystem
 {
 	public class NoiseRadius : MonoBehaviour
 	{
-		[SerializeField] private SphereCollider collider;
+		[SerializeField] private SphereCollider noiseCollider;
 		[SerializeField] private GameObject noiseEffect;
 		
 		private IDetected target;
-		[SerializeField] private float minSpeed = 2f;
 
 		[Range(0f, 10f)]
 		[field: SerializeField]
@@ -17,9 +16,7 @@ namespace Goblfin.PnjSystem
         [Header("Réglages")]
         [SerializeField] private float minSpeed = 0.1f;                         
         [SerializeField, Range(0f, 10f)] private float radiusPerSpeed = 1f;    
-
-        private IDetected target;
-
+        
         public bool IsMakingNoise { get; private set; }
 
         private void Awake()

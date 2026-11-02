@@ -97,7 +97,7 @@ namespace Goblfin.PnjSystem
 							MathGame.GetDistanceFactor(target.transform, SensorOrigin, ViewRadius)),
 						Mathf.Lerp(currentMinFactor, 1f,
 							MathGame.GetAngleFactor(target.transform, transform, SensorOrigin, ViewAngle)),
-						dt * target.VisibilityState * noiseBonus);
+						dt * target.speed * noiseBonus);
 			}
 			else
 			{

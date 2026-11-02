@@ -1,5 +1,5 @@
-using Goblfin.CharactersSystem.Player;
 using Goblfin.CharactersSystem.Player.Component;
+using Goblfin.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

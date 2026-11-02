@@ -1,4 +1,5 @@
 using Goblfin.CharactersSystem.Player;
+using Goblfin.Player;
 using Unity.Cinemachine;
 using UnityEngine;
 
