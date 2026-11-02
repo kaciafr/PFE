@@ -65,9 +65,6 @@ namespace Goblfin.PnjSystem
             
             
             thrower.TryThrow(targetPos);
-            Debug.DrawLine(brainPnj.transform.position + Vector3.up, direction + Vector3.up, Color.darkGreen, 2f);
-            Debug.Log($"cible={(target as Component)?.name} distance={Vector3.Distance(brainPnj.transform.position, direction):F1}");
-            
         }
 
         public void ExitState(BrainPnj brainPnj)
