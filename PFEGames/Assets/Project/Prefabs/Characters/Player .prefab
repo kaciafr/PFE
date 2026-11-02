@@ -145,8 +145,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524243121838492188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47605878, y: 0.5397636, z: -0.49920073, w: 0.4825163}
-  m_LocalPosition: {x: -0.42272264, y: 0.41936243, z: -0.024434509}
+  m_LocalRotation: {x: 0.47605836, y: 0.5397639, z: -0.49920103, w: 0.482516}
+  m_LocalPosition: {x: -0.42272305, y: 0.41936243, z: -0.024434198}
   m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1247,6 +1247,7 @@ GameObject:
   - component: {fileID: 4509686469926939881}
   - component: {fileID: 7130284990342234014}
   - component: {fileID: 3588353291681347681}
+  - component: {fileID: 1043690548312676743}
   m_Layer: 10
   m_Name: 'Player '
   m_TagString: Player
@@ -1608,10 +1609,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4bf84591624f989270a6921310dc89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::PlayerSound.NoiseRadius
-  collider: {fileID: 7559036774076821162}
+  noiseCollider: {fileID: 7559036774076821162}
   noiseEffect: {fileID: 3706627616303412281}
-  minSpeed: 2
   <NoiseEffect>k__BackingField: 2
+  minSpeed: 2
+  radiusPerSpeed: 1
 --- !u!114 &665803601431520831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,6 +1736,29 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1043690548312676743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503608136985919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758fd3b1948f8974a9ceccfa2d930dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Goblfin.Gameplay.Gameplay.Shader.ShaderController
+  targetRenderer: {fileID: 1010834904376874674}
+  shaderManager: {fileID: 0}
+  speed: 1
+  maxDissolve: 2.5
+  rgbSpeed: 0.3
+  dangerColor: {r: 0.5320754, g: 0.14355995, b: 0.14355995, a: 1}
+  dieColor: {r: 0.7946387, g: 0.8792453, b: 0.8422299, a: 1}
+  baseColor: {r: 0.33333334, g: 0.554717, b: 0.42239234, a: 1}
+  hideColor: {r: 0.08651472, g: 0.10943389, b: 0.08762224, a: 0.84705883}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
+  pendingColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8550033297258655309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,6 +2233,10 @@ PrefabInstance:
     - target: {fileID: 3541754002163558908, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541754002163558908, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3786663924609172669, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2707,6 +2736,11 @@ Transform:
 --- !u!4 &922788543958574509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4625820438281264176, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
+  m_PrefabInstance: {fileID: 5547397234511608221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1010834904376874674 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4826562037691674415, guid: bd6ee82c5e06b3f4f86113cbf8261ae1, type: 3}
   m_PrefabInstance: {fileID: 5547397234511608221}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1150481729706828333 stripped
