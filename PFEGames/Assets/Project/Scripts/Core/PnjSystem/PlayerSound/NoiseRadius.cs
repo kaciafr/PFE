@@ -9,10 +9,11 @@ namespace Goblfin.PnjSystem.PlayerSound
 		[SerializeField] private GameObject noiseEffect;
 		
 		private IDetected target;
-		[SerializeField] private float minSpeed;
-		
+		[SerializeField] private float minSpeed = 2f;
+
 		[Range(0f, 10f)]
-		[field:SerializeField] public float NoiseEffect{get; private set;}
+		[field: SerializeField]
+		public float NoiseEffect { get; private set; } = 2f; 
 
 		private void Start()
 		{
@@ -20,7 +21,6 @@ namespace Goblfin.PnjSystem.PlayerSound
 		}
 		private void Update()
 		{
-			// target.speed = niveau de BRUIT du joueur (voir PlayerManager.NoiseLevel) :
 			// vitesse au sol, presque 0 accroupi, pic après une grosse réception
   			if (target.speed <= minSpeed || NoiseEffect <= 0f)   // NoiseEffect à 0 = division par zéro
 			{
