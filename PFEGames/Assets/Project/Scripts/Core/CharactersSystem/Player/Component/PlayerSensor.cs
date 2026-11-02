@@ -23,6 +23,8 @@ namespace Goblfin.CharactersSystem.Player.Component
         
         public bool IsGrounded { get; private set; }
         public Vector3 GroundNormal { get; private set; } = Vector3.up;
+        // Hauteur (y) du sol sur lequel se tient le gobelin
+        public float GroundHeight { get; private set; }
         public bool LadderInFront { get; private set; }
         public bool LadderTopReached { get; private set; }
 
@@ -63,6 +65,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             int hits = 0;
             Vector3 normalSum = Vector3.zero;
+            float highest = float.MinValue;
 
             for (int i = 0; i <= ground.RayCount; i++)
             {
@@ -81,6 +84,8 @@ namespace Goblfin.CharactersSystem.Player.Component
                 {
                     hits++;
                     normalSum += info.normal;
+                    // On garde le point de sol le plus haut = ce sur quoi il marche (ex : la poutre)
+                    highest = Mathf.Max(highest, info.point.y);
                 }
 
                 if (drawDebugGround)
@@ -89,6 +94,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             IsGrounded = hits > 0;
             GroundNormal = hits > 0 ? (normalSum / hits).normalized : Vector3.up;
+            if (hits > 0) GroundHeight = highest;
         }
 
         private void CheckLadder()
@@ -200,7 +206,10 @@ namespace Goblfin.CharactersSystem.Player.Component
             Vector3 origin = transform.position + dir.normalized * edgeCheckDistance + Vector3.up * ground.CheckOffset;
             float distance = ground.RaycastDistance + ground.CheckOffset + edgeMaxDrop;
             
-            bool hit =  Physics.Raycast(origin, Vector3.down, distance, ground.GroundLayer, QueryTriggerInteraction.Ignore);
+            bool hit = Physics.Raycast(origin, Vector3.down, out RaycastHit info, distance, ground.GroundLayer, QueryTriggerInteraction.Ignore)
+                       // Le sol devant ne doit pas être plus bas que edgeMaxDrop sous NOS pieds
+                       // (avant, le rayon trouvait le sol en dessous de la poutre et laissait passer)
+                       && GroundHeight - info.point.y <= edgeMaxDrop;
 
             if (drawDebugGroundAhead)
                 Debug.DrawRay(origin, Vector3.down * distance, hit ? Color.green : Color.magenta);

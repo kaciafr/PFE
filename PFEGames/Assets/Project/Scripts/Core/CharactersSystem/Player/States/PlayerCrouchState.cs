@@ -63,15 +63,19 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            Vector3 dirX = new Vector3(dir.x, 0f, 0f);
-            Vector3 dirZ = new Vector3(0f, 0f, dir.z);
+            // Pas de sol devant : on essaie de glisser le long du bord.
+            // On découpe la direction selon les axes de la CAMÉRA (gauche/droite et avant/arrière),
+            // pas selon les axes X/Z du monde, sinon en vue de profondeur il part sur le côté.
+            Vector2 input = ctx.Player.MoveInput;
+            Vector3 dirSide = ctx.Player.Motor.GetMoveDirection(new Vector2(input.x, 0f));
+            Vector3 dirDepth = ctx.Player.Motor.GetMoveDirection(new Vector2(0f, input.y));
 
-            if (dirX.magnitude > 0.1f && sensor.HasGroundAhead(dirX))
-                ctx.Player.MoveWorld(dirX, speed);
-            else if (dirZ.magnitude > 0.1f && sensor.HasGroundAhead(dirZ))
-                ctx.Player.MoveWorld(dirZ, speed);
+            if (dirSide.magnitude > 0.1f && sensor.HasGroundAhead(dirSide))
+                ctx.Player.MoveWorld(dirSide, speed);
+            else if (dirDepth.magnitude > 0.1f && sensor.HasGroundAhead(dirDepth))
+                ctx.Player.MoveWorld(dirDepth, speed);
             else
-                ctx.Player.Motor.Stop();  
+                ctx.Player.Motor.Stop();
         }
 
         public override void Exit(PlayerStateMachine ctx)
