@@ -34,15 +34,14 @@ namespace Goblfin.PnjSystem
                 return;
             }
             
-            Vector3 targetPos = brainPnj.transform.position;
-
+            Vector3 targetPos = target.transform.position;
             if (!vision.CanSee(target))
             {
                 brainPnj.PnjGoTo(new SearchState(brainPnj,brainPnj.transform.position));
                 return;
             }
             
-            if (!thrower.InRange(targetPos, 1.2f))              // sortie plus large que l'entrée : pas de clignotement
+            if (!thrower.InRange(targetPos, 2.2f))              
             {
                 brainPnj.PnjGoTo( new ChaseState(target));
                 return;
@@ -59,6 +58,7 @@ namespace Goblfin.PnjSystem
             }
             
             Vector3 direction = targetPos - brainPnj.transform.position;
+            direction.y = 0;
             if (direction.sqrMagnitude > 0.001f)
                 brainPnj.transform.rotation = Quaternion.Slerp(brainPnj.transform.rotation,
                     Quaternion.LookRotation(direction), Time.deltaTime * 8f);

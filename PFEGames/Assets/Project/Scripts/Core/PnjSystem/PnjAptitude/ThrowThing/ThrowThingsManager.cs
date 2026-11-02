@@ -14,7 +14,7 @@ namespace Goblfin.PnjSystem
         [SerializeField] private float rockLifeTime = 6f;
         
         [Header("Tir")]
-        [SerializeField] private float throwSpeed = 12f;
+        [SerializeField] private float throwAngular = 12f;
         [SerializeField] private float maxThrowRange = 15f;
         [SerializeField] private float minThrowRange = 4f;
         [SerializeField] private float vagueness = 0.6f;
@@ -59,7 +59,7 @@ namespace Goblfin.PnjSystem
             Vector3 aim = targetPos + Vector3.up * aimHeight + new Vector3(error.x, 0f, error.y);
 
             Vector3 displacement = aim - origin;
-            float flight = Mathf.Max(0.4f, new Vector2(displacement.x, displacement.z).magnitude / throwSpeed);
+            float flight = Mathf.Max(0.4f, new Vector2(displacement.x, displacement.z).magnitude / throwAngular);
             Vector3 velocity = displacement / flight - Physics.gravity * (0.5f * flight);
 
             GameObject rock = PrefabPool.Get(rockPrefab, origin, Random.rotation);
