@@ -8,6 +8,8 @@ namespace Goblfin.PnjSystem
 		private IDetected target;
 		private Vector3 lastKnownPosition;
 		private VisionCone vision;
+		float nextReachCheck;
+		private ThrowThingsManager thrower;
 
 		public ChaseState(IDetected target)
 		{
@@ -23,6 +25,9 @@ namespace Goblfin.PnjSystem
 			brainPnj.material.color = Color.blue;
 			brainPnj.Agent.speed = AgentSpeed;
 			vision = brainPnj.GetAptitude<VisionCone>();
+			thrower = brainPnj.GetAptitude<ThrowThingsManager>();
+			nextReachCheck = Time.time + 0.5f;
+
 			if (vision == null)
 			{
 				Debug.LogError($"{nameof(vision)} is null");
@@ -35,9 +40,21 @@ namespace Goblfin.PnjSystem
 			if (vision != null && vision.CanSee(target))
 			{
 				lastKnownPosition = target.transform.position;
+
+				if (Time.time >= nextReachCheck)
+				{
+					nextReachCheck = Time.time + 0.5f;
+
+					if (thrower != null && thrower.RocksLeft > 0
+					                    && thrower.InRange(lastKnownPosition)
+					                    && !thrower.CanReach(lastKnownPosition))
+					{
+						brainPnj.PnjGoTo(new ThrowState(target));
+						return;
+					}
+				}
 				brainPnj.Agent.SetDestination(lastKnownPosition);
 			}
-			
 			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
 				brainPnj.PnjGoTo(new SearchState(brainPnj,lastKnownPosition));
 		}
