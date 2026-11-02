@@ -23,7 +23,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 player.AnimEvents.ThrowRelease += OnThrowRelease;
 
             isMoving = HasMoveInput(ctx);
-            player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold);
+            player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold , 0.2f);
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -40,13 +40,14 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
+            player.Animator.SetMoveSpeed(player.HorizontalSpeed / player.Settings.Movement.WalkSpeed);
             player.AdjustThrowPower(player.Input.AimScroll);
 
             if (player.Input.ThrowPressed)
             {
                 isThrowing = true;
                 throwTimer = 0f;
-                player.Animator.Play(AnimIds.Throw);
+                player.Animator.Play(AnimIds.Throw , 0.05f);
                 return;
             }
 
@@ -61,7 +62,7 @@ namespace Goblfin.CharactersSystem.Player.States
             if (moving != isMoving)
             {
                 isMoving = moving;
-                player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold);
+                player.Animator.Play(isMoving ? AnimIds.HoldWalk : AnimIds.Hold , 0.2f);
             }
         }
 

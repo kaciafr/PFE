@@ -19,6 +19,8 @@ namespace Goblfin.CharactersSystem.Player.Data
         public static readonly int HoldWalk   = Animator.StringToHash("HoldWalk");
         public static readonly int Throw      = Animator.StringToHash("Throw");
         public static readonly int Die        = Animator.StringToHash("Die");
+        public static readonly int Land       = Animator.StringToHash("Land");
+        public static readonly int Fall       = Animator.StringToHash("Fall");
     }
 
     public static class AnimsParams
@@ -27,5 +29,6 @@ namespace Goblfin.CharactersSystem.Player.Data
         public static readonly int DirY       = Animator.StringToHash("DirY");
         public static readonly int ClimbSpeed = Animator.StringToHash("ClimbSpeed");
         public static readonly int GrabSpeed  = Animator.StringToHash("GrabSpeed");
+        public static readonly int MoveSpeed  = Animator.StringToHash("MoveSpeed");
     }
 }

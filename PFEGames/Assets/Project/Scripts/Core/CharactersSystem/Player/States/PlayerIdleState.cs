@@ -9,11 +9,17 @@ namespace Goblfin.CharactersSystem.Player.States
         public override void Enter(PlayerStateMachine ctx)
         {
 
-            ctx.Player.Animator.Play(AnimIds.Idle);
+            ctx.Player.Animator.Play(AnimIds.Idle , 0.2f);
         }
 
         public override void Tick(PlayerStateMachine ctx)
         {
+
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+                return;
+            }
             if (ctx.Player.Input.GrabHeld && ctx.Player.CanGrab)
             {
                 ctx.SwitchState(ctx.GrabState);

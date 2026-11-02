@@ -21,7 +21,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
             ctx.Player.Grab();
 
-            ctx.Player.Animator.Play(AnimIds.Grab);
+            ctx.Player.Animator.Play(AnimIds.Grab , 0.15f);
             ctx.Player.Animator.SetGrabSpeed(0f);
         }
 
@@ -48,10 +48,13 @@ namespace Goblfin.CharactersSystem.Player.States
             if (pulling != isPulling)
             {
                 isPulling = pulling;
-                ctx.Player.Animator.Play(isPulling ? AnimIds.Pull : AnimIds.Grab);
+                ctx.Player.Animator.Play(isPulling ? AnimIds.Pull : AnimIds.Grab ,0.15f );
             }
 
-            ctx.Player.Animator.SetGrabSpeed(Mathf.Abs(pushOrPull));
+            float animSpeed = tooHeavy
+                ? Mathf.Abs(pushOrPull)
+                : ctx.Player.HorizontalSpeed / ctx.Player.Settings.Grab.PushPullSpeed;
+            ctx.Player.Animator.SetGrabSpeed(animSpeed);
         }
 
         public override void FixedTick(PlayerStateMachine ctx)

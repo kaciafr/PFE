@@ -8,7 +8,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Enter(PlayerStateMachine ctx)
         {
-            ctx.Player.Animator.Play (AnimIds.Run);
+            ctx.Player.Animator.Play (AnimIds.Run , 0.25f);
         }
 
         public override void Exit(PlayerStateMachine ctx)
@@ -17,6 +17,12 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+                return;
+            }
+            ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Movement.SprintSpeed);
 
             if (!ctx.Player.Input.SprintHeld || !HasMoveInput(ctx))
             {
@@ -37,7 +43,7 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, ctx.Player.Settings.Movement.SprintSpeed);
+            MoveAt(ctx, ctx.Player.Settings.Movement.SprintSpeed, ctx.Player.Settings.Movement.SprintRotationMultiplier);
         }
     }
 }

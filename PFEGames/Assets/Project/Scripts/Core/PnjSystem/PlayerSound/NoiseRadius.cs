@@ -2,10 +2,17 @@ using UnityEngine;
 
 namespace Goblfin.PnjSystem
 {
-    public class NoiseRadius : MonoBehaviour
-    {
-        [SerializeField] private SphereCollider noiseCollider;
-        [SerializeField] private GameObject noiseEffect;
+	public class NoiseRadius : MonoBehaviour
+	{
+		[SerializeField] private SphereCollider collider;
+		[SerializeField] private GameObject noiseEffect;
+		
+		private IDetected target;
+		[SerializeField] private float minSpeed = 2f;
+
+		[Range(0f, 10f)]
+		[field: SerializeField]
+		public float NoiseEffect { get; private set; } = 2f; 
 
         [Header("Réglages")]
         [SerializeField] private float minSpeed = 0.1f;                         

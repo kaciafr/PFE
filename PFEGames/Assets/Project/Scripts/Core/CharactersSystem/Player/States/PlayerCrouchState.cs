@@ -12,12 +12,18 @@ namespace Goblfin.CharactersSystem.Player.States
             ctx.Player.Crouch();
 
             isMoving = HasMoveInput(ctx);
-            ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+            ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
         }
 
         public override void Tick(PlayerStateMachine ctx)
         {
-            var player = ctx.Player;
+
+            if (IsFalling(ctx))
+            {
+                ctx.SwitchState(ctx.FallState);
+                return;
+            }
+            ctx.Player.Animator.SetMoveSpeed(ctx.Player.HorizontalSpeed / ctx.Player.Settings.Crouch.Speed);
 
             if (WantsToClimb(ctx))
             {
@@ -25,13 +31,13 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (!player.Input.CrouchHeld && player.CanStand)
+            if (!ctx.Player.Input.CrouchHeld && ctx.Player.CanStand)
             {
                 ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
                 return;
             }
 
-            if (player.WantsJump && player.CanStand)
+            if (ctx.Player.WantsJump && ctx.Player.CanStand)
             {
                 ctx.SwitchState(ctx.JumpState);
                 return;
@@ -41,18 +47,42 @@ namespace Goblfin.CharactersSystem.Player.States
             if (moving != isMoving)
             {
                 isMoving = moving;
-                player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle);
+                ctx.Player.Animator.Play(isMoving ? AnimIds.Crouch : AnimIds.CrouchIdle, 0.2f);
             }
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, ctx.Player.Settings.Crouch.Speed);
+            var sensor = ctx.Player.Sensor;
+            Vector3 dir = ctx.Player.MoveDirection;
+            float speed = ctx.Player.Settings.Crouch.Speed;
+
+            if (!HasMoveInput(ctx) || sensor.HasGroundAhead(dir))
+            {
+                MoveAt(ctx, speed);
+                return;
+            }
+
+            // Pas de sol devant : on essaie de glisser le long du bord.
+            // On découpe la direction selon les axes de la CAMÉRA (gauche/droite et avant/arrière),
+            // pas selon les axes X/Z du monde, sinon en vue de profondeur il part sur le côté.
+            Vector2 input = ctx.Player.MoveInput;
+            Vector3 dirSide = ctx.Player.Motor.GetMoveDirection(new Vector2(input.x, 0f));
+            Vector3 dirDepth = ctx.Player.Motor.GetMoveDirection(new Vector2(0f, input.y));
+
+            if (dirSide.magnitude > 0.1f && sensor.HasGroundAhead(dirSide))
+                ctx.Player.MoveWorld(dirSide, speed);
+            else if (dirDepth.magnitude > 0.1f && sensor.HasGroundAhead(dirDepth))
+                ctx.Player.MoveWorld(dirDepth, speed);
+            else
+                ctx.Player.Motor.Stop();
         }
 
         public override void Exit(PlayerStateMachine ctx)
         {
             ctx.Player.UnCrouch();
         }
+        
+
     }
 }

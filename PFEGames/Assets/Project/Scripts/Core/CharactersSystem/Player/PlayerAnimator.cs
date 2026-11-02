@@ -16,9 +16,9 @@ namespace Goblfin.CharactersSystem.Player
             animator.SetFloat("DirY", direction.y);
         }
 
-        public void Play(int stateId)
+        public void Play(int stateId , float fade)
         {
-            animator.CrossFadeInFixedTime(stateId, 0.15f);
+            animator.CrossFadeInFixedTime(stateId, fade);
         }
         
         public void SetClimbSpeed(float speed) 
@@ -26,7 +26,9 @@ namespace Goblfin.CharactersSystem.Player
             animator.SetFloat(AnimsParams.ClimbSpeed, speed); 
         }
 
-        public void SetGrabSpeed(float speed) => animator.SetFloat(AnimsParams.GrabSpeed, speed);        
+        public void SetGrabSpeed(float speed) => animator.SetFloat(AnimsParams.GrabSpeed, speed);
+
+        public void SetMoveSpeed(float ratio) => animator.SetFloat(AnimsParams.MoveSpeed, ratio, 0.1f, Time.deltaTime);
         
         
     }

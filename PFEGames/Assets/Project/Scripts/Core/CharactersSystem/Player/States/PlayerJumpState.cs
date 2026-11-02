@@ -21,10 +21,11 @@ namespace Goblfin.CharactersSystem.Player.States
                 : ctx.Player.Settings.Movement.WalkSpeed;
 
             ctx.Player.Jump();
-            ctx.Player.Animator.Play(AnimIds.Jump);
+            ctx.Player.Animator.Play(AnimIds.Jump , 0.05f );
 
             maxFallSpeed = 0f;
             ctx.Player.Juice?.OnJump();
+            ctx.Player.VFX?.OnJump();
         }
 
         public override void Tick(PlayerStateMachine ctx)
@@ -32,21 +33,19 @@ namespace Goblfin.CharactersSystem.Player.States
             timer += Time.deltaTime;
             if (timer < MinAirTime) return;
 
-            if (ctx.Player.IsGrounded && ctx.Player.VerticalVelocity <= 0.01f)
-            {
-                ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
-            }
+            if (ctx.Player.VerticalVelocity <= 0.01f)
+                TryLand(ctx, maxFallSpeed);
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            MoveAt(ctx, airSpeed);
+            ctx.Player.MoveinAir(ctx.Player.MoveInput, airSpeed);
             maxFallSpeed = Mathf.Max(maxFallSpeed, -ctx.Player.VerticalVelocity);
         }
 
         public override void Exit(PlayerStateMachine ctx)
         {
-            ctx.Player.Juice?.OnLand(maxFallSpeed);
+
         }
     }
 }

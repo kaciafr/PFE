@@ -1,3 +1,4 @@
+using System;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField] private Transform cam;
         [SerializeField] private Transform orientation;
         [SerializeField] private Transform playerObject;
-        [SerializeField, Tooltip("Modèle visuel (enfant du Player) : reçoit l'inclinaison et le décalage pendant le climb.")]
         private Transform model;
         [SerializeField] private PlayerSettings settings;
 
@@ -18,12 +18,20 @@ namespace Goblfin.CharactersSystem.Player.Component
         private Rigidbody rb;
         private Vector3 modelStartLocalPos;
         private Quaternion modelStartLocalRot;
+        private PlayerSensor playerSensor;
+        private float lastjump = -1;
+        // Normale d'une pente trop raide touchée (zero = aucune)
+        private Vector3 steepNormal;
 
         public Vector3 Velocity => rb.linearVelocity;
 
+        private bool OnSlope => playerSensor.IsGrounded
+                                && Vector3.Angle(playerSensor.GroundNormal, Vector3.up) > 1f
+                                && Time.time - lastjump > 0.2f;
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            playerSensor = GetComponent<PlayerSensor>();
             rb.freezeRotation = true;
             if (model == null || model == transform)
             {
@@ -39,10 +47,10 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         private void Start()
         {
-	        if (cam == null)
-	        {
-		        cam = FindObjectOfType<Camera>().transform;
-	        }
+            if (cam == null)
+            {
+                cam = Camera.main.transform;
+            }
         }
 
         public Vector3 GetMoveDirection(Vector2 input)
@@ -56,26 +64,71 @@ namespace Goblfin.CharactersSystem.Player.Component
             return Vector3.ClampMagnitude(dir, 1f);
         }
 
-        public void Move(Vector2 input, float speed, bool rotate = true)
+        public void Move(Vector2 input, float speed, bool rotate = true, float rateair = 1f, bool followSlope = true ,float rotationmultiplier = 1f )
         {
             Vector3 dir = GetMoveDirection(input);
 
             if (rotate && dir.sqrMagnitude > 0.001f)
-                RotateTowards(dir);
+                RotateTowards(dir , rotationmultiplier);
 
             Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 target = dir * speed;
             float rate = target.sqrMagnitude < current.sqrMagnitude
                 ? settings.Movement.Deceleration
                 : settings.Movement.Acceleration;
-            Vector3 velocity = Vector3.MoveTowards(current, target, rate * Time.fixedDeltaTime);
 
+            if (OnSlope && followSlope)
+            {
+                target = Vector3.ProjectOnPlane(target, playerSensor.GroundNormal);
+                rb.linearVelocity = BlockSteepSlope(Vector3.MoveTowards(rb.linearVelocity, target, rate * rateair * Time.fixedDeltaTime));
+                return;
+            }
+
+            Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair * Time.fixedDeltaTime);
             velocity.y = rb.linearVelocity.y;
-            rb.linearVelocity = velocity;
+            rb.linearVelocity = BlockSteepSlope(velocity);
+
+
+        }
+
+        // 1. On repère les pentes trop raides que le gobelin touche (plus de MaxSlopeAngle)
+        private void OnCollisionStay(Collision collision)
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                float angle = Vector3.Angle(contact.normal, Vector3.up);
+                // Pente trop raide, mais pas un mur droit (90°)
+                if (angle > settings.Ground.MaxSlopeAngle && angle < 89f)
+                    steepNormal = contact.normal;
+            }
+        }
+
+        // 2. On retire la partie de la vitesse qui pousse DANS la pente raide,
+        //    sinon la physique la transforme en montée
+        private Vector3 BlockSteepSlope(Vector3 velocity)
+        {
+            if (steepNormal == Vector3.zero) return velocity;
+
+            // Direction horizontale qui "sort" de la pente
+            Vector3 outDir = new Vector3(steepNormal.x, 0f, steepNormal.z).normalized;
+            float into = Vector3.Dot(velocity, outDir);
+            if (into < 0f)
+                velocity -= outDir * into;
+
+            steepNormal = Vector3.zero;
+            return velocity;
         }
 
         public void SlowDown()
         {
+
+            if (OnSlope)
+            {
+                rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
+                rb.AddForce(-Physics.gravity, ForceMode.Acceleration);
+                return;
+            }
+
             Vector3 current = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 velocity = Vector3.MoveTowards(current, Vector3.zero, settings.Movement.Deceleration * Time.fixedDeltaTime);
 
@@ -94,6 +147,10 @@ namespace Goblfin.CharactersSystem.Player.Component
                 multiplier = settings.Jump.LowJumpMultiplier;
 
             rb.linearVelocity += Physics.gravity * (multiplier - 1f) * Time.fixedDeltaTime;
+
+            Vector3 velocity = rb.linearVelocity;
+            velocity.y = Mathf.Max(velocity.y, -settings.Jump.MaxFallSpeed);
+            rb.linearVelocity = velocity;
         }
 
         public void MoveWorld(Vector3 dir, float speed, bool rotate = true)
@@ -106,10 +163,9 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.linearVelocity = velocity;
         }
 
-        public void RotateTowards(Vector3 dir)
+        public void RotateTowards(Vector3 dir , float multiplier = 1f)
         {
-            playerObject.forward = Vector3.Slerp(playerObject.forward, dir.normalized,
-                Time.deltaTime * settings.Movement.RotationSpeed);
+            playerObject.rotation = Quaternion.RotateTowards(playerObject.rotation, Quaternion.LookRotation(dir), settings.Movement.RotationSpeed * multiplier * Time.fixedDeltaTime);
         }
 
         public void Face(Vector3 dir)
@@ -121,6 +177,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         public void Jump(float force)
         {
+            lastjump = Time.time;
             Vector3 velocity = rb.linearVelocity;
             velocity.y = force;
             rb.linearVelocity = velocity;
@@ -158,7 +215,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             Vector3 snap = ladderPoint + ladderNormal * settings.Climb.LadderDistance;
             snap.y = rb.position.y;
             rb.position = snap;
-            
+
         }
 
         public void Climb(float verticalSpeed)
@@ -183,26 +240,37 @@ namespace Goblfin.CharactersSystem.Player.Component
             rb.isKinematic = true;
         }
 
-        public void ClimbOverTop(Vector3 ladderNormal, float ladderTopY)
-        {
-            ladderNormal.y = 0f;
-            ladderNormal.Normalize();
-
-            Vector3 target = rb.position + Vector3.up * settings.Climb.TopHeight
-                                         - ladderNormal * settings.Climb.TopForward;
-
-            float standY = ladderTopY + GetComponent<CapsuleCollider>().height * 0.5f + 0.05f;
-            target.y = Mathf.Max(target.y, standY);
-
-            rb.position = target;
-        }
-
         public void Unfreeze()
         {
             rb.isKinematic = false;
             rb.useGravity = true;
+            rb.linearVelocity = Vector3.zero;   
         }
 
+        public Vector3 GetClimbTopTarget(Vector3 ladderNormal, float LadderTopY)
+        {
+            ladderNormal.y = 0f;
+            ladderNormal.Normalize();
+
+            // On avance sur la plateforme (la hauteur est calculée juste en dessous)
+            Vector3 target = rb.position - ladderNormal * settings.Climb.TopForward;
+            
+            float halfHeight = GetComponent<CapsuleCollider>().height * 0.5f * transform.lossyScale.y;
+
+            Vector3 rayStart = new Vector3(target.x, LadderTopY + 2f, target.z);
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 4f, settings.Ground.GroundLayer, QueryTriggerInteraction.Ignore))
+                target.y = hit.point.y + halfHeight + 0.05f;   
+            else
+                target.y = LadderTopY + halfHeight + 0.05f;    
+
+            return target;
+        }
         
+        public Vector3 Position => rb.position;
+
+        public void MoveKinematic(Vector3 position) => rb.MovePosition(position);
+        
+
+
     }
 }

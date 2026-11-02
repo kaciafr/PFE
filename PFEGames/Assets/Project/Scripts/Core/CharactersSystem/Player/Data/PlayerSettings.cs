@@ -32,27 +32,34 @@ namespace Goblfin.CharactersSystem.Player.Data
         [field: SerializeField, Min(0f)] public float WalkSpeed { get; private set; }
         [field: SerializeField, Min(0f)] public float SprintSpeed { get; private set; }
         [field: SerializeField, Min(0f)] public float RotationSpeed { get; private set; }
-
+        
         [field: SerializeField, Min(0f), Tooltip("m/s gagnés par seconde au démarrage (plus haut = démarre plus sec).")]
         public float Acceleration { get; private set; }
 
         [field: SerializeField, Min(0f), Tooltip("m/s perdus par seconde quand on ralentit ou s'arrête (plus haut = s'arrête plus sec).")]
         public float Deceleration { get; private set; }
+        
+        [field: SerializeField , Range(0,1)] public float SprintRotationMultiplier { get; private set; }
+        
+        [field: SerializeField , Range(0,1)] public float AirRotationMultiplier { get; private set; }
 
         #endregion
 
         #region Constructeur et valeurs par défaut
 
-        public MovementSettings(float walkSpeed, float sprintSpeed, float rotationSpeed, float acceleration, float deceleration)
+        public MovementSettings(float walkSpeed, float sprintSpeed, float rotationSpeed, float acceleration, float deceleration , float sprintRotationMultiplier , float airRotationMultiplier )
         {
             WalkSpeed = walkSpeed;
             SprintSpeed = sprintSpeed;
             RotationSpeed = rotationSpeed;
             Acceleration = acceleration;
             Deceleration = deceleration;
+            SprintRotationMultiplier = sprintRotationMultiplier;
+            AirRotationMultiplier = airRotationMultiplier;
+            
         }
 
-        public static MovementSettings Default => new(2.75f, 5.5f, 16f, 35f, 25f);
+        public static MovementSettings Default => new(2.75f, 5.5f, 720f, 35f, 25f, 0.75f,0.5f );
 
         #endregion
     }
@@ -80,13 +87,26 @@ namespace Goblfin.CharactersSystem.Player.Data
 
         [field: SerializeField, Min(0f), Tooltip("Temps (s) pendant lequel un appui sur Saut juste avant d'atterrir est gardé.")]
         public float JumpBuffer { get; private set; }
+        
+        [field: SerializeField , Range(0f,1f)]
+        public float AirControl { get; private set; }
+        
+        [field: SerializeField  ]
+        public float MaxFallSpeed { get; private set; }
+        
+        [field: SerializeField]
+        public float HardLandSpeed { get; private set;  }
+        [field : SerializeField]
+        public float HardLandDuration { get; private set; }
+        
+        
 
         #endregion
 
         #region Constructeur et valeurs par défaut
 
         public JumpSettings(float force, float jumpSpeed, float fallMultiplier, float lowJumpMultiplier,
-                            float coyoteTime, float jumpBuffer)
+                            float coyoteTime, float jumpBuffer , float airControl, float maxFallSpeed , float hardLandSpeed , float hardLandDuration)
         {
             Force = force;
             JumpSpeed = jumpSpeed;
@@ -94,9 +114,14 @@ namespace Goblfin.CharactersSystem.Player.Data
             LowJumpMultiplier = lowJumpMultiplier;
             CoyoteTime = coyoteTime;
             JumpBuffer = jumpBuffer;
+            AirControl = airControl;
+            MaxFallSpeed = maxFallSpeed;
+            HardLandDuration = hardLandDuration; 
+            HardLandSpeed = hardLandSpeed;
+
         }
 
-        public static JumpSettings Default => new(4.4f, 2f, 2f, 2.5f, 0.1f, 0.12f);
+        public static JumpSettings Default => new(4.4f, 2f, 2f, 2.5f, 0.1f, 0.12f,0.5f , 20f ,10f,0.4f );
 
         #endregion
     }
@@ -203,7 +228,6 @@ namespace Goblfin.CharactersSystem.Player.Data
 
         [Header("Sortie par le haut")]
         [field: SerializeField, Min(0f)] public float TopDuration { get; private set; }
-        [field: SerializeField, Min(0f)] public float TopHeight { get; private set; }
         [field: SerializeField, Min(0f)] public float TopForward { get; private set; }
 
         [field: SerializeField] public float climbTilt { get; private set; }
@@ -216,7 +240,7 @@ namespace Goblfin.CharactersSystem.Player.Data
         public ClimbSettings(LayerMask layer, float rayHeight, float detectDistance,
                              float topCheckHeight, float approachThreshold,
                              float speed, float ladderDistance, float exitPush,
-                             float topDuration, float topHeight, float topForward,
+                             float topDuration, float topForward,
                              float climbTilt, float climbVisualOffset)
         {
             Layer = layer;
@@ -228,7 +252,6 @@ namespace Goblfin.CharactersSystem.Player.Data
             LadderDistance = ladderDistance;
             ExitPush = exitPush;
             TopDuration = topDuration;
-            TopHeight = topHeight;
             TopForward = topForward;
             this.climbTilt = climbTilt;
             this.climbVisualOffset = climbVisualOffset;
@@ -238,7 +261,7 @@ namespace Goblfin.CharactersSystem.Player.Data
             default, 0f, 1f,
             0.5f, 0.5f,
             1f, 0.4f, 2f,
-            2f, 1.5f, 0.6f,
+            2f, 0.6f,
             15f, 0.2f);
 
         #endregion

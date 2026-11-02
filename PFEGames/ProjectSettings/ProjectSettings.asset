@@ -849,7 +849,7 @@ PlayerSettings:
     PS5: SORTIFY;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     QNX: SORTIFY;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     Server: PROBUILDER_EXPERIMENTAL_FEATURES
-    Standalone: DREAMTECK_SPLINES;SORTIFY;UNITY_POST_PROCESSING_STACK_V2;PROBUILDER_EXPERIMENTAL_FEATURES;DOTWEEN
+    Standalone: DREAMTECK_SPLINES;SORTIFY;UNITY_POST_PROCESSING_STACK_V2;PROBUILDER_EXPERIMENTAL_FEATURES;DOTWEEN;SENTIS_ANALYTICS_ENABLED;APP_UI_EDITOR_ONLY
     VisionOS: SORTIFY;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     WebGL: SORTIFY;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     Windows Store Apps: DOTWEEN
@@ -875,7 +875,7 @@ PlayerSettings:
   gcWBarrierValidation: 0
   managedCodeVariant: {}
   apiCompatibilityLevelPerPlatform: {}
-  editorAssembliesCompatibilityLevel: 1
+  editorAssembliesCompatibilityLevel: 2
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: PFE
@@ -951,7 +951,7 @@ PlayerSettings:
   hmiCpuConfiguration: 
   hmiLogStartupTiming: 0
   qnxGraphicConfPath: 
-  apiCompatibilityLevel: 6
+  apiCompatibilityLevel: 3
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0

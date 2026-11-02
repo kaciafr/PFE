@@ -13,15 +13,24 @@ namespace Goblfin.Player
     {
         #region References
         public Transform Transform => transform;
-        public float VisibilityState => 1;
-        public float speed
+        public float speed => NoiseLevel;
+
+        public float NoiseLevel
         {
             get
             {
-                Vector3 v = rb.linearVelocity;
-                return new Vector2(v.x, v.z).magnitude; 
+                float noise = HorizontalSpeed;
+
+                if (Stance.IsCrouched)
+                    noise *= crouchNoiseMultiplier;
+
+                if (landNoiseTimer > 0f)
+                    noise = Mathf.Max(noise, landNoise * (landNoiseTimer / landNoiseDuration));
+
+                return noise;
             }
         }
+
         [SerializeField] private Rigidbody rb;
         [field: SerializeField] public PlayerSettings Settings { get; private set; }
         [field: SerializeField] public InputReader Input { get; private set; }
@@ -39,10 +48,19 @@ namespace Goblfin.Player
         [field: SerializeField] public Vector3 startPosition { get; private set; }
         [field: SerializeField] public Quaternion startRotation { get; private set; }
         
+        [field: SerializeField] public PlayerVFX VFX { get; private set; }
         
+        [Header("Bruit")]
+        
+        [SerializeField, Range(0, 1), Tooltip("Bruit en crouch (0 = silence total).")]
+        private float crouchNoiseMultiplier = 0.2f;
+        [SerializeField, Tooltip("Bruit d'une grosse réception (même échelle qu'une vitesse en m/s).")]
+        private float landNoise = 8f;
+        [SerializeField, Min(0.01f), Tooltip("Durée du pic de bruit après une grosse réception.")]
+        private float landNoiseDuration = 0.5f;
+        private float landNoiseTimer;   
 
         public bool isMakingNoise => noise != null && noise.IsMakingNoise;
-
 
 
         #endregion
@@ -80,8 +98,17 @@ namespace Goblfin.Player
 
             if (Input.JumpPressed)
                 lastJumpPressedTime = Time.time;
-            
-            
+
+            // Le pic de bruit de réception diminue avec le temps
+            if (landNoiseTimer > 0f)
+                landNoiseTimer -= Time.deltaTime;
+        }
+
+        // Appelé à l'atterrissage : bruit seulement pour les grosses chutes
+        public void MakeLandNoise(float fallSpeed)
+        {
+            if (fallSpeed >= Settings.Jump.HardLandSpeed)
+                landNoiseTimer = landNoiseDuration;
         }
 
         private void FixedUpdate()
@@ -106,13 +133,19 @@ namespace Goblfin.Player
         public bool CanGrab => Time.time >= grabBlockedUntil && Sensor.IsGrounded && Sensor.CrateInFront != null;
         public bool IsGrabbing => Grabber.IsGrabbing;
         public float VerticalVelocity => Motor.Velocity.y;
+        public float HorizontalSpeed => new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude;
 
         #endregion
 
         #region Movement
 
-        public void Move(Vector2 input, float speed) => Motor.Move(input, speed, !Grabber.IsGrabbing);
+        public void Move(Vector2 input, float speed , float rotationMultiplier = 1f) => Motor.Move(input, speed, !Grabber.IsGrabbing, 1f, true , rotationMultiplier );
         public void MoveWorld(Vector3 dir, float speed) => Motor.MoveWorld(dir, speed, false);
+
+        public void MoveinAir(Vector2 input, float speed) => Motor.Move(input, speed, true, Settings.Jump.AirControl , false , Settings.Movement.AirRotationMultiplier);
+        
+        
+        
         public void Jump() => Motor.Jump(Settings.Jump.Force);
 
         private float lastGroundedTime = -1f;
@@ -163,12 +196,23 @@ namespace Goblfin.Player
 
         #region Échelle
 
-        public void StartClimb() => Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal);
+        public bool IsClimbing { get; private set; }
+
+        public void StartClimb()
+        {
+            IsClimbing = true;
+            Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal);
+        }
+
         public void Climb(float input) => Motor.Climb(input * Settings.Climb.Speed);
-        public void UnClimb() => Motor.StopClimb();
+
+        public void UnClimb()
+        {
+            IsClimbing = false;
+            Motor.StopClimb();
+        }
 
         public void StartClimbTop() => Motor.Freeze();
-        public void FinishClimbTop() => Motor.ClimbOverTop(Sensor.LadderNormal, Sensor.LadderTopY);
 
         private const float ClimbCooldown = 0.5f;
         private float climbBlockedUntil;

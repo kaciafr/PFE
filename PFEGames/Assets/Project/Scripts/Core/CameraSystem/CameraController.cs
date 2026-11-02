@@ -1,3 +1,4 @@
+using Goblfin.CharactersSystem.Player;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -9,14 +10,17 @@ namespace Goblfin
 
 		[SerializeField] CinemachineCamera vcam;
 		[SerializeField] CameraState defaultState;
-
+		[SerializeField] private float sprintFovBonus = 4f;
 		CinemachineFollow follow;
 		CinemachineRotationComposer composer;
 		CameraState current;
+		PlayerManager player;
+		float lookSide = -1f;
 
 		void Awake()
 		{
 			Instance = this;
+			player = FindFirstObjectByType<PlayerManager>();
 
 			follow = vcam.GetComponent<CinemachineFollow>();
 			composer = vcam.GetComponent<CinemachineRotationComposer>();
@@ -30,22 +34,41 @@ namespace Goblfin
 
 			current = defaultState;
 
-			// Placement immédiat au démarrage
 			follow.FollowOffset = current.followOffset;
 			SetFov(current.fov);
-			SetScreenY(current.screenY);
+			SetScreen(ScreenX(), current.screenY);
 		}
+
+		[Header("Debug")]
+		[SerializeField, Tooltip("Vue active en ce moment (lecture seule).")]
+		string activeState;
 
 		public void Request(CameraState state) => current = state;
 		public void Release() => current = defaultState;
 
 		void Update()
 		{
+			activeState = current != null ? current.name : "aucune";
+
 			float t = 1f - Mathf.Exp(-current.smooth * Time.deltaTime);
 
 			follow.FollowOffset = Vector3.Lerp(follow.FollowOffset, current.followOffset, t);
-			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, current.fov, t));
-			SetScreenY(Mathf.Lerp(composer.Composition.ScreenPosition.y, current.screenY, t));
+			float targetFov = current.fov + sprintFovBonus * SprintAmount();
+			SetFov(Mathf.Lerp(vcam.Lens.FieldOfView, targetFov, t));
+			Vector2 screen = composer.Composition.ScreenPosition;
+			SetScreen(Mathf.Lerp(screen.x, ScreenX(), t), Mathf.Lerp(screen.y, current.screenY, t));
+		}
+
+		float ScreenX()
+		{
+			if (!current.followDirection || player == null || player.Motor == null) return current.screenX;
+
+			float facing = Vector3.Dot(player.Facing, vcam.transform.right);
+
+			if (Mathf.Abs(facing) > 0.3f)
+				lookSide = facing > 0f ? -1f : 1f;
+
+			return Mathf.Abs(current.screenX) * lookSide;
 		}
 
 		void SetFov(float value)
@@ -55,11 +78,18 @@ namespace Goblfin
 			vcam.Lens = lens;
 		}
 
-		void SetScreenY(float value)
+		void SetScreen(float x, float y)
 		{
-			var comp = composer.Composition;   
-			comp.ScreenPosition.y = value;
+			var comp = composer.Composition;
+			comp.ScreenPosition = new Vector2(x, y);
 			composer.Composition = comp;
+		}
+
+		float SprintAmount()
+		{
+			if (player == null) return 0f;
+			var move = player.Settings.Movement;
+			return Mathf.InverseLerp(move.WalkSpeed, move.SprintSpeed, player.HorizontalSpeed);
 		}
 	}
 }
