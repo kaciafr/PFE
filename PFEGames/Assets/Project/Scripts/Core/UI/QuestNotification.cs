@@ -10,8 +10,8 @@ namespace Goblfin
     public class QuestNotification : MonoBehaviour 
     {
         [SerializeField] private TextMeshProUGUI txtMessage;
-        [SerializeField] private float fadeDuration ;
-        [SerializeField] private float displayDuration;
+        [SerializeField] private float fadeDuration = 0.3f;
+        [SerializeField] private float displayDuration = 2.5f;
         
         private CanvasGroup canvasGroup;
         private Queue<string> queue = new Queue<string>();   // messages en attente

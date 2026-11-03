@@ -42,6 +42,7 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         public bool IsHolding => heldObject != null;
         public float CurrentSpeed => currentSpeed;
+        public float PowerPercent => Mathf.InverseLerp(minThrowSpeed, currentMaxSpeed, currentSpeed);
 
         private void Awake()
         {

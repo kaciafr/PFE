@@ -75,7 +75,7 @@ namespace Goblfin
             RefreshText();
         }
 
-        void RefreshText()
+        public void RefreshText()
         {
             txtKey.text = action.GetBindingDisplayString(bindingIndex);
         }

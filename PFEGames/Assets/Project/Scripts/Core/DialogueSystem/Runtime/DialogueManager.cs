@@ -2,6 +2,7 @@ using System.Collections;
 using Goblfin.DialogueView.Enumeration;
 using Goblfin.QuestSystem;
 using Goblfin.Scripts.Data;
+using PrimeTween;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ namespace Goblfin
         [SerializeField] private Transform choicesContainer;
         [SerializeField] private Button choiceButtonPrefab;
         [SerializeField] private float speedText = 0.03f;
+        [SerializeField] private string refuseText = "Refuser";   // le choix qui "tombe" (gag du GDD)
 
         private DSDialogueSO currentDialogue;
         private Coroutine typingCoroutine;
@@ -125,8 +127,30 @@ namespace Goblfin
             {
                 Button button = Instantiate(choiceButtonPrefab, choicesContainer);
                 button.GetComponentInChildren<TMP_Text>().text = choice.Text;
-                button.onClick.AddListener(() => ShowDialogue(choice.NextDialogue));
+
+                // Gag du GDD : le choix qui COMMENCE par refuseText ("Non", "Refuser"...) tombe hors de l'écran
+                if (choice.Text.Trim().ToLower().StartsWith(refuseText.Trim().ToLower()))
+                    button.onClick.AddListener(() => FallOff(button));
+                else
+                    button.onClick.AddListener(() => ShowDialogue(choice.NextDialogue));
             }
+        }
+
+        // Le bouton hésite, puis tombe en tournant
+        private void FallOff(Button button)
+        {
+            button.interactable = false;
+
+            // Le Layout Group ne doit plus le replacer
+            LayoutElement layout = button.GetComponent<LayoutElement>();
+            if (layout == null) layout = button.gameObject.AddComponent<LayoutElement>();
+            layout.ignoreLayout = true;
+
+            RectTransform rect = (RectTransform)button.transform;
+            Sequence.Create(useUnscaledTime: true)
+                .Chain(Tween.LocalRotation(rect, Quaternion.Euler(0f, 0f, -15f), 0.15f, Ease.OutQuad))     // il hésite...
+                .Chain(Tween.UIAnchoredPositionY(rect, rect.anchoredPosition.y - 1500f, 0.7f, Ease.InQuad)) // ...et tombe
+                .Group(Tween.LocalRotation(rect, Quaternion.Euler(0f, 0f, 120f), 0.7f));                  // en tournant
         }
 
         private void ClearChoices()
