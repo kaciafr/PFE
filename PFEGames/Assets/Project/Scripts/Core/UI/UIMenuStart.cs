@@ -1,7 +1,6 @@
 using PrimeTween;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +9,6 @@ namespace Goblfin
 {
     public class UIMenuStart : MonoBehaviour
     {
-
         public Image Logo;
         public TextMeshProUGUI text;
         public Button btnPlay;
@@ -18,9 +16,14 @@ namespace Goblfin
         public Button btnQuit;
         public Image FadeTransition;
 
+        [Header("Système UI")]
+        [SerializeField] private UIScreen optionsScreen;
+        [SerializeField] private ConfirmPopup confirmPopup;
+        [SerializeField] private GameScene gameScene = GameScene.KaciScene;
+
         private Tween Tweenlogo;
-        private Tween TweenFloat ;
-        private Tween TweenSway ;
+        private Tween TweenFloat;
+        private Tween TweenSway;
         private Tween TweenText;
         public float smoothMultiplier = 1.04f;
         public float floatHeight = 10f;
@@ -34,11 +37,6 @@ namespace Goblfin
         private Vector3 baseScale;
 
         private bool started;
-
-        public float hoverScale = 1.1f;
-        public Color outlineColor = Color.white;
-        public Vector2 outlineDistance = new Vector2(3f, -3f);
-
 
         void Start()
         {
@@ -55,10 +53,6 @@ namespace Goblfin
 
             Logo.raycastTarget = false;
             text.raycastTarget = false;
-
-            SetupHover(btnPlay);
-            SetupHover(btnSettings);
-            SetupHover(btnQuit);
 
             btnPlay.gameObject.SetActive(false);
             btnSettings.gameObject.SetActive(false);
@@ -120,62 +114,22 @@ namespace Goblfin
             }
         }
 
-        void SetupHover(Button bouton)
-        {
-            Transform t = bouton.transform;
-            Vector3 taille = t.localScale;
-
-            Outline outline = bouton.GetComponent<Outline>();
-            if (outline == null) outline = bouton.gameObject.AddComponent<Outline>();
-            outline.effectColor = outlineColor;
-            outline.effectDistance = outlineDistance;
-            outline.enabled = false;
-
-            EventTrigger trigger = bouton.gameObject.AddComponent<EventTrigger>();
-
-            AddEvent(trigger, EventTriggerType.PointerEnter, () =>
-            {
-                Tween.StopAll(onTarget: t);
-                Tween.Scale(t, taille * hoverScale, 0.15f, Ease.OutBack);
-                outline.enabled = true;
-            });
-
-            AddEvent(trigger, EventTriggerType.PointerExit, () =>
-            {
-                Tween.StopAll(onTarget: t);
-                Tween.Scale(t, taille, 0.15f, Ease.OutQuad);
-                outline.enabled = false;
-            });
-        }
-
-        void AddEvent(EventTrigger trigger, EventTriggerType type, System.Action action)
-        {
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = type;
-            entry.callback.AddListener(_ => action());
-            trigger.triggers.Add(entry);
-        }
-
-
         void Play()
         {
             FadeTransition.raycastTarget = true;
 
             Tween.Color(FadeTransition, Color.black, 3f)
-                .OnComplete(() => SceneManager.LoadScene("KaciScene"));
+                .OnComplete(() => SceneManager.LoadScene(gameScene.ToString()));
         }
 
         void OpenSettings()
         {
-            Debug.Log("Options");
+            UIManager.Instance.Push(optionsScreen);
         }
 
         void Quit()
         {
-            Debug.Log("Quitter");
-            Application.Quit();
+            confirmPopup.Open("Quitter le jeu ?", Application.Quit);
         }
-        
-        
     }
 }

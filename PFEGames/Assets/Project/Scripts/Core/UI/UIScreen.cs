@@ -10,6 +10,7 @@ namespace Goblfin
         
         protected CanvasGroup canvasGroup;
         public bool isOpen { get; private set; }
+        public virtual bool CloseOnEscape => true;
 
         protected virtual void Awake()
         {

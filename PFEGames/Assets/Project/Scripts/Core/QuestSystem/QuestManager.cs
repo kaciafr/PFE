@@ -16,6 +16,12 @@ namespace Goblfin.QuestSystem
         private Dictionary<QuestItemSO, int  > invetory = new Dictionary<QuestItemSO, int>();
 
         public event Action<QuestSO> OnQuestCompleted;
+        public event Action<QuestSO> OnQuestAccepted;
+        public event Action<QuestSO,QuestRequirement> OnMissionDone;
+        public event Action<QuestSO> OnQuestReady;
+        
+
+        public IReadOnlyDictionary<QuestSO, QuestState> Quests => questsStatess;
 
 
         void Awake()
@@ -88,9 +94,30 @@ namespace Goblfin.QuestSystem
 
         public void AddItem(QuestItemSO item, int amount)
         {
-            invetory[item] = GetItemCount(item)  + amount;
+            int oldCount = GetItemCount(item);
+            invetory[item] = oldCount + amount;
             Debug.Log($"[Quest] +{amount} {item.itemName} (total : {invetory[item]})");
+            CheckMission(item, oldCount, invetory[item]);
             RefreshTracker();
+            
+ 
+        }
+
+        private void CheckMission(QuestItemSO item, int oldCount, int newCount)
+        {
+            foreach (KeyValuePair<QuestSO, QuestState> pair in questsStatess)
+            {
+                if (pair.Value != QuestState.Active) continue;
+                foreach (QuestRequirement req in pair.Key.Requirements)
+                {
+                    if (req.Item != item) continue;
+                    if (oldCount < req.Amount && newCount >= req.Amount)
+                    {
+                        OnMissionDone?.Invoke(pair.Key,req);
+                        if (CanTurnIn(pair.Key)) OnQuestReady?.Invoke(pair.Key);
+                    } 
+                }
+            }
         }
 
         public void TurnInQuest(QuestSO quest)

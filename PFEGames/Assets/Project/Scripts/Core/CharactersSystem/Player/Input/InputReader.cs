@@ -53,17 +53,29 @@ namespace Goblfin.CharactersSystem.Player.Input
         public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.WasPressedThisFrame();
 
         public float AimScroll => _playerInput != null ? _playerInput.Player.Aim.ReadValue<float>() : 0f;
-        
+
         private PlayerAction _playerInput;
+        
+        public PlayerAction Actions          // ← la propriété : nom DIFFÉRENT
+        {
+            get
+            {
+                if (_playerInput == null)
+                {
+                    _playerInput = new PlayerAction();
+                    _playerInput.Player.SetCallbacks(this);
+
+                    string json = PlayerPrefs.GetString("rebinds", "");
+                    if (!string.IsNullOrEmpty(json))
+                        _playerInput.asset.LoadBindingOverridesFromJson(json);
+                }
+                return _playerInput;
+            }
+        }
 
         public void EnablePlayerInput()
         {
-            if (_playerInput == null)
-            {
-                _playerInput = new PlayerAction();
-                _playerInput.Player.SetCallbacks(this);
-            }
-            _playerInput.Player.Enable();
+            Actions.Player.Enable();
         }
 
         public void DisableAllInput()
