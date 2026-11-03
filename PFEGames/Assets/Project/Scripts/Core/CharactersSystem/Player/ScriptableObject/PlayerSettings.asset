@@ -37,7 +37,7 @@ MonoBehaviour:
     <TransitionSpeed>k__BackingField: 12
     <CeilingLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 8
+      m_Bits: 2057
   <Ground>k__BackingField:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
@@ -65,7 +65,7 @@ MonoBehaviour:
   <Grab>k__BackingField:
     <Layer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 4224
+      m_Bits: 128
     <DetectDistance>k__BackingField: 1.5
     <RayHeight>k__BackingField: 0
     <PushPullSpeed>k__BackingField: 1

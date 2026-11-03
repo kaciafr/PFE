@@ -65,9 +65,6 @@ namespace Goblfin.PnjSystem
             GameObject rock = PrefabPool.Get(rockPrefab, origin, Random.rotation);
             if (rock.TryGetComponent(out ThrowRock thrown))
                 thrown.Launch(velocity, rockLifeTime);
-            
-            Debug.DrawLine(origin, aim, Color.red, 2f);
-            Debug.Log($"origine={origin} cible={aim} vitesse={velocity}");
 
             RocksLeft--;
             nextThrowTime = Time.time + throwCooldown;

@@ -69,6 +69,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9018566570302737744}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4069666769422872350}
   m_SourcePrefab: {fileID: 100100000, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
 --- !u!1 &4911646562775038435 stripped
 GameObject:
@@ -135,3 +138,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6174255, y: 0.5585673, z: 0.6602185}
   m_Center: {x: 0.014794618, y: 0.27928364, z: -0.0027732402}
+--- !u!114 &4069666769422872350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911646562775038435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8b1ca60219488e8b3350d541650abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.PnjSystem.KillZone
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  sensorOffset: {x: 0, y: 0, z: 0}
+  scanInterval: 0.05
+  detectedTargets: []
+  <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
+  killRadius: 0

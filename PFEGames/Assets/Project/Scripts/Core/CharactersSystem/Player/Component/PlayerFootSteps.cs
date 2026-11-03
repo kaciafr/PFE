@@ -1,4 +1,3 @@
-using Goblfin.CharactersSystem.Player;
 using Goblfin.SoundSystem;
 using UnityEngine;
 
