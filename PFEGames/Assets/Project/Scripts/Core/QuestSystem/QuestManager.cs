@@ -88,6 +88,7 @@ namespace Goblfin.QuestSystem
         {
             if (GetState(quest) != QuestState.Inactive) return;
             questsStatess[quest] = QuestState.Active;
+            OnQuestAccepted?.Invoke(quest);
             Debug.Log($"[Quest] Acceptée : {quest.QuestName}");
             RefreshTracker();
         }

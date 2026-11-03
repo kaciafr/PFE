@@ -8,12 +8,14 @@ namespace Goblfin.CharactersSystem.Player.States
         private const float MoveThreshold = 0.1f;
         private const float PullThreshold = -0.1f;
         private float pushOrPull;
+        private Vector3 moveDir;    
         private bool isPulling;
         private bool tooHeavy;
 
         public override void Enter(PlayerStateMachine ctx)
         {
             pushOrPull = 0f;
+            moveDir = Vector3.zero;
             isPulling = false;
 
             Rigidbody crate = ctx.Player.Sensor.CrateInFront;
@@ -40,9 +42,11 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            pushOrPull = Vector3.Dot(ctx.Player.MoveDirection, ctx.Player.Motor.Forward);
-            if (Mathf.Abs(pushOrPull) < MoveThreshold)
-                pushOrPull = 0f;
+            moveDir = Vector3.ClampMagnitude(ctx.Player.MoveDirection, 1f);
+            if (moveDir.magnitude < MoveThreshold)
+                moveDir = Vector3.zero;
+
+            pushOrPull = Vector3.Dot(moveDir, ctx.Player.Motor.Forward);
 
             bool pulling = pushOrPull < PullThreshold;
             if (pulling != isPulling)
@@ -52,20 +56,20 @@ namespace Goblfin.CharactersSystem.Player.States
             }
 
             float animSpeed = tooHeavy
-                ? Mathf.Abs(pushOrPull)
+                ? moveDir.magnitude
                 : ctx.Player.HorizontalSpeed / ctx.Player.Settings.Grab.PushPullSpeed;
             ctx.Player.Animator.SetGrabSpeed(animSpeed);
         }
 
         public override void FixedTick(PlayerStateMachine ctx)
         {
-            if (tooHeavy || pushOrPull == 0f)
+            if (tooHeavy || moveDir == Vector3.zero)
             {
                 ctx.Player.Stop();
                 return;
             }
 
-            ctx.Player.MoveWorld(ctx.Player.Facing * pushOrPull, ctx.Player.Settings.Grab.PushPullSpeed);
+            ctx.Player.MoveWorld(moveDir, ctx.Player.Settings.Grab.PushPullSpeed);
         }
 
         public override void Exit(PlayerStateMachine ctx)
