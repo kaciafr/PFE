@@ -21,7 +21,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 : ctx.Player.Settings.Movement.WalkSpeed;
 
             ctx.Player.Jump();
-            ctx.Player.Animator.Play(AnimIds.Jump , 0.05f );
+            ctx.Player.Animator.Play(AnimIds.Jump, 0.05f);
 
             maxFallSpeed = 0f;
             ctx.Player.Juice?.OnJump();
@@ -30,6 +30,12 @@ namespace Goblfin.CharactersSystem.Player.States
 
         public override void Tick(PlayerStateMachine ctx)
         {
+            if (WantsToClimb(ctx))
+            {
+                ctx.SwitchState(ctx.ClimbState);
+                return;
+            }
+
             timer += Time.deltaTime;
             if (timer < MinAirTime) return;
 
