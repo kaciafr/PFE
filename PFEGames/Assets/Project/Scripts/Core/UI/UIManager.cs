@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Goblfin.CharactersSystem.Player.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,11 @@ namespace Goblfin
         private Stack<UIScreen> stack = new Stack<UIScreen>();
         
         [SerializeField] private bool isGameplayScene = true;
+
+        // Pour couper les contrôles du gobelin pendant les menus
+        [SerializeField] private InputReader inputReader;
+        private bool wasPaused;          // un menu était-il déjà ouvert ?
+        private bool inputWasEnabled;    // les contrôles étaient-ils actifs avant le menu ?
 
 
         
@@ -70,6 +76,23 @@ namespace Goblfin
             Time.timeScale = menuOuvert ? 0f : 1f;
             Cursor.visible = menuOuvert;
             Cursor.lockState = menuOuvert ? CursorLockMode.None : CursorLockMode.Locked;
+
+            // Couper / rendre les contrôles du gobelin (seulement au moment où ça change)
+            if (inputReader != null)
+            {
+                if (menuOuvert && !wasPaused)
+                {
+                    // On retient s'ils étaient actifs (ex : pas pendant la mort)
+                    inputWasEnabled = inputReader.Actions.Player.enabled;
+                    inputReader.DisableAllInput();
+                }
+                else if (!menuOuvert && wasPaused && inputWasEnabled)
+                {
+                    inputReader.EnablePlayerInput();
+                }
+            }
+
+            wasPaused = menuOuvert;
         }
 
         
