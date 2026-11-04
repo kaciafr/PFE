@@ -1,4 +1,5 @@
 using Goblfin.CharactersSystem.Player.Input;
+using PrimeTween;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -97,22 +98,72 @@ namespace Goblfin
             bool wasEnabled = action.enabled;
             action.Disable();
 
+            // On retient l'ancienne touche pour pouvoir revenir en arrière si la nouvelle est déjà prise
+            string previousOverride = action.bindings[bindingIndex].overridePath;
+
             operation = action.PerformInteractiveRebinding(bindingIndex)
-                .WithControlsExcluding("<Mouse>/position")  
+                .WithControlsExcluding("<Mouse>/position")
                 .WithControlsExcluding("<Mouse>/delta")
-                .WithCancelingThrough("<Keyboard>/escape")   
+                .WithCancelingThrough("<Keyboard>/escape")
                 .OnMatchWaitForAnother(0.1f)
-                .OnComplete(op => Finish(wasEnabled, true))
+                .OnComplete(op => OnRebindComplete(wasEnabled, previousOverride))
                 .OnCancel(op => Finish(wasEnabled, false))
                 .Start();
         }
 
+        // La touche est choisie : on vérifie qu'elle n'est pas déjà utilisée
+        void OnRebindComplete(bool wasEnabled, string previousOverride)
+        {
+            if (!IsDuplicate())
+            {
+                Finish(wasEnabled, true);
+                return;
+            }
+
+            // Déjà prise → on remet l'ancienne touche
+            if (string.IsNullOrEmpty(previousOverride))
+                action.RemoveBindingOverride(bindingIndex);
+            else
+                action.ApplyBindingOverride(bindingIndex, previousOverride);
+
+            Finish(wasEnabled, false);
+
+            // Petit message d'erreur, puis on réaffiche la touche (en temps réel : marche pendant la pause)
+            txtKey.text = "Déjà utilisée !";
+            Tween.Delay(1f, RefreshText, useUnscaledTime: true);
+        }
+
+        // Une autre action (ou une autre direction) a-t-elle déjà cette touche ?
+        bool IsDuplicate()
+        {
+            InputBinding newBinding = action.bindings[bindingIndex];
+
+            foreach (InputAction other in action.actionMap.actions)
+            {
+                for (int i = 0; i < other.bindings.Count; i++)
+                {
+                    InputBinding b = other.bindings[i];
+                    if (b.isComposite || b.id == newBinding.id) continue;       // la "boîte" ZQSD, ou soi-même
+                    if (b.effectivePath != newBinding.effectivePath) continue;  // touche différente
+
+                    // Interact / Grab / Climb partagent E dans le GDD → autorisé entre eux
+                    if (SharedKey(action.name) && SharedKey(other.name)) continue;
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static bool SharedKey(string actionName) =>
+            actionName == "Interact" || actionName == "Grab" || actionName == "Climb";
+
         void Finish(bool wasEnabled, bool save)
         {
-            operation.Dispose();   
+            operation.Dispose();
             if (wasEnabled) action.Enable();
 
-         
+
             if (save)
                 PlayerPrefs.SetString("rebinds", action.actionMap.asset.SaveBindingOverridesAsJson());
 

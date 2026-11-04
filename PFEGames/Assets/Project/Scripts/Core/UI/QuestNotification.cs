@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Goblfin
 {
-    public class QuestNotification : MonoBehaviour 
+    [RequireComponent(typeof(CanvasGroup))]
+    public class QuestNotification : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI txtMessage;
         [SerializeField] private float fadeDuration = 0.3f;
