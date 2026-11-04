@@ -24,22 +24,35 @@ namespace Goblfin
         {
             btnControls.onClick.AddListener(() => UIManager.Instance.Push(controlsScreen));
 
+            // Qualité EN PREMIER : elle ne dépend de rien d'autre
+            dropdownQuality.ClearOptions();
+            dropdownQuality.AddOptions(new List<string>(QualitySettings.names));
+
+            // Clamp : si un niveau a été supprimé dans Project Settings, l'index sauvegardé peut être trop grand
+            int quality = PlayerPrefs.GetInt("quality", QualitySettings.GetQualityLevel());
+            quality = Mathf.Clamp(quality, 0, QualitySettings.names.Length - 1);
+            dropdownQuality.SetValueWithoutNotify(quality);
+            dropdownQuality.RefreshShownValue();
+            QualitySettings.SetQualityLevel(quality);
+
+            FullScreen.isOn = Screen.fullScreen;
+
             float music = PlayerPrefs.GetFloat("MusicVolume", 1f);
             float sfx = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
             sliderMusic.value = music;
-            sliderSFX.value = sfx;  
-            SoundManager.Instance.SetMusicVolume(music);
-            SoundManager.Instance.SetSFXVolume(sfx);
-            
-            FullScreen.isOn = Screen.fullScreen;
-            
-            dropdownQuality.ClearOptions();
-            dropdownQuality.AddOptions(new List<string>(QualitySettings.names));
-            
-            int quality = PlayerPrefs.GetInt("quality", QualitySettings.GetQualityLevel());
-            dropdownQuality.value = quality;
-            QualitySettings.SetQualityLevel(quality);
+            sliderSFX.value = sfx;
+
+            // Pas de SoundManager dans la scène → on ne plante pas, on prévient
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.SetMusicVolume(music);
+                SoundManager.Instance.SetSFXVolume(sfx);
+            }
+            else
+            {
+                Debug.LogWarning("UIOption : pas de SoundManager dans la scène, les volumes ne s'appliquent pas.");
+            }
 
             sliderMusic.onValueChanged.AddListener(SetMusic);
             sliderSFX.onValueChanged.AddListener(SetSFX);
@@ -55,13 +68,13 @@ namespace Goblfin
 
         private void SetMusic(float value)
         {
-            SoundManager.Instance.SetMusicVolume(value);
+            if (SoundManager.Instance != null) SoundManager.Instance.SetMusicVolume(value);
             PlayerPrefs.SetFloat("MusicVolume", value);
         }
 
         private void SetSFX(float value)
         {
-            SoundManager.Instance.SetSFXVolume(value);
+            if (SoundManager.Instance != null) SoundManager.Instance.SetSFXVolume(value);
             PlayerPrefs.SetFloat("SFXVolume", value);
         }
 
