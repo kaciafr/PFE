@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Goblfin.Player;
+using Goblfin.Player.Component;
 using Goblfin.RagdollSystem;
 using UnityEngine;
 

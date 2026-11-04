@@ -1,4 +1,5 @@
 using System.Collections;
+using Goblfin.Player.Component;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player.Component

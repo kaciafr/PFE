@@ -1,6 +1,7 @@
+using Goblfin.CharactersSystem.Player.Component;
 using UnityEngine;
 
-namespace Goblfin.CharactersSystem.Player.Component
+namespace Goblfin.Player.Component
 {
     public class PlayerCorpse : MonoBehaviour
     {

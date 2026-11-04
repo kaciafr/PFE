@@ -41,7 +41,7 @@ MonoBehaviour:
   <Ground>k__BackingField:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 9
+      m_Bits: 2057
     <RaycastDistance>k__BackingField: 0.6
     <CheckOffset>k__BackingField: 0.1
     <RayCount>k__BackingField: 8

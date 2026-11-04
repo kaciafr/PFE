@@ -1,4 +1,5 @@
 using Goblfin.CharactersSystem.Player.Component;
+using Goblfin.Player.Component;
 using Goblfin.RagdollSystem;
 using UnityEditor;
 using UnityEngine;
