@@ -1,9 +1,9 @@
+using Goblfin.CharactersSystem.Player;
 using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using Goblfin.CharactersSystem.Player.States;
 
-namespace Goblfin.CharactersSystem.Player.States
+namespace Goblfin.Player.States
 {
     public class PlayerDieState : PlayerState
     {
@@ -11,7 +11,7 @@ namespace Goblfin.CharactersSystem.Player.States
         {
             ctx.Player.Input.DisableAllInput();
             ctx.Player.Stop();
-
+            
             PlayerRagdoll ragdoll = ctx.Player.GetComponentInChildren<PlayerRagdoll>();
             if (ragdoll != null)
                 ragdoll.Kill();

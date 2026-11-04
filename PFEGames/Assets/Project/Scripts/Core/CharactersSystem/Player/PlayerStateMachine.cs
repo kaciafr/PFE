@@ -1,6 +1,7 @@
 
 using Goblfin.CharactersSystem.Player.States;
 using Goblfin.Player;
+using Goblfin.Player.States;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player

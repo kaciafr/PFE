@@ -25,22 +25,26 @@ namespace Goblfin.PnjSystem
 
 		private void Start()
 		{
-			ragdoll = GetComponentInChildren<ActiveRagdoll>();
-			ragdoll.enabled = false;
-			killZone = GetComponentInChildren<KillZone>();
-			killZone.enabled = false;
+			TryGetComponent(out ragdoll);
+			if (ragdoll != null)
+				ragdoll.enabled = false;
+
+			TryGetComponent(out killZone);
+			if (killZone != null)
+				killZone.enabled = false;
 		}
 
 		private void Update()
 		{
 			
-			if (collider.radius <= 0.05f)
+			if (collider.radius <= 0.02f)
 			{
 				if (ragdoll != null)
 					ragdoll.enabled = false;
 				if (killZone != null)
 					killZone.enabled = false;
 				collider.enabled = false;
+
 			}
 			else
 			{
@@ -49,6 +53,7 @@ namespace Goblfin.PnjSystem
 				if (killZone != null)
 					killZone.enabled = true;
 				collider.enabled = true;
+
 			}
 				
 			

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8855921741753581402}
   - component: {fileID: 1678401732763158187}
   - component: {fileID: 8212504197186131908}
+  - component: {fileID: 7448362684863524360}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -246,8 +247,8 @@ MonoBehaviour:
     m_AngleError: 8
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
-  assetGuid: 9a6c51c9fa004a2c814e617ed2d69319
-  m_Mesh: {fileID: 4300000, guid: e1cae1c19297f97498e5cba2d7133367, type: 2}
+  assetGuid: 0417a684c8f54a5abc2053a65a107a60
+  m_Mesh: {fileID: 4300000, guid: f5e45f2aa8ef9124e8d0b79cd584d3a2, type: 2}
   m_VersionIndex: 2240
   m_IsSelectable: 1
   m_SelectedFaces: 
@@ -334,7 +335,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3316705687889492027}
-  m_Mesh: {fileID: 4300000, guid: e1cae1c19297f97498e5cba2d7133367, type: 2}
+  m_Mesh: {fileID: 4300000, guid: f5e45f2aa8ef9124e8d0b79cd584d3a2, type: 2}
 --- !u!64 &8212504197186131908
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -356,7 +357,23 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: e1cae1c19297f97498e5cba2d7133367, type: 2}
+  m_Mesh: {fileID: 4300000, guid: f5e45f2aa8ef9124e8d0b79cd584d3a2, type: 2}
+--- !u!208 &7448362684863524360
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316705687889492027}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.425, y: 3.5000002, z: 1.3750001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.125, z: 0.25}
+  m_TimeToStationary: 0.5
 --- !u!1 &4409738172185036995
 GameObject:
   m_ObjectHideFlags: 0

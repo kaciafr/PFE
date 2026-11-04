@@ -12,6 +12,8 @@ namespace Goblfin.PnjSystem
 		
 		protected override void Scan()
 		{
+			if(!this.enabled)return;
+			
 			detectedTargets.Clear();
 			
 			Transform dangerTarget = FindTargetInRadius(killRadius);
@@ -20,6 +22,7 @@ namespace Goblfin.PnjSystem
 			
 			Debug.Log("Dead");
 			dangerTarget.GetComponentInParent<IDie>()?.Die();
+			
 			OnDeath?.Invoke();
 		}
 		

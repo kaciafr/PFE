@@ -10,6 +10,7 @@ namespace Goblfin
 
 		private void OnTriggerEnter(Collider other)
 		{
+			if(!enabled)return;
 			RagDoll ragdoll = other.GetComponentInParent<RagDoll>();
 			Animator animator = other.GetComponentInParent<Animator>();
 

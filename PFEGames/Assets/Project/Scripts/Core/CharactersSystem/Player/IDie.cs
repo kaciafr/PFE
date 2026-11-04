@@ -5,7 +5,7 @@ namespace Goblfin.CharactersSystem.Player
 
         void Die()
         {
-        
+            
         }
     }
 }
