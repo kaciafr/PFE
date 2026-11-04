@@ -24,7 +24,7 @@ namespace Goblfin.Gameplay.CachetteZone
 
             foreach (GameObject door in doors)
             {
-                door.transform.rotation = openRotation;
+                door.transform.rotation = Quaternion.Lerp(door.transform.rotation, openRotation, Time.fixedDeltaTime);
             }
                 
         }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.Player;
+using Goblfin.Player.Component;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player.Component

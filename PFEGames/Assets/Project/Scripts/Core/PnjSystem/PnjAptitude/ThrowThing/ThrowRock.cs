@@ -12,7 +12,7 @@ namespace Goblfin.PnjSystem
 
         private void OnEnable()
         {
-            launched = false;
+            launched = true;
             rb.linearVelocity =  Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
@@ -25,11 +25,11 @@ namespace Goblfin.PnjSystem
         }
 
         private void FixedUpdate()
-        {
-            if (!launched || Time.time < releaseAt) return;
-            
-            launched = false;
+        { 
+            if (!launched || Time.time <= releaseAt) return;
+            Debug.Log($"Thrown {releaseAt}");
             PrefabPool.Release(gameObject);
+            launched = false;
         }
     }
 }

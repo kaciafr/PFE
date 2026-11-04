@@ -1,8 +1,8 @@
-using System;
+using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
-namespace Goblfin.CharactersSystem.Player.Component
+namespace Goblfin.Player.Component
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMotor : MonoBehaviour

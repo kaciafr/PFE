@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.793095
+      value: 13.313497
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0723128
+      value: 0.17091063
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.726733
+      value: 8.39385
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       propertyPath: m_LocalRotation.w
@@ -69,9 +69,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5518865718577438358}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2446583306623254045}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
       insertIndex: -1
       addedObject: {fileID: 689584992908925946}
@@ -141,26 +138,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6174255, y: 0.5585673, z: 0.6602185}
   m_Center: {x: 0.014794618, y: 0.27928364, z: -0.0027732402}
---- !u!114 &2446583306623254045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170840752849571052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282aaf3bf1684cc187fdf9c995f41224, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.PnjSystem.FallingItems
-  collider: {fileID: 0}
-  items: {fileID: 11400000, guid: 5e87dfc0df5758241beffd991df95495, type: 2}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 15359
-  maxDetectionRadius: 1.04
-  distanceMaxOfDetection: 1.47
-  wasFalling: 0
 --- !u!114 &689584992908925946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,9 +155,9 @@ MonoBehaviour:
     m_Bits: 1024
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   sensorOffset: {x: 0, y: 0.26, z: 0}
   scanInterval: 0.05
   detectedTargets: []
   <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
-  killRadius: 0.4
+  killRadius: 0.48

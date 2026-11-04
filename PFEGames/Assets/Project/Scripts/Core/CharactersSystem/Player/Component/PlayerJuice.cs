@@ -1,3 +1,4 @@
+using Goblfin.Player.Component;
 using UnityEngine;
 using Unity.Cinemachine;
 namespace Goblfin.CharactersSystem.Player.Component

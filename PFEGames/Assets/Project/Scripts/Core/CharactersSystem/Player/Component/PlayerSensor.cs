@@ -1,6 +1,7 @@
 using System.Numerics;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Interface;
+using Goblfin.Player.Component;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
