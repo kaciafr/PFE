@@ -14,7 +14,6 @@ using UnityEngine;
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			brainPnj.material.color = Color.cyan;
 			brainPnj.Agent.speed = AgentSpeed;
 			brainPnj.Agent.SetDestination(friend.transform.position);
 		}

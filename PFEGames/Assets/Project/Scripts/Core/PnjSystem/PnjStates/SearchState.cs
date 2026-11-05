@@ -23,9 +23,6 @@ namespace Goblfin.PnjSystem
 
        public void EnterState(BrainPnj brainPnj)
        { 
-	       //A ENLEVER
-	       brainPnj.material.color = Color.yellow;
-          
           timer = 0f;
           currentSearchIndex = 0;
           isWaiting = false;

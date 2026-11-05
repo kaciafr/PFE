@@ -21,23 +21,17 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			//A ENLEVER
-			brainPnj.material.color = Color.blue;
+			Debug.Log("Chase State");
 			brainPnj.Agent.speed = AgentSpeed;
 			vision = brainPnj.GetAptitude<VisionCone>();
 			thrower = brainPnj.GetAptitude<ThrowThingsManager>();
 			nextReachCheck = Time.time + 0.5f;
-
-			if (vision == null)
-			{
-				Debug.LogError($"{nameof(vision)} is null");
-				brainPnj.PnjGoTo(new SearchState(brainPnj,lastKnownPosition));
-			}
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			if (vision != null && vision.CanSee(target))
+			var canSee = vision.CanSee(target);
+			if (canSee)
 			{
 				lastKnownPosition = target.transform.position;
 
@@ -55,7 +49,7 @@ namespace Goblfin.PnjSystem
 				}
 				brainPnj.Agent.SetDestination(lastKnownPosition);
 			}
-			if (!brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
+			if (!canSee && !brainPnj.Agent.pathPending && brainPnj.Agent.remainingDistance < 0.2f)
 				brainPnj.PnjGoTo(new SearchState(brainPnj,lastKnownPosition));
 		}
 

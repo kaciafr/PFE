@@ -27,7 +27,6 @@ namespace Goblfin.PnjSystem
         private void FixedUpdate()
         { 
             if (!launched || Time.time <= releaseAt) return;
-            Debug.Log($"Thrown {releaseAt}");
             PrefabPool.Release(gameObject);
             launched = false;
         }

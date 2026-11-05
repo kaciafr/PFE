@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.PnjDetection;
 using UnityEngine;
 
 namespace Goblfin.PnjSystem

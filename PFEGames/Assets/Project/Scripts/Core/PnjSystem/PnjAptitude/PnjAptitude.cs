@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Goblfin.PnjSystem.PnjDetection
+namespace Goblfin.PnjSystem
 {
 	public class PnjAptitude : MonoBehaviour
 	{

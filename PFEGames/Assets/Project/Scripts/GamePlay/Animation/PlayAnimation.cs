@@ -1,35 +1,35 @@
 using Goblfin.PnjSystem;
-using Goblfin.PnjSystem.PnjDetection;
 using UnityEngine;
 
-namespace Goblfin.Gameplay.Gameplay.Animation
+namespace Goblfin.Gameplay.Animation
 {
 	public class PlayAnimation : MonoBehaviour
 	{
 		[SerializeField] private BrainPnj brainPnj;
 		[SerializeField] private Animator animator;
 		private float currentSpeed;
+		private ThrowThingsManager thrower;
 		private KillZone killZone;
 
 		private void Start()
 		{
 			killZone = brainPnj.GetAptitude<KillZone>();
+			thrower = brainPnj.GetAptitude<ThrowThingsManager>();
 		}
 		
 		private void Update()
-		{
-			UpdateAnimation();
-		}
-		
-		private void UpdateAnimation()
 		{
 			currentSpeed = brainPnj.Agent.speed;
 			animator.SetFloat("Speed", currentSpeed);
 		}
 		
-		private void Penalty()
+		public void AnimationEvent_ThrowStone()
 		{
-			animator.SetTrigger("Penalty");
+			if (thrower != null)
+			{
+				thrower.TryThrow(thrower.TargetPos);
+			}
 		}
+		
 	}
 }

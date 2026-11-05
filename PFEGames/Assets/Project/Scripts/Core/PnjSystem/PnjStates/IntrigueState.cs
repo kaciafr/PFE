@@ -23,8 +23,6 @@ namespace Goblfin.PnjSystem
 
 		public void EnterState(BrainPnj brainPnj)
 		{
-			//A ENLEVER
-			brainPnj.material.color = Color.green;
 			vision = brainPnj.GetAptitude<VisionCone>();
 
 			Debug.Log(nameof(IntrigueState));

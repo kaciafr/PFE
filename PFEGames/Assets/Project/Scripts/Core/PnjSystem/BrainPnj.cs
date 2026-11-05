@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Goblfin.PnjSystem.PnjDetection;
 using Goblfin.PnjSystem.Routine;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,8 +8,7 @@ namespace Goblfin.PnjSystem
 {
 	public class BrainPnj : RagDoll
 	{
-		//A ENLEVER
-		public Material material;
+		#region Settings
 		[SerializeField] private List<PnjAptitude> aptitudes = new List<PnjAptitude>();
 		[field:SerializeField] public NavMeshAgent Agent {get; private set;}
 		[field:SerializeField] public List<PointTime> RoutinePattern {get; private set;} = new List<PointTime>();
@@ -30,12 +28,11 @@ namespace Goblfin.PnjSystem
 		
 		[field:SerializeField]  public bool isAlertedBySound = false;
 		private float soundAlertTimer = 0f;
-
+		#endregion
 		#region Configuration
 
 		private void Awake()
 		{
-			Animator = GetComponentInChildren<Animator>();
 			Agent = GetComponent<NavMeshAgent>();
 
 			ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -54,9 +51,6 @@ namespace Goblfin.PnjSystem
 		
 		private void Start()
 		{
-			//A ENLEVER
-			material.color = Color.red;
-			
 			PnjGoTo(new PatrolState(this));
 			findProblem = GetAptitude<ProblemAttraction>();
 			vision = GetAptitude<VisionCone>();
@@ -148,15 +142,6 @@ namespace Goblfin.PnjSystem
 				{
 					isAlertedBySound = false;
 				}
-			}
-			
-			if (Agent.remainingDistance<=0.1)
-			{
-				Agent.speed = 0;
-			}
-			else
-			{
-				Agent.speed = PnjStates.AgentSpeed;
 			}
 			PnjStates.UpdateState(this);
 		}

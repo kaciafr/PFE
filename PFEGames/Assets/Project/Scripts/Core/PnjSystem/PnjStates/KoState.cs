@@ -11,8 +11,7 @@ namespace Goblfin.PnjSystem
 		private float maxWakeUpTime = GameMetrix.WakeUpTime;
 		public void EnterState(BrainPnj brainPnj)
 		{
-			//A ENLEVER
-			brainPnj.material.color = Color.black;
+			
 			brainPnj.Agent.enabled = false; 
 			brainPnj.SetRagdollPhysics(true);
 			wakeUpTime = 0;

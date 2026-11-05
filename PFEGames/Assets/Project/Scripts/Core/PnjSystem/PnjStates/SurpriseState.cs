@@ -18,9 +18,6 @@ namespace Goblfin.PnjSystem
 		}
 		public void EnterState(BrainPnj brainPnj)
 		{
-			//A ENLEVER
-			brainPnj.material.color = Color.deepPink;
-			
 			time = 0;
 			brainPnj.Agent.speed = AgentSpeed;
 			pnjPos = brainPnj.transform.position;

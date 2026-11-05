@@ -1,4 +1,3 @@
-using Goblfin.PnjSystem.PnjDetection;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,7 +28,7 @@ namespace Goblfin.PnjSystem
         private NavMeshAgent agent;
         private NavMeshPath path;
         private float nextThrowTime;
-        
+        [field:SerializeField] public Vector3 TargetPos{get; private set;}
         private void OnEnable() => RocksLeft = maxRocks;
         
         public bool InRange(Vector3 target, float margin = 1f) =>
@@ -72,6 +71,10 @@ namespace Goblfin.PnjSystem
             RocksLeft--;
             nextThrowTime = Time.time + throwCooldown;
             return true;
+        }
+        public void SetTarget(Vector3 target)
+        {
+            TargetPos = target;
         }
     }
 }

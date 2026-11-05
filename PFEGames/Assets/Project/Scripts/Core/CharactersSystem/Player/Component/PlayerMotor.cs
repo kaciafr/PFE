@@ -87,8 +87,7 @@ namespace Goblfin.Player.Component
             Vector3 velocity = Vector3.MoveTowards(current, target, rate * rateair * Time.fixedDeltaTime);
             velocity.y = rb.linearVelocity.y;
             rb.linearVelocity = BlockSteepSlope(velocity);
-
-
+            
         }
 
         // 1. On repère les pentes trop raides que le gobelin touche (plus de MaxSlopeAngle)
