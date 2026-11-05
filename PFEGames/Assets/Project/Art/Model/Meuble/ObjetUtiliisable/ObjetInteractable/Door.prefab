@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 5840096912251990954}
   - component: {fileID: 2913035572956799202}
   - component: {fileID: 4620555219328124471}
-  - component: {fileID: 71554078478871363}
   - component: {fileID: 1857393906721563675}
-  - component: {fileID: 2567674182915468692}
-  - component: {fileID: 2033423149218855412}
+  - component: {fileID: 6043625618968537276}
+  - component: {fileID: 5178535718652249808}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -30,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960995947489985664}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.75, y: 0.52, z: 0.5}
   m_LocalScale: {x: 0.17, y: 2.03, z: 2}
   m_ConstrainProportionsScale: 0
@@ -96,7 +95,20 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &71554078478871363
+--- !u!114 &1857393906721563675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960995947489985664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2c94b85e7048a6a9f36bc2261e6a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::DoorOpenAction
+  door: {fileID: 5840096912251990954}
+--- !u!65 &6043625618968537276
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,56 +127,24 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.99999994, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1857393906721563675
-MonoBehaviour:
+--- !u!208 &5178535718652249808
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960995947489985664}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2c94b85e7048a6a9f36bc2261e6a04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::DoorOpenAction
-  door: {fileID: 5840096912251990954}
---- !u!114 &2567674182915468692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960995947489985664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6b6e52042c75146b3889d3cd8a981e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.ElementSimulation
-  <ElementData>k__BackingField: {fileID: 11400000, guid: 9d20484a7858adf4aa5b4fdabd0c0b87, type: 2}
-  elementInfos: []
-  <Collider>k__BackingField: {fileID: 0}
-  <Heat>k__BackingField: 0
-  <Humidity>k__BackingField: 0
-  <Electricity>k__BackingField: 0
-  hot: {fileID: 2535272385427102660}
-  burn: {fileID: 7722990092585797149}
-  root: {fileID: 0}
---- !u!114 &2033423149218855412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960995947489985664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03e93734e3b32c449879f44e2255f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Runtime.Project.Scripts.Core.Health
-  <CurrentDeathVisual>k__BackingField: 0
-  currentHealth: 10
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1613586235948414345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239,11 +219,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1210197191061721342, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
   m_PrefabInstance: {fileID: 1613586235948414345}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &7722990092585797149 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
-  m_PrefabInstance: {fileID: 1613586235948414345}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6802149020000544848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,11 +284,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae56390502084a42aa42dcf229784a9, type: 3}
---- !u!198 &2535272385427102660 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 9027763093632594836, guid: fae56390502084a42aa42dcf229784a9, type: 3}
-  m_PrefabInstance: {fileID: 6802149020000544848}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5669307973303777454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1210197191061721342, guid: fae56390502084a42aa42dcf229784a9, type: 3}
