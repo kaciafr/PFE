@@ -24,13 +24,16 @@ namespace Goblfin.CharactersSystem.Player.Component
         
         public bool IsGrounded { get; private set; }
         public Vector3 GroundNormal { get; private set; } = Vector3.up;
-        // Hauteur (y) du sol sur lequel se tient le gobelin
         public float GroundHeight { get; private set; }
         public bool LadderInFront { get; private set; }
         public bool LadderTopReached { get; private set; }
 
         public Rigidbody ThrowableInFront { get; private set; }
         public Vector3 LadderNormal { get; private set; }
+        public float LadderDistance { get; private set; }
+        public bool CanClimbOver { get; private set; } = true;   // false = s'arrête en haut (bannière)
+        public float StopBelowTop { get; private set; }          // bannière : arrêt à X m sous le haut
+
         public Vector3 LadderPoint { get; private set; }
         public float LadderTopY { get; private set; }
         public Rigidbody CrateInFront { get; private set; }
@@ -109,6 +112,12 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (LadderInFront)
             {
                 LadderNormal = hit.normal;
+                // Bannière (avec ClimbSurface) → ses propres réglages, sinon → échelle normale
+                bool special = hit.collider.TryGetComponent(out ClimbSurface surface);
+                LadderDistance = special ? surface.Distance : climb.LadderDistance;
+                CanClimbOver = special ? surface.CanClimbOver : true;
+                StopBelowTop = special ? surface.StopBelowTop : 0f;
+
                 LadderTopY = hit.collider.bounds.max.y;
 
                 Vector3 side = Vector3.Cross(Vector3.up, hit.normal).normalized;

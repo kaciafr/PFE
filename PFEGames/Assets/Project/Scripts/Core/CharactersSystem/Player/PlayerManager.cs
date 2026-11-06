@@ -233,7 +233,7 @@ namespace Goblfin.Player
         public void StartClimb()
         {
             IsClimbing = true;
-            Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal);
+            Motor.StartClimb(Sensor.LadderPoint, Sensor.LadderNormal, Sensor.LadderDistance);
         }
 
         public void Climb(float input) => Motor.Climb(input * Settings.Climb.Speed);

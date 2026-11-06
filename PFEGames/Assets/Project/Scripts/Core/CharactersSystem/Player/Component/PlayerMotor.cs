@@ -20,7 +20,6 @@ namespace Goblfin.Player.Component
         private Quaternion modelStartLocalRot;
         private PlayerSensor playerSensor;
         private float lastjump = -1;
-        // Normale d'une pente trop raide touchée (zero = aucune)
         private Vector3 steepNormal;
 
         public Vector3 Velocity => rb.linearVelocity;
@@ -90,25 +89,20 @@ namespace Goblfin.Player.Component
             
         }
 
-        // 1. On repère les pentes trop raides que le gobelin touche (plus de MaxSlopeAngle)
         private void OnCollisionStay(Collision collision)
         {
             foreach (ContactPoint contact in collision.contacts)
             {
                 float angle = Vector3.Angle(contact.normal, Vector3.up);
-                // Pente trop raide, mais pas un mur droit (90°)
                 if (angle > settings.Ground.MaxSlopeAngle && angle < 89f)
                     steepNormal = contact.normal;
             }
         }
 
-        // 2. On retire la partie de la vitesse qui pousse DANS la pente raide,
-        //    sinon la physique la transforme en montée
         private Vector3 BlockSteepSlope(Vector3 velocity)
         {
             if (steepNormal == Vector3.zero) return velocity;
 
-            // Direction horizontale qui "sort" de la pente
             Vector3 outDir = new Vector3(steepNormal.x, 0f, steepNormal.z).normalized;
             float into = Vector3.Dot(velocity, outDir);
             if (into < 0f)
@@ -187,7 +181,7 @@ namespace Goblfin.Player.Component
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
         }
 
-        public void StartClimb(Vector3 ladderPoint, Vector3 ladderNormal)
+        public void StartClimb(Vector3 ladderPoint, Vector3 ladderNormal , float ladderDistance)
         {
             ladderNormal.y = 0f;
             if (ladderNormal.sqrMagnitude < 0.001f || ladderPoint == Vector3.zero)
@@ -211,7 +205,7 @@ namespace Goblfin.Player.Component
                 model.localPosition = modelStartLocalPos + localDir * offset;
             }
 
-            Vector3 snap = ladderPoint + ladderNormal * settings.Climb.LadderDistance;
+            Vector3 snap = ladderPoint + ladderNormal * ladderDistance;
             snap.y = rb.position.y;
             rb.position = snap;
 
