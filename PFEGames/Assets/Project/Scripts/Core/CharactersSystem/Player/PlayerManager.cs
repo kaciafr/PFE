@@ -59,8 +59,12 @@ namespace Goblfin.Player
         private float landNoise = 8f;
         [SerializeField, Min(0.01f), Tooltip("Durée du pic de bruit après une grosse réception.")]
         private float landNoiseDuration = 0.5f;
-        private float landNoiseTimer;   
+        private float landNoiseTimer;
 
+
+        [SerializeField, Min(0f)] private float deathFallHeight = 3f;
+        private float highestAirY;
+        private bool wasInAir;
         public bool isMakingNoise => noise != null && noise.IsMakingNoise;
 
 
@@ -100,12 +104,39 @@ namespace Goblfin.Player
             if (Input.JumpPressed)
                 lastJumpPressedTime = Time.time;
 
-            // Le pic de bruit de réception diminue avec le temps
             if (landNoiseTimer > 0f)
                 landNoiseTimer -= Time.deltaTime;
+            CheckFallDeath();
         }
 
-        // Appelé à l'atterrissage : bruit seulement pour les grosses chutes
+        private void CheckFallDeath()
+        {
+            float y = rb.position.y;
+
+            if (CurrentState == StateMachine.DieState || IsClimbing)
+            {
+                wasInAir = false;
+                return;
+            }
+
+
+            if (!Sensor.IsGrounded)
+            {
+                if (!wasInAir) highestAirY = y; 
+                highestAirY = Mathf.Max(highestAirY, y);
+                wasInAir = true;
+                return;
+            }
+
+            if (wasInAir)
+            {
+                wasInAir = false;
+                float fallHeight = highestAirY - y;
+               if (fallHeight >= deathFallHeight)
+                                   Die();
+            }
+        }
+
         public void MakeLandNoise(float fallSpeed)
         {
             if (fallSpeed >= Settings.Jump.HardLandSpeed)

@@ -78,11 +78,122 @@ public static class GobflinUIBuilder
         { "controlsScreen", typeof(ControlsScreen) },
     };
 
+    // ═══════════════════ TOUT RÉPARER (menu OU jeu) ═══════════════════
+    [MenuItem("Tools/Goblfin/UI/Tout réparer (scène ouverte)", priority = 0)]
+    static void FixAll()
+    {
+        // 0. Jamais en Play : tout serait perdu à l'arrêt
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Arrête le mode Play d'abord (sinon tout est perdu).", "OK");
+            return;
+        }
+
+        report.Clear();
+        InputReader inputReader = AssetDatabase.LoadAssetAtPath<InputReader>(InputReaderPath);
+
+        // 1. Trouver le Canvas principal (celui du menu ou celui de la pause)
+        Canvas canvas = FindMainCanvas();
+        if (canvas == null)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Aucun Canvas dans la scène.", "OK");
+            return;
+        }
+
+        // 2. Les écrans posés EN DEHORS du Canvas → on les range dedans
+        foreach (UIScreen screen in Object.FindObjectsByType<UIScreen>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (screen.GetComponentInParent<Canvas>(true) != null) continue;
+            Undo.SetTransformParent(screen.transform, canvas.transform, "Ranger écran dans Canvas");
+            screen.transform.localScale = Vector3.one;
+            Stretch(screen.gameObject);
+            report.Add($"{screen.name} rangé dans le Canvas.");
+        }
+
+        // 3. UIManager : le créer s'il manque
+        UIManager uiManager = Object.FindFirstObjectByType<UIManager>(FindObjectsInactive.Include);
+        if (uiManager == null)
+        {
+            GameObject go = new GameObject("UIManager");
+            Undo.RegisterCreatedObjectUndo(go, "Créer UIManager");
+            uiManager = go.AddComponent<UIManager>();
+            report.Add("UIManager créé.");
+        }
+        if (uiManager.name == "GameObject") { Undo.RecordObject(uiManager.gameObject, "Renommer"); uiManager.name = "UIManager"; }
+
+        // Scène de jeu = il y a un joueur. Sinon (menu) : pas de pause, souris libre.
+        bool isGameplay = Object.FindFirstObjectByType<PlayerManager>(FindObjectsInactive.Include) != null;
+        SetBool(uiManager, "isGameplayScene", isGameplay);
+        report.Add("UIManager → Is Gameplay Scene = " + (isGameplay ? "oui (scène de jeu)" : "non (menu)"));
+
+        // 4. Tous les champs "inputReader" vides → InputReader du joueur
+        if (inputReader != null)
+            foreach (MonoBehaviour mb in Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (mb != null && mb.GetType().Namespace != null && mb.GetType().Namespace.StartsWith("Goblfin"))
+                    SetIfEmpty(mb, "inputReader", inputReader);
+
+        // 5. Écrans actifs, CanvasGroup, références vers les écrans, scènes du build
+        FixReferencesCore();
+
+        // 6. Le pop-up toujours en dernier (dessiné par-dessus tout)
+        ConfirmPopup popup = Object.FindFirstObjectByType<ConfirmPopup>(FindObjectsInactive.Include);
+        if (popup != null) popup.transform.SetAsLastSibling();
+
+        // 7. Ce qui reste VIDE (à remplir à la main)
+        ReportEmptyFields(canvas, uiManager);
+
+        EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
+        Debug.Log("[UI Gobflin] Tout réparer\n" + string.Join("\n", report));
+        EditorUtility.DisplayDialog("UI Gobflin", string.Join("\n", report) + "\n\nPense à Ctrl+S !", "OK");
+    }
+
+    // Canvas du menu (UIMenuStart) ou du jeu (PauseScreen), sinon le premier trouvé
+    static Canvas FindMainCanvas()
+    {
+        Component anchor = Object.FindFirstObjectByType<UIMenuStart>(FindObjectsInactive.Include);
+        if (anchor == null) anchor = Object.FindFirstObjectByType<PauseScreen>(FindObjectsInactive.Include);
+
+        Canvas c = anchor != null ? anchor.GetComponentInParent<Canvas>(true) : null;
+        if (c == null) c = Object.FindFirstObjectByType<Canvas>(FindObjectsInactive.Include);
+        return c != null ? c.rootCanvas : null;
+    }
+
+    // Liste les champs encore sur "None" dans les scripts UI → cause des NullReference
+    static void ReportEmptyFields(Canvas canvas, UIManager uiManager)
+    {
+        List<MonoBehaviour> scripts = new List<MonoBehaviour>(canvas.GetComponentsInChildren<MonoBehaviour>(true));
+        scripts.Add(uiManager);
+
+        foreach (MonoBehaviour mb in scripts)
+        {
+            if (mb == null || mb.GetType().Namespace != "Goblfin") continue;
+
+            SerializedProperty p = new SerializedObject(mb).GetIterator();
+            while (p.NextVisible(true))
+            {
+                if (p.propertyType != SerializedPropertyType.ObjectReference) continue;
+                if (p.name == "m_Script" || p.objectReferenceValue != null) continue;
+                if (p.name == "pauseScreen" && mb is UIManager) continue;   // normal dans le menu
+                report.Add($"⚠ VIDE : {mb.name} ({mb.GetType().Name}) → {p.displayName}");
+            }
+        }
+    }
+
     [MenuItem("Tools/Goblfin/UI/Réparer les références UI")]
     static void FixReferences()
     {
         report.Clear();
+        FixReferencesCore();
 
+        if (report.Count == 0) report.Add("Rien à réparer : toutes les références sont bonnes.");
+
+        EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        Debug.Log("[UI Gobflin] Réparation\n" + string.Join("\n", report));
+        EditorUtility.DisplayDialog("UI Gobflin", string.Join("\n", report) + "\n\nPense à Ctrl+S !", "OK");
+    }
+
+    static void FixReferencesCore()
+    {
         // 1. Tous les écrans doivent être ACTIFS (sinon leur Awake ne tourne jamais)
         foreach (UIScreen screen in Object.FindObjectsByType<UIScreen>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -90,6 +201,32 @@ public static class GobflinUIBuilder
             Undo.RecordObject(screen.gameObject, "Activer écran");
             screen.gameObject.SetActive(true);
             report.Add($"{screen.name} réactivé.");
+        }
+
+        // 1a. Le carnet de quêtes aussi (il est DANS la pause : c'est la pause qui le cache)
+        foreach (QuestJournal journal in Object.FindObjectsByType<QuestJournal>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            // Il doit être DANS le PausePanel, sinon il reste affiché tout le temps
+            PauseScreen pause = Object.FindFirstObjectByType<PauseScreen>(FindObjectsInactive.Include);
+            if (pause != null && !journal.transform.IsChildOf(pause.transform))
+            {
+                Undo.SetTransformParent(journal.transform, pause.transform, "Ranger carnet dans la pause");
+                report.Add($"{journal.name} rangé dans {pause.name}.");
+            }
+
+            if (journal.gameObject.activeSelf) continue;
+            Undo.RecordObject(journal.gameObject, "Activer carnet");
+            journal.gameObject.SetActive(true);
+            report.Add($"{journal.name} réactivé.");
+        }
+
+        // 1a-bis. Le DialogueManager doit être ACTIF : son Awake crée "instance" puis cache le panneau tout seul
+        foreach (DialogueManager dm in Object.FindObjectsByType<DialogueManager>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (dm.gameObject.activeSelf) continue;
+            Undo.RecordObject(dm.gameObject, "Activer dialogue");
+            dm.gameObject.SetActive(true);
+            report.Add($"{dm.name} (DialogueManager) réactivé.");
         }
 
         // 1b. Les éléments du HUD ont besoin d'un CanvasGroup (posés avant le RequireComponent)
@@ -151,12 +288,6 @@ public static class GobflinUIBuilder
 
         // 3. Les scènes dans la liste du build (MenuScene en premier)
         AddScenesToBuild();
-
-        if (report.Count == 0) report.Add("Rien à réparer : toutes les références sont bonnes.");
-
-        EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
-        Debug.Log("[UI Gobflin] Réparation\n" + string.Join("\n", report));
-        EditorUtility.DisplayDialog("UI Gobflin", string.Join("\n", report) + "\n\nPense à Ctrl+S !", "OK");
     }
 
     // MenuScene en index 0, puis les scènes de jeu (sans toucher aux autres déjà présentes)
