@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 3414871214866570325}
   - component: {fileID: 251537634415175046}
   - component: {fileID: 6729590198977550316}
-  - component: {fileID: 6931909012360496720}
-  - component: {fileID: 7421319300092512017}
+  - component: {fileID: 3919112991483426154}
   m_Layer: 8
   m_Name: fireBall
   m_TagString: Untagged
@@ -31,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474501015391072447}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.2057128, y: 0.34106895, z: 3.639207}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -46,7 +45,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474501015391072447}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -33990,8 +33989,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: b30657156de84135aa3f775b66bb5433
-  m_Mesh: {fileID: 4300000, guid: d0e56093860dc2842905afd17038e381, type: 2}
-  m_VersionIndex: 818
+  m_Mesh: {fileID: 4300000, guid: c76e65ee4c6a0f04da168bf27c72e67d, type: 2}
+  m_VersionIndex: 859
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -34079,7 +34078,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474501015391072447}
-  m_Mesh: {fileID: 4300000, guid: d0e56093860dc2842905afd17038e381, type: 2}
+  m_Mesh: {fileID: 4300000, guid: c76e65ee4c6a0f04da168bf27c72e67d, type: 2}
 --- !u!54 &6729590198977550316
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -34107,29 +34106,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6931909012360496720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474501015391072447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6b6e52042c75146b3889d3cd8a981e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.ElementSimulation
-  <ElementData>k__BackingField: {fileID: 11400000, guid: 19170e9af8b59c74e9d1eb82588cd2f9, type: 2}
-  elementInfos: []
-  <Collider>k__BackingField: {fileID: 7421319300092512017}
-  <Heat>k__BackingField: 2
-  <Humidity>k__BackingField: 0
-  <Electricity>k__BackingField: 0
-  hot: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
-  burn: {fileID: 9027763093632594836, guid: fae56390502084a42aa42dcf229784a9, type: 3}
-  root: {fileID: 474501015391072447}
---- !u!135 &7421319300092512017
-SphereCollider:
+--- !u!65 &3919112991483426154
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -34147,8 +34125,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.30000013, y: 0.29999998, z: 0.3000009}
+  m_Center: {x: 1.416112e-14, y: -0.000000014901161, z: 0.0000003874302}
 --- !u!1001 &553573767363858583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34210,8 +34188,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2359539893049856189, guid: e2650e469ef7d9948918dbc0473929f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5089724498519812437}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1002302779879267434, guid: e2650e469ef7d9948918dbc0473929f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3574847178556671806}
   m_SourcePrefab: {fileID: 100100000, guid: e2650e469ef7d9948918dbc0473929f9, type: 3}
+--- !u!1 &740373170965810429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1002302779879267434, guid: e2650e469ef7d9948918dbc0473929f9, type: 3}
+  m_PrefabInstance: {fileID: 553573767363858583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3574847178556671806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740373170965810429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d153aec9694951a274f4401333ae2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.FireSource
+  heatPerSecond: 10
 --- !u!4 &2814878824803270698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2359539893049856189, guid: e2650e469ef7d9948918dbc0473929f9, type: 3}
