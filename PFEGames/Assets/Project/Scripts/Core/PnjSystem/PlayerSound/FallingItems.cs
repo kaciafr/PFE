@@ -16,28 +16,23 @@ namespace Goblfin.PnjSystem
 		public Transform Transform => transform;
 		private const float Gravity = 9.81f;
 		private float height;
-		private ActiveRagdoll ragdoll;
-		private KillZone killZone;
+		[SerializeField] ActiveRagdoll ragdoll;
+		[SerializeField] KillZone killZone;
 		
 		private bool IsFalling => !MathGame.RayCastCheck( transform.position,Vector3.down,
 			distanceMaxOfDetection, groundMask,
 			out RaycastHit hit, Color.chartreuse);
 
-		private void Start()
+		private void Awake()
 		{
-			TryGetComponent(out ragdoll);
-			if (ragdoll != null)
-				ragdoll.enabled = false;
-
-			TryGetComponent(out killZone);
-			if (killZone != null)
-				killZone.enabled = false;
+			ragdoll.enabled = false;
+			killZone.enabled = false;
 		}
 
 		private void Update()
 		{
 			
-			if (collider.radius <= 0.02f)
+			if (!wasFalling)
 			{
 				if (ragdoll != null)
 					ragdoll.enabled = false;

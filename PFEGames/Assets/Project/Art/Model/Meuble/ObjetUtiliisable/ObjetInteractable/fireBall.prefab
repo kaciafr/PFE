@@ -33990,7 +33990,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: b30657156de84135aa3f775b66bb5433
   m_Mesh: {fileID: 4300000, guid: c76e65ee4c6a0f04da168bf27c72e67d, type: 2}
-  m_VersionIndex: 859
+  m_VersionIndex: 863
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -34280,7 +34280,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6766293147377624153, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

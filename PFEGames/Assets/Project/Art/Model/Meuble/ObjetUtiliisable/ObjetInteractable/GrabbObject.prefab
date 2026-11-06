@@ -139,61 +139,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.00001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1991864622276962108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8319301849158978204}
-  - component: {fileID: 8464097217169547142}
-  m_Layer: 3
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8319301849158978204
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991864622276962108}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 850952156693840003}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8464097217169547142
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991864622276962108}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &4247097578054714039
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +154,8 @@ GameObject:
   - component: {fileID: 1992476225639230851}
   - component: {fileID: 8604193980214075038}
   - component: {fileID: 2858342139684200779}
-  - component: {fileID: 2076201605386848630}
+  - component: {fileID: 8784528610084348016}
+  - component: {fileID: 3726291215944687704}
   m_Layer: 0
   m_Name: Element
   m_TagString: Untagged
@@ -299,18 +247,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Runtime::Runtime.ElementChain
   neighbours: []
---- !u!114 &2076201605386848630
+--- !u!114 &8784528610084348016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4247097578054714039}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0e5817a44b440d8d8d4c3107cf8dd6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Core::RagdollSysteme.ActiveRagdoll
+  m_EditorClassIdentifier: Core::Goblfin.ActiveRagdoll
+--- !u!114 &3726291215944687704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247097578054714039}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8b1ca60219488e8b3350d541650abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.PnjSystem.KillZone
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 2049
+  sensorOffset: {x: 0, y: 0, z: 0}
+  scanInterval: 0.05
+  detectedTargets: []
+  <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
+  killRadius: 0.82
 --- !u!1 &5046313046381976116
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +296,6 @@ GameObject:
   - component: {fileID: 8020897457183744696}
   - component: {fileID: 7548320165094907544}
   - component: {fileID: 7361653736005362892}
-  - component: {fileID: 8161781039106727968}
   m_Layer: 7
   m_Name: GrabbObject
   m_TagString: Untagged
@@ -347,7 +317,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2715418208520183395}
-  - {fileID: 8319301849158978204}
   - {fileID: 2716183891450893956}
   - {fileID: 4789881330788771210}
   - {fileID: 2161346037551147876}
@@ -443,7 +412,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046313046381976116}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 28.39
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -482,18 +451,8 @@ MonoBehaviour:
   maxDetectionRadius: 1.8
   distanceMaxOfDetection: 0.56
   wasFalling: 0
---- !u!114 &8161781039106727968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5046313046381976116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee0e5817a44b440d8d8d4c3107cf8dd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Core::Goblfin.ActiveRagdoll
+  ragdoll: {fileID: 8784528610084348016}
+  killZone: {fileID: 3726291215944687704}
 --- !u!1 &6206897563885027264
 GameObject:
   m_ObjectHideFlags: 0
