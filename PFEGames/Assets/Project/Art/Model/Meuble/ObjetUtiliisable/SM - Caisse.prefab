@@ -229,16 +229,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 872281bc1b29fe94483538a5fb677cbe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6402792
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 872281bc1b29fe94483538a5fb677cbe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.617121
+      value: 7.6171207
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 872281bc1b29fe94483538a5fb677cbe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.35000038
+      value: 4.3500004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 872281bc1b29fe94483538a5fb677cbe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.4146504
+      value: 3.6646504
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 872281bc1b29fe94483538a5fb677cbe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -345,7 +349,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

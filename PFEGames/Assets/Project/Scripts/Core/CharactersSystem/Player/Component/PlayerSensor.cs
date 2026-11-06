@@ -31,8 +31,8 @@ namespace Goblfin.CharactersSystem.Player.Component
         public Rigidbody ThrowableInFront { get; private set; }
         public Vector3 LadderNormal { get; private set; }
         public float LadderDistance { get; private set; }
-        public bool CanClimbOver { get; private set; } = true;   // false = s'arrête en haut (bannière)
-        public float StopBelowTop { get; private set; }          // bannière : arrêt à X m sous le haut
+        public bool CanClimbOver { get; private set; } = true;
+        public float StopBelowTop { get; private set; }
 
         public Vector3 LadderPoint { get; private set; }
         public float LadderTopY { get; private set; }
@@ -112,7 +112,6 @@ namespace Goblfin.CharactersSystem.Player.Component
             if (LadderInFront)
             {
                 LadderNormal = hit.normal;
-                // Bannière (avec ClimbSurface) → ses propres réglages, sinon → échelle normale
                 bool special = hit.collider.TryGetComponent(out ClimbSurface surface);
                 LadderDistance = special ? surface.Distance : climb.LadderDistance;
                 CanClimbOver = special ? surface.CanClimbOver : true;

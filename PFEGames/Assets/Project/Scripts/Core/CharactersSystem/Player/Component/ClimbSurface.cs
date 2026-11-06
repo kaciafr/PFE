@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Goblfin.Player.Component
 {
-    // À mettre sur une surface d'escalade spéciale (ex : bannière contre un mur)
     public class ClimbSurface : MonoBehaviour
     {
         [SerializeField, Min(0f), Tooltip("Distance entre le centre du gobelin et la surface.")]

@@ -27,7 +27,6 @@ namespace Goblfin.CharactersSystem.Player.States
             if (Mathf.Abs(climbInput) < MoveThreshold)
                 climbInput = 0f;
 
-            // Bannière : on monte jusqu'au VRAI haut de la surface, puis on bloque (pas de passage sur le rebord)
             var sensor = ctx.Player.Sensor;
             if (climbInput > 0f && !sensor.CanClimbOver
                 && ctx.Player.Transform.position.y >= sensor.LadderTopY - sensor.StopBelowTop)
