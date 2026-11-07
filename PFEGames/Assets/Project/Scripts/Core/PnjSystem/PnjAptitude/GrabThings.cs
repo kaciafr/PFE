@@ -13,7 +13,7 @@ namespace Goblfin.PnjSystem
 
 	    private void OnTriggerStay(Collider other)
 	    {
-		    if (other.gameObject.layer == LayerMask.NameToLayer("Grabbed"))
+		    if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
 		    {
 			    grabbedObjects.Add(other.gameObject);
 		    }
@@ -21,7 +21,7 @@ namespace Goblfin.PnjSystem
 
 	    private void OnTriggerExit(Collider other)
 	    {
-		    if (other.gameObject.layer == LayerMask.NameToLayer("Grabbed"))
+		    if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
 		    {
 			    grabbedObjects.Remove(other.gameObject);
 		    }
