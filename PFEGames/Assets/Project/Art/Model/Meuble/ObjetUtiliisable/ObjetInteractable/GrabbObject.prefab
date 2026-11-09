@@ -193,7 +193,7 @@ MonoBehaviour:
   <ElementData>k__BackingField: {fileID: 11400000, guid: 19170e9af8b59c74e9d1eb82588cd2f9, type: 2}
   elementInfos: []
   <Collider>k__BackingField: {fileID: 1992476225639230851}
-  <Heat>k__BackingField: 0
+  <Heat>k__BackingField: 90
   <Humidity>k__BackingField: 0
   <Electricity>k__BackingField: 0
   hot: {fileID: 9027763093632594836, guid: 81636b04a7031e841947b07d8e4b0c88, type: 3}
