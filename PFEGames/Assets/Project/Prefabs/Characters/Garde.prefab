@@ -3554,7 +3554,7 @@ NavMeshAgent:
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 200.1
+  m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -3578,6 +3578,7 @@ MonoBehaviour:
   aptitudes: []
   <Agent>k__BackingField: {fileID: 8030732813623190141}
   <RoutinePattern>k__BackingField:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3734,6 +3735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.GrabThings
   socketTransform: {fileID: 5886784552402460609}
+  grabableLayer: Grabable
+  <ObjectGrab>k__BackingField: {fileID: 0}
 --- !u!114 &2795274875025048836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3746,7 +3749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da1bdf1138348f28cc8f1847b73b124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.ThrowThingsManager
-  rockPrefab: {fileID: 6170840752849571052, guid: 29262c7616e2b6545946d71160b9de8f, type: 3}
+  rockPrefab: {fileID: 0}
   hand: {fileID: 1313862800954488266}
   maxRocks: 15
   throwCooldown: 1.5

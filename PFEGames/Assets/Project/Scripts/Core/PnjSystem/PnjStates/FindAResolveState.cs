@@ -11,7 +11,6 @@ namespace Goblfin.PnjSystem
 		public float AgentSpeed =>  GameMetrix.GuardChaseSpeed;
 		private readonly TypeOfProblem problem;
 		private readonly ElementSimulation elementSim;
-		private Vector3 lastPos;
 		private TypeOfResolution resolution;
 		private ProblemAttraction resolveAptitude;
 		
@@ -29,7 +28,6 @@ namespace Goblfin.PnjSystem
 		public void EnterState(BrainPnj brainPnj)
 		{
 			timer = 0;
-			lastPos = elementSim.transform.position;
 			resolveAptitude = brainPnj.GetAptitude<ProblemAttraction>();
 			
 			brainPnj.GetAptitude<ResolveProblem>();
@@ -41,7 +39,7 @@ namespace Goblfin.PnjSystem
 		{
 			if (resolveAptitude.TryFindResolution(out ResolutionSource resolutionSource, out resolution))
 			{
-				brainPnj.PnjGoTo(new ResolveState(lastPos,elementSim,resolutionSource));
+				brainPnj.PnjGoTo(new ResolveState(elementSim,resolutionSource));
 			}
 			else
 			{
