@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Goblfin.Player
 {
-    public class PlayerManager : MonoBehaviour, IDie, IDetected, ISondDetected
+    public class PlayerManager : MonoBehaviour, IDie, IDetected, ISondDetected,IPrey
     {
         #region References
         public Transform Transform => transform;
@@ -302,5 +302,10 @@ namespace Goblfin.Player
         public void Die() => StateMachine.SwitchState(StateMachine.DieState);
 
         #endregion
+
+        public void Catches()
+        {
+            Die();
+        }
     }
 }

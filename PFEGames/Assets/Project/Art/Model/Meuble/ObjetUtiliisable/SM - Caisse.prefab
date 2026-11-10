@@ -403,14 +403,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FallSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 2090023993850812474, guid: 71daae7a761fd2f4db6069aabafc8128, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8458454102655296413, guid: 71daae7a761fd2f4db6069aabafc8128, type: 3}
-      propertyPath: killRadius
-      value: 0.41
-      objectReference: {fileID: 0}
     - target: {fileID: 8471280836176252548, guid: 71daae7a761fd2f4db6069aabafc8128, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

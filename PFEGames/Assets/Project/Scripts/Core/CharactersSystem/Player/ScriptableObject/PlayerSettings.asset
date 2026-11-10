@@ -37,11 +37,11 @@ MonoBehaviour:
     <TransitionSpeed>k__BackingField: 12
     <CeilingLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 2057
+      m_Bits: 4294967295
   <Ground>k__BackingField:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 2057
+      m_Bits: 4294967295
     <RaycastDistance>k__BackingField: 0.6
     <CheckOffset>k__BackingField: 0.1
     <RayCount>k__BackingField: 8

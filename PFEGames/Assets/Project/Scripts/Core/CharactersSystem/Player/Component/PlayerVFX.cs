@@ -1,12 +1,12 @@
-using Goblfin.CharactersSystem.Player;
-using Goblfin.Player;
 using UnityEngine;
+using UnityEngine.VFX;
 
-namespace Goblfin.CharactersSystem.Player.Component
+namespace Goblfin.Player.Component
 {
     public class PlayerVFX : MonoBehaviour
     {
         [SerializeField] private ParticleSystem dusttrail;
+        [SerializeField] private VisualEffect blood;
         [SerializeField] private float minSpeed = 0.5f;
         [SerializeField] private float walkMultiplier = 0.3f;
         [SerializeField] private float sprintMultiplier = 2f;
@@ -67,6 +67,11 @@ namespace Goblfin.CharactersSystem.Player.Component
 
             int count = Mathf.RoundToInt(maxLandPuff * strenght);
             dusttrail.Emit(count);
+        }
+
+        public void Bleeding()
+        {
+            blood.Play();
         }
     }
 }

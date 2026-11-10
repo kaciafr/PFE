@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Goblfin.Data;
 using Goblfin.PnjSystem.Utilities;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace Goblfin.PnjSystem
 {
-	public class FallingItems : MonoBehaviour, ISondDetected
+	public class FallingItems : MonoBehaviour, ISondDetected,IPrey
 	{
 		[SerializeField] private SphereCollider collider;
 		[SerializeField] private ItemsData items;
@@ -18,39 +19,21 @@ namespace Goblfin.PnjSystem
 		private float height;
 		[SerializeField] ActiveRagdoll ragdoll;
 		[SerializeField] KillZone killZone;
+
+		public event Action FallImpact;
 		
 		private bool IsFalling => !MathGame.RayCastCheck( transform.position,Vector3.down,
 			distanceMaxOfDetection, groundMask,
 			out RaycastHit hit, Color.chartreuse);
-
-		private void Awake()
-		{
-			ragdoll.enabled = false;
-			killZone.enabled = false;
-		}
+		
 
 		private void Update()
 		{
-			
-			if (!wasFalling)
-			{
-				if (ragdoll != null)
-					ragdoll.enabled = false;
-				if (killZone != null)
-					killZone.enabled = false;
-				collider.enabled = false;
-
-			}
-			else
-			{
-				if (ragdoll != null)
-					ragdoll.enabled = true;
-				if (killZone != null)
-					killZone.enabled = true;
-				collider.enabled = true;
-
-			}
-				
+			if (ragdoll != null)
+				ragdoll.enabled = wasFalling;
+			if (killZone != null)
+				killZone.enabled = wasFalling;
+			collider.enabled = false;
 			
 			bool isFallingNow = IsFalling;
 
@@ -69,11 +52,11 @@ namespace Goblfin.PnjSystem
 		}
 		private void TriggerSoundDetection(float force)
 		{
+			FallImpact?.Invoke();
 			if (collider == null)
 				return;
-
-			float t = Mathf.InverseLerp(0f, items.MaxImpactForce, force);
-			float radius = Mathf.Lerp(0, maxDetectionRadius, t);
+			
+			float radius = Mathf.Lerp(0, force, 0.3f);
 
 			StartCoroutine(PulseCollider(radius));
 		}
@@ -91,5 +74,9 @@ namespace Goblfin.PnjSystem
 		}
 
 
+		public void Catches()
+		{
+			return;
+		}
 	}
 }
