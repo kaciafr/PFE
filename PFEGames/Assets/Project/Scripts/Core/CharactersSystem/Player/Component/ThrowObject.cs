@@ -154,7 +154,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void SetHeldCollidersEnabled(bool enabled)
         {
             foreach (Collider col in heldColliders)
-                if (col != null) col.enabled = enabled;
+                if (col != null && !col.isTrigger) col.enabled = enabled;
         }
 
         private void SetPlayerCollisionIgnored(Collider[] objectColliders, bool ignore)
