@@ -1637,6 +1637,11 @@ MonoBehaviour:
   drawDebugGroundAhead: 1
   edgeCheckDistance: 0.35
   edgeMaxDrop: 0.5
+  angleWeight: 0.01
+  priorityWeight: 0.01
+  stickyBonus: 0.1
+  ladderPriority: 5
+  pickUpPriority: 0
 --- !u!114 &4979999978357337543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1741,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.12274742
         inSlope: -0.7
         outSlope: -0.7
         tangentMode: 0
@@ -1812,13 +1817,16 @@ MonoBehaviour:
   upwardBias: 0.3
   minThrowSpeed: 5
   maxThrowSpeed: 15
-  speedStep: 1
+  chargeTime: 1.5
   ignorePlayerTime: 0.3
   linePoints: 50
   timeBetweenPoints: 0.04
   collisionMask:
     serializedVersion: 2
     m_Bits: 6617
+  scrollSpeed: 2
+  markerSize: 0.4
+  markerPulse: 0.1
 --- !u!114 &8443424654209551857
 MonoBehaviour:
   m_ObjectHideFlags: 0

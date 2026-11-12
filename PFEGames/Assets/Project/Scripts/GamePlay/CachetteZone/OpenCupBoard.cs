@@ -9,7 +9,7 @@ namespace Goblfin.Gameplay.CachetteZone
     {
         public bool occupied;
         private bool busy;
-        public bool CanInteract => !occupied && !busy;
+        public bool CanInteract => !occupied && !busy && IsPlayerInFront();
 
         [SerializeField] private int priority = 0;
         public int Priority => priority;
@@ -44,6 +44,18 @@ namespace Goblfin.Gameplay.CachetteZone
 
             openRotationLeft = closeRotationLeft * Quaternion.AngleAxis(-openAngle, doorLeft.InverseTransformDirection(Vector3.up));
             openRotationRight = closeRotationRight * Quaternion.AngleAxis(openAngle, doorRight.InverseTransformDirection(Vector3.up));
+        }
+
+        private bool IsPlayerInFront()
+        {
+            if (playerManager == null || insidePoint == null || exitPoint == null) return false;
+
+            Vector3 front = exitPoint.position - insidePoint.position;
+            Vector3 toPlayer = playerManager.transform.position - insidePoint.position;
+            front.y = 0f;
+            toPlayer.y = 0f;
+
+            return Vector3.Dot(front, toPlayer) > 0f;
         }
 
         public void Interact()
