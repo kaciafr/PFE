@@ -83,7 +83,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void Update()
         {
             // 1. Porter = bras levés, sinon on rend les bras à l'animation (SmoothStep = départ et arrivée en douceur)
-            blend = Mathf.MoveTowards(blend, player.IsHolding ? 1f : 0f, weightSpeed * Time.deltaTime);
+            blend = Mathf.MoveTowards(blend, player.IsHoldingCorpse ? 1f : 0f, weightSpeed * Time.deltaTime);
             float weight = Mathf.SmoothStep(0f, 1f, blend);
             rightArmRig.weight = weight;
             leftArmRig.weight = weight;

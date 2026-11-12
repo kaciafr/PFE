@@ -19,7 +19,6 @@ namespace Goblfin
         private RectTransform rect;
         private Camera cam;
         private bool visible;
-        private float lastPercent = -1f;
 
 
 
@@ -47,13 +46,8 @@ namespace Goblfin
             rect.position = screen +  (Vector3)screenOffset;
 
             float percent = player.Thrower.PowerPercent;
-            if (!Mathf.Approximately(percent, lastPercent))
-            {
-                lastPercent = percent;
-                Tween.UIFillAmount(fill, percent , 0.12f, Ease.OutQuad);
-                Tween.PunchScale(transform, Vector3.one * 0.15f,  0.2f);
-                fill.color = colors.Evaluate(percent);
-            }
+            fill.fillAmount = percent;
+            fill.color = colors.Evaluate(percent);
         }
         
         
@@ -64,7 +58,6 @@ namespace Goblfin
             visible = value;
             Tween.StopAll(onTarget: canvasGroup);
             Tween.Alpha(canvasGroup, value ? 1f : 0f, 0.15f);
-            if (value) lastPercent = -1f;   
         }
     }
 }

@@ -2,6 +2,7 @@ using Goblfin.CharactersSystem.Player;
 using Goblfin.CharactersSystem.Player.Component;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
+using Goblfin.CharactersSystem.Player.Interface;
 using Goblfin.CharactersSystem.Player.States;
 using Goblfin.Player.Component;
 using Goblfin.PnjSystem;
@@ -277,6 +278,23 @@ namespace Goblfin.Player
         public bool CanInteract => Sensor.InteractableInFront != null && Sensor.InteractableInFront.CanInteract;
         public void Interact() => Sensor.InteractableInFront?.Interact();
 
+        public IHideSpot HideSpot { get; private set; }
+
+        public void EnterHide(IHideSpot spot) => HideSpot = spot;
+        public void LeaveHide() => HideSpot = null;
+
+        public void SetFrozen(bool frozen)
+        {
+            if (frozen) Stop();
+            rb.isKinematic = frozen;
+        }
+
+        public void SetVisible(bool visible)
+        {
+            foreach (Renderer r in GetComponentsInChildren<Renderer>(true))
+                if (r is not LineRenderer) r.enabled = visible;
+        }
+
         #endregion
 
         #region Throwing
@@ -284,13 +302,16 @@ namespace Goblfin.Player
         public Rigidbody ThrowableInFront => Sensor.ThrowableInFront;
         public bool CanPickUp => Sensor.IsGrounded && Sensor.ThrowableInFront != null && !Thrower.IsHolding;
         public bool IsHolding => Thrower.IsHolding;
+        public bool IsHoldingCorpse => Thrower.IsHoldingCorpse;
 
         public void PickUp(Rigidbody obj) => Thrower.Hold(obj);
         public void SetAiming(bool aim) => Thrower.SetAiming(aim);
         public void Throw() => Thrower.Release();
         public void DropObject() => Thrower.Drop();
-        public void AdjustThrowPower(float scroll) => Thrower.AdjustPower(scroll);
-
+        
+        public void ChargeThrowPower(float deltaTime) => Thrower.ChargePower(deltaTime);
+        
+        public void ResetThrowPower() => Thrower.ResetPower();
         #endregion
 
         #region États

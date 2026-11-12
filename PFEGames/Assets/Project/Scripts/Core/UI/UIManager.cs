@@ -15,7 +15,6 @@ namespace Goblfin
         
         [SerializeField] private bool isGameplayScene = true;
 
-        // Pour couper les contrôles du gobelin pendant les menus
         [SerializeField] private InputReader inputReader;
         private bool wasPaused;          // un menu était-il déjà ouvert ?
         private bool inputWasEnabled;    // les contrôles étaient-ils actifs avant le menu ?

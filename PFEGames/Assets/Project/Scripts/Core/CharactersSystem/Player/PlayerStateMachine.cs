@@ -31,6 +31,7 @@ namespace Goblfin.CharactersSystem.Player
         public PlayerLandState LandState { get; private set; }
         
         public PlayerDialogueState DialogueState { get; private set; }
+        public PlayerHideState HideState { get; private set; }
         
         public PlayerFallState FallState { get; private set; }
 
@@ -52,6 +53,7 @@ namespace Goblfin.CharactersSystem.Player
             DieState = new PlayerDieState();
             ThrowState = new PlayerThrowObjectState();
             DialogueState = new PlayerDialogueState();
+            HideState = new PlayerHideState();
             LandState = new PlayerLandState();
             FallState = new PlayerFallState();
         }

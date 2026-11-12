@@ -45,7 +45,7 @@ namespace Goblfin.CharactersSystem.Player.States
             }
 
 
-            if (ctx.Player.Input.CrouchHeld)
+            if (ctx.Player.Input.CrouchPressed)
             {
                 ctx.SwitchState(ctx.CrouchState);
                 return;

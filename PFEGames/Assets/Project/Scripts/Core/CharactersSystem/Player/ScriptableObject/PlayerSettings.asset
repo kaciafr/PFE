@@ -82,7 +82,7 @@ MonoBehaviour:
     <ThrowDuration>k__BackingField: 0.7
   <Interact>k__BackingField:
     InteractHeight: 0
-    InteractRadius: 0.8
+    InteractRadius: 0.2
     Layer:
       serializedVersion: 2
       m_Bits: 0

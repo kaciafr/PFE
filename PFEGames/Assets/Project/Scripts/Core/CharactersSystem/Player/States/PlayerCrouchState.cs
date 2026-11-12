@@ -31,7 +31,7 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (!ctx.Player.Input.CrouchHeld && ctx.Player.CanStand)
+            if (ctx.Player.Input.CrouchPressed && ctx.Player.CanStand)
             {
                 ctx.SwitchState(HasMoveInput(ctx) ? ctx.MoveState : ctx.IdleState);
                 return;
