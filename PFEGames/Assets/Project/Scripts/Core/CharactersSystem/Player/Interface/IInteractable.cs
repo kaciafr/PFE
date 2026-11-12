@@ -4,5 +4,6 @@ namespace Goblfin.CharactersSystem.Player.Interface
     {
         bool CanInteract  { get; }
         void Interact();
+        int Priority => 0;
     }
 }

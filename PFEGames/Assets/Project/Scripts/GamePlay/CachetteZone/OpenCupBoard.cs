@@ -11,6 +11,9 @@ namespace Goblfin.Gameplay.CachetteZone
         private bool busy;
         public bool CanInteract => !occupied && !busy;
 
+        [SerializeField] private int priority = 0;
+        public int Priority => priority;
+
         [Header("Références")]
         [SerializeField] private Transform doorLeft;
         [SerializeField] private Transform doorRight;
@@ -23,6 +26,7 @@ namespace Goblfin.Gameplay.CachetteZone
         [SerializeField] private float closeDuration = 0.3f;
         [SerializeField] private float movePlayerDuration = 0.35f;
         [SerializeField] private Ease doorEase = Ease.OutBack;
+        [SerializeField] private float exitTurnAngle = 180f;
 
         private PlayerManager playerManager;
         private Quaternion closeRotationLeft;
@@ -63,6 +67,7 @@ namespace Goblfin.Gameplay.CachetteZone
                 .Group(Tween.LocalRotation(doorRight, closeRotationRight, closeDuration, Ease.OutQuad))
                 
                 .ChainCallback(target: this, target => target.busy = false);
+            
         }
 
         public void RequestExit()
@@ -72,12 +77,12 @@ namespace Goblfin.Gameplay.CachetteZone
             busy = true;
             currentSequence.Stop();
 
+
             currentSequence = Sequence.Create()
                 .Group(Tween.LocalRotation(doorLeft, openRotationLeft, openDuration, doorEase))
                 .Group(Tween.LocalRotation(doorRight, openRotationRight, openDuration, doorEase))
-                
+
                 .Chain(Tween.Position(playerManager.transform, exitPoint.position, movePlayerDuration, Ease.InOutQuad))
-                .Group(Tween.Rotation(playerManager.transform, exitPoint.rotation, movePlayerDuration, Ease.InOutQuad))
                 
                 .Chain(Tween.LocalRotation(doorLeft, closeRotationLeft, closeDuration, Ease.OutQuad))
                 .Group(Tween.LocalRotation(doorRight, closeRotationRight, closeDuration, Ease.OutQuad))

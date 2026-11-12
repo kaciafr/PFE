@@ -40,13 +40,13 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
-            if (ctx.Player.Input.InteractPressed && ctx.Player.CanPickUp)
+            if (ctx.Player.Input.InteractPressed && ctx.Player.InteractChoice == InteractChoice.PickUp)
             {
                 ctx.SwitchState(ctx.InteractObjectState);
                 return;
             }
 
-            if (ctx.Player.Input.InteractPressed && ctx.Player.CanInteract)
+            if (ctx.Player.Input.InteractPressed && ctx.Player.InteractChoice == InteractChoice.Interact)
             {
                 ctx.SwitchState(ctx.InteractState);
                 return; 

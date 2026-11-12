@@ -11,8 +11,8 @@ namespace Goblfin.Gameplay.CachetteZone
         [Header("Pièces du coffre")]
         [SerializeField] private Transform lidChest;
         [SerializeField] private Transform lowerChest;
-        [SerializeField, Tooltip("Où le gobelin atterrit dans le coffre.")] private Transform insidePoint;
-        [SerializeField, Tooltip("Où le gobelin atterrit en sortant.")] private Transform exitPoint;
+        [SerializeField] private Transform insidePoint;
+        [SerializeField] private Transform exitPoint;
 
         [Header("Couvercle")]
         [SerializeField] private float rotation = 110f;
@@ -25,8 +25,8 @@ namespace Goblfin.Gameplay.CachetteZone
         [Header("Saut")]
         [SerializeField] private float jumpHeight = 1f;
         [SerializeField] private float jumpDuration = 0.6f;
-        [SerializeField, Tooltip("Temps entre le début de l'animation de saut et le décollage du sol.")]
-        private float takeoffDelay = 0.25f;
+        [SerializeField] private float takeoffDelay = 0.25f;
+        [SerializeField] private float exitTurnAngle = 180f;
 
         private PlayerManager player;
         private Quaternion closedRotation;
@@ -34,7 +34,9 @@ namespace Goblfin.Gameplay.CachetteZone
         private bool occupied;
         private bool busy;
 
+        [SerializeField] private int priority = 0;
         public bool CanInteract => !occupied && !busy;
+        public int Priority => priority;
 
         private void Start()
         {
@@ -66,6 +68,10 @@ namespace Goblfin.Gameplay.CachetteZone
         {
             if (busy) return;
             busy = true;
+            
+            Vector3 startAngles = player.transform.eulerAngles;
+            Vector3 turnedAngles = startAngles + new Vector3(0f, exitTurnAngle, 0f);
+
 
             Sequence.Create()
                 .ChainCallback(() =>
@@ -76,6 +82,7 @@ namespace Goblfin.Gameplay.CachetteZone
                 .Chain(OpenLid())
                 .Group(Pop())
                 .Group(JumpArc(insidePoint.position, exitPoint.position))
+                .Group(Tween.EulerAngles(player.transform, startAngles, turnedAngles, jumpDuration, Ease.InOutQuad, startDelay: takeoffDelay))
                 .ChainCallback(() => player.Animator.Play(AnimIds.Land, 0.05f))
                 .Chain(CloseLid())
                 .ChainCallback(() =>

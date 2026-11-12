@@ -24,6 +24,8 @@ namespace Goblfin.PuzzleSystem
 		[SerializeField] private float duration;
 
 		public bool CanInteract => true;
+		[SerializeField] private int priority = 10;
+		public int Priority => priority;
 
 
 		private void OnValidate()

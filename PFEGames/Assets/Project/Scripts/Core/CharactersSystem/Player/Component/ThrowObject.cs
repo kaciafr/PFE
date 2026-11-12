@@ -18,8 +18,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         [Header("Puissance (charge)")]
         [SerializeField, Min(0f)] private float minThrowSpeed = 5f;
         [SerializeField, Min(0f)] private float maxThrowSpeed = 15f;
-        [SerializeField, Min(0.1f), Tooltip("Temps pour passer de la puissance mini à la puissance maxi.")]
-        private float chargeTime = 1.5f;
+        [SerializeField, Min(0.1f)] private float chargeTime = 1.5f;
         [SerializeField, Min(0f), Tooltip("Temps pendant lequel l'objet lâché ne touche pas le joueur (évite qu'il le pousse en l'air).")]
         private float ignorePlayerTime = 0.3f;
 
@@ -29,8 +28,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField, Range(10, 100)] private int linePoints = 25;
         [SerializeField, Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
         [SerializeField] private LayerMask collisionMask = ~0;
-        [SerializeField, Tooltip("Vitesse de défilement des points vers la cible.")]
-        private float scrollSpeed = 2f;
+        [SerializeField] private float scrollSpeed = 2f;
 
         [Header("Cercle d'atterrissage")]
         [SerializeField, Min(0f)] private float markerSize = 0.4f;

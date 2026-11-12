@@ -278,6 +278,32 @@ namespace Goblfin.Player
         public bool CanInteract => Sensor.InteractableInFront != null && Sensor.InteractableInFront.CanInteract;
         public void Interact() => Sensor.InteractableInFront?.Interact();
 
+        public InteractChoice InteractChoice
+        {
+            get
+            {
+                InteractChoice choice = InteractChoice.None;
+                float best = float.MaxValue;
+
+                if (CanInteract && Sensor.InteractableScore < best)
+                {
+                    best = Sensor.InteractableScore;
+                    choice = InteractChoice.Interact;
+                }
+
+                if (CanPickUp && Sensor.ThrowableScore < best)
+                {
+                    best = Sensor.ThrowableScore;
+                    choice = InteractChoice.PickUp;
+                }
+
+                if (CanClimb && !Grabber.IsGrabbing && Sensor.LadderInFront && Sensor.LadderScore < best)
+                    choice = InteractChoice.Climb;
+
+                return choice;
+            }
+        }
+
         public IHideSpot HideSpot { get; private set; }
 
         public void EnterHide(IHideSpot spot) => HideSpot = spot;

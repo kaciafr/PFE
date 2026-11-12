@@ -1,3 +1,4 @@
+using Goblfin.CharactersSystem.Player.Data;
 using UnityEngine;
 
 namespace Goblfin.CharactersSystem.Player.States
@@ -20,7 +21,8 @@ namespace Goblfin.CharactersSystem.Player.States
           return ctx.Player.CanClimb
                    && !ctx.Player.Grabber.IsGrabbing
                    && ctx.Player.Sensor.LadderInFront
-                   && ctx.Player.Input.InteractPressed;
+                   && ctx.Player.Input.InteractPressed
+                   && (ctx.Player.InteractChoice == InteractChoice.Climb || !ctx.Player.IsGrounded);
         }
 
         protected bool IsFalling(PlayerStateMachine ctx) => !ctx.Player.IsGrounded;
