@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.54
+      value: 17.61677
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11
+      value: -0.00000028784518
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.84
+      value: 0.34575054
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       propertyPath: m_LocalRotation.w
@@ -154,9 +154,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3331928985686453996}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8153311899879867655}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
       insertIndex: -1
@@ -170,27 +167,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9da0878cc4bd96741ba5fd45035e0865, type: 3}
   m_PrefabInstance: {fileID: 1126160255050629777}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &3331928985686453996
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243622196981399488}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.42
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8153311899879867655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d68ff4c094a7a40b634447301412b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.TrapSystem.TrapSysteme
+  shape: 1
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 1, y: 1, z: 1}
+  radius: 1.12
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 1
+  checkInterval: 0.1
+  maxTargets: 16
   cooldown: 5
 --- !u!114 &5379624930972655528
 MonoBehaviour:

@@ -18,6 +18,7 @@ namespace Goblfin
 
         public void InteractTypeState(DoorInteract door)
         {
+            door.openDoorSound.Play();
             door.isOpen = true;
         }
     }

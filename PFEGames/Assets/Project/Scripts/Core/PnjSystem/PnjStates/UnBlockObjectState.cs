@@ -5,7 +5,6 @@ namespace Goblfin.PnjSystem
         public StatePriority Priority => StatePriority.UnBlockProblem;
         private DoorInteract objectblock;
         public float AgentSpeed => 0;
-
         public UnBlockObjectState(DoorInteract objectblock)
         {
             this.objectblock = objectblock;
@@ -13,17 +12,25 @@ namespace Goblfin.PnjSystem
         
         public void EnterState(BrainPnj brainPnj)
         {
+            
+            Communication.SomeoneIsIn(brainPnj);
             brainPnj.Agent.speed = AgentSpeed;
         }
-
+        
         public void UpdateState(BrainPnj brainPnj)
-        {
-            objectblock.Interact();
+        { 
+            brainPnj.Animator.SetTrigger("Kicking");
+            if(objectblock.DoorState is DoorBlockedState)
+                objectblock.Interact();
+            else
+            {
+                brainPnj.PnjGoTo(new PatrolState(brainPnj));
+            }
         }
 
         public void ExitState(BrainPnj brainPnj)
         {
-            
+            Communication.EndAction(brainPnj);
         }
     }
 }

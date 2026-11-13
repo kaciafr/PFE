@@ -43,7 +43,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2310613773304028450}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -247,8 +247,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: c4599155d3c948608c88a2e30ee02775
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 455
+  m_Mesh: {fileID: 4300000, guid: 756613c7385fc2e4f8621b2c4fd686ad, type: 2}
+  m_VersionIndex: 464
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -334,7 +334,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2310613773304028450}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 756613c7385fc2e4f8621b2c4fd686ad, type: 2}
 --- !u!64 &6873917246284839512
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 756613c7385fc2e4f8621b2c4fd686ad, type: 2}
 --- !u!1 &4539727855709482535
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6168173711566405261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -638,8 +638,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 248ebcc2f0934f319386ae55afb6c9e9
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 1253
+  m_Mesh: {fileID: 4300000, guid: 8ddf7e7398d27d04f8e71ac0954960d9, type: 2}
+  m_VersionIndex: 1262
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -725,7 +725,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6168173711566405261}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 8ddf7e7398d27d04f8e71ac0954960d9, type: 2}
 --- !u!64 &3700378035562841089
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -747,7 +747,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 8ddf7e7398d27d04f8e71ac0954960d9, type: 2}
 --- !u!1 &8162143399392798216
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8162143399392798216}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -995,8 +995,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: eb00c4c1247d416987054f0939c9e5dc
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 26
+  m_Mesh: {fileID: 4300000, guid: b8c4054b08506234ea39b8bd189cd652, type: 2}
+  m_VersionIndex: 35
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1082,7 +1082,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8162143399392798216}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: b8c4054b08506234ea39b8bd189cd652, type: 2}
 --- !u!64 &3335811765506414271
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: b8c4054b08506234ea39b8bd189cd652, type: 2}
 --- !u!1 &9013661934206767292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,7 +1120,6 @@ GameObject:
   - component: {fileID: 6715279718388280275}
   - component: {fileID: 2271532953579749909}
   - component: {fileID: 9181277919293696530}
-  - component: {fileID: 3193973707976822303}
   - component: {fileID: 1278798779945070440}
   m_Layer: 0
   m_Name: MouseTrap
@@ -1152,7 +1151,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9013661934206767292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -1356,8 +1355,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 75a1f72941b44b9797625c303bcec8b4
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 1928
+  m_Mesh: {fileID: 4300000, guid: 3383bb71d9c2e50498e28ca748accfef, type: 2}
+  m_VersionIndex: 1938
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1443,7 +1442,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9013661934206767292}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 3383bb71d9c2e50498e28ca748accfef, type: 2}
 --- !u!114 &2271532953579749909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,6 +1455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d68ff4c094a7a40b634447301412b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.TrapSystem.TrapSysteme
+  shape: 0
+  center: {x: 0.8, y: 0, z: 0}
+  size: {x: 1.44, y: 1, z: 1.66}
+  radius: 1.76
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 1
+  checkInterval: 0.1
+  maxTargets: 16
   cooldown: 5
 --- !u!114 &9181277919293696530
 MonoBehaviour:
@@ -1482,27 +1491,6 @@ MonoBehaviour:
   shakeStrength: 0.05
   openDuration: 0.8
   openEase: 6
---- !u!65 &3193973707976822303
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013661934206767292}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.79143596, y: 0.5663002, z: 0.96450293}
-  m_Center: {x: 0.6383115, y: 0.17628911, z: -0.011404753}
 --- !u!82 &1278798779945070440
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1525,7 +1513,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3.5993845
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
