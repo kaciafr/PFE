@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Goblfin.PnjSystem.Routine;
+using Goblfin.PnjSystem.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -135,6 +136,13 @@ namespace Goblfin.PnjSystem
 		#endregion
 		private void Update()
 		{
+			if (MathGame.RayCastCheck(transform.localPosition + new Vector3(0,0.5f), transform.forward, 1, GameLayerMask.Door, out RaycastHit hit,
+				    new Color(1, 0, 0)) && vision != null)
+			{
+				var openDoor = hit.collider.GetComponent<DoorInteract>();
+				openDoor.Interact();
+			}
+			
 			if (isAlertedBySound)
 			{
 				soundAlertTimer -= Time.deltaTime;
@@ -202,6 +210,8 @@ namespace Goblfin.PnjSystem
 		
 		private void HandleTargetSeen(Vector3 pos, IDetected target)
 		{
+			
+			
 			if (!CanEnter(StatePriority.Suspicious)) return;
 			RequestState(new SurpriseState(target));
 		}
