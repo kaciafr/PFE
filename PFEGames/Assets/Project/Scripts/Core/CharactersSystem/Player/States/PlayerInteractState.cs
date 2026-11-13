@@ -23,6 +23,12 @@ namespace Goblfin.CharactersSystem.Player.States
                 return;
             }
 
+            if (ctx.Player.HideSpot != null)
+            {
+                ctx.SwitchState(ctx.HideState);
+                return;
+            }
+
             timer += Time.deltaTime;
             if (timer >= Duration)
                 ctx.SwitchState(ctx.IdleState);

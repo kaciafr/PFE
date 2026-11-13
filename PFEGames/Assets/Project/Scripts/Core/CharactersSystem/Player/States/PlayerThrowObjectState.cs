@@ -11,13 +11,18 @@ namespace Goblfin.CharactersSystem.Player.States
 
         private bool isThrowing;
         private float throwTimer;
+        private float holdTimer;
+        private bool pickupRelease;
+        private const float MinHoldTime = 0.2f;
 
         public override void Enter(PlayerStateMachine ctx)
         {
             player = ctx.Player;
             isThrowing = false;
             throwTimer = 0f;
-            player.SetAiming(true);
+            holdTimer = 0f;
+            pickupRelease = player.Input.InteractHeld;
+            player.SetAiming(false);
 
             if (player.AnimEvents != null)
                 player.AnimEvents.ThrowRelease += OnThrowRelease;
@@ -41,21 +46,35 @@ namespace Goblfin.CharactersSystem.Player.States
             }
 
             player.Animator.SetMoveSpeed(player.HorizontalSpeed / player.Settings.Movement.WalkSpeed);
-            player.AdjustThrowPower(player.Input.AimScroll);
 
-            if (player.Input.ThrowPressed)
+            if (player.Input.InteractHeld)
             {
-                isThrowing = true;
-                throwTimer = 0f;
-                player.Animator.Play(AnimIds.Throw , 0.05f);
-                return;
+                holdTimer += Time.deltaTime;
+                player.ChargeThrowPower(Time.deltaTime);
             }
 
-            if (player.Input.InteractPressed)
+            player.SetAiming(player.Input.InteractHeld);
+
+            if (player.Input.InteractReleased)
             {
-                player.DropObject();
-                ctx.SwitchState(ctx.IdleState);
-                return;
+                if (holdTimer >= MinHoldTime)
+                {
+                    isThrowing = true;
+                    throwTimer = 0f;
+                    player.Animator.Play(AnimIds.Throw , 0.05f);
+                    return;
+                }
+
+                if (!pickupRelease)
+                {
+                    player.DropObject();
+                    ctx.SwitchState(ctx.IdleState);
+                    return;
+                }
+
+                pickupRelease = false;
+                player.ResetThrowPower();
+                holdTimer = 0f;
             }
 
             bool moving = HasMoveInput(ctx);

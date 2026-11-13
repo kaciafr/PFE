@@ -43,7 +43,10 @@ namespace Goblfin.CharactersSystem.Player.Input
         public bool JumpHeld => _playerInput != null && _playerInput.Player.Jump.IsPressed();
         
         public bool CrouchHeld => _playerInput != null && _playerInput.Player.Crouch.IsPressed();
-
+        
+        public bool CrouchPressed => _playerInput != null && _playerInput.Player.Crouch.WasPressedThisFrame();
+        
+        
         public bool SprintHeld => _playerInput != null && _playerInput.Player.Sprint.IsPressed();
 
         public bool GrabHeld => _playerInput != null && _playerInput.Player.Grab.IsPressed();
@@ -51,6 +54,10 @@ namespace Goblfin.CharactersSystem.Player.Input
         public bool ThrowPressed => _playerInput != null && _playerInput.Player.ThrowObject.WasPressedThisFrame();
         
         public bool InteractPressed => _playerInput != null && _playerInput.Player.Interact.WasPressedThisFrame();
+        
+        public bool InteractHeld => _playerInput != null && _playerInput.Player.Interact.IsPressed();
+        
+        public bool InteractReleased => _playerInput != null && _playerInput.Player.Interact.WasReleasedThisFrame();
 
         public float AimScroll => _playerInput != null ? _playerInput.Player.Aim.ReadValue<float>() : 0f;
 

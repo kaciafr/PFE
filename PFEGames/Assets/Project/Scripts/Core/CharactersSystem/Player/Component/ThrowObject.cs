@@ -15,11 +15,10 @@ namespace Goblfin.CharactersSystem.Player.Component
         private float throwSpeed = 10f;
         [SerializeField, Range(0f, 1f)] private float upwardBias = 0.3f;
 
-        [Header("Puissance (molette)")]
+        [Header("Puissance (charge)")]
         [SerializeField, Min(0f)] private float minThrowSpeed = 5f;
         [SerializeField, Min(0f)] private float maxThrowSpeed = 15f;
-        [SerializeField, Min(0f), Tooltip("Vitesse ajoutée ou retirée par cran de molette.")]
-        private float speedStep = 1f;
+        [SerializeField, Min(0.1f)] private float chargeTime = 1.5f;
         [SerializeField, Min(0f), Tooltip("Temps pendant lequel l'objet lâché ne touche pas le joueur (évite qu'il le pousse en l'air).")]
         private float ignorePlayerTime = 0.3f;
 
@@ -29,8 +28,15 @@ namespace Goblfin.CharactersSystem.Player.Component
         [SerializeField, Range(10, 100)] private int linePoints = 25;
         [SerializeField, Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
         [SerializeField] private LayerMask collisionMask = ~0;
+        [SerializeField] private float scrollSpeed = 2f;
+
+        [Header("Cercle d'atterrissage")]
+        [SerializeField, Min(0f)] private float markerSize = 0.4f;
+        [SerializeField, Range(0f, 0.5f)] private float markerPulse = 0.1f;
 
         private LineRenderer lineRenderer;
+        private Material lineMaterial;
+        private Transform landingMarker;
         private PlayerMotor motor;
         private Rigidbody heldObject;
         private Collider[] heldColliders;
@@ -42,6 +48,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private float currentSpeed;
 
         public bool IsHolding => heldObject != null;
+        public bool IsHoldingCorpse { get; private set; }
         public float CurrentSpeed => currentSpeed;
         public float PowerPercent => Mathf.InverseLerp(minThrowSpeed, currentMaxSpeed, currentSpeed);
 
@@ -49,14 +56,47 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.enabled = false;
+            lineMaterial = lineRenderer.material;
             motor = GetComponent<PlayerMotor>();
             playerColliders = GetComponentsInChildren<Collider>();
+            CreateLandingMarker();
         }
 
         private void LateUpdate()
         {
             if (isAiming && IsHolding)
+            {
                 DrawTrajectory();
+                lineMaterial.mainTextureOffset = new Vector2(-Time.time * scrollSpeed, 0f);
+            }
+        }
+
+        private void CreateLandingMarker()
+        {
+            landingMarker = new GameObject("LandingMarker").transform;
+
+            GameObject visual = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            Destroy(visual.GetComponent<Collider>());
+            visual.name = "Visual";
+            visual.transform.SetParent(landingMarker, false);
+            visual.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+            MeshRenderer markerRenderer = visual.GetComponent<MeshRenderer>();
+            markerRenderer.sharedMaterial = lineRenderer.sharedMaterial;
+            markerRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            markerRenderer.receiveShadows = false;
+
+            landingMarker.gameObject.SetActive(false);
+        }
+
+        private void ShowMarker(bool show, Vector3 point, Vector3 normal)
+        {
+            landingMarker.gameObject.SetActive(show);
+            if (!show) return;
+
+            landingMarker.position = point + normal * 0.02f;
+            landingMarker.rotation = Quaternion.FromToRotation(Vector3.up, normal);
+            landingMarker.localScale = Vector3.one * markerSize * (1f + Mathf.Sin(Time.time * 6f) * markerPulse);
         }
 
         public void Hold(Rigidbody obj)
@@ -67,8 +107,9 @@ namespace Goblfin.CharactersSystem.Player.Component
             heldColliders = obj.GetComponentsInChildren<Collider>();
             
             PlayerCorpse corpse = obj.GetComponentInParent<PlayerCorpse>();
+            IsHoldingCorpse = corpse != null;
             currentMaxSpeed = corpse != null ? corpse.MaxThrowSpeed : maxThrowSpeed;
-            currentSpeed = Mathf.Clamp(throwSpeed, minThrowSpeed, currentMaxSpeed);
+            currentSpeed = minThrowSpeed;
             
             initialParent = obj.transform.parent;
 
@@ -84,15 +125,18 @@ namespace Goblfin.CharactersSystem.Player.Component
         {
             isAiming = aiming;
             lineRenderer.enabled = aiming && IsHolding;
+            if (!lineRenderer.enabled) ShowMarker(false, Vector3.zero, Vector3.up);
         }
 
-        public void AdjustPower(float scroll)
+        public void ChargePower(float deltaTime)
         {
-            if (Mathf.Approximately(scroll, 0f)) return;
+            float speedPerSecond =  (currentMaxSpeed - minThrowSpeed) / chargeTime;
+            currentSpeed = Mathf.MoveTowards(currentSpeed,currentMaxSpeed, speedPerSecond * deltaTime);
+        }
 
-            currentSpeed = Mathf.Clamp(currentSpeed + Mathf.Sign(scroll) * speedStep,
-                minThrowSpeed, currentMaxSpeed);
-
+        public void ResetPower()
+        {
+            currentSpeed = minThrowSpeed;
         }
 
         public void Release()
@@ -147,6 +191,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void ClearHeld()
         {
             heldObject = null;
+            IsHoldingCorpse = false;
             heldColliders = null;
             SetAiming(false);
         }
@@ -154,7 +199,7 @@ namespace Goblfin.CharactersSystem.Player.Component
         private void SetHeldCollidersEnabled(bool enabled)
         {
             foreach (Collider col in heldColliders)
-                if (col != null) col.enabled = enabled;
+                if (col != null && !col.isTrigger) col.enabled = enabled;
         }
 
         private void SetPlayerCollisionIgnored(Collider[] objectColliders, bool ignore)
@@ -205,12 +250,15 @@ namespace Goblfin.CharactersSystem.Player.Component
                 {
                     lineRenderer.SetPosition(i, hit.point);
                     lineRenderer.positionCount = i + 1;
+                    ShowMarker(true, hit.point, hit.normal);
                     return;
                 }
 
                 lineRenderer.SetPosition(i, point);
                 previous = point;
             }
+
+            ShowMarker(false, Vector3.zero, Vector3.up);
         }
 
         private void OnDisable()

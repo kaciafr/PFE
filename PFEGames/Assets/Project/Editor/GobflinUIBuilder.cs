@@ -23,7 +23,6 @@ public static class GobflinUIBuilder
     {
         report.Clear();
 
-        // 1. Trouver le Canvas : celui qui contient la pause
         PauseScreen pause = Object.FindFirstObjectByType<PauseScreen>(FindObjectsInactive.Include);
         if (pause == null)
         {
@@ -38,7 +37,6 @@ public static class GobflinUIBuilder
         if (inputReader == null) report.Add("⚠ InputReader introuvable : " + InputReaderPath);
         if (player == null) report.Add("⚠ Pas de PlayerManager dans la scène (pastille E et jauge sans joueur).");
 
-        // 2. UIManager : hors du Canvas + Input Reader
         UIManager uiManager = Object.FindFirstObjectByType<UIManager>(FindObjectsInactive.Include);
         if (uiManager != null)
         {
@@ -386,7 +384,79 @@ public static class GobflinUIBuilder
             report.Add("Pastille E créée.");
         }
 
-        // Jauge de puissance
+        BuildPowerGauge(hud, player);
+
+        // Notification de quête
+        if (hud.Find("QuestNotification") == null)
+        {
+            GameObject notif = CreateUI("QuestNotification", hud);
+            Place(notif, new Vector2(0.5f, 1f), new Vector2(0, -80), new Vector2(700, 80));
+            AddImage(notif, new Color(0f, 0f, 0f, 0.6f), BuiltinSprite("UI/Skin/UISprite.psd"), false);
+            TextMeshProUGUI msg = AddText(notif.transform, "TxtMessage", "Une quête a été ajoutée dans mon carnet", 30, Color.white);
+            Stretch(msg.gameObject, 10);
+
+            QuestNotification script = Undo.AddComponent<QuestNotification>(notif);
+            Set(script, "txtMessage", msg);
+            report.Add("Notification de quête créée.");
+        }
+    }
+
+    // ─────────────────────────── Jauge de lancer seule ───────────────────────────
+
+    [MenuItem("Tools/Goblfin/UI/Ajouter la jauge de lancer (scène ouverte)")]
+    static void AddPowerGauge()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Arrête le Play d'abord.", "OK");
+            return;
+        }
+        report.Clear();
+
+        // 1. Le joueur : la jauge lit sa puissance de lancer
+        PlayerManager player = Object.FindFirstObjectByType<PlayerManager>(FindObjectsInactive.Include);
+        if (player == null)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Pas de joueur (PlayerManager) dans la scène.", "OK");
+            return;
+        }
+
+        // 2. Le Canvas : celui de la scène, sinon on en crée un
+        Canvas canvas = FindMainCanvas();
+        if (canvas == null)
+        {
+            GameObject canvasGo = new GameObject("Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            Undo.RegisterCreatedObjectUndo(canvasGo, "Créer Canvas");
+            canvasGo.layer = LayerMask.NameToLayer("UI");
+            canvas = canvasGo.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasScaler scaler = canvasGo.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            report.Add("Canvas créé.");
+        }
+
+        // 3. Le HUD (dessiné sous les menus), puis la jauge dedans
+        Transform hud = canvas.transform.Find("HUD");
+        if (hud == null)
+        {
+            GameObject go = CreateUI("HUD", canvas.transform);
+            Stretch(go);
+            hud = go.transform;
+            report.Add("HUD créé.");
+        }
+        hud.SetAsFirstSibling();
+
+        BuildPowerGauge(hud, player);
+        if (report.Count == 0) report.Add("La jauge existe déjà dans HUD.");
+
+        EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
+        Selection.activeGameObject = hud.Find("PowerGauge").gameObject;
+        EditorUtility.DisplayDialog("UI Gobflin", string.Join("\n", report) + "\n\nPense à Ctrl+S !", "OK");
+    }
+
+    static void BuildPowerGauge(Transform hud, PlayerManager player)
+    {
         if (hud.Find("PowerGauge") == null)
         {
             GameObject gauge = CreateUI("PowerGauge", hud);
@@ -406,20 +476,6 @@ public static class GobflinUIBuilder
             Set(script, "fill", fill);
             SetGradient(script, "colors", GreenToRed());
             report.Add("Jauge de puissance créée.");
-        }
-
-        // Notification de quête
-        if (hud.Find("QuestNotification") == null)
-        {
-            GameObject notif = CreateUI("QuestNotification", hud);
-            Place(notif, new Vector2(0.5f, 1f), new Vector2(0, -80), new Vector2(700, 80));
-            AddImage(notif, new Color(0f, 0f, 0f, 0.6f), BuiltinSprite("UI/Skin/UISprite.psd"), false);
-            TextMeshProUGUI msg = AddText(notif.transform, "TxtMessage", "Une quête a été ajoutée dans mon carnet", 30, Color.white);
-            Stretch(msg.gameObject, 10);
-
-            QuestNotification script = Undo.AddComponent<QuestNotification>(notif);
-            Set(script, "txtMessage", msg);
-            report.Add("Notification de quête créée.");
         }
     }
 

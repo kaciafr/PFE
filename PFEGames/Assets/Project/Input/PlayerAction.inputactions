@@ -265,23 +265,23 @@
                 },
                 {
                     "name": "",
-                    "id": "cd92c6df-4072-450d-bcd9-bbe01c9b6ee7",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ThrowObject",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "31681d1e-62f7-47ab-b171-2d1d791b80a5",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2704436-9bd4-441b-a403-94c52e35ec7d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

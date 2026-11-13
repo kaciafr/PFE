@@ -17,6 +17,8 @@ namespace Goblfin
         [SerializeField] private DSDialogueSO questCompletedDialogue;  // quete deja rendue
 
         public bool CanInteract => !DialogueManager.IsOpen;
+        [SerializeField] private int priority = 30;
+        public int Priority => priority;
 
         public void Interact()
         {

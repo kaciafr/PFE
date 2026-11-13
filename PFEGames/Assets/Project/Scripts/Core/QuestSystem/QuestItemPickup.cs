@@ -12,6 +12,8 @@ namespace Goblfin.QuestSystem
                                    && quest != null
                                    && QuestManager.instance != null
                                    && QuestManager.instance.GetState(quest) == QuestState.Active;
+        [SerializeField] private int priority = 20;
+        public int Priority => priority;
 
         public void Interact()
         {

@@ -1,3 +1,4 @@
+using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Input;
 using Goblfin.Player;
 using PrimeTween;
@@ -62,22 +63,20 @@ namespace Goblfin
             key = KeyName(actions.Player.Interact);
             pos = Vector3.zero;
 
-            if (player.CanInteract)
+            if (!player.IsClimbing)
             {
-                pos = (player.Sensor.InteractableInFront as Component).transform.position;
-                return true;
-            }
-
-            if (player.CanPickUp)
-            {
-                pos = player.ThrowableInFront.position;
-                return true;
-            }
-
-            if (player.LadderInFront && !player.IsClimbing)
-            {
-                pos = player.Sensor.LadderPoint;
-                return true;
+                switch (player.InteractChoice)
+                {
+                    case InteractChoice.Interact:
+                        pos = (player.Sensor.InteractableInFront as Component).transform.position;
+                        return true;
+                    case InteractChoice.PickUp:
+                        pos = player.ThrowableInFront.position;
+                        return true;
+                    case InteractChoice.Climb:
+                        pos = player.Sensor.LadderPoint;
+                        return true;
+                }
             }
 
             if (player.CanGrab && !player.IsGrabbing)

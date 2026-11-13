@@ -20,8 +20,15 @@ namespace Goblfin.CharactersSystem.Player.Component
 
         
         [SerializeField] private float edgeCheckDistance = 0.35f;
-        [SerializeField] private float edgeMaxDrop = 0.5f;   
-        
+        [SerializeField] private float edgeMaxDrop = 0.5f;
+
+        [Header("Choix de la cible (touche E)")]
+        [SerializeField] private float angleWeight = 0.01f;
+        [SerializeField] private float priorityWeight = 0.01f;
+        [SerializeField] private float stickyBonus = 0.1f;
+        [SerializeField] private int ladderPriority = 5;
+        [SerializeField] private int pickUpPriority = 0;
+
         public bool IsGrounded { get; private set; }
         public Vector3 GroundNormal { get; private set; } = Vector3.up;
         public float GroundHeight { get; private set; }
@@ -40,6 +47,10 @@ namespace Goblfin.CharactersSystem.Player.Component
         public Vector3 CrateHitPoint { get; private set; }   
         public Vector3 CrateHitNormal { get; private set; }  
         public IInteractable InteractableInFront  { get; private set; }
+
+        public float InteractableScore { get; private set; } = float.MaxValue;
+        public float ThrowableScore { get; private set; } = float.MaxValue;
+        public float LadderScore { get; private set; } = float.MaxValue;
 
        
         private PlayerMotor motor;
@@ -124,6 +135,8 @@ namespace Goblfin.CharactersSystem.Player.Component
                 LadderPoint = hit.point + side * Vector3.Dot(toCenter, side);
             }
 
+            LadderScore = LadderInFront ? Score(hit.point, ladderPriority) : float.MaxValue;
+
             Vector3 topOrigin = transform.position + Vector3.up * climb.TopCheckHeight;
             LadderTopReached = LadderInFront
                 && !Physics.Raycast(topOrigin, dir, climb.DetectDistance, climb.Layer, QueryTriggerInteraction.Ignore);
@@ -184,6 +197,7 @@ namespace Goblfin.CharactersSystem.Player.Component
             }
 
             ThrowableInFront = closest;
+            ThrowableScore = closest != null ? Score(closest.position, pickUpPriority) : float.MaxValue;
 
             if (drawDebugThrowable)
                 Debug.DrawLine(origin, center, ThrowableInFront ? Color.magenta : Color.gray);
@@ -194,17 +208,37 @@ namespace Goblfin.CharactersSystem.Player.Component
             Vector3 origin = transform.position + Vector3.up * settings.Interact.InteractHeight;
             Vector3 center = origin + Forward * settings.Interact.InteractRadius;
 
-            Collider[] hits = Physics.OverlapSphere(center, settings.Interact.InteractRadius);
-            InteractableInFront = null;
+            int mask = settings.Interact.Layer.value != 0 ? settings.Interact.Layer.value : ~0;
+            Collider[] hits = Physics.OverlapSphere(center, settings.Interact.InteractRadius, mask);
+
+            IInteractable best = null;
+            float bestScore = float.MaxValue;
             foreach (var h in hits)
             {
                 var i = h.GetComponentInParent<IInteractable>();
-                if (i != null)
+                if (i == null || !i.CanInteract) continue;
+
+                float score = Score(h.ClosestPointOnBounds(origin), i.Priority);
+                if (i == InteractableInFront) score -= stickyBonus;
+
+                if (score < bestScore)
                 {
-                    InteractableInFront = i;
-                    break;
+                    bestScore = score;
+                    best = i;
                 }
             }
+
+            InteractableInFront = best;
+            InteractableScore = bestScore;
+        }
+
+        private float Score(Vector3 point, int priority)
+        {
+            Vector3 toTarget = point - transform.position;
+            Vector3 flat = new Vector3(toTarget.x, 0f, toTarget.z);
+            float angle = flat.sqrMagnitude > 0.0001f ? Vector3.Angle(Forward, flat) : 0f;
+
+            return toTarget.magnitude + angle * angleWeight - priority * priorityWeight;
         }
 
 
