@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d813f24720e44c0afa84c5aa8adc669, type: 3}
   m_Name: RoomView
   m_EditorClassIdentifier: Core::CameraState
-  followOffset: {x: 0.57, y: 17.6, z: 8}
-  fov: 71.1
-  screenX: 0.67
-  screenY: -0.84
-  followDirection: 1
+  followOffset: {x: 0, y: 4.91, z: 9}
+  fov: 30.9
+  screenX: 0
+  screenY: 0.1
+  followDirection: 0
   smooth: 2
