@@ -35,7 +35,7 @@ namespace Goblfin.Gameplay.CachetteZone
         private bool busy;
 
         [SerializeField] private int priority = 0;
-        public bool CanInteract => !occupied && !busy;
+        public bool CanInteract => !occupied && !busy && IsPlayerInFront();
         public int Priority => priority;
 
         private void Start()
@@ -43,6 +43,18 @@ namespace Goblfin.Gameplay.CachetteZone
             player = FindFirstObjectByType<PlayerManager>();
             closedRotation = lidChest.localRotation;
             openRotation = closedRotation * Quaternion.Euler(0f, 0f, rotation);
+        }
+
+        private bool IsPlayerInFront()
+        {
+            if (player == null || insidePoint == null || exitPoint == null) return false;
+
+            Vector3 front = exitPoint.position - insidePoint.position;
+            Vector3 toPlayer = player.transform.position - insidePoint.position;
+            front.y = 0f;
+            toPlayer.y = 0f;
+
+            return Vector3.Dot(front, toPlayer) > 0f;
         }
 
         public void Interact()
@@ -74,6 +86,7 @@ namespace Goblfin.Gameplay.CachetteZone
 
 
             Sequence.Create()
+                .Group(Tween.EulerAngles(player.transform, startAngles, turnedAngles, jumpDuration, Ease.InOutQuad, startDelay: takeoffDelay))
                 .ChainCallback(() =>
                 {
                     player.SetVisible(true);
@@ -82,7 +95,6 @@ namespace Goblfin.Gameplay.CachetteZone
                 .Chain(OpenLid())
                 .Group(Pop())
                 .Group(JumpArc(insidePoint.position, exitPoint.position))
-                .Group(Tween.EulerAngles(player.transform, startAngles, turnedAngles, jumpDuration, Ease.InOutQuad, startDelay: takeoffDelay))
                 .ChainCallback(() => player.Animator.Play(AnimIds.Land, 0.05f))
                 .Chain(CloseLid())
                 .ChainCallback(() =>
