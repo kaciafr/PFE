@@ -18,7 +18,7 @@ namespace Goblfin
 		void OnTriggerExit(Collider other)
 		{
 			if (other.CompareTag("Player"))
-				CameraController.Instance.Release();
+				CameraController.Instance.Release(state);
 		}
 	}
 }

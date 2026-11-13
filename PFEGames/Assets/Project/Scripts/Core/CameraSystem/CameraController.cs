@@ -44,8 +44,21 @@ namespace Goblfin
 		[SerializeField, Tooltip("Vue active en ce moment (lecture seule).")]
 		string activeState;
 
-		public void Request(CameraState state) => current = state;
-		public void Release() => current = defaultState;
+		readonly System.Collections.Generic.List<CameraState> active = new();
+
+		public void Request(CameraState state)
+		{
+			if (state == null) return;
+			active.Remove(state);
+			active.Add(state);
+			current = state;
+		}
+
+		public void Release(CameraState state)
+		{
+			active.Remove(state);
+			current = active.Count > 0 ? active[active.Count - 1] : defaultState;
+		}
 
 		void Update()
 		{
