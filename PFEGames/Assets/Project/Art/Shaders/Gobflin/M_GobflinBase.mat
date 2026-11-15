@@ -30,7 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Darkness: 0.12
-    - _Dissolve: 0.65448254
+    - _Dissolve: 0
     - _Lightness: 1.91
     - _Shades: 0.32
     - _Sharpness: -0.1

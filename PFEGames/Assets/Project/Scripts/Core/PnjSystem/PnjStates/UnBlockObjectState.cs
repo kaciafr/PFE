@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Goblfin.PnjSystem
 {
     public class UnBlockObjectState : IPnjStates
@@ -12,9 +14,9 @@ namespace Goblfin.PnjSystem
         
         public void EnterState(BrainPnj brainPnj)
         {
-            
             Communication.SomeoneIsIn(brainPnj);
             brainPnj.Agent.speed = AgentSpeed;
+            brainPnj.transform.LookAt(objectblock.transform);
         }
         
         public void UpdateState(BrainPnj brainPnj)

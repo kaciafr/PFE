@@ -41,5 +41,6 @@ namespace Goblfin.PnjSystem.Utilities
 			return Mathf.Clamp01(1f - (angle / (viewAngle / 2f)));
 		}
 		
+		
 	}
 }

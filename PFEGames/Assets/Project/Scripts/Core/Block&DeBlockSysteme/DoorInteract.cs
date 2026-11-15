@@ -23,7 +23,6 @@ namespace Goblfin
         [Header("Audio")]
         public AudioSource blockDoorSound;        
         public AudioSource openDoorSound;        
-        public AudioSource closeDoorSound;        
         public bool isOpen;
 
         private Quaternion closedRotation;
@@ -40,13 +39,12 @@ namespace Goblfin
             ApplyOpenDirection(1f);
             DoorGoTo(startBlocked ? new DoorBlockedState() : new DoorNormalState());
         }
-
+        
         private void Update()
         {
             DoorState.UpdateState(this);
-            
             if (isOpen)
-            {
+            { 
                 openTimer += Time.deltaTime;
                 if (openTimer >= maxTimeOpen)
                 {
@@ -54,15 +52,15 @@ namespace Goblfin
                     openTimer = 0f;
                 }
             }
-            
             var target = isOpen ? 1f : 0f;
-            CloseDoor(target);
+            DoorSlamming(target);
         }
 
-        private void CloseDoor(float target)
+        private void DoorSlamming(float target)
         {
             openAmount = Mathf.MoveTowards(openAmount, target, Time.deltaTime / openDuration);
-            transform.localRotation = Quaternion.Slerp(closedRotation, openRotation, openAmount);
+            transform.localRotation = Quaternion.Lerp(closedRotation, openRotation, openAmount);
+            
         }
 
         public void DoorGoTo(IDoorState doorState)
@@ -75,33 +73,40 @@ namespace Goblfin
 
         public void Block()
         {
+            if(isOpen)return;
+            
             isOpen = false;
             openTimer = 0f;
             DoorGoTo(new DoorBlockedState());
         }
 
         public void Interact() => DoorState.InteractTypeState(this);
+        public int GetSide(Vector3 worldPosition)
+        {
+            Quaternion parentRotation = transform.parent ? transform.parent.rotation : Quaternion.identity;
+            Vector3 normal = parentRotation * closedRotation * doorNormal;
+            return Vector3.Dot(worldPosition - transform.position, normal) >= 0f ? 1 : -1;
+        }
+
         public void SetOpenSide(Vector3 fromWorldPosition)
         {
             if (isOpen || openAmount > 0.001f) return;
 
-            Quaternion parentRotation = transform.parent ? transform.parent.rotation : Quaternion.identity;
-            Vector3 normal = parentRotation * closedRotation * doorNormal;
-            Vector3 offset = fromWorldPosition - transform.position;
-            float dot = Vector3.Dot(offset, normal);
-
-            Debug.Log($"SetOpenSide : dot = {dot:F2}, normal = {normal}, offset = {offset}");
-
-            float side = dot >= 0f ? 1f : -1f;
-            Debug.Log(fromWorldPosition);
+            float side = GetSide(fromWorldPosition);
             if (invertOpenDirection) side = -side;
 
             ApplyOpenDirection(side);
+        }
+        public void OpenDirectly()
+        {
+            isOpen =  true;
+            openTimer = 0f;
         }
 
         private void ApplyOpenDirection(float direction)
         {
             openRotation = closedRotation * Quaternion.Euler(openEulerAngles * direction);
+            
         }
         
 #if UNITY_EDITOR
@@ -116,5 +121,6 @@ namespace Goblfin
             Gizmos.DrawRay(transform.position, -normal * 1.5f);
         }
 #endif
+        
     }
 }

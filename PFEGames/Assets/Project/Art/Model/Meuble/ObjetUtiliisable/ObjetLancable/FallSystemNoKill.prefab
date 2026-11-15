@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4484592453830357861}
   - component: {fileID: -5215287390134839233}
   - component: {fileID: -5768885744022856429}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FallSystemNoKill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
