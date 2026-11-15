@@ -28,9 +28,21 @@ namespace Goblfin.Gameplay.CachetteZone
         [SerializeField] private float takeoffDelay = 0.25f;
         [SerializeField] private float exitTurnAngle = 180f;
 
+        [Header("Yeux")]
+        [SerializeField] private GameObject hiddenEyes;
+        [SerializeField] private Renderer eyesRenderer;
+        [SerializeField] private float eyesFadeDuration = 0.4f;
+        [SerializeField, Range(0f, 1f)] private float peekAmount = 0.2f;
+        [SerializeField] private float peekDelay = 0.3f;
+        [SerializeField] private float peekDuration = 0.5f;
+
+        private static readonly int GlowId = Shader.PropertyToID("_GlowIntensity");
+
         private PlayerManager player;
         private Quaternion closedRotation;
         private Quaternion openRotation;
+        private Quaternion peekRotation;
+        private Material eyesMaterial;
         private bool occupied;
         private bool busy;
 
@@ -43,6 +55,9 @@ namespace Goblfin.Gameplay.CachetteZone
             player = FindFirstObjectByType<PlayerManager>();
             closedRotation = lidChest.localRotation;
             openRotation = closedRotation * Quaternion.Euler(0f, 0f, rotation);
+            peekRotation = Quaternion.Slerp(closedRotation, openRotation, peekAmount);
+            eyesMaterial = eyesRenderer.material;
+            hiddenEyes.SetActive(false);
         }
 
         private bool IsPlayerInFront()
@@ -73,7 +88,15 @@ namespace Goblfin.Gameplay.CachetteZone
                 .ChainCallback(() => player.SetVisible(false))
                 .Chain(CloseLid())
                 .Group(Pop())
+                .ChainCallback(() =>
+                {
+                    eyesMaterial.SetFloat(GlowId, 0f);
+                    hiddenEyes.SetActive(true);
+                })
+                .Chain(Tween.LocalRotation(lidChest, peekRotation, peekDuration, Ease.OutBack, startDelay: peekDelay))
+                .Group(Tween.Custom(0f, 1f, eyesFadeDuration, v => eyesMaterial.SetFloat(GlowId, v), Ease.OutQuad, startDelay: peekDelay))
                 .ChainCallback(() => busy = false);
+
         }
 
         public void RequestExit()
@@ -89,6 +112,7 @@ namespace Goblfin.Gameplay.CachetteZone
                 .Group(Tween.EulerAngles(player.transform, startAngles, turnedAngles, jumpDuration, Ease.InOutQuad, startDelay: takeoffDelay))
                 .ChainCallback(() =>
                 {
+                    hiddenEyes.SetActive(false);
                     player.SetVisible(true);
                     player.Animator.Play(AnimIds.Jump, 0.05f);
                 })
