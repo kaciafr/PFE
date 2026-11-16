@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebd7e24ee549fd4590bb674feb8b658, type: 3}
+  m_Name: QUEST
+  m_EditorClassIdentifier: Core::QuestSO
+  <QuestName>k__BackingField: 'La quete du rat '
+  <Description>k__BackingField: "Une petite souris affam\xE9e a oubli\xE9 son d\xE9licieux fromage dans la cuisine. Rapporte-le-lui pour qu\u2019elle te donne la suite de la d\xE9mo"
+  <Requirements>k__BackingField:
+  - <Item>k__BackingField: {fileID: 11400000, guid: ff5f30ca85757ae4eaf02bc26fa08639, type: 2}
+    <Amount>k__BackingField: 1
+  <RemoveItemsOnTurnIn>k__BackingField: 1
