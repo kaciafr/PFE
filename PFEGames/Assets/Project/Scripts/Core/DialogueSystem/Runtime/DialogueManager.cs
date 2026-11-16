@@ -41,6 +41,7 @@ namespace Goblfin
 
             open = true;
             PanelUI.SetActive(true);
+            SetCursorFree(true);
             speakerText.text = speakerName;
             ShowDialogue(startingDialogue);
         }
@@ -170,6 +171,13 @@ namespace Goblfin
             currentDialogue = null;
             ClearChoices();
             PanelUI.SetActive(false);
+            SetCursorFree(false);
+        }
+
+        private void SetCursorFree(bool free)
+        {
+            Cursor.visible = free;
+            Cursor.lockState = free ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }

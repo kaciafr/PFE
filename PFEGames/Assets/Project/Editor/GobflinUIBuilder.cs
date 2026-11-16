@@ -479,6 +479,254 @@ public static class GobflinUIBuilder
         }
     }
 
+    // ─────────────────────── Menu pause + carnet (maquette) ───────────────────────
+
+    static readonly Color Cream = new Color(0.992f, 0.984f, 0.965f);
+    static readonly Color Brown = new Color(0.42f, 0.165f, 0.07f);
+    static readonly Color DarkGreen = new Color(0.12f, 0.23f, 0.17f);
+    static readonly Color Yellow = new Color(1f, 0.784f, 0f);
+
+    [MenuItem("Tools/Goblfin/UI/Menu pause : appliquer la maquette du carnet")]
+    static void BuildPauseLayout()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Arrête le Play d'abord.", "OK");
+            return;
+        }
+        report.Clear();
+
+        PauseScreen pause = Object.FindFirstObjectByType<PauseScreen>(FindObjectsInactive.Include);
+        QuestJournal journal = Object.FindFirstObjectByType<QuestJournal>(FindObjectsInactive.Include);
+        if (pause == null || journal == null)
+        {
+            EditorUtility.DisplayDialog("UI Gobflin", "Il faut un PauseScreen et un QuestJournal dans la scène.", "OK");
+            return;
+        }
+
+        Transform panel = pause.transform;
+        SerializedObject pauseSo = new SerializedObject(pause);
+        Button resume = pauseSo.FindProperty("btnResume").objectReferenceValue as Button;
+        Button options = pauseSo.FindProperty("btnOptions").objectReferenceValue as Button;
+        Button quit = pauseSo.FindProperty("btnQuit").objectReferenceValue as Button;
+
+        // 1. Fond gris
+        Transform bg = FindChild(panel, "Background");
+        if (bg != null && bg.TryGetComponent(out Image bgImage))
+        {
+            Undo.RecordObject(bgImage, "Fond pause");
+            bgImage.color = new Color(0.776f, 0.776f, 0.776f, 0.92f);
+        }
+
+        // 2. Bouton fermer (Reprendre) en haut à droite
+        if (resume != null)
+        {
+            if (resume.transform.parent != panel) Undo.SetTransformParent(resume.transform, panel, "Sortir Reprendre");
+            Undo.RecordObject(resume.transform, "Placer");
+            Place(resume.gameObject, new Vector2(0.5f, 0.5f), new Vector2(834, 449), new Vector2(130, 76));
+            StyleButton(resume, Cream, Brown, "X", 40);
+        }
+
+        // 3. Options / Quitter à droite, jaunes
+        if (options != null)
+        {
+            Transform buttons = options.transform.parent;
+            Undo.RecordObject(buttons, "Placer");
+            Place(buttons.gameObject, new Vector2(0.5f, 0.5f), new Vector2(578, 126), new Vector2(690, 310));
+            if (buttons.TryGetComponent(out VerticalLayoutGroup vlg))
+            {
+                Undo.RecordObject(vlg, "Layout");
+                vlg.spacing = 91;
+                vlg.childAlignment = TextAnchor.UpperCenter;
+                vlg.childControlWidth = true; vlg.childForceExpandWidth = true;
+                vlg.childControlHeight = true; vlg.childForceExpandHeight = false;
+            }
+            StyleButton(options, Yellow, Color.black, "Options", 44);
+            SetPreferredHeight(options.gameObject, 108);
+        }
+        if (quit != null)
+        {
+            StyleButton(quit, Yellow, Color.black, "Quitter", 44);
+            SetPreferredHeight(quit.gameObject, 108);
+        }
+
+        // 4. Le carnet à gauche
+        Undo.RecordObject(journal.transform, "Placer");
+        Place(journal.gameObject, new Vector2(0.5f, 0.5f), new Vector2(-543, 0), new Vector2(741, 946));
+
+        Transform frame = FindChild(journal.transform, "Image");
+        if (frame != null)
+        {
+            Undo.RecordObject(frame, "Placer");
+            Stretch(frame.gameObject);
+            StyleImage(frame.gameObject, Cream, Brown);
+        }
+
+        Transform title = FindChild(journal.transform, "Title");
+        if (title != null && title.TryGetComponent(out TextMeshProUGUI titleText))
+        {
+            Undo.RecordObject(title, "Placer");
+            Place(title.gameObject, new Vector2(0.5f, 1f), new Vector2(0, -75), new Vector2(700, 80));
+            Undo.RecordObject(titleText, "Titre");
+            titleText.text = "CARNET DE QUÊTES";
+            titleText.fontSize = 52;
+            titleText.fontStyle = FontStyles.Bold;
+            titleText.color = Color.black;
+        }
+
+        // 5. Le cadre du détail
+        Transform detail = FindChild(journal.transform, "Detail");
+        if (detail == null) detail = CreateUI("Detail", journal.transform).transform;
+        Undo.RecordObject(detail, "Placer");
+        Place(detail.gameObject, new Vector2(0.5f, 0.5f), new Vector2(23, -54), new Vector2(620, 710));
+        StyleImage(detail.gameObject, Cream, Brown);
+
+        TextMeshProUGUI detailTitle = DetailText(detail, "DetailTitle", "Détail de la quête", 36, new Vector2(0, -50), new Vector2(580, 60));
+        detailTitle.fontStyle = FontStyles.Bold;
+        detailTitle.color = DarkGreen;
+
+        TextMeshProUGUI detailDesc = DetailText(detail, "DetailDescription", "objectif · indice · lieu", 24, new Vector2(0, -140), new Vector2(560, 120));
+        detailDesc.color = DarkGreen;
+
+        TextMeshProUGUI detailMissions = DetailText(detail, "DetailMissions", "", 28, new Vector2(0, -380), new Vector2(540, 340));
+        detailMissions.alignment = TextAlignmentOptions.TopLeft;
+        detailMissions.color = Color.black;
+
+        SerializedObject journalSo = new SerializedObject(journal);
+        GameObject empty = journalSo.FindProperty("emptyText").objectReferenceValue as GameObject;
+        if (empty != null)
+        {
+            Undo.SetTransformParent(empty.transform, detail, "Ranger texte vide");
+            Place(empty, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560, 100));
+            if (empty.TryGetComponent(out TextMeshProUGUI emptyText))
+            {
+                Undo.RecordObject(emptyText, "Texte vide");
+                emptyText.text = "Aucune quête pour l'instant";
+                emptyText.fontSize = 30;
+                emptyText.color = new Color(0.4f, 0.4f, 0.4f);
+            }
+        }
+
+        // 6. Les onglets collés au bord droit du carnet
+        Transform list = journalSo.FindProperty("listParent").objectReferenceValue as Transform;
+        if (list != null)
+        {
+            Undo.RecordObject(list, "Placer");
+            RectTransform rt = (RectTransform)list;
+            rt.anchorMin = rt.anchorMax = new Vector2(1f, 1f);
+            rt.pivot = new Vector2(0f, 1f);
+            rt.anchoredPosition = new Vector2(0, -206);
+            rt.sizeDelta = new Vector2(170, 348);
+
+            if (list.TryGetComponent(out VerticalLayoutGroup lv))
+            {
+                Undo.RecordObject(lv, "Layout");
+                lv.spacing = 45;
+                lv.childAlignment = TextAnchor.UpperLeft;
+                lv.childControlWidth = true; lv.childForceExpandWidth = true;
+                lv.childControlHeight = true; lv.childForceExpandHeight = false;
+            }
+        }
+
+        Button tab = journalSo.FindProperty("questButtonPrefab").objectReferenceValue as Button;
+        if (tab != null)
+        {
+            if (tab.TryGetComponent(out Image hit))
+            {
+                Undo.RecordObject(hit, "Onglet");
+                hit.color = new Color(1f, 1f, 1f, 0f);
+                hit.raycastTarget = true;
+            }
+            SetPreferredHeight(tab.gameObject, 86);
+
+            Transform visual = FindChild(tab.transform, "Visual");
+            if (visual != null)
+            {
+                Undo.RecordObject(visual, "Placer");
+                Stretch(visual.gameObject);
+                StyleImage(visual.gameObject, Cream, Brown);
+            }
+
+            TextMeshProUGUI label = tab.GetComponentInChildren<TextMeshProUGUI>(true);
+            if (label != null)
+            {
+                Undo.RecordObject(label, "Onglet");
+                Undo.RecordObject(label.transform, "Placer");
+                Stretch(label.gameObject, 8);
+                label.text = "Quête 1";
+                label.fontStyle = FontStyles.Bold;
+                label.color = DarkGreen;
+                label.alignment = TextAlignmentOptions.Center;
+                label.enableAutoSizing = true;
+                label.fontSizeMin = 14;
+                label.fontSizeMax = 28;
+            }
+        }
+
+        // 7. Brancher le détail dans le carnet
+        Set(journal, "detailTitle", detailTitle);
+        Set(journal, "detailDescription", detailDesc);
+        Set(journal, "detailMissions", detailMissions);
+
+        report.Add("Menu pause mis à la maquette (carnet, onglets, détail, boutons).");
+        EditorSceneManager.MarkSceneDirty(panel.gameObject.scene);
+        EditorUtility.DisplayDialog("UI Gobflin", string.Join("\n", report) + "\n\nPense à Ctrl+S !", "OK");
+    }
+
+    static Transform FindChild(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+            if (child.name.Trim() == name) return child;
+        return null;
+    }
+
+    static TextMeshProUGUI DetailText(Transform parent, string name, string text, float size, Vector2 pos, Vector2 sizeDelta)
+    {
+        Transform existing = FindChild(parent, name);
+        TextMeshProUGUI tmp = existing != null ? existing.GetComponent<TextMeshProUGUI>() : AddText(parent, name, text, size, Color.black);
+        Undo.RecordObject(tmp, "Texte");
+        tmp.text = text;
+        tmp.fontSize = size;
+        Undo.RecordObject(tmp.transform, "Placer");
+        Place(tmp.gameObject, new Vector2(0.5f, 1f), pos, sizeDelta);
+        return tmp;
+    }
+
+    static void StyleImage(GameObject go, Color fill, Color border)
+    {
+        Image img = go.GetComponent<Image>();
+        if (img == null) img = Undo.AddComponent<Image>(go);
+        Undo.RecordObject(img, "Style");
+        img.sprite = BuiltinSprite("UI/Skin/UISprite.psd");
+        img.type = Image.Type.Sliced;
+        img.color = fill;
+
+        Outline outline = go.GetComponent<Outline>();
+        if (outline == null) outline = Undo.AddComponent<Outline>(go);
+        Undo.RecordObject(outline, "Style");
+        outline.effectColor = border;
+        outline.effectDistance = new Vector2(3, -3);
+    }
+
+    static void StyleButton(Button button, Color fill, Color border, string text, float size)
+    {
+        StyleImage(button.gameObject, fill, border);
+        TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (label == null) return;
+        Undo.RecordObject(label, "Texte");
+        label.text = text;
+        label.fontSize = size;
+        label.color = Color.black;
+    }
+
+    static void SetPreferredHeight(GameObject go, float height)
+    {
+        LayoutElement le = go.GetComponent<LayoutElement>();
+        if (le == null) le = Undo.AddComponent<LayoutElement>(go);
+        Undo.RecordObject(le, "Layout");
+        le.preferredHeight = height;
+    }
+
     // ─────────────────────────── Contrôles ───────────────────────────
 
     static ControlsScreen BuildControlsPanel(Transform canvas, InputReader inputReader)
