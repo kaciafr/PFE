@@ -25,6 +25,11 @@ namespace Goblfin.PnjSystem
 		private bool IsFalling => !MathGame.RayCastCheck( transform.position,Vector3.down,
 			distanceMaxOfDetection, groundMask,
 			out RaycastHit hit, Color.chartreuse);
+
+		private void Start()
+		{
+			collider.enabled = false;
+		}
 		
 
 		private void Update()
@@ -33,7 +38,6 @@ namespace Goblfin.PnjSystem
 				ragdoll.enabled = wasFalling;
 			if (killZone != null)
 				killZone.enabled = wasFalling;
-			collider.enabled = false;
 			
 			bool isFallingNow = IsFalling;
 
@@ -44,7 +48,7 @@ namespace Goblfin.PnjSystem
 			else if (!isFallingNow && wasFalling)
 			{
 				float fallDistance = height - transform.position.y;
-				float impactForce = MathGame.CalculateImpactForce(fallDistance, Gravity, items.Mass, items.StoppingDistance);
+				float impactForce = MathGame.CalculateImpactForce(fallDistance, Gravity, 0.3f, items.StoppingDistance);
 				TriggerSoundDetection(impactForce);
 			}
 
@@ -65,11 +69,13 @@ namespace Goblfin.PnjSystem
 		{
 			collider.radius = radius;
 			//noiseGO.SetActive(true);
+			collider.enabled = true;
 			collider.isTrigger = true;
 
 			yield return new WaitForSeconds(1);
 			
 			//noiseGO.SetActive(false);
+			collider.enabled = false;
 			collider.radius = 0f;
 		}
 
