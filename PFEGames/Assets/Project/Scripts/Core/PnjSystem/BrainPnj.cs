@@ -23,8 +23,9 @@ namespace Goblfin.PnjSystem
 		public IPnjStates PnjStates {get; private set;}
 		private IPnjStates pendingRequest;
 
-		private AuditionCast audition;
-		private VisionCone vision;
+		[field:SerializeField] public AuditionCast Audition {get; private set;}
+		[field:SerializeField] public VisionCone Vision {get; private set;}
+		[field:SerializeField] public PnjPatience Patience {get; private set;}
 		
 		[field:SerializeField]  public bool isAlertedBySound = false;
 		private float soundAlertTimer = 0f;
@@ -53,18 +54,19 @@ namespace Goblfin.PnjSystem
 		{
 			PnjGoTo(new PatrolState(this));
 			findProblem = GetAptitude<ProblemAttraction>();
-			vision = GetAptitude<VisionCone>();
-			if (vision == null)
+			Vision = GetAptitude<VisionCone>();
+			Patience = GetAptitude<PnjPatience>();
+			if (Vision == null)
 			{
 				Debug.Log("No vision found");
 			}
-			audition = GetAptitude<AuditionCast>();
-			if (audition == null)
+			Audition = GetAptitude<AuditionCast>();
+			if (Audition == null)
 			{
 				Debug.Log("No audition found");
 			}
-			vision.OnTargetSeen += HandleTargetSeen;
-			audition.OnHearAlerte += HandleTargetSound;
+			Vision.OnTargetSeen += HandleTargetSeen;
+			Audition.OnHearAlerte += HandleTargetSound;
 			if (findProblem == null)
 			{
 				Debug.Log("IL MANQUE UN TRUC LA");
@@ -89,8 +91,8 @@ namespace Goblfin.PnjSystem
 		}
 		private void OnDisable()
 		{
-			vision.OnTargetSeen -= HandleTargetSeen;
-			audition.OnHearAlerte -= HandleTargetSound;
+			Vision.OnTargetSeen -= HandleTargetSeen;
+			Audition.OnHearAlerte -= HandleTargetSound;
 			
 			OnRagdoll -= KoMode;
 			OnWakeUp -= DisableRagdollPhysics;
@@ -202,8 +204,6 @@ namespace Goblfin.PnjSystem
 		
 		private void HandleTargetSeen(Vector3 pos, IDetected target)
 		{
-			
-			
 			if (!CanEnter(StatePriority.Suspicious)) return;
 			RequestState(new SurpriseState(target));
 		}

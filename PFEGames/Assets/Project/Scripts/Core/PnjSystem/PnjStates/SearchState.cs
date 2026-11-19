@@ -15,6 +15,8 @@ namespace Goblfin.PnjSystem
        private Vector3 lastTargetPos;
        private List<Vector3> searchPoints = new List<Vector3>();
        private bool isWaiting;
+
+       private int searchPointCount = GameMetrix.SearchPointCount;
        public SearchState(BrainPnj guard, Vector3 lastTargetPos)
        {
           this.guard = guard;
@@ -28,8 +30,8 @@ namespace Goblfin.PnjSystem
           isWaiting = false;
           
           guard.Agent.speed = AgentSpeed;
-
-          searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, GameMetrix.SearchPointCount);
+          searchPointCount += (int)brainPnj.Patience.CurrentPatienceType;
+          searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, searchPointCount);
 
           if (searchPoints.Count > 0)
              brainPnj.Agent.SetDestination(searchPoints[0]);
@@ -62,6 +64,7 @@ namespace Goblfin.PnjSystem
 
        public void ExitState(BrainPnj brainPnj)
        {
+          brainPnj.Patience.AddOrRemovePatience(-10);
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
        }
        

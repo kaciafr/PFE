@@ -19,6 +19,7 @@ namespace Goblfin.PnjSystem
 		public void EnterState(BrainPnj brainPnj)
 		{
 			time = 0;
+
 			brainPnj.Agent.speed = AgentSpeed;
 			pnjPos = brainPnj.transform.position;
 			brainPnj.Agent.updatePosition = false;    

@@ -11,9 +11,9 @@ namespace Goblfin.PnjSystem
 		private float waitTimer;
 		private bool isWaiting;
 		
-		public PatrolState(BrainPnj guard)
+		public PatrolState(BrainPnj brainPnj)
 		{
-			this.guard = guard;
+			this.guard = brainPnj;
 		}
 
 		public void EnterState(BrainPnj brainPnj)
