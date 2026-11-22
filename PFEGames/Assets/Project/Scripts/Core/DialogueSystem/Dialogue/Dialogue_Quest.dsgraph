@@ -286,11 +286,11 @@ MonoBehaviour:
     - rid: 605325501758963756
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: "Oui, je vais te chercher ton fromage !"
+        m_Value: Oui, je vais te chercher ton fromage !
     - rid: 605325501758963757
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
-        m_Value: "Non, débrouille-toi."
+        m_Value: "Non, d\xE9brouille-toi."
     - rid: 605325501758963758
       type: {class: DSMultipleChoiceDialogueNode, ns: Goblfin.DialogueView.GraphToolkit, asm: Core}
       data: 
