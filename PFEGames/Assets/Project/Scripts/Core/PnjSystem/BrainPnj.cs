@@ -25,6 +25,7 @@ namespace Goblfin.PnjSystem
 
 		[field:SerializeField] public AuditionCast Audition {get; private set;}
 		[field:SerializeField] public VisionCone Vision {get; private set;}
+		[field:SerializeField] public KillZone KillZone {get; private set;}
 		//[field:SerializeField] public PnjPatience Patience {get; private set;}
 		
 		[field:SerializeField]  public bool isAlertedBySound = false;
@@ -55,6 +56,8 @@ namespace Goblfin.PnjSystem
 			PnjGoTo(new PatrolState(this));
 			findProblem = GetAptitude<ProblemAttraction>();
 			Vision = GetAptitude<VisionCone>();
+			KillZone = GetAptitude<KillZone>();
+			KillZone.enabled =  false;
 			//Patience = GetAptitude<PnjPatience>();
 			if (Vision == null)
 			{

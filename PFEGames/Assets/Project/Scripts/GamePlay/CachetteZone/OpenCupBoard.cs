@@ -103,7 +103,7 @@ namespace Goblfin.Gameplay.CachetteZone
                 {
                     target.busy = false;
                     target.occupied = false;
-                    target.playerManager.LeaveHide();
+                    target.playerManager.LeaveHide(this);
                 });
         }
     }

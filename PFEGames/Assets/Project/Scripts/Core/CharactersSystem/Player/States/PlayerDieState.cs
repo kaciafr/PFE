@@ -9,6 +9,8 @@ namespace Goblfin.Player.States
     {
         public override void Enter(PlayerStateMachine ctx)
         {
+            if(ctx.Player.HideSpot!=null)
+                ctx.Player.HideSpot.RequestExit();
             ctx.Player.Input.DisableAllInput();
             ctx.Player.Stop();
             
@@ -17,7 +19,7 @@ namespace Goblfin.Player.States
                 ragdoll.Kill();
             else
                 ctx.Player.Animator.Play(AnimIds.Die , 0.1f);
-
+            
             ctx.Player.Respawn(ctx.Player.Settings.Death.RespawnDelay);
         }
 

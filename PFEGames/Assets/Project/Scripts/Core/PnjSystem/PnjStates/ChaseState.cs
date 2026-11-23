@@ -7,7 +7,6 @@ namespace Goblfin.PnjSystem
 	{
 		private IDetected target;
 		private Vector3 lastKnownPosition;
-		private VisionCone vision;
 		float nextReachCheck;
 		private ThrowThingsManager thrower;
 
@@ -22,15 +21,15 @@ namespace Goblfin.PnjSystem
 		public void EnterState(BrainPnj brainPnj)
 		{
 			Debug.Log("Chase State");
+			brainPnj.KillZone.enabled = true;
 			brainPnj.Agent.speed = AgentSpeed;
-			vision = brainPnj.GetAptitude<VisionCone>();
 			thrower = brainPnj.GetAptitude<ThrowThingsManager>();
 			nextReachCheck = Time.time + 0.5f;
 		}
 
 		public void UpdateState(BrainPnj brainPnj)
 		{
-			var canSee = vision.CanSee(target);
+			var canSee = brainPnj.Vision.CanSee(target);
 			if (canSee)
 			{
 				lastKnownPosition = target.transform.position;
@@ -55,7 +54,7 @@ namespace Goblfin.PnjSystem
 
 		public void ExitState(BrainPnj brainPnj)
 		{
-			
+			brainPnj.KillZone.enabled = false;
 		}
 	}
 }

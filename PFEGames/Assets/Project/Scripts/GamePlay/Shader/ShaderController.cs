@@ -31,12 +31,13 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		private bool isChanging;
 		private bool hasPending;
 		
-		private void Awake()
+		private void Start()
 		{
 			mat = targetRenderer.sharedMaterial;
 			currentColor = baseColor;
 			mat.SetColor(CurrentColorId, currentColor);
 			SetDissolve(0f);
+			Debug.Log("yo");
 		}
 
 		private void OnEnable()

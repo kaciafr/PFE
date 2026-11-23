@@ -451,7 +451,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   maxDetectionRadius: 1.8
-  distanceMaxOfDetection: 0.56
+  distanceMaxOfDetection: 1.49
   wasFalling: 0
   ragdoll: {fileID: 8784528610084348016}
   killZone: {fileID: 3726291215944687704}

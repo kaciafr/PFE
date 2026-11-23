@@ -1,3 +1,4 @@
+using System;
 using Goblfin.CharactersSystem.Player.Data;
 using Goblfin.CharactersSystem.Player.Interface;
 using Goblfin.Player;
@@ -57,7 +58,6 @@ namespace Goblfin.Gameplay.CachetteZone
             openRotation = closedRotation * Quaternion.Euler(0f, 0f, rotation);
             peekRotation = Quaternion.Slerp(closedRotation, openRotation, peekAmount);
             eyesMaterial = eyesRenderer.material;
-            hiddenEyes.SetActive(false);
         }
 
         private bool IsPlayerInFront()
@@ -125,7 +125,7 @@ namespace Goblfin.Gameplay.CachetteZone
                 {
                     occupied = false;
                     busy = false;
-                    player.LeaveHide();
+                    player.LeaveHide(this);
                 });
         }
 
@@ -133,7 +133,6 @@ namespace Goblfin.Gameplay.CachetteZone
         private Tween CloseLid() => Tween.LocalRotation(lidChest, closedRotation, closeDuration, Ease.InQuad);
         private Tween Pop() => Tween.PunchScale(transform, Vector3.one * popStrength, popDuration, frequency: 4);
         private Tween Squash() => Tween.PunchScale(lowerChest, new Vector3(0.15f, -0.2f, 0.15f), 0.35f, frequency: 6);
-
         private Tween JumpArc(Vector3 from, Vector3 to) =>
             Tween.Custom(0f, 1f, jumpDuration, t =>
             {

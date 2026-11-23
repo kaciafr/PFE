@@ -307,7 +307,7 @@ namespace Goblfin.Player
         public IHideSpot HideSpot { get; private set; }
 
         public void EnterHide(IHideSpot spot) => HideSpot = spot;
-        public void LeaveHide() => HideSpot = null;
+        public void LeaveHide(IHideSpot spot) => HideSpot = null;
 
         public void SetFrozen(bool frozen)
         {
