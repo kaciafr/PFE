@@ -12,6 +12,7 @@ namespace Goblfin.Gameplay
 
         [SerializeField] private PlayerManager player;
         public event Action NormalStateChanged;
+        public event Action SearchStateChanged;
         public event Action DangerStateChanged;
         public event Action DieStateChanged;
         public event Action HideStateChanged;
@@ -44,20 +45,24 @@ namespace Goblfin.Gameplay
             isAnyPnjChasing = false;
             foreach (BrainPnj brainPnj in PnjRegistry.All)
             {
-                if (brainPnj.PnjStates is ChaseState)
-                {
-                    isAnyPnjChasing = true;
+                GobflinStateColor(brainPnj.PnjStates);
+            }
+        }
+
+        private void GobflinStateColor(IPnjStates states)
+        {
+            switch (states)
+            {
+                case PatrolState:
+                    NormalStateChanged?.Invoke();
                     break;
-                }
-            }
-            
-            if (isAnyPnjChasing)
-            {
-                DangerStateChanged?.Invoke();
-            }
-            if(!isAnyPnjChasing && !otherThings)
-            {
-                NormalStateChanged?.Invoke();
+                case SearchState:
+                    SearchStateChanged?.Invoke();
+                    break;
+                case ChaseState:
+                    DangerStateChanged?.Invoke();
+                    break;
+                
             }
         }
 
@@ -73,7 +78,6 @@ namespace Goblfin.Gameplay
                 otherThings=false;
                 NormalStateChanged?.Invoke();
             }
-                
         }
     }
 }

@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: c4599155d3c948608c88a2e30ee02775
   m_Mesh: {fileID: 4300000, guid: 756613c7385fc2e4f8621b2c4fd686ad, type: 2}
-  m_VersionIndex: 464
+  m_VersionIndex: 467
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 248ebcc2f0934f319386ae55afb6c9e9
   m_Mesh: {fileID: 4300000, guid: 8ddf7e7398d27d04f8e71ac0954960d9, type: 2}
-  m_VersionIndex: 1262
+  m_VersionIndex: 1265
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: eb00c4c1247d416987054f0939c9e5dc
   m_Mesh: {fileID: 4300000, guid: b8c4054b08506234ea39b8bd189cd652, type: 2}
-  m_VersionIndex: 35
+  m_VersionIndex: 38
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1138,8 +1138,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.9995818, y: 0.106861055, z: 1.5071242}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.28}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4679500650394367253}
   m_Father: {fileID: 0}
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 75a1f72941b44b9797625c303bcec8b4
   m_Mesh: {fileID: 4300000, guid: 3383bb71d9c2e50498e28ca748accfef, type: 2}
-  m_VersionIndex: 1938
+  m_VersionIndex: 1941
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1456,8 +1456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.TrapSystem.TrapSysteme
   shape: 0
-  center: {x: 0.8, y: 0, z: 0}
-  size: {x: 1.44, y: 1, z: 1.66}
+  center: {x: 0.8, y: 0.56, z: 0}
+  size: {x: 1.44, y: 1.72, z: 1.66}
   radius: 1.76
   targetLayers:
     serializedVersion: 2

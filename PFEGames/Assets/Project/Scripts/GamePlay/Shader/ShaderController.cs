@@ -17,6 +17,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		[SerializeField] private Color dangerColor;
 		[SerializeField] private Color dieColor;
 		[SerializeField] private Color baseColor;
+		[SerializeField] private Color littleDanger;
 		[SerializeField] private Color hideColor;
 
 		private static readonly int CurrentColorId = UnityEngine.Shader.PropertyToID("_CurrentColor");
@@ -41,6 +42,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		private void OnEnable()
 		{
 			shaderManager.NormalStateChanged += InNormal;
+			shaderManager.SearchStateChanged += InLittleDanger;
 			shaderManager.DangerStateChanged+= InDanger;
 			shaderManager.DieStateChanged += InDie;
 			shaderManager.HideStateChanged+= Hide;
@@ -49,6 +51,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		private void OnDisable()
 		{
 			shaderManager.NormalStateChanged -= InNormal;
+			shaderManager.SearchStateChanged -= InLittleDanger;
 			shaderManager.DangerStateChanged -= InDanger;
 			shaderManager.DieStateChanged -= InDie;
 			shaderManager.HideStateChanged -= Hide;
@@ -66,6 +69,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		}
 		public void Hide() => ChangeColor(hideColor);
 		public void InNormal()=> ChangeColor(baseColor);
+		public void InLittleDanger()=> ChangeColor(littleDanger);
 		public void InDanger()=> ChangeColor(dangerColor);
 		public void InDie()=> ChangeColor(dieColor);
 		

@@ -30,7 +30,7 @@ namespace Goblfin.PnjSystem
           isWaiting = false;
           
           guard.Agent.speed = AgentSpeed;
-          searchPointCount += (int)brainPnj.Patience.CurrentPatienceType;
+          searchPointCount += 1;
           searchPoints = GameMetrix.SearchPointsGenerated(lastTargetPos, GameMetrix.SearchRadius, searchPointCount);
 
           if (searchPoints.Count > 0)
@@ -64,7 +64,7 @@ namespace Goblfin.PnjSystem
 
        public void ExitState(BrainPnj brainPnj)
        {
-          brainPnj.Patience.AddOrRemovePatience(-10);
+          //brainPnj.Patience.AddOrRemovePatience(-10);
           guard.Agent.speed = GameMetrix.GuardPatrolSpeed;
        }
        

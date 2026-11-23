@@ -15,8 +15,6 @@ namespace Goblfin.Player.Component
         
         public float MaxThrowSpeed => maxThrowSpeed;
 
-
-
         private Rigidbody[] bones;
         private bool isHeld;
         private CarryArms carrier;

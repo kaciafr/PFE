@@ -58,8 +58,6 @@ namespace Goblfin
 
             (previous, current) = (current, previous);
         }
-
-        // Un objet Unity détruit n'est pas "== null" quand il est vu à travers une interface
         private static bool IsDestroyed(T target) =>
             target == null || (target is UnityEngine.Object unityObject && unityObject == null);
 
@@ -80,7 +78,7 @@ namespace Goblfin
                 buffer, targetLayers, triggerInteraction);
         }
 
-        protected virtual T ResolveTarget(Collider col) => col.GetComponentInParent<T>();
+        protected virtual T ResolveTarget(Collider col) => col.GetComponentInChildren<T>();
 
         protected virtual void OnZoneEnter(T target) { }
         protected virtual void OnZoneStay(T target) { }
