@@ -6,7 +6,7 @@ namespace Goblfin
 {
     public class DoorInteract : MonoBehaviour, IInteractable
     {
-        public bool CanInteract => true;
+        public bool CanInteract => false;
         
         [Header("Ouverture")]
         [SerializeField] private float maxTimeOpen = 2f;
