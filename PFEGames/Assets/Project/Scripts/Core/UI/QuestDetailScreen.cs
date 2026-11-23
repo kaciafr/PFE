@@ -28,7 +28,7 @@ namespace Goblfin
             UIManager.Instance.Push(this );
         }
 
-        string BuildMissions(QuestSO quest)
+        public static string BuildMissions(QuestSO quest)
         {
             if (QuestManager.instance.GetState(quest) == QuestState.Completed)
                 return "<b>Missions Accomplies</b>";

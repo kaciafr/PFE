@@ -14,6 +14,9 @@ namespace Goblfin.QuestSystem
                                    && QuestManager.instance.GetState(quest) == QuestState.Active;
         [SerializeField] private int priority = 20;
         public int Priority => priority;
+        
+        [SerializeField]private ParticleSystem[] stinkFx;
+        [SerializeField]private float fxFadeTime = 4f;  
 
         public void Interact()
         {
@@ -25,6 +28,18 @@ namespace Goblfin.QuestSystem
 
             QuestManager.instance.AddItem(item, amount);
             Destroy(gameObject);
+        }
+
+
+        private void StopVFX()
+        {
+            foreach (var fx in stinkFx)
+            {
+                if (fx != null) continue;
+                fx.transform.SetParent(null);  
+                fx.Stop();                     
+                Destroy(fx.gameObject, fxFadeTime);
+            }
         }
     }
 }

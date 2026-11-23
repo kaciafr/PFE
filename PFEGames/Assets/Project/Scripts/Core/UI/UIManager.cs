@@ -31,6 +31,7 @@ namespace Goblfin
         void Update()
         {
             if (RebindButton.BlockEscape) return;
+            if (DialogueManager.IsOpen) return;
 
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {

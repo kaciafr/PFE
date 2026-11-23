@@ -1,31 +1,43 @@
+using System;
 using Goblfin.CharactersSystem.Player.Interface;
 using Goblfin.QuestSystem;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Goblfin
 {
-    // A mettre sur un PNJ : quand le joueur interagit, lance le dialogue
     public class DialogueTrigger : MonoBehaviour, IInteractable
     {
         [SerializeField] private string speakerName;
         [SerializeField] private DSDialogueSO startingDialogue;
 
-        [Header("Quete (optionnel)")]
         [SerializeField] private QuestSO quest;
-        [SerializeField] private DSDialogueSO questActiveDialogue;     // quete en cours, objets manquants
-        [SerializeField] private DSDialogueSO questReadyDialogue;      // objets reunis
-        [SerializeField] private DSDialogueSO questCompletedDialogue;  // quete deja rendue
+        [SerializeField] private DSDialogueSO questActiveDialogue;    
+        [SerializeField] private DSDialogueSO questReadyDialogue;     
+        [SerializeField] private DSDialogueSO questCompletedDialogue;  
 
         public bool CanInteract => !DialogueManager.IsOpen;
         [SerializeField] private int priority = 30;
         public int Priority => priority;
 
+
+        [SerializeField] [CanBeNull] private Animator animatorPnj;
+        private static readonly int ReactionHash = Animator.StringToHash("Reaction");
+
+
+        private void Start()
+        {
+            if (animatorPnj == null) return;
+            animatorPnj.Play("Idle");
+        }
+
+
         public void Interact()
         {
             DialogueManager.instance.StartDialogue(GetDialogueToStart(), speakerName);
+            PlayReaction();
         }
 
-        // Choisit quoi dire selon l'etat de la quete
         private DSDialogueSO GetDialogueToStart()
         {
             if (quest == null || QuestManager.instance == null) return startingDialogue;
@@ -45,8 +57,14 @@ namespace Goblfin
                     break;
             }
 
-            // Si un champ n'est pas rempli, on retombe sur le dialogue de depart
             return dialogue != null ? dialogue : startingDialogue;
+        }
+        
+        
+        public void PlayReaction()
+        {
+            if (animatorPnj == null) return;
+            animatorPnj.SetTrigger(ReactionHash);
         }
     }
 }
