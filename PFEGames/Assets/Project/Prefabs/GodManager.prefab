@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4990325417106723011}
   - component: {fileID: 8220513409333764237}
   - component: {fileID: 1661529972873602880}
+  - component: {fileID: 394455089748154068}
   m_Layer: 0
   m_Name: GodManager
   m_TagString: Untagged
@@ -200,3 +201,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &394455089748154068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7805174773380674872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba752cde204746a42935aa1f6e5cd89f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Goblfin.VfxSystem.VfxManager
+  vfxItems:
+  - type: 0
+    particleSystem: {fileID: 0}
+    loop: 0
+  - type: 2
+    particleSystem: {fileID: 0}
+    loop: 0
