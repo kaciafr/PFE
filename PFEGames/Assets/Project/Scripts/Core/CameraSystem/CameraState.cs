@@ -7,6 +7,7 @@ namespace Goblfin
 	{
 		[Header("Position")]
 		public Vector3 followOffset = new Vector3(0, 1.2f, -6f);
+		public bool avoidWalls = true;
 
 		[Header("Lentille")]
 		public float fov = 55f;
