@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Data.PlayerSettings
   <Movement>k__BackingField:
     <WalkSpeed>k__BackingField: 2.75
-    <SprintSpeed>k__BackingField: 5.5
+    <SprintSpeed>k__BackingField: 4
     <RotationSpeed>k__BackingField: 720
     <Acceleration>k__BackingField: 35
     <Deceleration>k__BackingField: 25
