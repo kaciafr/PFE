@@ -21,7 +21,6 @@ public static class CameraDeoccluderTool
         int layer = EnsureBlockLayer();
         if (layer < 0) return;
 
-        // Étape 1 : ouvrir le prefab de la caméra
         GameObject root = PrefabUtility.LoadPrefabContents(PrefabPath);
         if (root == null)
         {
@@ -31,7 +30,6 @@ public static class CameraDeoccluderTool
 
         try
         {
-            // Étape 2 : trouver la caméra Cinemachine du joueur
             CinemachineCamera cam = FindCamera(root);
             if (cam == null)
             {
@@ -39,18 +37,15 @@ public static class CameraDeoccluderTool
                 return;
             }
 
-            // Étape 3 : ajouter le Deoccluder (ou reprendre celui qui existe)
             CinemachineDeoccluder deoccluder = cam.GetComponent<CinemachineDeoccluder>();
             if (deoccluder == null)
                 deoccluder = cam.gameObject.AddComponent<CinemachineDeoccluder>();
 
-            // Étape 4 : il ne réagit qu'aux murs marqués CameraBlock
             deoccluder.CollideAgainst = 1 << layer;
             deoccluder.IgnoreTag = "Player";
             deoccluder.TransparentLayers = 0;
             deoccluder.MinimumDistanceFromTarget = 4f;
 
-            // Étape 5 : réglages doux pour ne pas écraser le cadrage des CameraStates
             var avoid = deoccluder.AvoidObstacles;
             avoid.Enabled = true;
             avoid.Strategy = CinemachineDeoccluder.ObstacleAvoidance.ResolutionStrategy.PullCameraForward;
@@ -63,7 +58,6 @@ public static class CameraDeoccluderTool
             avoid.DampingWhenOccluded = 0.5f;
             deoccluder.AvoidObstacles = avoid;
 
-            // Étape 6 : enregistrer le prefab
             PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
             Debug.Log("Deoccluder réglé sur " + CameraName + " : il réagit seulement au layer " + BlockLayer + ".");
         }
@@ -82,7 +76,6 @@ public static class CameraDeoccluderTool
         int count = 0;
         foreach (GameObject wall in Selection.gameObjects)
         {
-            // Étape 1 : la forme du mur (bounds du mesh, dans le repère du mur)
             MeshFilter mf = wall.GetComponent<MeshFilter>();
             if (mf == null || mf.sharedMesh == null)
             {
@@ -90,17 +83,14 @@ public static class CameraDeoccluderTool
                 continue;
             }
 
-            // Étape 2 : un seul bloqueur par mur (on remplace l'ancien)
             Transform old = wall.transform.Find(BlockerName);
             if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
 
-            // Étape 3 : enfant invisible avec un BoxCollider de la taille du mur, sur le layer CameraBlock
             GameObject blocker = new GameObject(BlockerName);
             Undo.RegisterCreatedObjectUndo(blocker, "Bloquer la caméra");
             blocker.transform.SetParent(wall.transform, false);
             blocker.layer = layer;
 
-            // Si le mur a une échelle négative, on la compense pour que le BoxCollider reste positif
             Vector3 s = wall.transform.lossyScale;
             Vector3 sign = new Vector3(Mathf.Sign(s.x), Mathf.Sign(s.y), Mathf.Sign(s.z));
             blocker.transform.localScale = sign;
@@ -181,7 +171,6 @@ public static class CameraDeoccluderTool
         Debug.Log(count + " bloqueur(s) retiré(s).");
     }
 
-    // Crée le layer CameraBlock s'il n'existe pas, et l'empêche de toucher quoi que ce soit physiquement
     private static int EnsureBlockLayer()
     {
         int layer = LayerMask.NameToLayer(BlockLayer);
