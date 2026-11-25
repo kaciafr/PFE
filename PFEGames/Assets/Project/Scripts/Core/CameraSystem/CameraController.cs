@@ -14,6 +14,7 @@ namespace Goblfin
 		[SerializeField] private float sprintFovBonus = 4f;
 		CinemachineFollow follow;
 		CinemachineRotationComposer composer;
+		CinemachineDeoccluder deoccluder;
 		CameraState current;
 		PlayerManager player;
 		float lookSide = -1f;
@@ -25,6 +26,7 @@ namespace Goblfin
 
 			follow = vcam.GetComponent<CinemachineFollow>();
 			composer = vcam.GetComponent<CinemachineRotationComposer>();
+			deoccluder = vcam.GetComponent<CinemachineDeoccluder>();
 
 			if (follow == null || composer == null)
 			{
@@ -63,6 +65,9 @@ namespace Goblfin
 		void Update()
 		{
 			activeState = current != null ? current.name : "aucune";
+
+			if (deoccluder != null)
+				deoccluder.enabled = current.avoidWalls;
 
 			float t = 1f - Mathf.Exp(-current.smooth * Time.deltaTime);
 
