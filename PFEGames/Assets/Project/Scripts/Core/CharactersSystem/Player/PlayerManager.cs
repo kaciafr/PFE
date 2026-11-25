@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Goblfin.Player
 {
-    public class PlayerManager : MonoBehaviour, IDie, IDetected, ISondDetected,IPrey
+    public class PlayerManager : MonoBehaviour, IDie, IDetected, ISondDetected,IPrey,IBoycott
     {
         #region References
         public Transform Transform => transform;

@@ -42,12 +42,17 @@ namespace Goblfin.Gameplay
             player = p; 
             zones.Add(zone); 
             Refresh();
+            ShaderManager.Instance.Hide(true);
+            Debug.Log(zones.Count.ToString());
         }
 
         public void ExitZone(HidenZone zone)
         {
             zones.Remove(zone); 
+            ShaderManager.Instance.Hide(false);
+            Debug.Log(zones.Count.ToString());
             Refresh();
+
         }
 
         public void DistractionStarted()
@@ -72,9 +77,8 @@ namespace Goblfin.Gameplay
             lastInShadow = inShadow;
             lastNoisy = noisy;
             lastHidden = hidden;
-
-            if (ShaderManager.Instance != null)
-                ShaderManager.Instance.Hide(inShadow);
+            
+            
 
             float personal = noisy ? GameMetrix.IsPlayerNoise : GameMetrix.IsNotPlayerNoise;
 
@@ -84,10 +88,10 @@ namespace Goblfin.Gameplay
                 VisionCone vision = all[i].GetAptitude<VisionCone>();
                 if (vision == null) continue;
 
-                if (!inShadow)       vision.VisionNormal();                                    // hors de l'ombre
-                else if (noisy)      vision.PersonalVisionValue(personal);     // le joueur fait du bruit : alerte max
-                else if (hidden)     vision.VisionNerf();                                      // caché et silencieux
-                else                 vision.PersonalVisionValue(personal);  // une distraction sonore est active
+                if (!inShadow)       vision.VisionNormal();                                   
+                else if (noisy)      vision.PersonalVisionValue(personal);  
+                else if (hidden)     vision.VisionNerf();
+                else                 vision.PersonalVisionValue(personal);
             }
         }
     }

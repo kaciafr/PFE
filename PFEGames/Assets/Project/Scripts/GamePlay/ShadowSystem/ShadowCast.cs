@@ -35,6 +35,7 @@ namespace Goblfin
 
         private void Update()
         {
+            UpdateShadowcollider();
            shadowTransform.position = transform.position;
         }
 

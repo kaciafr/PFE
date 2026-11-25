@@ -20,7 +20,7 @@ namespace Goblfin.PnjSystem
 				return;
 			
 			Debug.Log("Dead");
-			dangerTarget.GetComponentInParent<IDie>()?.Die();
+			dangerTarget.GetComponentInChildren<IDie>()?.Die();
 			
 			OnDeath?.Invoke();
 		}
@@ -34,7 +34,5 @@ namespace Goblfin.PnjSystem
 			
 			base.OnDrawGizmos(); 
 		}
-
-		
 	}
 }

@@ -6,7 +6,7 @@ namespace Goblfin.Gameplay
 {
     public class HidenZone : MonoBehaviour
     {
-        private int distractions;   
+        private int distractions; 
 
         private void OnTriggerEnter(Collider other)
         {
@@ -14,27 +14,20 @@ namespace Goblfin.Gameplay
             {
                 HidenManager.Instance.EnterZone(this, player);
             }
-            /*if (other.TryGetComponent(out MakeSound _))
-            {
-                distractions++;
-                HidenManager.Instance.DistractionStarted();
-            }*/
         }
+        
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out PlayerManager _))
+            PlayerManager player = other.GetComponentInParent<PlayerManager>();
+            if (player != null)
             {
+                Debug.Log("yoo");
                 HidenManager.Instance.ExitZone(this);
             }
-           /* if (other.TryGetComponent(out MakeSound _) && distractions > 0)
-            {
-                distractions--;
-                HidenManager.Instance.DistractionEnded();
-            }*/
         }
         
-        private void OnDisable()
+       /* private void OnDisable()
         {
             if (HidenManager.Instance == null) return;
 
@@ -47,6 +40,6 @@ namespace Goblfin.Gameplay
                 distractions = 0;
                 HidenManager.Instance.DistractionEnded();
             }
-        }
+        }*/
     }
 }

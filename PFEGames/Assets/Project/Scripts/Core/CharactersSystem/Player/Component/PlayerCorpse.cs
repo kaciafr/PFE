@@ -1,9 +1,10 @@
+using Goblfin.CharactersSystem.Player;
 using Goblfin.CharactersSystem.Player.Component;
 using UnityEngine;
 
 namespace Goblfin.Player.Component
 {
-    public class PlayerCorpse : MonoBehaviour
+    public class PlayerCorpse : MonoBehaviour,IDie
     {
         [Header("Porté au-dessus de la tête")]
         [SerializeField, Tooltip("Hauteur du corps au-dessus des mains.")]

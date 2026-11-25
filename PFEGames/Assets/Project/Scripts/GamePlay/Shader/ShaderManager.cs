@@ -16,8 +16,8 @@ namespace Goblfin.Gameplay
         public event Action DangerStateChanged;
         public event Action DieStateChanged;
         public event Action HideStateChanged;
-        private bool isAnyPnjChasing = false;
         private bool otherThings = false;
+        private IPnjStates state;
 
         private void Awake()
         {
@@ -32,7 +32,7 @@ namespace Goblfin.Gameplay
 
         private void Start()
         {
-            isAnyPnjChasing = false;
+            NormalStateChanged?.Invoke();
         }
 
         private void Update()
@@ -42,7 +42,6 @@ namespace Goblfin.Gameplay
                 DieStateChanged?.Invoke();
                 return;
             }
-            isAnyPnjChasing = false;
             foreach (BrainPnj brainPnj in PnjRegistry.All)
             {
                 GobflinStateColor(brainPnj.PnjStates);
@@ -51,10 +50,12 @@ namespace Goblfin.Gameplay
 
         private void GobflinStateColor(IPnjStates states)
         {
+            state = states;
             switch (states)
             {
                 case PatrolState:
-                    NormalStateChanged?.Invoke();
+                    if(!otherThings)
+                        NormalStateChanged?.Invoke();
                     break;
                 case SearchState:
                     SearchStateChanged?.Invoke();
@@ -68,6 +69,7 @@ namespace Goblfin.Gameplay
 
         public void Hide(bool hide)
         {
+            if(state is ChaseState) return;
             if (hide)
             {
                 otherThings=true;

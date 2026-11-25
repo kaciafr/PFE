@@ -49,7 +49,7 @@ namespace Goblfin.PnjSystem
 				if (!guard.Agent.pathPending && guard.Agent.remainingDistance < 0.02f)
 				{
 					isWaiting = true;
-					waitTimer = guard.RoutinePattern[guard.currentStep].GetComponent<Routine.PointTime>().MinTime;
+					waitTimer = guard.RoutinePattern[guard.currentStep].GetComponent<PointTime>().MinTime;
 				}
 			}
 		}
