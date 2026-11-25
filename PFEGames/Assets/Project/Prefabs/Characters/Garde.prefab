@@ -3584,6 +3584,9 @@ MonoBehaviour:
   - {fileID: 0}
   currentStep: 0
   <Animator>k__BackingField: {fileID: 1832180271137414552}
+  <Audition>k__BackingField: {fileID: 0}
+  <Vision>k__BackingField: {fileID: 0}
+  <KillZone>k__BackingField: {fileID: 0}
   isAlertedBySound: 0
 --- !u!114 &5956264988208089001
 MonoBehaviour:
@@ -3602,13 +3605,13 @@ MonoBehaviour:
     m_Bits: 1024
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2049
   sensorOffset: {x: 0, y: 1.5, z: 0}
   scanInterval: 0.05
   detectedTargets: []
   <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
-  <ViewRadius>k__BackingField: 10
-  <ViewAngle>k__BackingField: 85
+  <ViewRadius>k__BackingField: 4.3
+  <ViewAngle>k__BackingField: 57.5
   contactDistance: 0.2
   fillSpeed: 3
   decaySpeed: 0.2
@@ -3631,9 +3634,9 @@ MonoBehaviour:
     m_Bits: 512
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 2048
-  sensorOffset: {x: 0, y: 0.21, z: 1.33}
-  scanInterval: 0
+    m_Bits: 0
+  sensorOffset: {x: 0, y: 0.1, z: 0.3}
+  scanInterval: 0.1
   detectedTargets: []
   <LastPos>k__BackingField: {x: 0, y: 0, z: 0}
   <DangerHearingRadius>k__BackingField: 4
@@ -3736,7 +3739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.GrabThings
   socketTransform: {fileID: 5886784552402460609}
   grabableLayer: Grabable
-  <ObjectGrab>k__BackingField: {fileID: 0}
 --- !u!114 &2795274875025048836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3749,7 +3751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da1bdf1138348f28cc8f1847b73b124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.PnjSystem.ThrowThingsManager
-  rockPrefab: {fileID: 0}
+  rockPrefab: {fileID: 6170840752849571052, guid: 29262c7616e2b6545946d71160b9de8f, type: 3}
   hand: {fileID: 1313862800954488266}
   maxRocks: 15
   throwCooldown: 1.5

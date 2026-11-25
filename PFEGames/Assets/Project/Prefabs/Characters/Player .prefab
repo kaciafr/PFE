@@ -229,8 +229,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524243121838492188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4760589, y: 0.539763, z: -0.49920154, w: 0.482516}
-  m_LocalPosition: {x: -0.42272437, y: 0.41936263, z: -0.024437306}
+  m_LocalRotation: {x: 0.47605845, y: 0.53976387, z: -0.499201, w: 0.4825161}
+  m_LocalPosition: {x: -0.42272186, y: 0.41936272, z: -0.024434498}
   m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1476,6 +1476,7 @@ GameObject:
   - component: {fileID: 3588353291681347681}
   - component: {fileID: 1043690548312676743}
   - component: {fileID: 6099373081081827070}
+  - component: {fileID: 4630400351395530085}
   m_Layer: 10
   m_Name: 'Player '
   m_TagString: Player
@@ -1891,6 +1892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Component.PlayerVFX
   dusttrail: {fileID: 5735300419245419394}
+  blood: {fileID: 0}
   minSpeed: 0.5
   walkMultiplier: 0.5
   sprintMultiplier: 1.5
@@ -1982,12 +1984,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gameplay::Goblfin.Gameplay.Gameplay.Shader.ShaderController
   targetRenderer: {fileID: 1010834904376874674}
   shaderManager: {fileID: 0}
-  speed: 1
+  speed: 3
   maxDissolve: 2.5
   rgbSpeed: 0.3
   dangerColor: {r: 0.5320754, g: 0.14355995, b: 0.14355995, a: 1}
   dieColor: {r: 0.7946387, g: 0.8792453, b: 0.8422299, a: 1}
   baseColor: {r: 0.33333334, g: 0.554717, b: 0.42239234, a: 1}
+  littleDanger: {r: 0.5529412, g: 0.5187956, b: 0.33333334, a: 1}
   hideColor: {r: 0.08651472, g: 0.10943389, b: 0.08762224, a: 0.84705883}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   pendingColor: {r: 0, g: 0, b: 0, a: 0}
@@ -2015,6 +2018,22 @@ MonoBehaviour:
   elbowOut: 0.35
   elbowBack: 0.1
   weightSpeed: 4
+--- !u!114 &4630400351395530085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503608136985919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb9a83ce15fc4348862510c5c59ffd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.WallCutoutTarget
+  radius: 0.3
+  softness: 0.1
+  minAlpha: 0.25
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &8550033297258655309
 GameObject:
   m_ObjectHideFlags: 0
