@@ -150,9 +150,16 @@ namespace Goblfin.PnjSystem
 					Gizmos.DrawLine(origin, target.position);
 			}
 		}
-		
-		public void VisionNerf() => currentMinFactor = 0;
-		public void VisionNormal() => currentMinFactor = minFactor;
+
+		public void VisionNerf()
+		{
+			currentMinFactor = 0; 
+		}
+
+		public void VisionNormal()
+		{
+			currentMinFactor = minFactor;
+		} 
 		public void PersonalVisionValue(float value) => currentMinFactor = value;
 
 	}

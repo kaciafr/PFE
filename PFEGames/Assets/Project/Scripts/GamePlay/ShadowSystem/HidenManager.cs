@@ -9,9 +9,8 @@ namespace Goblfin.Gameplay
     {
         public static HidenManager Instance { get; private set; }
 
-        private readonly HashSet<HidenZone> zones = new HashSet<HidenZone>();
         private PlayerManager player;
-        private int distractions;
+        private bool inShadow;
 
        
         private bool lastInShadow, lastNoisy, lastHidden;
@@ -31,53 +30,34 @@ namespace Goblfin.Gameplay
             if (Instance == this) Instance = null;
         }
 
-        private void Update()
-        {
-            
-            if (zones.Count > 0) Refresh();
-        }
 
-        public void EnterZone(HidenZone zone, PlayerManager p)
+
+        public void EnterZone(PlayerManager p)
         {
             player = p;
-            
-            zones.Add(zone); 
+            inShadow = true;
             Refresh();
             ShaderManager.Instance.Hide(true);
         }
 
-        public void ExitZone(HidenZone zone)
+        public void ExitZone(PlayerManager p)
         {
-            zones.Remove(zone); 
-            ShaderManager.Instance.Hide(zones.Count > 0);
+            player = null;
+            inShadow = false;
             Refresh();
-
-        }
-
-        public void DistractionStarted()
-        {
-            distractions++; 
-            Refresh();
-        }
-
-        public void DistractionEnded()
-        {
-            distractions = Mathf.Max(0, distractions - 1); 
-            Refresh();
+            Debug.Log("Shadow exit");
+            ShaderManager.Instance.Hide(false);
         }
 
         private void Refresh()
         {
-            bool inShadow = zones.Count > 0;                      
             bool noisy = inShadow && player != null && player.isMakingNoise;
-            bool hidden = inShadow && !noisy && distractions == 0;
+            bool hidden = inShadow && !noisy;
 
             if (inShadow == lastInShadow && noisy == lastNoisy && hidden == lastHidden) return;
             lastInShadow = inShadow;
             lastNoisy = noisy;
             lastHidden = hidden;
-            
-            
 
             float personal = noisy ? GameMetrix.IsPlayerNoise : GameMetrix.IsNotPlayerNoise;
 

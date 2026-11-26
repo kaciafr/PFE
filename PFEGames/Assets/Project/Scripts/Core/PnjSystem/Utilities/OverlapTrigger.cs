@@ -1,11 +1,17 @@
 using System.Collections.Generic;
+using Goblfin.PnjSystem;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Goblfin
 {
     public abstract class OverlapTrigger<T> : MonoBehaviour where T : class
     {
-        public enum ZoneShape { Box, Sphere }
+        public enum ZoneShape
+        {
+            Box,
+            Sphere
+        }
 
         [Header("Zone")]
         [SerializeField] protected ZoneShape shape = ZoneShape.Box;
@@ -46,7 +52,8 @@ namespace Goblfin
             for (int i = 0; i < count; i++)
             {
                 T target = ResolveTarget(buffer[i]);
-                if (target == null || !current.Add(target)) continue;
+                if (target == null || !current.Add(target))
+                    continue;
 
                 if (previous.Contains(target)) OnZoneStay(target);
                 else OnZoneEnter(target);
@@ -78,7 +85,14 @@ namespace Goblfin
                 buffer, targetLayers, triggerInteraction);
         }
 
-        protected virtual T ResolveTarget(Collider col) => col.GetComponentInChildren<T>();
+        protected virtual T ResolveTarget(Collider col)
+        {
+            GameObject t = col.attachedRigidbody == null ? col.gameObject : col.attachedRigidbody.gameObject;
+            if(OverlapCache<T>.TryGet(t, out T target))
+                return target;
+
+            return null;
+        }
 
         protected virtual void OnZoneEnter(T target) { }
         protected virtual void OnZoneStay(T target) { }

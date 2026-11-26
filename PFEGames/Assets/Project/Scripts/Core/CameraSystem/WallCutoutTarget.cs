@@ -2,27 +2,29 @@ using UnityEngine;
 
 namespace Goblfin
 {
-	public class WallCutoutTarget : MonoBehaviour
-	{
-		static readonly int PlayerId = Shader.PropertyToID("_CutoutPlayer");
-		static readonly int RadiusId = Shader.PropertyToID("_CutoutRadius");
-		static readonly int SoftnessId = Shader.PropertyToID("_CutoutSoftness");
-		static readonly int MinAlphaId = Shader.PropertyToID("_CutoutMinAlpha");
+    [ExecuteInEditMode]
+    public class WallCutoutTarget : MonoBehaviour
+    {
+        static readonly int CenterId     = Shader.PropertyToID("_CutoutCenter");
+        static readonly int RadiusId     = Shader.PropertyToID("_CutoutRadius");
+        static readonly int SmoothnessId = Shader.PropertyToID("_CutoutSmoothness");
 
-		[SerializeField] float radius = 0.3f;
-		[SerializeField] float softness = 0.1f;
-		[SerializeField, Range(0f, 1f)] float minAlpha = 0.25f;
-		[SerializeField] Vector3 offset = new(0f, 0.5f, 0f);
+        [Tooltip("Taille de la sphère autour du joueur (unités monde).")]
+        [SerializeField, Min(0f)] float radius = 1f;
 
-		void LateUpdate()
-		{
-			Vector3 p = transform.position + offset;
-			Shader.SetGlobalVector(PlayerId, new Vector4(p.x, p.y, p.z, 1f));
-			Shader.SetGlobalFloat(RadiusId, radius);
-			Shader.SetGlobalFloat(SoftnessId, softness);
-			Shader.SetGlobalFloat(MinAlphaId, minAlpha);
-		}
+        [Tooltip("Largeur de la transition : plus c'est grand, plus le dither progresse doucement vers la transparence totale.")]
+        [SerializeField, Min(0.001f)] float smoothness = 0.5f;
 
-		void OnDisable() => Shader.SetGlobalVector(PlayerId, Vector4.zero);
-	}
+        [Tooltip("Décalage du centre de la sphère par rapport au pivot du joueur.")]
+        [SerializeField] Vector3 offset = new(0f, 0.5f, 0f);
+
+        void LateUpdate()
+        {
+            Shader.SetGlobalVector(CenterId, transform.position + offset);
+            Shader.SetGlobalFloat(RadiusId, radius);
+            Shader.SetGlobalFloat(SmoothnessId, smoothness);
+        }
+
+        void OnDisable() => Shader.SetGlobalFloat(RadiusId, 0f);
+    }
 }

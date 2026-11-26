@@ -100,7 +100,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077340777519538148}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef684f23bb9368048a7a3ef1d6af6520, type: 3}
   m_Name: 
@@ -184,7 +184,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -201,3 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc640522ed74b3478cfbba037dd6452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gameplay::Goblfin.Gameplay.HidenZone
+  shape: 0
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 0.95, y: 1.36, z: 2.1}
+  radius: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 1
+  checkInterval: 0.1
+  maxTargets: 16

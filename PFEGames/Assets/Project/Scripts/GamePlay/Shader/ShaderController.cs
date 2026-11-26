@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Goblfin.Gameplay.Gameplay.Shader
+namespace Goblfin.Gameplay
 {
 	public class ShaderController : MonoBehaviour
 	{

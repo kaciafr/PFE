@@ -4,44 +4,39 @@ using UnityEngine;
 
 namespace Goblfin.Gameplay
 {
-    public class HidenZone : MonoBehaviour
+    public class HidenZone : OverlapTrigger<PlayerManager>
     {
-        private int distractions; 
+        private int distractions;
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnZoneEnter(PlayerManager target)
         {
-            PlayerManager player = other.GetComponentInParent<PlayerManager>();
+            base.OnZoneEnter(target);
+            HidenManager.Instance.EnterZone(target);
+        }
+
+        protected override void OnZoneExit(PlayerManager target)
+        {
+            HidenManager.Instance.ExitZone(target);
+        }
+
+        /*private void OnTriggerEnter(Collider other)
+        {
+            var player = other.GetComponentInParent<PlayerManager>();
             if (player!=null)
             {
-                
                 Debug.Log(this.gameObject.name + ": hit " + other.gameObject.name);
-                HidenManager.Instance.EnterZone(this, player);
+                HidenManager.Instance.EnterZone(player);
             }
         }
         
 
         private void OnTriggerExit(Collider other)
         {
-            PlayerManager player = other.GetComponentInParent<PlayerManager>();
-            if (player != null)
+            var player = other.GetComponentInParent<PlayerManager>();
+            if (player!=null)
             {
                 Debug.Log("yoo");
-                HidenManager.Instance.ExitZone(this);
-            }
-        }
-        
-       /* private void OnDisable()
-        {
-            if (HidenManager.Instance == null) return;
-
-            HidenManager.Instance.ExitZone(this);
-            for (; distractions > 0; distractions--)
-                HidenManager.Instance.DistractionEnded();
-            
-            if (distractions > 0)
-            {
-                distractions = 0;
-                HidenManager.Instance.DistractionEnded();
+                HidenManager.Instance.ExitZone(player);
             }
         }*/
     }
