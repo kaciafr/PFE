@@ -12,13 +12,13 @@ namespace Goblfin.PnjSystem
 		public static float GuardChaseSpeed { get; private set; } = 2;
 		public static float TimeToBeSurprise { get; private set; } = 0.3f;
 		public static float WakeUpTime { get; private set; } = 10f;
-		public static int SearchPointCount = 4;
-		public static float SearchRadius = 6f;        
+		public static int SearchPointCount = 3;
+		public static float SearchRadius = 2f;        
 		public static float SearchWaitPerPoint = 1.5f;
 		public static float MaxMassGrab{ get; private set; } = 123f;
 		public static float MassNoGrab { get; set; } = 70f;
-		public static float IsPlayerNoise { get; set; } = 0.8f; // It ranges from 0 at 1
-		public static float IsNotPlayerNoise { get; set; } = 0.5f; // It ranges from 0 at 1
+		public static float IsPlayerNoise { get; set; } = 0.8f; 
+		public static float IsNotPlayerNoise { get; set; } = 0.5f; 
 
 		public static List<Vector3> SearchPointsGenerated(Vector3 center, float radius, int count)
 		{

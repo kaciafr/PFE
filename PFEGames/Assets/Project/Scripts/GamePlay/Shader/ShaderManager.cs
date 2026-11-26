@@ -18,6 +18,9 @@ namespace Goblfin.Gameplay
         public event Action HideStateChanged;
         private bool otherThings = false;
         private IPnjStates state;
+        private enum Alert { Normal, Search, Chase }
+        private Alert lastAlert = (Alert)(-1);
+        private bool lastDead, anyChase;
 
         private void Awake()
         {
@@ -28,27 +31,36 @@ namespace Goblfin.Gameplay
             }
 
             Instance = this;
+            
+            NormalStateChanged?.Invoke();
         }
 
         private void Start()
         {
             NormalStateChanged?.Invoke();
         }
-
+        
         private void Update()
         {
-            if (player != null && player.StateMachine.Current is PlayerDieState)
+            bool dead = player != null && player.StateMachine.Current is PlayerDieState;
+
+            Alert alert = Alert.Normal;
+            foreach (BrainPnj pnj in PnjRegistry.All)
             {
-                DieStateChanged?.Invoke();
-                return;
+                if (pnj.PnjStates is ChaseState) { alert = Alert.Chase; break; }
+                if (pnj.PnjStates is SearchState) alert = Alert.Search;
             }
-            foreach (BrainPnj brainPnj in PnjRegistry.All)
-            {
-                GobflinStateColor(brainPnj.PnjStates);
-            }
+            anyChase = alert == Alert.Chase;
+
+            if (dead) { if (!lastDead) DieStateChanged?.Invoke(); lastDead = true; lastAlert = (Alert)(-1); return; }
+            if (lastDead) { lastDead = false; lastAlert = (Alert)(-1); }   
+
+            if (alert == lastAlert) return;
+            lastAlert = alert;
+            Dispatch(alert);
         }
 
-        private void GobflinStateColor(IPnjStates states)
+        /*private void GobflinStateColor(IPnjStates states)
         {
             state = states;
             switch (states)
@@ -58,28 +70,29 @@ namespace Goblfin.Gameplay
                         NormalStateChanged?.Invoke();
                     break;
                 case SearchState:
-                    SearchStateChanged?.Invoke();
+                    if(!otherThings)
+                        SearchStateChanged?.Invoke();
                     break;
                 case ChaseState:
                     DangerStateChanged?.Invoke();
                     break;
                 
             }
+        }*/
+
+        private void Dispatch(Alert alert)
+        {
+            if (alert == Alert.Chase) { DangerStateChanged?.Invoke(); return; }
+            if (otherThings) return;
+            if (alert == Alert.Search) SearchStateChanged?.Invoke();
+            else NormalStateChanged?.Invoke();
         }
 
         public void Hide(bool hide)
         {
-            if(state is ChaseState) return;
-            if (hide)
-            {
-                otherThings=true;
-                HideStateChanged?.Invoke();
-            }
-            else
-            {
-                otherThings=false;
-                NormalStateChanged?.Invoke();
-            }
+            otherThings = hide && !anyChase;
+            if (hide && !anyChase) HideStateChanged?.Invoke();
+            else if (!hide) { lastAlert = (Alert)(-1); }
         }
     }
 }

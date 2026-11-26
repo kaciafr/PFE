@@ -31,13 +31,28 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 		private bool isChanging;
 		private bool hasPending;
 		
-		private void Start()
+		private void Awake()
 		{
-			mat = targetRenderer.sharedMaterial;
+			Material source = targetRenderer.sharedMaterial;
+			mat = new Material(source);
+
+			foreach (Renderer r in GetComponentsInChildren<Renderer>(true))
+			{
+				Material[] mats = r.sharedMaterials;
+				bool changed = false;
+				for (int i = 0; i < mats.Length; i++)
+				{
+					if (mats[i] == source) { mats[i] = mat; changed = true; }
+				}
+				if (changed) r.sharedMaterials = mats;
+			}
 			currentColor = baseColor;
-			mat.SetColor(CurrentColorId, currentColor);
-			SetDissolve(0f);
-			Debug.Log("yo");
+			isChanging = false;
+			hasPending = false;
+			dissolve = maxDissolve;
+			mat.SetColor(CurrentColorId, baseColor);
+			mat.SetColor(NewColorId, baseColor);
+			SetDissolve(dissolve);
 		}
 
 		private void OnEnable()
@@ -98,14 +113,14 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 			mat.SetColor(NewColorId, color);
 			currentColor = color;
 			dissolve = 0;
-			SetDissolve(0f);
+			SetDissolve(dissolve);
 			isChanging = true;
 		}
 		private void FinishTransition()
 		{
 			isChanging = false;
-			mat.SetColor(CurrentColorId, pendingColor);
-			SetDissolve(0f);
+			mat.SetColor(CurrentColorId, currentColor);
+			SetDissolve(maxDissolve);
 			if (hasPending)
 			{
 				hasPending = false;
@@ -113,7 +128,7 @@ namespace Goblfin.Gameplay.Gameplay.Shader
 					StartTransition(pendingColor);
 			}
 		}
-
+		private void OnDestroy() { if (mat != null) Destroy(mat); }
 		private void SetDissolve(float value) => mat.SetFloat(DissolveId, value);
 	}
 }

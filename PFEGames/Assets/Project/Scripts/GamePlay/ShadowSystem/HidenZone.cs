@@ -10,8 +10,11 @@ namespace Goblfin.Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out PlayerManager player))
+            PlayerManager player = other.GetComponentInParent<PlayerManager>();
+            if (player!=null)
             {
+                
+                Debug.Log(this.gameObject.name + ": hit " + other.gameObject.name);
                 HidenManager.Instance.EnterZone(this, player);
             }
         }

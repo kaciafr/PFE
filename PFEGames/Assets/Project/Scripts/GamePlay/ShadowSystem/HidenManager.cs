@@ -39,18 +39,17 @@ namespace Goblfin.Gameplay
 
         public void EnterZone(HidenZone zone, PlayerManager p)
         {
-            player = p; 
+            player = p;
+            
             zones.Add(zone); 
             Refresh();
             ShaderManager.Instance.Hide(true);
-            Debug.Log(zones.Count.ToString());
         }
 
         public void ExitZone(HidenZone zone)
         {
             zones.Remove(zone); 
-            ShaderManager.Instance.Hide(false);
-            Debug.Log(zones.Count.ToString());
+            ShaderManager.Instance.Hide(zones.Count > 0);
             Refresh();
 
         }

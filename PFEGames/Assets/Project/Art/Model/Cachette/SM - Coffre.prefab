@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 494395125220499608}
   - component: {fileID: 7758794416903950267}
   - component: {fileID: 8461372641549065347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7640075335957859374}
   - component: {fileID: 8485437765680596366}
   - component: {fileID: 8774920511155922972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 7899595068644463337}
   - component: {fileID: 7836969305020292284}
   - component: {fileID: 6763828398206768995}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 6732809088787392491}
   - component: {fileID: 4866922584977726251}
   - component: {fileID: 3662254916827387455}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Quad (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8690933395574788355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExitPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1319111582117514830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InsidePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 48594340428047385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 7231736018297484557}
   - component: {fileID: 8557340282775873121}
   - component: {fileID: 498148142940878421}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'Eyes '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 7956001627324322731}
   - component: {fileID: 3632543268054578231}
   - component: {fileID: 605196354603205653}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM - Coffre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,8 +690,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.22, y: 1.22, z: 1.22}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1319111582117514830}
   - {fileID: 8690933395574788355}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 3183470011769796222}
   - component: {fileID: 3864005911978725596}
   - component: {fileID: 3361012696577171387}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}

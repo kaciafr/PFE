@@ -34,6 +34,7 @@ namespace Goblfin
 
         public void Interact()
         {
+            Debug.Log("Interact");
             DialogueManager.instance.StartDialogue(GetDialogueToStart(), speakerName);
             PlayReaction();
         }

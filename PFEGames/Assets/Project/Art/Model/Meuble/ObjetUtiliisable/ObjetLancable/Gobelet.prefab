@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1788470118987789944}
   - component: {fileID: 3655496474629887924}
   - component: {fileID: 4564783114258951345}
+  - component: {fileID: 6774761316927791622}
   m_Layer: 8
   m_Name: Gobelet
   m_TagString: Untagged
@@ -28,14 +29,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7352402666310857245}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.60393405, y: 0.36778226, z: 0.36778238, w: 0.6039339}
+  m_LocalRotation: {x: -0.6039339, y: 0.3677824, z: 0.3677824, w: 0.6039339}
   m_LocalPosition: {x: 8.702361, y: 1.335653, z: 1.943}
-  m_LocalScale: {x: 10.276578, y: 10.276578, z: 16.635254}
+  m_LocalScale: {x: 4.7184, y: 4.7184, z: 4.7184}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6712401852476435837}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 62.681}
 --- !u!33 &421705549568126794
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -141,6 +142,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.021894453, y: 0.021894455, z: 0.018033998}
   m_Center: {x: 1.1854834e-10, y: -1.7250408e-10, z: 0.00082538015}
+--- !u!114 &6774761316927791622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7352402666310857245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282aaf3bf1684cc187fdf9c995f41224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Goblfin.PnjSystem.FallingItems
+  collider: {fileID: 8940441332723797381}
+  items: {fileID: 11400000, guid: 5e87dfc0df5758241beffd991df95495, type: 2}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 9
+  maxDetectionRadius: 0.03
+  distanceMaxOfDetection: 0.52
+  wasFalling: 0
+  ragdoll: {fileID: 0}
+  killZone: {fileID: 0}
 --- !u!1001 &2933871829373428729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,6 +172,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8452301762171840501}
     m_Modifications:
+    - target: {fileID: -5768885744022856429, guid: 2cb4f35c9ea597246829a6fe6b48937c, type: 3}
+      propertyPath: items
+      value: 
+      objectReference: {fileID: 6774761316927791622}
     - target: {fileID: 59343497198733062, guid: 2cb4f35c9ea597246829a6fe6b48937c, type: 3}
       propertyPath: m_Name
       value: FallSystemNoKill
@@ -193,7 +220,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4484592453830357861, guid: 2cb4f35c9ea597246829a6fe6b48937c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -201,5 +229,10 @@ PrefabInstance:
 --- !u!4 &6712401852476435837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8471280836176252548, guid: 2cb4f35c9ea597246829a6fe6b48937c, type: 3}
+  m_PrefabInstance: {fileID: 2933871829373428729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &8940441332723797381 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 6099528541851676284, guid: 2cb4f35c9ea597246829a6fe6b48937c, type: 3}
   m_PrefabInstance: {fileID: 2933871829373428729}
   m_PrefabAsset: {fileID: 0}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerSettings
   m_EditorClassIdentifier: Core::Goblfin.CharactersSystem.Player.Data.PlayerSettings
   <Movement>k__BackingField:
-    <WalkSpeed>k__BackingField: 2.75
-    <SprintSpeed>k__BackingField: 5.5
+    <WalkSpeed>k__BackingField: 2
+    <SprintSpeed>k__BackingField: 4
     <RotationSpeed>k__BackingField: 720
     <Acceleration>k__BackingField: 35
     <Deceleration>k__BackingField: 25
@@ -25,7 +25,7 @@ MonoBehaviour:
     <JumpSpeed>k__BackingField: 2.8
     <FallMultiplier>k__BackingField: 2
     <LowJumpMultiplier>k__BackingField: 2.5
-    <CoyoteTime>k__BackingField: 0.1
+    <CoyoteTime>k__BackingField: 0.2
     <JumpBuffer>k__BackingField: 0.12
     <AirControl>k__BackingField: 0.5
     <MaxFallSpeed>k__BackingField: 20
@@ -66,7 +66,7 @@ MonoBehaviour:
     <Layer>k__BackingField:
       serializedVersion: 2
       m_Bits: 128
-    <DetectDistance>k__BackingField: 0.9
+    <DetectDistance>k__BackingField: 0.4
     <RayHeight>k__BackingField: 0
     <PushPullSpeed>k__BackingField: 1
     <BreakDistance>k__BackingField: 3
@@ -85,7 +85,7 @@ MonoBehaviour:
     InteractRadius: 0.4
     Layer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 256
   <Death>k__BackingField:
     <RespawnDelay>k__BackingField: 3
     <DeathPush>k__BackingField: 5
