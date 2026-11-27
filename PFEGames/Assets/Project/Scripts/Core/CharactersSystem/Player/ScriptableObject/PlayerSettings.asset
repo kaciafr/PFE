@@ -87,5 +87,5 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
   <Death>k__BackingField:
-    <RespawnDelay>k__BackingField: 3
+    <RespawnDelay>k__BackingField: 2
     <DeathPush>k__BackingField: 5
